@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteCafeView: UIView {
+class FavoriteCafeView: UIViewController {
 
     /*
     // Only override draw() if you perform custom drawing.

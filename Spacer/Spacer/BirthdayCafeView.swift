@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BirthdayCafeView: UIView {
+class BirthdayCafeView: UIViewController {
 
     /*
     // Only override draw() if you perform custom drawing.

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D4C95C4928F526FB00992600 /* BirthdayCafeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4828F526FB00992600 /* BirthdayCafeView.swift */; };
 		D4C95C4B28F5276100992600 /* FavoriteCafeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4A28F5276100992600 /* FavoriteCafeView.swift */; };
+		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
+		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
+		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
 		D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BB28EF48CA0066B711 /* AppDelegate.swift */; };
 		D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */; };
 		D4E950C028EF48CA0066B711 /* MainTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BF28EF48CA0066B711 /* MainTabBarView.swift */; };
@@ -19,6 +22,9 @@
 /* Begin PBXFileReference section */
 		D4C95C4828F526FB00992600 /* BirthdayCafeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeView.swift; sourceTree = "<group>"; };
 		D4C95C4A28F5276100992600 /* FavoriteCafeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCafeView.swift; sourceTree = "<group>"; };
+		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
+		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		D4E950B828EF48CA0066B711 /* Spacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E950BB28EF48CA0066B711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +69,9 @@
 				D4E950BF28EF48CA0066B711 /* MainTabBarView.swift */,
 				D4C95C4828F526FB00992600 /* BirthdayCafeView.swift */,
 				D4C95C4A28F5276100992600 /* FavoriteCafeView.swift */,
+				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
+				D4C95C4E28F528BA00992600 /* ChatViewController.swift */,
+				D4C95C5028F528CB00992600 /* MyPageViewController.swift */,
 				D4E950C428EF48CB0066B711 /* Assets.xcassets */,
 				D4E950C628EF48CB0066B711 /* LaunchScreen.storyboard */,
 				D4E950C928EF48CB0066B711 /* Info.plist */,
@@ -142,9 +151,12 @@
 			files = (
 				D4E950C028EF48CA0066B711 /* MainTabBarView.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
+				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
+				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				D4C95C4928F526FB00992600 /* BirthdayCafeView.swift in Sources */,
 				D4C95C4B28F5276100992600 /* FavoriteCafeView.swift in Sources */,
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
+				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

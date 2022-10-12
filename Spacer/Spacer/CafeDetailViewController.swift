@@ -18,7 +18,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
     lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: CGRect(x: 0, y: self.scrollView.bounds.maxY - 45, width: self.view.frame.maxX, height: 55))
+        let pageControl = UIPageControl(frame: CGRect(x: 0, y: self.imageScrollView.bounds.maxY - 45, width: self.view.frame.maxX, height: 55))
         
         pageControl.numberOfPages = cafeInfos[cafeIndex].imageDirectories.count
         pageControl.currentPage = 0
@@ -29,7 +29,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     // 카페 이미지를 보기 위한 ScrollView
-    lazy var scrollView: UIScrollView = {
+    lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 4 * 3))
         scrollView.contentSize = CGSize(width: CGFloat(cafeInfos[cafeIndex].imageDirectories.count) * self.view.bounds.width, height: 0)
@@ -61,13 +61,13 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         self.view.backgroundColor = .systemBackground
         
         // scrollView의 width, height
-        let scrollViewWidth = self.scrollView.bounds.width, scrollViewHeight = self.scrollView.bounds.height
+        let scrollViewWidth = self.imageScrollView.bounds.width, scrollViewHeight = self.imageScrollView.bounds.height
         
         // 카페 이미지 보여주기
-        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeIamges: cafeInfos[cafeIndex].imageDirectories, parentView: scrollView)
+        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeIamges: cafeInfos[cafeIndex].imageDirectories, parentView: imageScrollView)
         
         // view에 subview추가
-        self.view.addSubview(self.scrollView)
+        self.view.addSubview(self.imageScrollView)
         self.view.addSubview(self.pageControl)
         self.view.addSubview(self.bottomBar)
         
@@ -82,14 +82,14 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
             image.contentMode = .scaleAspectFill
             image.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: height)
             
-            scrollView.addSubview(image)
+            self.imageScrollView.addSubview(image)
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // ScrollView에 보이는 페이지 이동이 끝나면 PageCtrol의 현재 위치 변경
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            pageControl.currentPage = Int(scrollView.contentOffset.x / self.scrollView.bounds.width)
+            pageControl.currentPage = Int(scrollView.contentOffset.x / self.imageScrollView.bounds.width)
         }
     }
     

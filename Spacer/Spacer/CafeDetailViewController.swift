@@ -47,6 +47,14 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         return scrollView
     }()
     
+    // 하단에 고정할 버튼을 담을 View
+    let bottomBar: UIView = {
+        let bottomBar = UIView()
+        bottomBar.backgroundColor = .systemBlue
+        bottomBar.translatesAutoresizingMaskIntoConstraints = false
+        return bottomBar
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,9 +66,12 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         // 카페 이미지 보여주기
         showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeIamges: cafeInfos[cafeIndex].imageDirectories, parentView: scrollView)
         
-        // scrollView, pageControl view에 추가
+        // view에 subview추가
         self.view.addSubview(self.scrollView)
         self.view.addSubview(self.pageControl)
+        self.view.addSubview(self.bottomBar)
+        
+        applyConstraints()
     }
     
     func showCafeImages(width: CGFloat, height: CGFloat, cafeIamges: [String], parentView: UIView) {
@@ -82,6 +93,16 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func applyConstraints() {
+        let bottomBarConstraints = [
+            bottomBar.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
+            bottomBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            bottomBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
+            bottomBar.heightAnchor.constraint(equalToConstant: 100)
+        ]
+        
+        NSLayoutConstraint.activate(bottomBarConstraints)
+    }
 }
 
 // 임시 카페 정보 구조

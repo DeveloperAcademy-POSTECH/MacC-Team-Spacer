@@ -31,7 +31,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     // 카페 이미지를 보기 위한 ScrollView
     lazy var scrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 312))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 4 * 3))
         scrollView.contentSize = CGSize(width: CGFloat(cafeInfos[cafeIndex].imageDirectories.count) * self.view.bounds.width, height: 0)
         
         // 스크롤 인디케이터 삭제
@@ -80,7 +80,6 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
             pageControl.currentPage = Int(scrollView.contentOffset.x / self.scrollView.bounds.width)
         }
-
     }
     
 }

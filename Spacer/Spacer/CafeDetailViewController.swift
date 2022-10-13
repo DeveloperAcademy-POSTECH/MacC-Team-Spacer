@@ -51,7 +51,14 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     // 하단에 고정할 버튼을 담을 View
     let bottomBar: UIView = {
         let bottomBar = UIView()
-        bottomBar.backgroundColor = .systemBlue
+        bottomBar.backgroundColor = .systemBackground
+        bottomBar.layer.borderWidth = 1
+        bottomBar.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 0)
+        bottomBar.layer.masksToBounds = false
+        bottomBar.layer.shadowColor = UIColor.black.cgColor
+        bottomBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        bottomBar.layer.shadowOpacity = 0.25
+        bottomBar.layer.shadowRadius = 4.0
         bottomBar.translatesAutoresizingMaskIntoConstraints = false
         return bottomBar
     }()

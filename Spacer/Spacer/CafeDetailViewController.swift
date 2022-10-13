@@ -64,6 +64,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     let chatButton: UIButton = {
+        // TODO: 색상, 폰트 교체
         let chatButton = UIButton()
         chatButton.setTitle("1:1 문의", for: .normal)
         chatButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -75,6 +76,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     let reservationButton: UIButton = {
+        // TODO: 색상, 폰트 교체
         let reservationButton = UIButton()
         reservationButton.setTitle("예약하기", for: .normal)
         reservationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -137,6 +139,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
             bottomBar.heightAnchor.constraint(equalToConstant: 100)
         ]
         
+        // TODO: chatButton, reservationButton의 width, height 비율로 바꾸기
         let chatButtonConstraints = [
             chatButton.widthAnchor.constraint(equalToConstant: 114),
             chatButton.heightAnchor.constraint(equalToConstant: 56),

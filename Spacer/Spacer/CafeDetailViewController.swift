@@ -55,6 +55,28 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         return bottomBar
     }()
     
+    let chatButton: UIButton = {
+        let chatButton = UIButton()
+        chatButton.setTitle("1:1 문의", for: .normal)
+        chatButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        chatButton.backgroundColor = UIColor(displayP3Red: 113/255, green: 113/255, blue: 113/255, alpha: 1)
+        chatButton.layer.cornerRadius = 12
+        chatButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return chatButton
+    }()
+    
+    let reservationButton: UIButton = {
+        let reservationButton = UIButton()
+        reservationButton.setTitle("예약하기", for: .normal)
+        reservationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        reservationButton.backgroundColor = UIColor(displayP3Red: 119/255, green: 89/255, blue: 240/255, alpha: 1)
+        reservationButton.layer.cornerRadius = 12
+        reservationButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return reservationButton
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,6 +93,10 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(self.pageControl)
         self.view.addSubview(self.bottomBar)
         
+        // bottomBar View에 버튼 추가
+        self.bottomBar.addSubview(chatButton)
+        self.bottomBar.addSubview(reservationButton)
+
         applyConstraints()
     }
     
@@ -101,7 +127,24 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
             bottomBar.heightAnchor.constraint(equalToConstant: 100)
         ]
         
+        let chatButtonConstraints = [
+            chatButton.widthAnchor.constraint(equalToConstant: 114),
+            chatButton.heightAnchor.constraint(equalToConstant: 56),
+            chatButton.leadingAnchor.constraint(equalTo: self.bottomBar.leadingAnchor, constant: 16),
+            chatButton.topAnchor.constraint(equalTo: self.bottomBar.topAnchor, constant: 10)
+        ]
+        
+        let reservationButtonConstraints = [
+            reservationButton.widthAnchor.constraint(equalToConstant: 236),
+            reservationButton.heightAnchor.constraint(equalToConstant: 56),
+            reservationButton.trailingAnchor.constraint(equalTo: self.bottomBar.trailingAnchor, constant: -16),
+            reservationButton.topAnchor.constraint(equalTo: self.bottomBar.topAnchor, constant: 10)
+        ]
+        
         NSLayoutConstraint.activate(bottomBarConstraints)
+        NSLayoutConstraint.activate(chatButtonConstraints)
+        NSLayoutConstraint.activate(reservationButtonConstraints)
+
     }
 }
 

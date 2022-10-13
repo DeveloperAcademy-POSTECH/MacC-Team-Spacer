@@ -16,6 +16,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     ]
     private let cafeIndex = 0
     
+    // MARK: - UI 요소
     // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl(frame: CGRect(x: 0, y: self.imageScrollView.bounds.maxY - 45, width: self.view.frame.maxX, height: 55))
@@ -77,6 +78,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         return reservationButton
     }()
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,6 +102,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         applyConstraints()
     }
     
+    // MARK: - functions
     func showCafeImages(width: CGFloat, height: CGFloat, cafeIamges: [String], parentView: UIView) {
         for i in 0 ..< cafeIamges.count {
             // 카페 이미지 세팅

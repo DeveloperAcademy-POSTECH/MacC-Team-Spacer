@@ -12,6 +12,8 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .systemBackground
+        
         let vc1 = UINavigationController(rootViewController: BirthdayCafeViewController())
         let vc2 = UINavigationController(rootViewController: RequestViewController())
         let vc3 = UINavigationController(rootViewController: ChatViewController())

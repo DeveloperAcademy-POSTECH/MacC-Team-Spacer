@@ -17,9 +17,17 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     private let cafeIndex = 0
     
     // MARK: - UI 요소
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+       return scrollView
+    }()
+    
     // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
     lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: CGRect(x: 0, y: self.imageScrollView.bounds.maxY - 45, width: self.view.frame.maxX, height: 55))
+        let pageControl = UIPageControl(frame: CGRect(x: 0, y: self.imageScrollView.bounds.height - 45, width: self.scrollView.bounds.width, height: 55))
         
         pageControl.numberOfPages = cafeInfos[cafeIndex].imageDirectories.count
         pageControl.currentPage = 0
@@ -87,6 +95,14 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         return reservationButton
     }()
     
+    var dynamicView: UIStackView = {
+        let dynamicView = UIStackView(arrangedSubviews: [])
+        dynamicView.alignment = .center
+        dynamicView.axis = .vertical
+        dynamicView.translatesAutoresizingMaskIntoConstraints = false
+        return dynamicView
+    }()
+    
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,15 +115,19 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         // 카페 이미지 보여주기
         showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeIamges: cafeInfos[cafeIndex].imageDirectories, parentView: imageScrollView)
         
-        // view에 subview추가
-        self.view.addSubview(self.imageScrollView)
-        self.view.addSubview(self.pageControl)
+        // view.addSubview
+        self.view.addSubview(self.scrollView)
         self.view.addSubview(self.bottomBar)
+        
+        //scrollView.addSubView
+        self.scrollView.addSubview(dynamicView)
+        self.scrollView.addSubview(self.imageScrollView)
+        self.scrollView.addSubview(self.pageControl)
         
         // bottomBar View에 버튼 추가
         self.bottomBar.addSubview(chatButton)
         self.bottomBar.addSubview(reservationButton)
-
+        
         applyConstraints()
     }
     
@@ -117,8 +137,8 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
             // 카페 이미지 세팅
             let image = UIImageView()
             image.image = UIImage(systemName: cafeInfos[cafeIndex].imageDirectories[i])
-            image.contentMode = .scaleAspectFill
-            image.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: height)
+            image.contentMode = .scaleAspectFit
+            image.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: width / 4 * 3)
             
             self.imageScrollView.addSubview(image)
         }
@@ -132,6 +152,21 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func applyConstraints() {
+        let scrollViewConstraints = [
+            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ]
+        
+        let dynamicContentconstraints = [
+            dynamicView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            dynamicView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            dynamicView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            dynamicView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            dynamicView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+        ]
+        
         let bottomBarConstraints = [
             bottomBar.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
             bottomBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
@@ -154,6 +189,8 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
             reservationButton.topAnchor.constraint(equalTo: self.bottomBar.topAnchor, constant: 10)
         ]
         
+        NSLayoutConstraint.activate(scrollViewConstraints)
+        NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)

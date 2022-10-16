@@ -11,6 +11,7 @@
 		D4049DC728F548DC007E442E /* VisualTagMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DC628F548DC007E442E /* VisualTagMapView.swift */; };
 		D4049DCD28F5581B007E442E /* VisualTagPeopleTargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */; };
 		D47BC1A628F9487400B752F4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D47BC1A528F9487400B752F4 /* FSCalendar */; };
+		D49C72C828FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
@@ -21,24 +22,45 @@
 		D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */; };
 		D4E950C528EF48CB0066B711 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4E950C428EF48CB0066B711 /* Assets.xcassets */; };
 		D4E950C828EF48CB0066B711 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4E950C628EF48CB0066B711 /* LaunchScreen.storyboard */; };
+		D4FAA00328FC87D600C6A0BA /* CustomCalenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FAA00228FC87D600C6A0BA /* CustomCalenderCell.swift */; };
+		D4FAA00D28FC978C00C6A0BA /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00428FC978C00C6A0BA /* Pretendard-ExtraBold.otf */; };
+		D4FAA00E28FC978C00C6A0BA /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00528FC978C00C6A0BA /* Pretendard-Medium.otf */; };
+		D4FAA00F28FC978C00C6A0BA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00628FC978C00C6A0BA /* Pretendard-Bold.otf */; };
+		D4FAA01028FC978C00C6A0BA /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00728FC978C00C6A0BA /* Pretendard-Regular.otf */; };
+		D4FAA01128FC978C00C6A0BA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00828FC978C00C6A0BA /* Pretendard-Black.otf */; };
+		D4FAA01228FC978C00C6A0BA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00928FC978C00C6A0BA /* Pretendard-SemiBold.otf */; };
+		D4FAA01328FC978C00C6A0BA /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00A28FC978C00C6A0BA /* Pretendard-ExtraLight.otf */; };
+		D4FAA01428FC978C00C6A0BA /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00B28FC978C00C6A0BA /* Pretendard-Light.otf */; };
+		D4FAA01528FC978C00C6A0BA /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4FAA00C28FC978C00C6A0BA /* Pretendard-Thin.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D4049DC428F542AB007E442E /* VisualTagCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCalendarViewController.swift; sourceTree = "<group>"; };
 		D4049DC628F548DC007E442E /* VisualTagMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagMapView.swift; sourceTree = "<group>"; };
 		D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleTargetView.swift; sourceTree = "<group>"; };
+		D46BB76728F94ACC004719B6 /* Spacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleRangeView.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		D4C95C5228F5294900992600 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeViewController.swift; sourceTree = "<group>"; };
-		D4E950B828EF48CA0066B711 /* Spacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Spacer.app; path = "/Users/hyungseohan/Documents/repos/MacC-Team-Spacer/Spacer/build/Debug-iphoneos/Spacer.app"; sourceTree = "<absolute>"; };
 		D4E950BB28EF48CA0066B711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		D4E950C428EF48CB0066B711 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D4E950C728EF48CB0066B711 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D4E950C928EF48CB0066B711 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4FAA00228FC87D600C6A0BA /* CustomCalenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalenderCell.swift; sourceTree = "<group>"; };
+		D4FAA00428FC978C00C6A0BA /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		D4FAA00528FC978C00C6A0BA /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		D4FAA00628FC978C00C6A0BA /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		D4FAA00728FC978C00C6A0BA /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		D4FAA00828FC978C00C6A0BA /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
+		D4FAA00928FC978C00C6A0BA /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		D4FAA00A28FC978C00C6A0BA /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		D4FAA00B28FC978C00C6A0BA /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
+		D4FAA00C28FC978C00C6A0BA /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +78,11 @@
 		D4049DC328F541F3007E442E /* VisualTagView */ = {
 			isa = PBXGroup;
 			children = (
+				D4FAA00128FC87B500C6A0BA /* CalenderCell */,
 				D4049DC428F542AB007E442E /* VisualTagCalendarViewController.swift */,
 				D4049DC628F548DC007E442E /* VisualTagMapView.swift */,
 				D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */,
+				D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */,
 			);
 			path = VisualTagView;
 			sourceTree = "<group>";
@@ -67,12 +91,14 @@
 			isa = PBXGroup;
 			children = (
 				D4E950BA28EF48CA0066B711 /* Spacer */,
+				D46BB76728F94ACC004719B6 /* Spacer.app */,
 			);
 			sourceTree = "<group>";
 		};
 		D4E950BA28EF48CA0066B711 /* Spacer */ = {
 			isa = PBXGroup;
 			children = (
+				D4FAA01628FC979800C6A0BA /* Fonts */,
 				D4049DC328F541F3007E442E /* VisualTagView */,
 				D4E950BB28EF48CA0066B711 /* AppDelegate.swift */,
 				D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */,
@@ -87,6 +113,30 @@
 				D4E950C928EF48CB0066B711 /* Info.plist */,
 			);
 			path = Spacer;
+			sourceTree = "<group>";
+		};
+		D4FAA00128FC87B500C6A0BA /* CalenderCell */ = {
+			isa = PBXGroup;
+			children = (
+				D4FAA00228FC87D600C6A0BA /* CustomCalenderCell.swift */,
+			);
+			path = CalenderCell;
+			sourceTree = "<group>";
+		};
+		D4FAA01628FC979800C6A0BA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D4FAA00828FC978C00C6A0BA /* Pretendard-Black.otf */,
+				D4FAA00628FC978C00C6A0BA /* Pretendard-Bold.otf */,
+				D4FAA00428FC978C00C6A0BA /* Pretendard-ExtraBold.otf */,
+				D4FAA00A28FC978C00C6A0BA /* Pretendard-ExtraLight.otf */,
+				D4FAA00B28FC978C00C6A0BA /* Pretendard-Light.otf */,
+				D4FAA00528FC978C00C6A0BA /* Pretendard-Medium.otf */,
+				D4FAA00728FC978C00C6A0BA /* Pretendard-Regular.otf */,
+				D4FAA00928FC978C00C6A0BA /* Pretendard-SemiBold.otf */,
+				D4FAA00C28FC978C00C6A0BA /* Pretendard-Thin.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,7 +159,7 @@
 				D47BC1A528F9487400B752F4 /* FSCalendar */,
 			);
 			productName = Spacer;
-			productReference = D4E950B828EF48CA0066B711 /* Spacer.app */;
+			productReference = D46BB76728F94ACC004719B6 /* Spacer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -137,7 +187,7 @@
 			);
 			mainGroup = D4E950AF28EF48CA0066B711;
 			packageReferences = (
-				D47BC1A428F9487400B752F4 /* XCRemoteSwiftPackageReference "FSCalendar.git" */,
+				D47BC1A428F9487400B752F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = D4E950AF28EF48CA0066B711;
 			projectDirPath = "";
@@ -153,8 +203,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4FAA01328FC978C00C6A0BA /* Pretendard-ExtraLight.otf in Resources */,
 				D4E950C828EF48CB0066B711 /* LaunchScreen.storyboard in Resources */,
+				D4FAA01028FC978C00C6A0BA /* Pretendard-Regular.otf in Resources */,
+				D4FAA01428FC978C00C6A0BA /* Pretendard-Light.otf in Resources */,
+				D4FAA00F28FC978C00C6A0BA /* Pretendard-Bold.otf in Resources */,
+				D4FAA01228FC978C00C6A0BA /* Pretendard-SemiBold.otf in Resources */,
 				D4E950C528EF48CB0066B711 /* Assets.xcassets in Resources */,
+				D4FAA00D28FC978C00C6A0BA /* Pretendard-ExtraBold.otf in Resources */,
+				D4FAA01128FC978C00C6A0BA /* Pretendard-Black.otf in Resources */,
+				D4FAA01528FC978C00C6A0BA /* Pretendard-Thin.otf in Resources */,
+				D4FAA00E28FC978C00C6A0BA /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +226,7 @@
 			files = (
 				D4049DC728F548DC007E442E /* VisualTagMapView.swift in Sources */,
 				D4049DCD28F5581B007E442E /* VisualTagPeopleTargetView.swift in Sources */,
+				D4FAA00328FC87D600C6A0BA /* CustomCalenderCell.swift in Sources */,
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
@@ -175,6 +235,7 @@
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
+				D49C72C828FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,7 +450,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D47BC1A428F9487400B752F4 /* XCRemoteSwiftPackageReference "FSCalendar.git" */ = {
+		D47BC1A428F9487400B752F4 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
 			requirement = {
@@ -402,7 +463,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		D47BC1A528F9487400B752F4 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D47BC1A428F9487400B752F4 /* XCRemoteSwiftPackageReference "FSCalendar.git" */;
+			package = D47BC1A428F9487400B752F4 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -1,26 +1,28 @@
 //
-//  VisualTagCalendarViewController.swift
+//  VisualTagPeopleRangeView.swift
 //  Spacer
 //
-//  Created by Hyung Seo Han on 2022/10/11.
+//  Created by Hyung Seo Han on 2022/10/16.
 //
 
 import UIKit
 
-class VisualTagMapView: UIViewController{
-    
+class VisualTagPeopleRangeView: UIViewController {
+
     lazy var headerTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)
         label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
-        label.text = "원하는 지역을 선택해주세요."
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 2
+        label.text = "원하는 카페의 인원 수용 규모를 \n선택해주세요."
         return label
     }()
     
     lazy var nextButton: UIButton = {
         let btn = UIButton(type: .custom)
         //set title
-        btn.setTitle("다음", for: .normal)
+        btn.setTitle("완료", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 15)
         btn.backgroundColor = UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1)
@@ -105,7 +107,8 @@ class VisualTagMapView: UIViewController{
         if let button = sender as? UIButton{
             switch button.tag{
             case 1:
-                self.navigationController?.pushViewController(VisualTagPeopleTargetView(), animated: true)
+                super.dismiss(animated: true, completion: nil)
+                self.navigationController?.popToRootViewController(animated: false)
             case 2:
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)
@@ -116,4 +119,5 @@ class VisualTagMapView: UIViewController{
             }
         }
     }
+
 }

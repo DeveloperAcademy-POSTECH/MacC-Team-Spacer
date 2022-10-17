@@ -38,6 +38,20 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         
     }()
     
+    let segmentedControl: UISegmentedControl = {
+        let segmentedControl = CustomSegmentControl()
+        
+        segmentedControl.insertSegment(withTitle: "상세정보", at: 0, animated: true)
+        segmentedControl.insertSegment(withTitle: "리뷰", at: 1, animated: true)
+        segmentedControl.selectedSegmentIndex = 0
+    
+        segmentedControl.addTarget(self, action: #selector(testSegmentSelected(_:)), for: .valueChanged)
+        
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        return segmentedControl
+    }()
+    
     // 카페 이미지를 보기 위한 ScrollView
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
@@ -124,6 +138,10 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.addSubview(dynamicView)
         self.scrollView.addSubview(self.imageScrollView)
         self.scrollView.addSubview(self.pageControl)
+        self.scrollView.addSubview(segmentedControl)
+//        self.scrollView.addSubview(self.segmentedContainerView)
+//
+//        self.segmentedContainerView.addSubview(segmentedControl)
         
         // bottomBar View에 버튼 추가
         self.bottomBar.addSubview(chatButton)
@@ -190,13 +208,25 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
             reservationButton.topAnchor.constraint(equalTo: self.bottomBar.topAnchor, constant: 10)
         ]
         
+        let segmentControlConstraints = [
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 34)
+        ]
+        
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)
+        NSLayoutConstraint.activate(segmentControlConstraints)
 
     }
+                                   
+    @objc func testSegmentSelected(_ sender: UISegmentedControl) {
+            print("segment changed")
+     }
 }
 
 // 임시 카페 정보 구조

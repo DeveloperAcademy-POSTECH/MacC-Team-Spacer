@@ -7,8 +7,8 @@
 
 import UIKit
 
-class CafeReviewView: UIView {
-
-
-
+class CafeReviewViewController: UIViewController {
+    
+    
+    
 }

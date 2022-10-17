@@ -139,9 +139,6 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         self.scrollView.addSubview(self.imageScrollView)
         self.scrollView.addSubview(self.pageControl)
         self.scrollView.addSubview(segmentedControl)
-//        self.scrollView.addSubview(self.segmentedContainerView)
-//
-//        self.segmentedContainerView.addSubview(segmentedControl)
         
         // bottomBar View에 버튼 추가
         self.bottomBar.addSubview(chatButton)

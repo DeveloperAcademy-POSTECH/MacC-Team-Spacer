@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailInfomationView: UIView {
+class DetailInfomationViewController: UIViewController {
 
 
 

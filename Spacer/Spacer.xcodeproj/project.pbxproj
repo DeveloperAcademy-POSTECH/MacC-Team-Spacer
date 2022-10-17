@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
-		D454704828FDA72B00CFDB25 /* DetailInfomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationView.swift */; };
+		D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */; };
 		D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
-		D454704728FDA72B00CFDB25 /* DetailInfomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationView.swift; sourceTree = "<group>"; };
+		D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
 		D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeReviewViewController.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 				D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */,
 				D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */,
 				D4C95C5628F5437200992600 /* CafeDetailViewController.swift */,
-				D454704728FDA72B00CFDB25 /* DetailInfomationView.swift */,
+				D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */,
 				D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */,
 				D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */,
 				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
@@ -166,7 +166,7 @@
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
 				D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */,
 				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
-				D454704828FDA72B00CFDB25 /* DetailInfomationView.swift in Sources */,
+				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,

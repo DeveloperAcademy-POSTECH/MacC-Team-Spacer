@@ -7,7 +7,10 @@
 
 import UIKit
 
+// 참고: https://ios-development.tistory.com/m/963
 class CustomSegmentControl: UISegmentedControl {
+    
+    // MARK: - UI 요소
     
     private lazy var underline: UIView = {
         let underline = UIView()
@@ -31,20 +34,7 @@ class CustomSegmentControl: UISegmentedControl {
         return selectedUnderline
     }()
     
-    private lazy var fuck: UIView = {
-        let fuck = UIView()
-        fuck.backgroundColor = .green
-        fuck.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(fuck)
-        
-        return fuck
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setStyle()
-        applyContraints()
-    }
+    // MARK: - 생성자
     
     override init(items: [Any]?) {
         super.init(items: items)
@@ -62,17 +52,23 @@ class CustomSegmentControl: UISegmentedControl {
         fatalError()
     }
     
+    
+    // MARK: - function
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         applyContraints()
         
+        // selectedUnderline x, y 설정
         let segmentWidth = self.bounds.width / CGFloat(self.numberOfSegments)
-        let underlineFinalXPosition = segmentWidth * CGFloat(self.selectedSegmentIndex) +  (segmentWidth / 2) - (selectedUnderline.bounds.width / 2)
+        let selectedUnderlineXPosition = segmentWidth * CGFloat(self.selectedSegmentIndex) +  (segmentWidth / 2) - (selectedUnderline.bounds.width / 2)
         self.selectedUnderline.frame.origin.y = self.bounds.height - 4
+        
+        // selectedUnderline에 애니메이션 효과 추가
         UIView.animate(
             withDuration: 0.1,
             animations: {
-                self.selectedUnderline.frame.origin.x = underlineFinalXPosition
+                self.selectedUnderline.frame.origin.x = selectedUnderlineXPosition
             }
         )
     }
@@ -86,7 +82,7 @@ class CustomSegmentControl: UISegmentedControl {
         self.tintColor = .clear
         self.selectedSegmentTintColor = .clear
         
-        // segmentedControl background & Divider 투명화: https://ios-development.tistory.com/m/963
+        // segmentedControl background & Divider 투명화
         self.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         self.setDividerImage(UIImage(), forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
         
@@ -107,7 +103,6 @@ class CustomSegmentControl: UISegmentedControl {
             underline.heightAnchor.constraint(equalToConstant: 2),
             underline.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ]
-
 
         NSLayoutConstraint.activate(underlineContraints)
     }

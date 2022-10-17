@@ -38,15 +38,11 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         
     }()
     
+    // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
-        let segmentedControl = CustomSegmentControl()
-        
-        segmentedControl.insertSegment(withTitle: "상세정보", at: 0, animated: true)
-        segmentedControl.insertSegment(withTitle: "리뷰", at: 1, animated: true)
+        let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
         segmentedControl.selectedSegmentIndex = 0
-    
         segmentedControl.addTarget(self, action: #selector(testSegmentSelected(_:)), for: .valueChanged)
-        
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentedControl

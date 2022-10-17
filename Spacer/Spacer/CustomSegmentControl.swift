@@ -21,13 +21,11 @@ class CustomSegmentControl: UISegmentedControl {
     private lazy var selectedUnderline: UIView = {
         let width = 50.0
         let height = 4.0
-        let xPosition = CGFloat(self.selectedSegmentIndex * Int(width))
-        let yPosition = CGFloat(self.bounds.size.height - 4)
-        let frame = CGRect(x: xPosition, y: yPosition, width: width, height: height)
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         let selectedUnderline = UIView(frame: frame)
-        selectedUnderline.backgroundColor = .green
-//        selectedUnderline.translatesAutoresizingMaskIntoConstraints = false
+        selectedUnderline.backgroundColor = .black
+        selectedUnderline.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(selectedUnderline)
         
         return selectedUnderline
@@ -47,6 +45,12 @@ class CustomSegmentControl: UISegmentedControl {
         setStyle()
         applyContraints()
     }
+    
+    override init(items: [Any]?) {
+        super.init(items: items)
+        setStyle()
+        applyContraints()
+    }
 
     init() {
         super.init(frame: CGRect())
@@ -62,7 +66,9 @@ class CustomSegmentControl: UISegmentedControl {
         super.layoutSubviews()
         applyContraints()
         
-        let underlineFinalXPosition = (self.bounds.width / CGFloat(self.numberOfSegments)) * CGFloat(self.selectedSegmentIndex)
+        let segmentWidth = self.bounds.width / CGFloat(self.numberOfSegments)
+        let underlineFinalXPosition = segmentWidth * CGFloat(self.selectedSegmentIndex) +  (segmentWidth / 2) - (selectedUnderline.bounds.width / 2)
+        self.selectedUnderline.frame.origin.y = self.bounds.height - 4
         UIView.animate(
             withDuration: 0.1,
             animations: {

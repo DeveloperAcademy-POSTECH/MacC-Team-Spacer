@@ -17,6 +17,7 @@
 		BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */; };
 		BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */; };
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
+		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
@@ -40,6 +41,7 @@
 		BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */,
 				D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */,
 				BF5F8AB428FE868E00CF9E3A /* HeaderView.swift */,
+				BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */,
 				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
 				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
 				D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */,
@@ -191,6 +194,7 @@
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
 				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
+				BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */,
 				BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */,
 				BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */,
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,

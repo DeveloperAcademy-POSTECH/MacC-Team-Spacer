@@ -44,18 +44,19 @@ class BirthdayCafeViewController: UIViewController {
         
         view.addSubview(recentCafeTable)
         recentCafeTable.backgroundColor = .white
+        
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width*0.66))
         recentCafeTable.tableHeaderView = headerView
         headerView?.layoutIfNeeded()
         
-        
         recentCafeTable.delegate = self
         recentCafeTable.dataSource = self
         recentCafeTable.clipsToBounds = true
-        
         recentCafeTable.separatorStyle = .none
+        
         // MARK: - 1. 카페 불러오기
         self.tempCafeArray =  MockManager.shared.getMockData()
+        
         setNavBar()
     }
     // MARK: - 네비게이션 설정
@@ -91,12 +92,12 @@ class BirthdayCafeViewController: UIViewController {
     @objc func hi() {
         print("hi")
     }
+    
     @objc func bye() {
         print("bye")
     }
 }
 extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
     }
@@ -133,7 +134,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         default:
             return UITableViewCell()
         }
-        
     }
     // section마다 title 정의
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -141,9 +141,8 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         case Sections.recentCafeReview.rawValue: return sectionTitles[0]
         case Sections.popularCafe.rawValue: return sectionTitles[1]
         default:
-           return  "default"
+            return  "default"
         }
-        
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -167,9 +166,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
     }
-   
-    
-    
 }
 
 

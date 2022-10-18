@@ -182,7 +182,6 @@ class SearchListViewController: UIViewController {
         }
         regionButton.configuration?.attributedTitle = regionTitle
         
-        
         // 중복된 코드 정리가 필요함
         switch tempTarget.count {
         case 0:
@@ -207,7 +206,6 @@ class SearchListViewController: UIViewController {
             }
         }
         
-        
         if let tempPeople = tempPeople {
             peopleTitle = AttributedString.init(tempPeople)
             peopleTitle.foregroundColor = .white//UIColor(red: 79/255, green: 50/255, blue: 194/255, alpha: 1.0)
@@ -222,17 +220,18 @@ class SearchListViewController: UIViewController {
     
     func setCollectionView() {
         view.addSubview(resultCollectionView)
+        
         let resultCollectionViewConstraints = [
             resultCollectionView.widthAnchor.constraint(equalToConstant: view.bounds.width-32),
             resultCollectionView.heightAnchor.constraint(equalToConstant: view.bounds.height-55),
             resultCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resultCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150)
         ]
+        
         NSLayoutConstraint.activate(resultCollectionViewConstraints)
         
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
-        
     }
     func setSearchBar() {
         let searchIcon = UIBarButtonItem(systemItem: .search, primaryAction: UIAction(handler: { _ in
@@ -267,6 +266,7 @@ class SearchListViewController: UIViewController {
         bottomLine.backgroundColor = UIColor.blue.cgColor
         self.resultCollectionView.reloadData()
     }
+    
     // 화면 스크롤할 경우도 키보드 내리기
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchBar.endEditing(true)
@@ -292,14 +292,13 @@ class SearchListViewController: UIViewController {
         bottomLine.backgroundColor = UIColor.blue.cgColor
         print("tap working")
     }
+    
     // 다음뷰로 이동하는 함수
     @objc func moveTo() {
         let nextVC = BirthdayCafeViewController()
         show(nextVC, sender: nil)
         
     }
-    
-    
 }
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -341,8 +340,8 @@ extension SearchListViewController: UISearchBarDelegate {
             self.isFiltering = true
         }
         // 바로바로 업데이트 되게 만들기
-        //        self.resultCollectionView.reloadData()
-        //        bottomLine.backgroundColor = UIColor.red.cgColor
+        // self.resultCollectionView.reloadData()
+        // bottomLine.backgroundColor = UIColor.red.cgColor
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

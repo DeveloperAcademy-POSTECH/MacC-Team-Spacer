@@ -13,7 +13,7 @@
 		BF5F8AB528FE868E00CF9E3A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB428FE868E00CF9E3A /* HeaderView.swift */; };
 		BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */; };
 		BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */; };
-		BF5F8ABB28FE881400CF9E3A /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABA28FE881400CF9E3A /* CollectionViewCell.swift */; };
+		BF5F8ABB28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABA28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift */; };
 		BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */; };
 		BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */; };
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
@@ -37,7 +37,7 @@
 		BF5F8AB428FE868E00CF9E3A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCafeTableViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCafeTableViewCell.swift; sourceTree = "<group>"; };
-		BF5F8ABA28FE881400CF9E3A /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		BF5F8ABA28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCafeCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 				D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */,
 				BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */,
 				BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */,
-				BF5F8ABA28FE881400CF9E3A /* CollectionViewCell.swift */,
+				BF5F8ABA28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift */,
 				D4C95C4E28F528BA00992600 /* ChatViewController.swift */,
 				BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */,
 				BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */,
@@ -205,7 +205,7 @@
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				BF5F8AB528FE868E00CF9E3A /* HeaderView.swift in Sources */,
-				BF5F8ABB28FE881400CF9E3A /* CollectionViewCell.swift in Sources */,
+				BF5F8ABB28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift in Sources */,
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
 				BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  CollectionViewCell.swift
+//  RecentCafeCollectionViewCell.swift
 //  Spacer
 //
 //  Created by hurdasol on 2022/10/11.
@@ -7,9 +7,8 @@
 
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
-    static let identifier = "TempCollectionViewCell"
-    
+class RecentCafeCollectionViewCell: UICollectionViewCell {
+    static let identifier = "RecentCafeCollectionViewCell"
     
     var cafeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -21,6 +20,7 @@ class CollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         return imageView
     }()
+    
     var cafeName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,14 +28,15 @@ class CollectionViewCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
+    
     let cafeStarRating: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red: 255/255, green: 92/255, blue: 92/255, alpha: 1)
         label.font = UIFont(name: "Pretendard", size: 16)
-        
         return label
     }()
+    
     var cafeReview: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +48,6 @@ class CollectionViewCell: UICollectionViewCell {
         label.allowsDefaultTighteningForTruncation = true
         label.numberOfLines = 4
         return label
-        
     }()
     
     // 그라디언트
@@ -56,6 +56,7 @@ class CollectionViewCell: UICollectionViewCell {
         super.layoutSublayers(of: layer)
         gradientLayer.frame = cafeImageView.bounds
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -63,6 +64,7 @@ class CollectionViewCell: UICollectionViewCell {
         addSubview(cafeName)
         addSubview(cafeStarRating)
         addSubview(cafeReview)
+        
         let cafeImageViewConstraints = [
             cafeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             cafeImageView.topAnchor.constraint(equalTo: topAnchor),
@@ -89,25 +91,26 @@ class CollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(cafeNameConstraints)
         NSLayoutConstraint.activate(cafeStarRatingConstraints)
         NSLayoutConstraint.activate(cafeReviewConstraints)
+        
         contentView.layer.cornerRadius = 12
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.green.cgColor
+        
         gradientLayer.frame = contentView.bounds
-        let colorSet = [UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0),
-                        UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1),
-                        ]
+        let colorSet = [
+            UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0),
+            UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1),
+        ]
         let location = [0.5,1.0]
         cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location)
     }
     
-
+    
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafe_name
         self.cafeImageView.image = UIImage(named: model.image_directories)
         self.cafeStarRating.text = String("☆")+String(model.cafe_star_rating)
-        
-        
     }
     
     required init?(coder: NSCoder) {

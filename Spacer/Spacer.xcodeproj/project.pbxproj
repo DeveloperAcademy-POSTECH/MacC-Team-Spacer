@@ -11,6 +11,9 @@
 		BF5F8AB028FE73AE00CF9E3A /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */; };
 		BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB128FE74A400CF9E3A /* MockParser.swift */; };
 		BF5F8AB528FE868E00CF9E3A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB428FE868E00CF9E3A /* HeaderView.swift */; };
+		BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */; };
+		BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */; };
+		BF5F8ABB28FE881400CF9E3A /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8ABA28FE881400CF9E3A /* CollectionViewCell.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
@@ -28,6 +31,9 @@
 		BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 		BF5F8AB128FE74A400CF9E3A /* MockParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParser.swift; sourceTree = "<group>"; };
 		BF5F8AB428FE868E00CF9E3A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCafeTableViewCell.swift; sourceTree = "<group>"; };
+		BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCafeTableViewCell.swift; sourceTree = "<group>"; };
+		BF5F8ABA28FE881400CF9E3A /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +95,9 @@
 				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
 				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
 				D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */,
+				BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */,
+				BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */,
+				BF5F8ABA28FE881400CF9E3A /* CollectionViewCell.swift */,
 				D4C95C4E28F528BA00992600 /* ChatViewController.swift */,
 				D4C95C5028F528CB00992600 /* MyPageViewController.swift */,
 				BF5F8AAC28FE735000CF9E3A /* Model */,
@@ -172,12 +181,15 @@
 			files = (
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
+				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
+				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				BF5F8AB528FE868E00CF9E3A /* HeaderView.swift in Sources */,
+				BF5F8ABB28FE881400CF9E3A /* CollectionViewCell.swift in Sources */,
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
 				BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,

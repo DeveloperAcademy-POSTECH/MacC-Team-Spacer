@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailInfomationViewController: UIViewController {
-
-
-
+    // 상세정보 및 카페 조건 등을 보여주는 ViewController
+    
 }

@@ -34,31 +34,3 @@ class MyHeaderView: UIView {
     }
     
 }
-
-class logoView: UIView {
-    
-    static let identifier = "logoView"
-    
-    private let logoImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "RANG")
-        imageView.frame = .init(x: 0, y: 0, width: 50, height: 10)
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        addSubview(logoImageView)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        logoImageView.frame = bounds
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}

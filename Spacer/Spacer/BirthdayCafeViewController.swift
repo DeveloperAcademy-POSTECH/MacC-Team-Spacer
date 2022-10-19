@@ -75,7 +75,7 @@ class BirthdayCafeViewController: UIViewController {
         
         // 네비게이션 좌측 로고
         NSLayoutConstraint.activate([
-            logoButton.widthAnchor.constraint(equalToConstant: 100),
+            logoButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.25),
             logoButton.heightAnchor.constraint(equalToConstant: 32)
         ])
         let logo = UIBarButtonItem(customView: logoButton)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
+class CafeDetailViewController: UIViewController {
     
     // 임시 카페 정보
     private let cafeInfos: [CafeInfoForDetailView] = [
@@ -173,13 +173,6 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // ScrollView에 보이는 페이지 이동이 끝나면 PageCtrol의 현재 위치 변경
-        if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            pageControl.currentPage = Int(scrollView.contentOffset.x / self.imageScrollView.bounds.width)
-        }
-    }
-    
     func applyConstraints() {
         let scrollViewConstraints = [
             scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -253,3 +246,11 @@ struct CafeInfoForDetailView: Codable {
     let locationID: Int
 }
 
+extension CafeDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // ScrollView에 보이는 페이지 이동이 끝나면 PageCtrol의 현재 위치 변경
+        if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
+            pageControl.currentPage = Int(scrollView.contentOffset.x / self.imageScrollView.bounds.width)
+        }
+    }
+}

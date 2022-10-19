@@ -19,6 +19,13 @@
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
 		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11828FFDA460056626C /* GradientExtension.swift */; };
+		BFB9B11F29003F110056626C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11E29003F110056626C /* FontExtension.swift */; };
+		BFB9B1222900415E0056626C /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */; };
+		BFB9B1242900416A0056626C /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B1232900416A0056626C /* Pretendard-Bold.otf */; };
+		BFB9B126290041790056626C /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B125290041790056626C /* Pretendard-Medium.otf */; };
+		BFB9B128290041810056626C /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B127290041810056626C /* Pretendard-Regular.otf */; };
+		BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B129290041A30056626C /* esamanru OTF Bold.otf */; };
+		BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B12B290046BB0056626C /* PaddingExtension.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
@@ -44,6 +51,13 @@
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BFB9B11828FFDA460056626C /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
+		BFB9B11E29003F110056626C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		BFB9B1232900416A0056626C /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		BFB9B125290041790056626C /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		BFB9B127290041810056626C /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		BFB9B129290041A30056626C /* esamanru OTF Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Bold.otf"; sourceTree = "<group>"; };
+		BFB9B12B290046BB0056626C /* PaddingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtension.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +93,18 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BFB9B120290040F50056626C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BFB9B129290041A30056626C /* esamanru OTF Bold.otf */,
+				BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */,
+				BFB9B1232900416A0056626C /* Pretendard-Bold.otf */,
+				BFB9B125290041790056626C /* Pretendard-Medium.otf */,
+				BFB9B127290041810056626C /* Pretendard-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		D4E950AF28EF48CA0066B711 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +132,8 @@
 				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
 				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
 				D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */,
+				BFB9B11E29003F110056626C /* FontExtension.swift */,
+				BFB9B12B290046BB0056626C /* PaddingExtension.swift */,
 				BFB9B11828FFDA460056626C /* GradientExtension.swift */,
 				BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */,
 				BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */,
@@ -116,6 +144,7 @@
 				BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */,
 				D4C95C5028F528CB00992600 /* MyPageViewController.swift */,
 				BF5F8AAC28FE735000CF9E3A /* Model */,
+				BFB9B120290040F50056626C /* Fonts */,
 				D4E950C428EF48CB0066B711 /* Assets.xcassets */,
 				D4E950C628EF48CB0066B711 /* LaunchScreen.storyboard */,
 				D4E950C928EF48CB0066B711 /* Info.plist */,
@@ -182,8 +211,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF5F8AB028FE73AE00CF9E3A /* DummyData.json in Resources */,
+				BFB9B1242900416A0056626C /* Pretendard-Bold.otf in Resources */,
+				BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */,
 				D4E950C828EF48CB0066B711 /* LaunchScreen.storyboard in Resources */,
 				D4E950C528EF48CB0066B711 /* Assets.xcassets in Resources */,
+				BFB9B128290041810056626C /* Pretendard-Regular.otf in Resources */,
+				BFB9B1222900415E0056626C /* Pretendard-SemiBold.otf in Resources */,
+				BFB9B126290041790056626C /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +237,9 @@
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
+				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
 				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
+				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,

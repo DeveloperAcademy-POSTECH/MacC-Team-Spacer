@@ -101,7 +101,6 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         let colorSet = [
             UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0),
             UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-        
         ]
         let location = [0.5,1.0]
         

@@ -22,7 +22,6 @@ class CafeDetailViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
        return scrollView
     }()
     
@@ -34,9 +33,7 @@ class CafeDetailViewController: UIViewController {
         pageControl.pageIndicatorTintColor = UIColor(red: 159/255, green: 159/255, blue: 159/255, alpha: 1)
         pageControl.currentPageIndicatorTintColor = UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
         pageControl.isUserInteractionEnabled = false
-        
         return pageControl
-        
     }()
     
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
@@ -44,7 +41,6 @@ class CafeDetailViewController: UIViewController {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
         return segmentedControl
     }()
     
@@ -63,7 +59,6 @@ class CafeDetailViewController: UIViewController {
         scrollView.delegate = self
         
         scrollView.backgroundColor = .systemGray
-        
         return scrollView
     }()
     
@@ -90,7 +85,6 @@ class CafeDetailViewController: UIViewController {
         chatButton.backgroundColor = UIColor(displayP3Red: 113/255, green: 113/255, blue: 113/255, alpha: 1)
         chatButton.layer.cornerRadius = 12
         chatButton.translatesAutoresizingMaskIntoConstraints = false
-        
         return chatButton
     }()
     
@@ -102,7 +96,6 @@ class CafeDetailViewController: UIViewController {
         reservationButton.backgroundColor = UIColor(displayP3Red: 119/255, green: 89/255, blue: 240/255, alpha: 1)
         reservationButton.layer.cornerRadius = 12
         reservationButton.translatesAutoresizingMaskIntoConstraints = false
-        
         return reservationButton
     }()
     

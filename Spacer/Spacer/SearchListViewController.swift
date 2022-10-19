@@ -78,6 +78,8 @@ class SearchListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         self.navigationItem.titleView = searchBar
         setCollectionView()
         setSearchBar()

@@ -35,8 +35,8 @@ class BirthdayCafeViewController: UIViewController {
     // MARK: - 1. 카페 저장소
     
     var tempCafeArray: [CafeInfo] = [CafeInfo]()
-    // 최근카페 후기 테이블 뷰
-    private let recentCafeTable: UITableView = {
+    // 생일 카페 메인 테이블 뷰
+    private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(PopularCafeTableViewCell.self, forCellReuseIdentifier: PopularCafeTableViewCell.identifier)
         table.register(RecentCafeTableViewCell.self, forCellReuseIdentifier: RecentCafeTableViewCell.identifier)
@@ -46,17 +46,16 @@ class BirthdayCafeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(recentCafeTable)
-        recentCafeTable.backgroundColor = .white
+        view.addSubview(birthdayCafeTableView)
+        birthdayCafeTableView.backgroundColor = .white
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width*0.66))
-        recentCafeTable.tableHeaderView = headerView
-        headerView?.layoutIfNeeded()
+        birthdayCafeTableView.tableHeaderView = headerView
         
-        recentCafeTable.delegate = self
-        recentCafeTable.dataSource = self
-        recentCafeTable.clipsToBounds = true
-        recentCafeTable.separatorStyle = .none
+        birthdayCafeTableView.delegate = self
+        birthdayCafeTableView.dataSource = self
+        birthdayCafeTableView.clipsToBounds = true
+        birthdayCafeTableView.separatorStyle = .none
         
         // MARK: - 1. 카페 불러오기
         
@@ -84,22 +83,22 @@ class BirthdayCafeViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = logo
         
         // 네비게이션 우측 아이템
-        let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(bye))
-        let heart = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(hi))
+        let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(goToSearchListView))
+        let heart = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(goToFavorites))
         self.navigationItem.rightBarButtonItems = [heart,search]
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        recentCafeTable.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
     }
     
-    @objc func hi() {
-        print("hi")
+    @objc func goToFavorites() {
+        print("goToFavorites")
     }
     
-    @objc func bye() {
-        print("bye")
+    @objc func goToSearchListView() {
+        show(SearchListViewController(), sender: nil)
     }
 }
 extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -172,31 +171,5 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
-    }
-}
-
-
-
-
-// MARK: - extension gradient
-
-extension UIView {
-    func addGradient(with layer: CAGradientLayer, gradientFrame: CGRect? = nil, colorSet: [UIColor],
-                     locations: [Double], startEndPoints: (CGPoint, CGPoint)? = nil) {
-        layer.frame = gradientFrame ?? self.bounds
-        layer.frame.origin = .zero
-
-        let layerColorSet = colorSet.map { $0.cgColor }
-        let layerLocations = locations.map { $0 as NSNumber }
-
-        layer.colors = layerColorSet
-        layer.locations = layerLocations
-
-        if let startEndPoints = startEndPoints {
-            layer.startPoint = startEndPoints.0
-            layer.endPoint = startEndPoints.1
-        }
-
-        self.layer.insertSublayer(layer, above: self.layer)
     }
 }

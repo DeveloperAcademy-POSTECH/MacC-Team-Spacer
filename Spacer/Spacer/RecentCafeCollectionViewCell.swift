@@ -42,7 +42,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.font = UIFont(name: "Pretendard", size: 14)
-        label.text = "리뷰의 내용이 들어가야합니다 어떤게 어쩔 티비 저쩔 티비야 뇌절 티비"
+        label.text = "리뷰의 내용이 들어가야합니다. 긴 내용의 리뷰가 들어갔을 경우 단어에서 잘리도록 설정을 해야합니다."
         label.textAlignment = .left
         label.lineBreakMode = .byWordWrapping
         label.allowsDefaultTighteningForTruncation = true

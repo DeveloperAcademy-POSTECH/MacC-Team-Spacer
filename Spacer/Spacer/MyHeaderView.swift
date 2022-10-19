@@ -1,5 +1,5 @@
 //
-//  HeaderView.swift
+//  MyHeaderView.swift
 //  Spacer
 //
 //  Created by hurdasol on 2022/10/11.
@@ -24,9 +24,6 @@ class MyHeaderView: UIView {
         addSubview(headerImageView)
     }
     
-    private func applyConstraints() {
-        
-    }
     override func layoutSubviews() {
         super.layoutSubviews()
         headerImageView.frame = bounds

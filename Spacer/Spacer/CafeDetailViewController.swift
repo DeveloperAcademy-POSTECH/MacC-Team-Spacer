@@ -14,6 +14,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         CafeInfoForDetailView(cafeID: 0, cafeName: "카페로제", imageDirectories: ["signature", "bag.fill", "creditcard.fill", "giftcard", "banknote", "dollarsign.circle.fill", "heart.fill"], address: "서울 홍대 어쩌고 저쩌고 106", cafePhoneNumber: "010-7189-8294", SNS: "@gumbee_h", cafeMinPeople: 20, cafeMaxPeople: 50, locationID: 0),
         CafeInfoForDetailView(cafeID: 1, cafeName: "랑카페", imageDirectories: ["banknote", "bag.fill", "creditcard.fill", "giftcard", "signature", "dollarsign.circle.fill", "heart.fill"], address: "부산 어쩌고 저쩌고 11", cafePhoneNumber: "010-0000-8294", SNS: "@eunbi_Han", cafeMinPeople: 30, cafeMaxPeople: 40, locationID: 1)
     ]
+    
     private let cafeIndex = 0
     
     // MARK: - UI 요소
@@ -114,7 +115,22 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
         return dynamicView
     }()
     
+    let detailInfoView: UIViewController = {
+        let viewController = DetailInfomationViewController()
+        return viewController
+    }()
+    
+    let reviewView: UIViewController = {
+        let viewController = CafeReviewViewController()
+        return viewController
+    }()
+    
+    var datatViewControllers: [UIViewController] {
+        [self.detailInfoView, self.reviewView]
+    }
+    
     // MARK: - ViewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -144,6 +160,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     // MARK: - functions
+    
     func showCafeImages(width: CGFloat, height: CGFloat, cafeIamges: [String], parentView: UIView) {
         for i in 0 ..< cafeIamges.count {
             // 카페 이미지 세팅
@@ -222,7 +239,7 @@ class CafeDetailViewController: UIViewController, UIScrollViewDelegate {
      }
 }
 
-// 임시 카페 정보 구조
+// 임시 카페 정보 구조: Merge 후 정의된 Model로 교체할 예정
 struct CafeInfoForDetailView: Codable {
     let cafeID: Int
     let cafeName: String

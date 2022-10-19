@@ -82,7 +82,7 @@ class PopularCafeTableViewCell: UITableViewCell {
             cafeName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             cafeName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 134),
             cafeName.heightAnchor.constraint(equalToConstant: 20),
-//            cafeName.widthAnchor.constraint(equalToConstant: 45),
+            //            cafeName.widthAnchor.constraint(equalToConstant: 45),
         ]
         
         let cafeStarRatingConstraints = [
@@ -91,11 +91,11 @@ class PopularCafeTableViewCell: UITableViewCell {
             cafeStarRating.topAnchor.constraint(equalTo: cafeName.topAnchor),
         ]
         
-       let cafeLocationConstraints = [
+        let cafeLocationConstraints = [
             cafeLocation.leadingAnchor.constraint(equalTo: cafeName.leadingAnchor),
             cafeLocation.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: 5),
             cafeLocation.heightAnchor.constraint(equalToConstant:20)
-       ]
+        ]
         
         let cafePeopleConstraints = [
             cafePeople.leadingAnchor.constraint(equalTo: cafeLocation.trailingAnchor, constant: 5),
@@ -132,9 +132,10 @@ class PopularCafeTableViewCell: UITableViewCell {
             CafeImageView.heightAnchor.constraint(equalToConstant: contentView.frame.height),
         ])
         
-        let colorSet = [UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1),
-                        UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.8),
-                        UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)]
+        let colorSet = [
+            UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1),
+            UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.8),
+            UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)]
         let location = [0.5,0.7,1.0]
         CafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location)
         

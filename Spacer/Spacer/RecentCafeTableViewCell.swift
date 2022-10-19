@@ -31,42 +31,33 @@ class RecentCafeTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        
     }
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
-    
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     public func configure(with model: [CafeInfo]) {
         self.tempCafeArray = model
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
     }
-    
 }
 
 extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tempCafeArray.count
-        
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentCafeCollectionViewCell.identifier, for: indexPath) as? RecentCafeCollectionViewCell else { return UICollectionViewCell() }
         // MARK: - 1. 셀에 값 넘기기
         cell.configure(with: tempCafeArray[indexPath.row])
-        
         return cell
     }
-    
-
-
 }

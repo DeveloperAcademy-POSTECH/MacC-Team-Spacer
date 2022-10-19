@@ -99,12 +99,12 @@ class CafeDetailViewController: UIViewController {
         return reservationButton
     }()
     
-    var dynamicView: UIStackView = {
-        let dynamicView = UIStackView(arrangedSubviews: [])
-        dynamicView.alignment = .center
-        dynamicView.axis = .vertical
-        dynamicView.translatesAutoresizingMaskIntoConstraints = false
-        return dynamicView
+    var dynamicStackView: UIStackView = {
+        let dynamicStackView = UIStackView(arrangedSubviews: [])
+        dynamicStackView.alignment = .center
+        dynamicStackView.axis = .vertical
+        dynamicStackView.translatesAutoresizingMaskIntoConstraints = false
+        return dynamicStackView
     }()
     
     

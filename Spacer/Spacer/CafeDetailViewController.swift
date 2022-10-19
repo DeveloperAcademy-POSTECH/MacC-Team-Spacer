@@ -141,7 +141,7 @@ class CafeDetailViewController: UIViewController {
         self.view.addSubview(self.bottomBar)
         
         //scrollView.addSubView
-        self.scrollView.addSubview(dynamicView)
+        self.scrollView.addSubview(dynamicStackView)
         self.scrollView.addSubview(self.imageScrollView)
         self.scrollView.addSubview(self.pageControl)
         self.scrollView.addSubview(segmentedControl)
@@ -176,11 +176,11 @@ class CafeDetailViewController: UIViewController {
         ]
         
         let dynamicContentconstraints = [
-            dynamicView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            dynamicView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            dynamicView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            dynamicView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            dynamicView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+            dynamicStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            dynamicStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            dynamicStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            dynamicStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            dynamicStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
         ]
         
         let bottomBarConstraints = [

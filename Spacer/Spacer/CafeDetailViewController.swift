@@ -115,6 +115,8 @@ class CafeDetailViewController: UIViewController {
         return dynamicView
     }()
     
+    
+    // 추후 segmentedControl에 추가할 ViewController 정의
     let detailInfoView: UIViewController = {
         let viewController = DetailInfomationViewController()
         return viewController
@@ -247,6 +249,7 @@ struct CafeInfoForDetailView: Codable {
 }
 
 extension CafeDetailViewController: UIScrollViewDelegate {
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // ScrollView에 보이는 페이지 이동이 끝나면 PageCtrol의 현재 위치 변경
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {

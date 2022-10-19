@@ -7,7 +7,7 @@
 
 import UIKit
 
-// 참고: https://ios-development.tistory.com/m/963
+// reference: https://ios-development.tistory.com/m/963
 class CustomSegmentControl: UISegmentedControl {
     
     // MARK: - UI 요소
@@ -51,7 +51,6 @@ class CustomSegmentControl: UISegmentedControl {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
     
     // MARK: - function
     
@@ -106,8 +105,5 @@ class CustomSegmentControl: UISegmentedControl {
 
         NSLayoutConstraint.activate(underlineContraints)
     }
-    
-    
-    
+  
 }
-

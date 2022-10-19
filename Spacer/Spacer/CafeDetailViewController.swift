@@ -134,7 +134,7 @@ class CafeDetailViewController: UIViewController {
         let scrollViewWidth = self.imageScrollView.bounds.width, scrollViewHeight = self.imageScrollView.bounds.height
         
         // 카페 이미지 보여주기
-        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeIamges: cafeInfos[cafeIndex].imageDirectories, parentView: imageScrollView)
+        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeImages: cafeInfos[cafeIndex].imageDirectories, parentView: imageScrollView)
         
         // view.addSubview
         self.view.addSubview(self.scrollView)
@@ -155,15 +155,15 @@ class CafeDetailViewController: UIViewController {
     
     // MARK: - functions
     
-    func showCafeImages(width: CGFloat, height: CGFloat, cafeIamges: [String], parentView: UIView) {
-        for i in 0 ..< cafeIamges.count {
+    func showCafeImages(width: CGFloat, height: CGFloat, cafeImages: [String], parentView: UIView) {
+        for i in 0 ..< cafeImages.count {
             // 카페 이미지 세팅
-            let image = UIImageView()
-            image.image = UIImage(systemName: cafeInfos[cafeIndex].imageDirectories[i])
-            image.contentMode = .scaleAspectFit
-            image.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: width / 4 * 3)
+            let cafeImage = UIImageView()
+            cafeImage.image = UIImage(systemName: cafeInfos[cafeIndex].imageDirectories[i])
+            cafeImage.contentMode = .scaleAspectFit
+            cafeImage.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: width / 4 * 3)
             
-            self.imageScrollView.addSubview(image)
+            self.imageScrollView.addSubview(cafeImage)
         }
     }
     

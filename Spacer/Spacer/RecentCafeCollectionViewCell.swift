@@ -112,7 +112,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
     
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafe_name
-        self.cafeImageView.image = UIImage(named: model.image_directories)
+        self.cafeImageView.image = UIImage(named: model.image_directories[0])
         self.cafeStarRating.text = String("☆")+String(model.cafe_star_rating)
     }
     

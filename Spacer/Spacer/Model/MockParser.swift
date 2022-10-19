@@ -47,6 +47,6 @@ class MockManager {
     private init() {}
     func getMockData() -> [CafeInfo] {
         print(#function)
-        return MockParser.load([CafeInfo].self, from: "DummyData") ?? [CafeInfo(cafe_id: 0, cafe_name: "랑카페", image_directories: "RANG", address: "포항 남구", cafe_phone_number: "010-1111-2222", sns: nil, cafe_min_people: 20, cafe_max_people: 50, costs: nil, location_id: 0, cafe_star_rating: 3.5)]
+        return MockParser.load([CafeInfo].self, from: "DummyData") ?? [CafeInfo(cafe_id: 0, cafe_name: "랑카페", image_directories: ["RANG"], address: "포항 남구", cafe_phone_number: "010-1111-2222", sns: nil, cafe_min_people: 20, cafe_max_people: 50, costs: nil, location_id: 0, cafe_star_rating: 3.5)]
     }
 }

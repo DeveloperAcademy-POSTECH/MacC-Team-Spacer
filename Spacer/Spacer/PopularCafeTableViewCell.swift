@@ -144,7 +144,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafe_name
-        self.CafeImageView.image = UIImage(named: model.image_directories)
+        self.CafeImageView.image = UIImage(named: model.image_directories[0])
         self.cafeStarRating.text = "⭐️" + String(model.cafe_star_rating)
         self.cafeLocation.text = "📍" + String(model.location_id) + "지역"
         self.cafePeople.text = "👤 \(model.cafe_min_people) ~ \(model.cafe_max_people)"

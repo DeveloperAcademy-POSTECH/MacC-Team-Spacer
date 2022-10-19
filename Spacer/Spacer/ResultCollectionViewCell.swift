@@ -118,7 +118,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
     
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafe_name
-        self.cafeImageView.image = UIImage(named: model.image_directories)
+        self.cafeImageView.image = UIImage(named: model.image_directories[0])
         self.cafeStarRating.text = "⭐️" + String(model.cafe_star_rating)
         self.cafeAddress.text = "📍" + String(model.address)
         self.cafePeople.text = "👤" + String("\(model.cafe_min_people) ~ \(model.cafe_max_people)")

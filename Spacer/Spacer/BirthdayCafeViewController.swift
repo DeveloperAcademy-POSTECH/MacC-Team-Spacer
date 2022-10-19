@@ -8,6 +8,7 @@
 import UIKit
 
 // MARK: - 0. section나누기
+
 enum Sections: Int {
     case recentCafeReview = 0
     case popularCafe = 1
@@ -16,6 +17,7 @@ enum Sections: Int {
 class BirthdayCafeViewController: UIViewController {
     
     // MARK: - 로고 이미지
+    
     let logoButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "RANG"), for: .normal)
@@ -25,10 +27,13 @@ class BirthdayCafeViewController: UIViewController {
     }()
     
    // MARK: - 0. section이름
+    
     let sectionTitles: [String] = ["최근 카페 후기", "가장 인기 있는 카페"]
     
     private var headerView: MyHeaderView?
+    
     // MARK: - 1. 카페 저장소
+    
     var tempCafeArray: [CafeInfo] = [CafeInfo]()
     // 최근카페 후기 테이블 뷰
     private let recentCafeTable: UITableView = {
@@ -40,7 +45,6 @@ class BirthdayCafeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
         
         view.addSubview(recentCafeTable)
         recentCafeTable.backgroundColor = .white
@@ -55,6 +59,7 @@ class BirthdayCafeViewController: UIViewController {
         recentCafeTable.separatorStyle = .none
         
         // MARK: - 1. 카페 불러오기
+        
         self.tempCafeArray =  MockManager.shared.getMockData()
         
         setNavBar()
@@ -127,7 +132,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
                 return UITableViewCell()
             }
             cell.backgroundColor = .systemBackground
+            
             // MARK: - 1. 셀에 cafeInfo를 넘겨줌
+            
             cell.configure(with: self.tempCafeArray[indexPath.row])
             return cell
         

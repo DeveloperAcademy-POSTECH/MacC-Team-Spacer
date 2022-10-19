@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 // CollectionView를 담을 1개 짜리 테이블 셀
 class RecentCafeTableViewCell: UITableViewCell {
 
@@ -32,6 +33,7 @@ class RecentCafeTableViewCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
@@ -56,7 +58,9 @@ extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecentCafeCollectionViewCell.identifier, for: indexPath) as? RecentCafeCollectionViewCell else { return UICollectionViewCell() }
+        
         // MARK: - 1. 셀에 값 넘기기
+        
         cell.configure(with: tempCafeArray[indexPath.row])
         return cell
     }

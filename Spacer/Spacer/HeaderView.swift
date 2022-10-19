@@ -39,7 +39,9 @@ class MyHeaderView: UIView {
 }
 
 class logoView: UIView {
+    
     static let identifier = "logoView"
+    
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "RANG")

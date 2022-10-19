@@ -10,6 +10,7 @@ import UIKit
 class PopularCafeTableViewCell: UITableViewCell {
     
     static let identifier = "PopularCafeTableViewCell"
+    
     // 카페 이미지
     private let CafeImageView: UIImageView = {
         let imageView = UIImageView()
@@ -28,7 +29,6 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafeName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "랑카페"
         return label
     }()
     
@@ -37,7 +37,6 @@ class PopularCafeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red: 255/255, green: 92/255, blue: 92/255, alpha: 1)
-        label.text = "⭐️4.5(32)"
         return label
     }()
     
@@ -45,7 +44,6 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafeLocation: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "📍서울 홍대"
         return label
     }()
     
@@ -53,7 +51,6 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafePeople: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "👤20~40"
         return label
     }()
     
@@ -81,14 +78,13 @@ class PopularCafeTableViewCell: UITableViewCell {
         let cafeNameConstraints = [
             cafeName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             cafeName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 134),
-            cafeName.heightAnchor.constraint(equalToConstant: 20),
-            //            cafeName.widthAnchor.constraint(equalToConstant: 45),
+            cafeName.heightAnchor.constraint(equalToConstant: 20)
         ]
         
         let cafeStarRatingConstraints = [
             cafeStarRating.leadingAnchor.constraint(equalTo: cafeName.trailingAnchor, constant: 5),
             cafeStarRating.heightAnchor.constraint(equalToConstant: 20),
-            cafeStarRating.topAnchor.constraint(equalTo: cafeName.topAnchor),
+            cafeStarRating.topAnchor.constraint(equalTo: cafeName.topAnchor)
         ]
         
         let cafeLocationConstraints = [
@@ -100,13 +96,13 @@ class PopularCafeTableViewCell: UITableViewCell {
         let cafePeopleConstraints = [
             cafePeople.leadingAnchor.constraint(equalTo: cafeLocation.trailingAnchor, constant: 5),
             cafePeople.topAnchor.constraint(equalTo: cafeLocation.topAnchor),
-            cafePeople.heightAnchor.constraint(equalToConstant:20),
+            cafePeople.heightAnchor.constraint(equalToConstant:20)
         ]
         
         let cafeHeartConstarints = [
             cafeHeart.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             cafeHeart.topAnchor.constraint(equalTo: cafeLocation.topAnchor),
-            cafeHeart.heightAnchor.constraint(equalToConstant: 20),
+            cafeHeart.heightAnchor.constraint(equalToConstant: 20)
         ]
         
         NSLayoutConstraint.activate(cafeNameConstraints)
@@ -135,12 +131,17 @@ class PopularCafeTableViewCell: UITableViewCell {
         let colorSet = [
             UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.1),
             UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.8),
-            UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)]
+            UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+        ]
+        
         let location = [0.5,0.7,1.0]
+        
         CafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location)
         
     }
+    
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
+    
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafe_name
         self.CafeImageView.image = UIImage(named: model.image_directories)
@@ -150,6 +151,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     }
     
     // MARK: - layer에다 그라디언트 추가하기
+    
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         gradientLayer.frame = contentView.bounds

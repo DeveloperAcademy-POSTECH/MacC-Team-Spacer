@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 class MockParser {
     // type: 디코딩 할 때 사용되는 모델의 타입, resourceName: json 파일의 이름
     

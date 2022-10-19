@@ -97,15 +97,20 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.green.cgColor
         
         gradientLayer.frame = contentView.bounds
+        
         let colorSet = [
             UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0),
-            UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1),]
+            UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+        
+        ]
         let location = [0.5,1.0]
+        
         cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location)
     }
     
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
+    
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafe_name
         self.cafeImageView.image = UIImage(named: model.image_directories)

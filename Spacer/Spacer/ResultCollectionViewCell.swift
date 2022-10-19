@@ -8,6 +8,7 @@
 import UIKit
 
 class ResultCollectionViewCell: UICollectionViewCell {
+    
     static let identifier = "ResultCollectionViewCell"
     
     var cafeImageView: UIImageView = {
@@ -61,6 +62,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         addSubview(cafeImageView)
         addSubview(cafeName)
         addSubview(cafeStarRating)

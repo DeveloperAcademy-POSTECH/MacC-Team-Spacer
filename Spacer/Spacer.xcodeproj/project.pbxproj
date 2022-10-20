@@ -131,6 +131,117 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		BFD1380D29014A8E004E6726 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */,
+				BFB9B11E29003F110056626C /* FontExtension.swift */,
+				BFB9B12B290046BB0056626C /* PaddingExtension.swift */,
+				BFB9B11828FFDA460056626C /* GradientExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		BFD1380E29014B80004E6726 /* Cores */ = {
+			isa = PBXGroup;
+			children = (
+				D4E950BB28EF48CA0066B711 /* AppDelegate.swift */,
+				D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */,
+				D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */,
+				BFD1380F29014C88004E6726 /* BirthdayCafeView */,
+				BFD1381029014CC8004E6726 /* RequestView */,
+				BFD1381129014CE4004E6726 /* ChatView */,
+				BFD1381229014CEE004E6726 /* MyPageView */,
+			);
+			path = Cores;
+			sourceTree = "<group>";
+		};
+		BFD1380F29014C88004E6726 /* BirthdayCafeView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */,
+				BF5F8AB428FE868E00CF9E3A /* MyHeaderView.swift */,
+				BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */,
+				BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */,
+				BF5F8ABA28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift */,
+			);
+			path = BirthdayCafeView;
+			sourceTree = "<group>";
+		};
+		BFD1381029014CC8004E6726 /* RequestView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
+			);
+			path = RequestView;
+			sourceTree = "<group>";
+		};
+		BFD1381129014CE4004E6726 /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C95C4E28F528BA00992600 /* ChatViewController.swift */,
+			);
+			path = ChatView;
+			sourceTree = "<group>";
+		};
+		BFD1381229014CEE004E6726 /* MyPageView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C95C5028F528CB00992600 /* MyPageViewController.swift */,
+			);
+			path = MyPageView;
+			sourceTree = "<group>";
+		};
+		BFD1381329014D7E004E6726 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BFD1381629014E0A004E6726 /* CafeDetailView */,
+				BFD1381529014DCF004E6726 /* SearchListView */,
+				D4A3729029011A79007A5297 /* VisualTagView */,
+				BFD1381729014EAA004E6726 /* FavoriteView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BFD1381429014DAF004E6726 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				D486C47429012EB400D6B0A0 /* CancelButton.swift */,
+				D486C47829013DBB00D6B0A0 /* NextButton.swift */,
+				D486C47A29013FC200D6B0A0 /* BackButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		BFD1381529014DCF004E6726 /* SearchListView */ = {
+			isa = PBXGroup;
+			children = (
+				BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */,
+				BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */,
+				BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */,
+			);
+			path = SearchListView;
+			sourceTree = "<group>";
+		};
+		BFD1381629014E0A004E6726 /* CafeDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C95C5628F5437200992600 /* CafeDetailViewController.swift */,
+				D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */,
+				D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */,
+				D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */,
+			);
+			path = CafeDetailView;
+			sourceTree = "<group>";
+		};
+		BFD1381729014EAA004E6726 /* FavoriteView */ = {
+			isa = PBXGroup;
+			children = (
+				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
+			);
+			path = FavoriteView;
+			sourceTree = "<group>";
+		};
 		D4A3729029011A79007A5297 /* VisualTagView */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,9 +249,7 @@
 				D4A3729529011A79007A5297 /* Map */,
 				D4A3729729011A79007A5297 /* PeopleTarget */,
 				D4A3729929011A79007A5297 /* PeopleRange */,
-				D486C47429012EB400D6B0A0 /* CancelButton.swift */,
-				D486C47829013DBB00D6B0A0 /* NextButton.swift */,
-				D486C47A29013FC200D6B0A0 /* BackButton.swift */,
+				BFD1381429014DAF004E6726 /* Buttons */,
 			);
 			path = VisualTagView;
 			sourceTree = "<group>";
@@ -205,30 +314,9 @@
 		D4E950BA28EF48CA0066B711 /* Spacer */ = {
 			isa = PBXGroup;
 			children = (
-				D4E950BB28EF48CA0066B711 /* AppDelegate.swift */,
-				D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */,
-				D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */,
-				D4C95C5628F5437200992600 /* CafeDetailViewController.swift */,
-				D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */,
-				D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */,
-				D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */,
-				BF5F8AB428FE868E00CF9E3A /* MyHeaderView.swift */,
-				BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */,
-				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
-				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
-				D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */,
-				BFB9B11E29003F110056626C /* FontExtension.swift */,
-				BFB9B12B290046BB0056626C /* PaddingExtension.swift */,
-				BFB9B11828FFDA460056626C /* GradientExtension.swift */,
-				BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */,
-				BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */,
-				BF5F8ABA28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift */,
-				D4C95C4E28F528BA00992600 /* ChatViewController.swift */,
-				BF5F8ABC28FEC88700CF9E3A /* SearchListViewController.swift */,
-				BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */,
-				BF5F8ABE28FEC8E700CF9E3A /* CustomButtonView.swift */,
-				D4C95C5028F528CB00992600 /* MyPageViewController.swift */,
-				D4A3729029011A79007A5297 /* VisualTagView */,
+				BFD1380E29014B80004E6726 /* Cores */,
+				BFD1381329014D7E004E6726 /* Views */,
+				BFD1380D29014A8E004E6726 /* Extensions */,
 				BF5F8AAC28FE735000CF9E3A /* Model */,
 				BFB9B120290040F50056626C /* Fonts */,
 				D4E950C428EF48CB0066B711 /* Assets.xcassets */,

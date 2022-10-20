@@ -12,7 +12,6 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         let vc1 = UINavigationController(rootViewController: BirthdayCafeViewController())
         let vc2 = UINavigationController(rootViewController: RequestViewController())
         let vc3 = UINavigationController(rootViewController: ChatViewController())
@@ -24,10 +23,6 @@ class MainTabBarViewController: UITabBarController {
         vc4.title = "내 정보"
         
         setViewControllers([vc1, vc2, vc3, vc4], animated: true)
-
-        
     }
-
-
+    
 }
-

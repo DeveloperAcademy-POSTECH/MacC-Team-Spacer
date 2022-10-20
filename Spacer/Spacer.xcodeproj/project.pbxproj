@@ -78,13 +78,45 @@
 		D4049DC328F541F3007E442E /* VisualTagView */ = {
 			isa = PBXGroup;
 			children = (
-				D4FAA00128FC87B500C6A0BA /* CalenderCell */,
-				D4049DC428F542AB007E442E /* VisualTagCalendarViewController.swift */,
-				D4049DC628F548DC007E442E /* VisualTagMapView.swift */,
-				D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */,
-				D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */,
+				D462850528FE668A0041544F /* Calendar */,
+				D462850628FE669A0041544F /* Map */,
+				D462850B2901048C0041544F /* PeopleTarget */,
+				D462850A2901047D0041544F /* PeopleRange */,
 			);
 			path = VisualTagView;
+			sourceTree = "<group>";
+		};
+		D462850528FE668A0041544F /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				D4049DC428F542AB007E442E /* VisualTagCalendarViewController.swift */,
+				D4FAA00128FC87B500C6A0BA /* CalenderCell */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		D462850628FE669A0041544F /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				D4049DC628F548DC007E442E /* VisualTagMapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		D462850A2901047D0041544F /* PeopleRange */ = {
+			isa = PBXGroup;
+			children = (
+				D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */,
+			);
+			path = PeopleRange;
+			sourceTree = "<group>";
+		};
+		D462850B2901048C0041544F /* PeopleTarget */ = {
+			isa = PBXGroup;
+			children = (
+				D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */,
+			);
+			path = PeopleTarget;
 			sourceTree = "<group>";
 		};
 		D4E950AF28EF48CA0066B711 = {

@@ -9,6 +9,7 @@ import UIKit
 
 class VisualTagMapView: UIViewController{
     
+    
     lazy var headerTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)

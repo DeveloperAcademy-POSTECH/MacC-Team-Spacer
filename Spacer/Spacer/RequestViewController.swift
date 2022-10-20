@@ -11,21 +11,15 @@ class RequestViewController: UIViewController {
 
     lazy var button : UIButton = {
         let button = UIButton()
-        
         let width: CGFloat = 200
         let height: CGFloat = 80
-        
         let posX: CGFloat = self.view.bounds.width/2 - width/2
         let posY: CGFloat = self.view.bounds.height/2 - height/2
         
-        
         button.frame = CGRect(x: posX, y: posY, width: width, height: height)
-        
         button.backgroundColor = .black
         
         button.setTitle("testForModal", for: .normal)
-        button.setTitle("shibal", for: .highlighted)
-        
         button.setTitleColor(.gray, for: .normal)
         button.setTitleColor(.black, for: .highlighted)
         
@@ -41,7 +35,7 @@ class RequestViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @objc func buttonTest(_ sender: Any){
+    @objc func buttonTest(_ sender: Any) {
         if sender is UIButton{
             let vc = UINavigationController(rootViewController: VisualTagCalendarViewController())
             vc.modalPresentationStyle = .fullScreen

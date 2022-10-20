@@ -8,7 +8,6 @@
 import UIKit
 import FSCalendar
 
-
 enum SelectionType{
     case none
     case single
@@ -34,12 +33,12 @@ class CustomCalenderCell: FSCalendarCell {
         commonInit()
     }
     
-    override init(frame: CGRect){
+    override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
-    private func commonInit(){
+    private func commonInit() {
         let selectionLayer = CAShapeLayer()
         selectionLayer.fillColor = UIColor(red: 227/255, green: 217/255, blue: 255/255, alpha: 1).cgColor
         selectionLayer.actions = ["hidden": NSNull()]
@@ -128,6 +127,7 @@ class CustomCalenderCell: FSCalendarCell {
                               height: diameter)
                 .insetBy(dx: 2.5, dy: 2.5)
             self.roundedLayer?.path = UIBezierPath(ovalIn: rect).cgPath
+            
         case .single:
             self.selectionLayer?.isHidden = true
             self.roundedLayer?.isHidden = false
@@ -143,5 +143,4 @@ class CustomCalenderCell: FSCalendarCell {
 
         }
     }
-    
 }

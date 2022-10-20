@@ -9,7 +9,6 @@ import UIKit
 
 class VisualTagMapViewController: UIViewController{
     
-    
     lazy var headerTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)
@@ -102,9 +101,9 @@ class VisualTagMapViewController: UIViewController{
     }
     
     //handling action for next, cancel button
-    @objc func buttonAction(_ sender: Any){
-        if let button = sender as? UIButton{
-            switch button.tag{
+    @objc func buttonAction(_ sender: Any) {
+        if let button = sender as? UIButton {
+            switch button.tag {
             case 1:
                 self.navigationController?.pushViewController(VisualTagPeopleTargetViewController(), animated: true)
             case 2:

@@ -25,6 +25,14 @@ class CafeDetailViewController: UIViewController {
        return scrollView
     }()
     
+    var dynamicStackView: UIStackView = {
+        let dynamicStackView = UIStackView(arrangedSubviews: [])
+        dynamicStackView.alignment = .center
+        dynamicStackView.axis = .vertical
+        dynamicStackView.translatesAutoresizingMaskIntoConstraints = false
+        return dynamicStackView
+    }()
+    
     // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl(frame: CGRect(x: 0, y: self.imageScrollView.bounds.height - 45, width: self.scrollView.bounds.width, height: 55))
@@ -34,14 +42,6 @@ class CafeDetailViewController: UIViewController {
         pageControl.currentPageIndicatorTintColor = UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
         pageControl.isUserInteractionEnabled = false
         return pageControl
-    }()
-    
-    // 상세정보와 리뷰 페이지를 위한 segmentedControl
-    let segmentedControl: UISegmentedControl = {
-        let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        return segmentedControl
     }()
     
     // 카페 이미지를 보기 위한 ScrollView
@@ -60,6 +60,14 @@ class CafeDetailViewController: UIViewController {
         
         scrollView.backgroundColor = .systemGray
         return scrollView
+    }()
+    
+    // 상세정보와 리뷰 페이지를 위한 segmentedControl
+    let segmentedControl: UISegmentedControl = {
+        let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        return segmentedControl
     }()
     
     // 하단에 고정할 버튼을 담을 View
@@ -98,15 +106,6 @@ class CafeDetailViewController: UIViewController {
         reservationButton.translatesAutoresizingMaskIntoConstraints = false
         return reservationButton
     }()
-    
-    var dynamicStackView: UIStackView = {
-        let dynamicStackView = UIStackView(arrangedSubviews: [])
-        dynamicStackView.alignment = .center
-        dynamicStackView.axis = .vertical
-        dynamicStackView.translatesAutoresizingMaskIntoConstraints = false
-        return dynamicStackView
-    }()
-    
     
     // 추후 segmentedControl에 추가할 ViewController 정의
     let detailInfoView: UIViewController = {

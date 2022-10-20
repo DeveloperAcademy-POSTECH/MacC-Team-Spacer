@@ -6,10 +6,11 @@
 //
 
 import UIKit
+
 import FSCalendar
 
 
-class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppearance{
+class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppearance {
     
     fileprivate weak var calendar: FSCalendar!
     private var firstDate: Date?
@@ -36,34 +37,17 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     }()
     
     lazy var nextButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        //set title
-        btn.setTitle("다음", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 15)
-        btn.backgroundColor = UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1)
-        btn.layer.masksToBounds = true
-        btn.layer.cornerRadius = 10.0
-        btn.tag = 1
-        //add action to button
-        btn.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        return btn
+        let button = NextButton()
+        button.setView(title: "다음", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        return button
     }()
     
     lazy var cancelButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        //Config of button
-        var config = UIButton.Configuration.plain()
-        config.baseForegroundColor = .black
-        btn.configuration = config
-        //button image
-        btn.setImage(UIImage(systemName: "multiply"), for: .normal)
-        //button tag
-        btn.tag = 2
-        //add action to button
-        btn.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        return btn
+        let button = CancelButton()
+        button.setView(foreground: .black, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        return button
     }()
+  
     
     lazy var myCalendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -132,7 +116,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         ])
         //allow multiple selection to calendar
         calendar.allowsMultipleSelection = true
-
+        
         //before button autolayout
         self.view.addSubview(beforeButton)
         beforeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -142,15 +126,15 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             beforeButton.widthAnchor.constraint(equalToConstant: 20),
             beforeButton.heightAnchor.constraint(equalToConstant: 20)
         ])
-        
+
         //after button autolayout
         self.view.addSubview(afterButton)
         afterButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             afterButton.centerXAnchor.constraint(equalTo: calendar.calendarHeaderView.centerXAnchor, constant:  70),
             afterButton.centerYAnchor.constraint(equalTo: calendar.calendarHeaderView.centerYAnchor),
-            beforeButton.widthAnchor.constraint(equalToConstant: 20),
-            beforeButton.heightAnchor.constraint(equalToConstant: 20)
+            afterButton.widthAnchor.constraint(equalToConstant: 20),
+            afterButton.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         //calendar label autolayout
@@ -162,9 +146,10 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             calendarLabel.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
         ])
-        
+
+
         //cancel button autolayout
-        self.view.addSubview(self.cancelButton)
+        self.view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cancelButton.leftAnchor.constraint(equalTo: calendarLabel.leftAnchor, constant: -15),
@@ -172,7 +157,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             cancelButton.heightAnchor.constraint(equalToConstant: 50),
             cancelButton.widthAnchor.constraint(equalToConstant: 50)
         ])
-        
+
         //headerTitle autolayout
         self.view.addSubview(headerTitle)
         headerTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -192,9 +177,9 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
 //button method compilation
 extension VisualTagCalendarViewController{
     //handling action for next, cancel button
-    @objc func buttonAction(_ sender: Any){
-        if let button = sender as? UIButton{
-            switch button.tag{
+    @objc func buttonAction(_ sender: Any) {
+        if let button = sender as? UIButton {
+            switch button.tag {
             case 1:
                 self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
             case 2:
@@ -206,15 +191,15 @@ extension VisualTagCalendarViewController{
     }
     
     //handling action for calendar buttons
-    @objc func calendarHeaderButton(_ sender: Any){
-        defer{
+    @objc func calendarHeaderButton(_ sender: Any) {
+        defer {
             viewWillAppear(false)
         }
-        if let button = sender as? UIButton{
+        if let button = sender as? UIButton {
             let _calendar = Calendar.current
             var dateComponents = DateComponents()
             
-            switch button.tag{
+            switch button.tag {
             case 1:
                 dateComponents.month = -1
                 calendar.setCurrentPage(_calendar.date(byAdding: dateComponents, to: calendar.currentPage)!, animated: true)
@@ -234,8 +219,8 @@ extension VisualTagCalendarViewController{
         let calendarImage = NSTextAttachment()
         calendarImage.image = UIImage(systemName: "calendar")
         attributedString.append(NSAttributedString(attachment: calendarImage))
-        if firstDate != nil{
-            if lastDate != nil{
+        if firstDate != nil {
+            if lastDate != nil {
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - \(dateFormatConverter(lastDate!))"))
             }else{
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - 선택 안함"))
@@ -248,7 +233,7 @@ extension VisualTagCalendarViewController{
 }
 
 //FSCalendar Delegate
-extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSource{
+extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
     func dateFormatConverter(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd"
@@ -318,13 +303,13 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             return
         }
         
-        if firstDate == nil{
+        if firstDate == nil {
             firstDate =  date
             datesRange = [firstDate!]
             return
         }
         
-        if firstDate != nil && lastDate == nil{
+        if firstDate != nil && lastDate == nil {
             if date <= firstDate!{
                 calendar.deselect(firstDate!)
                 firstDate = date
@@ -335,14 +320,14 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             let range = datesRange(from: firstDate!, to: date)
             lastDate = range.last
             
-            for d in range{
+            for d in range {
                 calendar.select(d,scrollToDate: false)
             }
             datesRange = range
             return
         }
         
-        if firstDate != nil && lastDate != nil{
+        if firstDate != nil && lastDate != nil {
             for d in calendar.selectedDates{
                 calendar.deselect(d)
             }
@@ -367,7 +352,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
     }
 
-    private func configureVisibleCells(){
+    private func configureVisibleCells() {
         var count = 0
         //지금 보는 페이지의 cell 정리
         calendar.visibleCells().forEach{ (cell) in
@@ -378,16 +363,16 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
     }
 
-    private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition){
+    private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         let customCell = (cell as! CustomCalenderCell)
         customCell.circleImageView?.isHidden = !self.calendar.gregorian.isDateInToday(date)
         var selectionType = SelectionType.none
 
-        if position == .next{
+        if position == .next {
             customCell.selectionType = selectionType
             return
         }
-        if position == .current{
+        if position == .current {
             if calendar.selectedDates.contains(date){
                 let previousDate = self.calendar.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.calendar.gregorian.date(byAdding: .day, value: 1, to: date)!
@@ -405,18 +390,18 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
                         selectionType = .single
                     }
                 }
-            }else{
+            }else {
                 selectionType = .none
             }
             
-            if selectionType == .none{
+            if selectionType == .none {
                 customCell.selectionType = selectionType
                 return
-            }else{
+            }else {
                 customCell.selectionType = selectionType
             }
         }
-        else{
+        else {
             return
         }
     }

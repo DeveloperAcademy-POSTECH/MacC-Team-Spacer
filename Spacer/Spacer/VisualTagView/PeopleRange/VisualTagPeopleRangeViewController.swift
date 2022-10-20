@@ -19,44 +19,21 @@ class VisualTagPeopleRangeViewController: UIViewController {
     }()
     
     lazy var nextButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        //set title
-        btn.setTitle("완료", for: .normal)
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 15)
-        btn.backgroundColor = UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1)
-        btn.layer.masksToBounds = true
-        btn.layer.cornerRadius = 10.0
-        btn.tag = 1
-        //add action to button
-        btn.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        return btn
+        let button = NextButton()
+        button.setView(title: "완료", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
+        return button
     }()
     
     lazy var cancelButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        //Config of button
-        var config = UIButton.Configuration.plain()
-        config.baseForegroundColor = .black
-        btn.configuration = config
-        //button image
-        btn.setImage(UIImage(systemName: "multiply"), for: .normal)
-        //button tag
-        btn.tag = 2
-        //add action to button
-        btn.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        return btn
+        let button = CancelButton()
+        button.setView(foreground: .black, image: UIImage(systemName: "multiply"), target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
+        return button
     }()
     
     lazy var backButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        btn.setTitle("이전으로 돌아가기", for: .normal)
-        btn.setTitleColor(UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), for: .normal)
-        btn.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 15)
-        
-        btn.tag = 3
-        btn.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        return btn
+        let button = BackButton()
+        button.setView(title: "이전으로 돌아가기", titleColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
+        return button
     }()
     
     override func viewDidLoad() {

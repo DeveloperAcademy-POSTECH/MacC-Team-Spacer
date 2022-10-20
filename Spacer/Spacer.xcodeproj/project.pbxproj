@@ -29,6 +29,9 @@
 		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
 		D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */; };
 		D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */; };
+		D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47429012EB400D6B0A0 /* CancelButton.swift */; };
+		D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47829013DBB00D6B0A0 /* NextButton.swift */; };
+		D486C47B29013FC200D6B0A0 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47A29013FC200D6B0A0 /* BackButton.swift */; };
 		D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729329011A79007A5297 /* CustomCalenderCell.swift */; };
 		D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */; };
 		D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */; };
@@ -71,6 +74,9 @@
 		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
 		D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
 		D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeReviewViewController.swift; sourceTree = "<group>"; };
+		D486C47429012EB400D6B0A0 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
+		D486C47829013DBB00D6B0A0 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		D486C47A29013FC200D6B0A0 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		D4A3729329011A79007A5297 /* CustomCalenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalenderCell.swift; sourceTree = "<group>"; };
 		D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagCalendarViewController.swift; sourceTree = "<group>"; };
 		D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagMapViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +138,9 @@
 				D4A3729529011A79007A5297 /* Map */,
 				D4A3729729011A79007A5297 /* PeopleTarget */,
 				D4A3729929011A79007A5297 /* PeopleRange */,
+				D486C47429012EB400D6B0A0 /* CancelButton.swift */,
+				D486C47829013DBB00D6B0A0 /* NextButton.swift */,
+				D486C47A29013FC200D6B0A0 /* BackButton.swift */,
 			);
 			path = VisualTagView;
 			sourceTree = "<group>";
@@ -311,11 +320,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D486C47B29013FC200D6B0A0 /* BackButton.swift in Sources */,
 				D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */,
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
 				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
 				BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */,
+				D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */,
+				D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */,
 				D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */,
 				BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */,
 				BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */,

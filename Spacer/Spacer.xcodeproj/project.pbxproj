@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D4049DC528F542AB007E442E /* VisualTagCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DC428F542AB007E442E /* VisualTagCalendarViewController.swift */; };
-		D4049DC728F548DC007E442E /* VisualTagMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DC628F548DC007E442E /* VisualTagMapView.swift */; };
-		D4049DCD28F5581B007E442E /* VisualTagPeopleTargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */; };
+		D4049DC728F548DC007E442E /* VisualTagMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DC628F548DC007E442E /* VisualTagMapViewController.swift */; };
+		D4049DCD28F5581B007E442E /* VisualTagPeopleTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4049DCC28F5581A007E442E /* VisualTagPeopleTargetViewController.swift */; };
 		D47BC1A628F9487400B752F4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D47BC1A528F9487400B752F4 /* FSCalendar */; };
-		D49C72C828FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */; };
+		D49C72C828FBE2ED00A5D8F7 /* VisualTagPeopleRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeViewController.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
@@ -36,10 +36,10 @@
 
 /* Begin PBXFileReference section */
 		D4049DC428F542AB007E442E /* VisualTagCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCalendarViewController.swift; sourceTree = "<group>"; };
-		D4049DC628F548DC007E442E /* VisualTagMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagMapView.swift; sourceTree = "<group>"; };
-		D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleTargetView.swift; sourceTree = "<group>"; };
+		D4049DC628F548DC007E442E /* VisualTagMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagMapViewController.swift; sourceTree = "<group>"; };
+		D4049DCC28F5581A007E442E /* VisualTagPeopleTargetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleTargetViewController.swift; sourceTree = "<group>"; };
 		D46BB76728F94ACC004719B6 /* Spacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleRangeView.swift; sourceTree = "<group>"; };
+		D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleRangeViewController.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		D462850628FE669A0041544F /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				D4049DC628F548DC007E442E /* VisualTagMapView.swift */,
+				D4049DC628F548DC007E442E /* VisualTagMapViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -106,7 +106,7 @@
 		D462850A2901047D0041544F /* PeopleRange */ = {
 			isa = PBXGroup;
 			children = (
-				D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift */,
+				D49C72C728FBE2ED00A5D8F7 /* VisualTagPeopleRangeViewController.swift */,
 			);
 			path = PeopleRange;
 			sourceTree = "<group>";
@@ -114,7 +114,7 @@
 		D462850B2901048C0041544F /* PeopleTarget */ = {
 			isa = PBXGroup;
 			children = (
-				D4049DCC28F5581A007E442E /* VisualTagPeopleTargetView.swift */,
+				D4049DCC28F5581A007E442E /* VisualTagPeopleTargetViewController.swift */,
 			);
 			path = PeopleTarget;
 			sourceTree = "<group>";
@@ -256,8 +256,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4049DC728F548DC007E442E /* VisualTagMapView.swift in Sources */,
-				D4049DCD28F5581B007E442E /* VisualTagPeopleTargetView.swift in Sources */,
+				D4049DC728F548DC007E442E /* VisualTagMapViewController.swift in Sources */,
+				D4049DCD28F5581B007E442E /* VisualTagPeopleTargetViewController.swift in Sources */,
 				D4FAA00328FC87D600C6A0BA /* CustomCalenderCell.swift in Sources */,
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
@@ -267,7 +267,7 @@
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
-				D49C72C828FBE2ED00A5D8F7 /* VisualTagPeopleRangeView.swift in Sources */,
+				D49C72C828FBE2ED00A5D8F7 /* VisualTagPeopleRangeViewController.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

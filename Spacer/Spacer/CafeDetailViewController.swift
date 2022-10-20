@@ -119,7 +119,7 @@ class CafeDetailViewController: UIViewController {
         return viewController
     }()
     
-    var datatViewControllers: [UIViewController] {
+    var dataViewControllers: [UIViewController] {
         [self.detailInfoView, self.reviewView]
     }
     

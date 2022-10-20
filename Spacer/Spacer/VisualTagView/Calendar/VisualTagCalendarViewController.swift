@@ -196,7 +196,7 @@ extension VisualTagCalendarViewController{
         if let button = sender as? UIButton{
             switch button.tag{
             case 1:
-                self.navigationController?.pushViewController(VisualTagMapView(), animated: true)
+                self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
             case 2:
                 super.dismiss(animated: true, completion: nil)
             default:

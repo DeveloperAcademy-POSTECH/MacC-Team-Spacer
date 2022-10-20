@@ -7,7 +7,7 @@
 
 import UIKit
 
-// 사용법 stackView.layoutMargins = UIEdgeInsets(top: .padding.toComponents, left: 0, bottom: 0, right: 0)
+// 사용법 stackView.layoutMargins = UIEdgeInsets(top: .padding.differentHierarchyPadding, left: 0, bottom: 0, right: 0)
 extension CGFloat {
     static let padding = PaddingTheme()
 }

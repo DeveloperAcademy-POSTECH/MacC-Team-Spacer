@@ -8,7 +8,7 @@
 import UIKit
 import FSCalendar
 
-enum SelectionType{
+enum SelectionType {
     case none
     case single
     case first
@@ -78,7 +78,7 @@ class CustomCalenderCell: FSCalendarCell {
         let roundedLayerHeight = roundedLayer?.frame.height ?? .zero
         let roundedLayerWidth = roundedLayer?.frame.width ?? .zero
         
-        switch selectionType{
+        switch selectionType {
         case .mid:
             self.selectionLayer?.isHidden = false
             self.roundedLayer?.isHidden = true
@@ -140,7 +140,6 @@ class CustomCalenderCell: FSCalendarCell {
                               height: diameter)
                 .insetBy(dx: 2.5, dy: 2.5)
             self.roundedLayer?.path = UIBezierPath(ovalIn: rect).cgPath
-
         }
     }
 }

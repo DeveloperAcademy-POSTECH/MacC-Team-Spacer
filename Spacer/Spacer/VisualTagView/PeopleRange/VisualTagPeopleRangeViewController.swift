@@ -13,7 +13,6 @@ class VisualTagPeopleRangeViewController: UIViewController {
         let label = UILabel()
         label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)
         label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
-        label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 2
         label.text = "원하는 카페의 인원 수용 규모를 \n선택해주세요."
         return label

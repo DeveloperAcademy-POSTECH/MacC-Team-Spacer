@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
+		D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */; };
+		D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */; };
 		BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */; };
 		BF5F8AB028FE73AE00CF9E3A /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */; };
 		BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB128FE74A400CF9E3A /* MockParser.swift */; };
@@ -24,6 +27,7 @@
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
 		D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5228F5294900992600 /* FavoriteViewController.swift */; };
 		D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */; };
+		D4C95C5728F5437200992600 /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5628F5437200992600 /* CafeDetailViewController.swift */; };
 		D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BB28EF48CA0066B711 /* AppDelegate.swift */; };
 		D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */; };
 		D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */; };
@@ -32,6 +36,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
+		D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
+		D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeReviewViewController.swift; sourceTree = "<group>"; };
 		BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInfo.swift; sourceTree = "<group>"; };
 		BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
 		BF5F8AB128FE74A400CF9E3A /* MockParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParser.swift; sourceTree = "<group>"; };
@@ -49,6 +56,7 @@
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		D4C95C5228F5294900992600 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeViewController.swift; sourceTree = "<group>"; };
+		D4C95C5628F5437200992600 /* CafeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailViewController.swift; sourceTree = "<group>"; };
 		D4E950B828EF48CA0066B711 /* Spacer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spacer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4E950BB28EF48CA0066B711 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +109,10 @@
 				D4E950BB28EF48CA0066B711 /* AppDelegate.swift */,
 				D4E950BD28EF48CA0066B711 /* SceneDelegate.swift */,
 				D4E950BF28EF48CA0066B711 /* MainTabBarViewController.swift */,
+				D4C95C5628F5437200992600 /* CafeDetailViewController.swift */,
+				D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */,
+				D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */,
+				D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */,
 				BF5F8AB428FE868E00CF9E3A /* MyHeaderView.swift */,
 				BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */,
 				D4C95C4C28F5288F00992600 /* RequestViewController.swift */,
@@ -202,6 +214,12 @@
 				BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */,
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
+				D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */,
+				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
+				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
+				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
+				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
+				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
@@ -213,6 +231,7 @@
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
 				BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,
+				D4C95C5728F5437200992600 /* CafeDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

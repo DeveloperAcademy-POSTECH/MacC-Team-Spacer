@@ -16,17 +16,53 @@ enum Sections: Int {
 
 class BirthdayCafeViewController: UIViewController {
     
-    // MARK: - 로고 이미지
+    // 전체를 감싸는 스크롤뷰 - delegate를 활용하여 navBar 변화를 주기 위해 사용
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
     
+    // 커스텀 네비게이션 바
+    let navBar: UIView = {
+        let navBar = UIView()
+        navBar.backgroundColor = .mainPurple4
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        navBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        navBar.clipsToBounds = true
+        return navBar
+    }()
+    
+    // 로고 이미지
     let logoButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "RANG"), for: .normal)
+        button.setImage(UIImage(named: "CELEBER"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
         return button
     }()
     
-   // MARK: - 0. section이름
+    // 네비게이션 아이템 - 돋보기
+    let magnifyButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
+        button.tintColor = .mainPurple6
+        button.translatesAutoresizingMaskIntoConstraints = false
+        // MARK: - TODO: 버튼에 액션 추가
+        return button
+    }()
+    
+    // 네비게이션 아이템 - 하트
+    let heartButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
+        button.tintColor = .mainPurple6
+        button.translatesAutoresizingMaskIntoConstraints = false
+        // MARK: - TODO: 버튼에 액션 추가
+        return button
+    }()
+    // MARK: - 0. section이름
     
     let sectionTitles: [String] = ["최근 카페 후기", "가장 인기 있는 카페"]
     
@@ -40,17 +76,30 @@ class BirthdayCafeViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(PopularCafeTableViewCell.self, forCellReuseIdentifier: PopularCafeTableViewCell.identifier)
         table.register(RecentCafeTableViewCell.self, forCellReuseIdentifier: RecentCafeTableViewCell.identifier)
+        table.backgroundColor = .white
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(birthdayCafeTableView)
-        birthdayCafeTableView.backgroundColor = .white
+        view.addSubview(scrollView)
+        view.addSubview(navBar)
+        
+        scrollView.addSubview(birthdayCafeTableView)
+        
+        navBar.addSubview(logoButton)
+        navBar.addSubview(magnifyButton)
+        navBar.addSubview(heartButton)
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width*0.66))
         birthdayCafeTableView.tableHeaderView = headerView
+        
+        // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
+        navigationController?.isNavigationBarHidden = true
+        
+        scrollView.delegate = self
         
         birthdayCafeTableView.delegate = self
         birthdayCafeTableView.dataSource = self
@@ -61,31 +110,55 @@ class BirthdayCafeViewController: UIViewController {
         
         self.tempCafeArray =  MockManager.shared.getMockData()
         
-        setNavBar()
+        applyConstraints()
     }
-    // MARK: - 네비게이션 설정
-    func setNavBar(){
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.init(red: 227/255, green: 217/255, blue: 255/255, alpha: 1.0)
-        navigationController?.navigationBar.tintColor = .black
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
+    func applyConstraints() {
         
-        // 네비게이션 좌측 로고
-        NSLayoutConstraint.activate([
-            logoButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.25),
-            logoButton.heightAnchor.constraint(equalToConstant: 32)
-        ])
-        let logo = UIBarButtonItem(customView: logoButton)
+        let scrollViewConstraints = [
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]
         
-        self.navigationItem.leftBarButtonItem = logo
+        let navBarConstraints = [
+            navBar.topAnchor.constraint(equalTo: view.topAnchor),
+            navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
+            navBar.heightAnchor.constraint(equalToConstant: 99 * view.bounds.height / 844)
+        ]
         
-        // 네비게이션 우측 아이템
-        let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(goToSearchListView))
-        let heart = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(goToFavorites))
-        self.navigationItem.rightBarButtonItems = [heart,search]
+        let logoButtonConstraints = [
+            logoButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding * view.bounds.height / 844),
+            logoButton.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: 20 * view.bounds.width / 390),
+            logoButton.widthAnchor.constraint(equalToConstant: 113.89 * view.bounds.width / 390),
+            logoButton.heightAnchor.constraint(equalToConstant: 24 * view.bounds.height / 844)
+        ]
+        
+        let heartButtonConstraints = [
+            heartButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding * view.bounds.height / 844),
+            heartButton.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -20 * view.bounds.width / 390),
+            heartButton.heightAnchor.constraint(equalToConstant: 24 * view.bounds.height / 844 )
+        ]
+        
+        let magnifyButtonConstraints = [
+            magnifyButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding * view.bounds.height / 844),
+            magnifyButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -20 * view.bounds.width / 390),
+            magnifyButton.heightAnchor.constraint(equalToConstant: 24 * view.bounds.height / 844 )
+        ]
+        
+        let birthdayCafeTableViewConstraints = [
+            birthdayCafeTableView.topAnchor.constraint(equalTo:navBar.bottomAnchor),
+            birthdayCafeTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            birthdayCafeTableView.widthAnchor.constraint(equalToConstant: view.bounds.width),
+            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(scrollViewConstraints)
+        NSLayoutConstraint.activate(navBarConstraints)
+        NSLayoutConstraint.activate(logoButtonConstraints)
+        NSLayoutConstraint.activate(heartButtonConstraints)
+        NSLayoutConstraint.activate(magnifyButtonConstraints)
+        NSLayoutConstraint.activate(birthdayCafeTableViewConstraints)
     }
     
     override func viewWillLayoutSubviews() {
@@ -101,6 +174,7 @@ class BirthdayCafeViewController: UIViewController {
         show(SearchListViewController(), sender: nil)
     }
 }
+
 extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
@@ -136,7 +210,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
             return cell
-        
+            
         default:
             return UITableViewCell()
         }
@@ -171,5 +245,16 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+// 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정
+extension BirthdayCafeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= headerView!.bounds.height {
+            self.navBar.layer.cornerRadius = 24
+        } else {
+            self.navBar.layer.cornerRadius = 0
+        }
     }
 }

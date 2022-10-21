@@ -49,6 +49,7 @@ class BirthdayCafeViewController: UIViewController {
         button.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
         button.tintColor = .mainPurple6
         button.translatesAutoresizingMaskIntoConstraints = false
+        // MARK: - TODO: 버튼에 액션 추가
         return button
     }()
     
@@ -58,6 +59,7 @@ class BirthdayCafeViewController: UIViewController {
         button.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
         button.tintColor = .mainPurple6
         button.translatesAutoresizingMaskIntoConstraints = false
+        // MARK: - TODO: 버튼에 액션 추가
         return button
     }()
     // MARK: - 0. section이름
@@ -94,8 +96,6 @@ class BirthdayCafeViewController: UIViewController {
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 150 * view.bounds.height / 844))
         birthdayCafeTableView.tableHeaderView = headerView
-        // TODO: - 상세 조건 검색 페이지로 이동해야함 (VisualTagCalendarView)
-        headerView?.headerButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
         
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
@@ -112,9 +112,6 @@ class BirthdayCafeViewController: UIViewController {
         self.tempCafeArray =  MockManager.shared.getMockData()
         
         applyConstraints()
-        
-        magnifyButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
-        heartButton.addTarget(self, action: #selector(goToFavorites), for: .touchUpInside)
     }
     func applyConstraints() {
         
@@ -241,8 +238,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             // MARK: - 1. 셀에 cafeInfo를 넘겨줌
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
-            
-            cell.selectionStyle = .none
             return cell
             
         default:

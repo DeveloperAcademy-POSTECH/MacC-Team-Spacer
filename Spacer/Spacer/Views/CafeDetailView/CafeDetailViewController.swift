@@ -66,8 +66,19 @@ class CafeDetailViewController: UIViewController {
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
         segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(changePageControllerViewController(_:)), for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
+    }()
+    
+    // ViewController를 표시할 pageController
+    lazy var pageController: UIPageViewController = {
+        let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        pageController.setViewControllers([self.dataViewControllers[0]], direction: .forward, animated: true)
+        pageController.dataSource = self
+        pageController.delegate = self
+        pageController.view.translatesAutoresizingMaskIntoConstraints = false
+        return pageController
     }()
     
     // 하단에 고정할 버튼을 담을 View
@@ -139,20 +150,28 @@ class CafeDetailViewController: UIViewController {
         self.view.addSubview(self.scrollView)
         self.view.addSubview(self.bottomBar)
         
-        //scrollView.addSubView
-        self.scrollView.addSubview(dynamicStackView)
+        // scrollView.addSubView
+        self.scrollView.addSubview(self.dynamicStackView)
         self.scrollView.addSubview(self.imageScrollView)
         self.scrollView.addSubview(self.pageControl)
-        self.scrollView.addSubview(segmentedControl)
+        self.scrollView.addSubview(self.segmentedControl)
+        
+        // dynamicStackView.addArrangedSubview
+        self.dynamicStackView.addArrangedSubview(self.pageController.view)
         
         // bottomBar View에 버튼 추가
-        self.bottomBar.addSubview(chatButton)
-        self.bottomBar.addSubview(reservationButton)
+        self.bottomBar.addSubview(self.chatButton)
+        self.bottomBar.addSubview(self.reservationButton)
         
         applyConstraints()
     }
     
     // MARK: - functions
+    
+    // segmentControl을 터치하면 아래 PageViewController의 view가 바뀜
+    @objc private func changePageControllerViewController(_ sender: UISegmentedControl) {
+        self.pageController.setViewControllers([dataViewControllers[sender.selectedSegmentIndex]], direction: sender.selectedSegmentIndex == 1 ? .forward : .reverse, animated: true)
+    }
     
     func showCafeImages(width: CGFloat, height: CGFloat, cafeImages: [String], parentView: UIView) {
         for i in 0 ..< cafeImages.count {
@@ -211,12 +230,20 @@ class CafeDetailViewController: UIViewController {
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
+        let pageControllerConstraints = [
+            pageController.view.leadingAnchor.constraint(equalTo: self.dynamicStackView.leadingAnchor),
+            pageController.view.trailingAnchor.constraint(equalTo: self.dynamicStackView.trailingAnchor),
+            pageController.view.topAnchor.constraint(equalTo: self.segmentedControl.bottomAnchor),
+            pageController.view.heightAnchor.constraint(equalToConstant: self.pageController.view.bounds.height)
+        ]
+        
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)
         NSLayoutConstraint.activate(segmentControlConstraints)
+        NSLayoutConstraint.activate(pageControllerConstraints)
     }
                                    
 }
@@ -243,4 +270,33 @@ extension CafeDetailViewController: UIScrollViewDelegate {
             pageControl.currentPage = Int(scrollView.contentOffset.x / self.imageScrollView.bounds.width)
         }
     }
+}
+
+extension CafeDetailViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    
+    // pageViewController를 오른쪽에서 왼쪽으로 스크롤 할 때 ViewController 변경
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = self.dataViewControllers.firstIndex(of: viewController), index - 1 >= 0 else {
+            return nil
+        }
+        return self.dataViewControllers[index - 1]
+    }
+    
+    // pageViewController를 왼쪽에서 오른쪽으로 스크롤 할 때 ViewController 변경
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = self.dataViewControllers.firstIndex(of: viewController), index + 1 < self.dataViewControllers.count else {
+            return nil
+        }
+        return self.dataViewControllers[index + 1]
+    }
+    
+    // pageViewController 애니메이션이 끝났을 때 segmentdControl의 selectedIndex 변경
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let viewController = pageViewController.viewControllers?[0], let index = self.dataViewControllers.firstIndex(of: viewController) else {
+            return
+        }
+        self.segmentedControl.selectedSegmentIndex = index
+    }
+    
+    
 }

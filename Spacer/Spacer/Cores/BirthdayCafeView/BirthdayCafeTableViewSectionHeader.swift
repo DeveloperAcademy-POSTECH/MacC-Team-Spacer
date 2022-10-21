@@ -8,28 +8,33 @@
 import UIKit
 
 class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
+    
+    static let identifier = "BirthdayCafeTableViewSectionHeader"
+    
     let sectionTitle: UILabel = {
         let label = UILabel()
         label.font = .systemFont(for: .header3)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     let sectionImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    static let identifier = "BirthdayCafeTableViewSectionHeader"
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        
         addSubview(sectionTitle)
         addSubview(sectionImage)
         
-        // sectionImage는 고정값으로 오토레이아웃 설정함
-        NSLayoutConstraint.activate([
+        let sectionImageConstraints = [
             sectionImage.leadingAnchor.constraint(equalTo: sectionTitle.trailingAnchor, constant: 6),
             sectionImage.centerYAnchor.constraint(equalTo: sectionTitle.centerYAnchor)
-        ])
+        ]
+        NSLayoutConstraint.activate(sectionImageConstraints)
     }
     
     required init?(coder: NSCoder) {

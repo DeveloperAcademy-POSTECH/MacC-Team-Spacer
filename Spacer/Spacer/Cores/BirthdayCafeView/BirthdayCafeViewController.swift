@@ -260,9 +260,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue:
-            return view.bounds.height * 0.14
+            return 100 * view.bounds.height / 844
         case Sections.popularCafe.rawValue:
-            return view.bounds.height * 0.25
+            return 214 * view.bounds.height / 844
         default:
             return 214
         }

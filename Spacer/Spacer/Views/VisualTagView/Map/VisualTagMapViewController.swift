@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VisualTagMapViewController: UIViewController{
+class VisualTagMapViewController: UIViewController {
     
     lazy var headerTitle: UILabel = {
         let label = UILabel()
@@ -35,6 +35,12 @@ class VisualTagMapViewController: UIViewController{
         return button
     }()
     
+    lazy var testButton: UIButton = {
+        let button = NextButton()
+        button.setView(title: "테스트입니다.", titleColor: .white, backgroundColor: .black, target: VisualTagMapViewController(), action: #selector(test(_:)))
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -58,22 +64,33 @@ class VisualTagMapViewController: UIViewController{
             headerTitle.widthAnchor.constraint(equalToConstant: view.bounds.width/10*9)
         ])
         
+        //backButton autolayout
         view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             backButton.widthAnchor.constraint(equalTo: headerTitle.widthAnchor),
             backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         //next button autolayout
-        self.view.addSubview(self.nextButton)
+        view.addSubview(self.nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -20),
+            nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -8),
             nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
+        ])
+        
+        //test button autolayout
+        view.addSubview(self.testButton)
+        testButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            testButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            testButton.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -16),
+            testButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
+            testButton.heightAnchor.constraint(equalToConstant: view.bounds.height/9.59)
         ])
     }
     
@@ -93,4 +110,16 @@ class VisualTagMapViewController: UIViewController{
             }
         }
     }
+    @objc func test(_ sender: Any){
+        if let button = sender as? UIButton {
+            switch button.tag {
+            case 1:
+                print("test")
+            default:
+                print("Error")
+            }
+        }
+    }
 }
+
+

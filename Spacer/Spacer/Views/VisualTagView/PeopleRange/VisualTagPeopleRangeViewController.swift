@@ -55,14 +55,14 @@ class VisualTagPeopleRangeViewController: UIViewController {
         headerTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: (view.bounds.width/10)/2),
-            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 7),
+            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 8),
             headerTitle.widthAnchor.constraint(equalToConstant: view.bounds.width/10*9)
         ])
         
         view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             backButton.widthAnchor.constraint(equalTo: headerTitle.widthAnchor),
             backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
@@ -72,7 +72,7 @@ class VisualTagPeopleRangeViewController: UIViewController {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -20),
+            nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -8),
             nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
         ])

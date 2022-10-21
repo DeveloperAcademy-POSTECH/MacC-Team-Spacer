@@ -11,22 +11,22 @@ class MyHeaderView: UIView {
     
     static let identifier = "MyHeaderView"
     
-    private let headerImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "CELEBER")
-        return imageView
+    let headerButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "CELEBER"), for: .normal)
+        return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(headerImageView)
+        
+        addSubview(headerButton)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        headerImageView.frame = bounds
+        
+        headerButton.frame = bounds
     }
     
     required init?(coder: NSCoder) {

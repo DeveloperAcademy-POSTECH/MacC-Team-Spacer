@@ -62,9 +62,10 @@ class BirthdayCafeViewController: UIViewController {
         // MARK: - TODO: 버튼에 액션 추가
         return button
     }()
-    // MARK: - 0. section이름
+    // MARK: - 0. section정보
     
     let sectionTitles: [String] = ["최근 카페 후기", "가장 인기 있는 카페"]
+    let sectionImages: [String] = ["book", "leaf"]
     
     private var headerView: MyHeaderView?
     
@@ -96,6 +97,9 @@ class BirthdayCafeViewController: UIViewController {
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 150 * view.bounds.height / 844))
         birthdayCafeTableView.tableHeaderView = headerView
+        headerView?.headerButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
+        
+        
         
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
@@ -110,6 +114,9 @@ class BirthdayCafeViewController: UIViewController {
         // MARK: - 1. 카페 불러오기
         
         self.tempCafeArray =  MockManager.shared.getMockData()
+        
+        magnifyButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
+               heartButton.addTarget(self, action: #selector(goToFavorites), for: .touchUpInside)
         
         applyConstraints()
     }
@@ -168,7 +175,7 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     @objc func goToFavorites() {
-        print("goToFavorites")
+        show(FavoriteViewController(),sender: nil)
     }
     
     @objc func goToSearchListView() {
@@ -184,26 +191,23 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     
     // MARK: - SectionHeader
     
+    // 커스텀 섹션 헤더 - 타이틀
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case Sections.recentCafeReview.rawValue:
-            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView()
-            }
-            sectionHeader.title.text = sectionTitles[section]
-            sectionHeader.title.bottomAnchor.constraint(equalTo: sectionHeader.bottomAnchor ,constant:  -.padding.underTitlePadding * view.bounds.height / 844 ).isActive = true
-            sectionHeader.title.leadingAnchor.constraint(equalTo: sectionHeader.leadingAnchor, constant: .padding.homeMargin * view.bounds.width / 390).isActive = true
-            return sectionHeader
-        case Sections.popularCafe.rawValue:
-            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView()
-            }
-            sectionHeader.title.text = sectionTitles[section]
-            sectionHeader.title.bottomAnchor.constraint(equalTo: sectionHeader.bottomAnchor ,constant:  -.padding.underTitlePadding * view.bounds.height / 844 ).isActive = true
-            sectionHeader.title.leadingAnchor.constraint(equalTo: sectionHeader.leadingAnchor, constant: .padding.homeMargin * view.bounds.width / 390).isActive = true
-            return sectionHeader
-        default:
-            return UIView()
+        
+        guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView()
         }
+        
+        // 섹션 헤더뷰 설정
+        sectionHeader.sectionTitle.text = sectionTitles[section]
+        sectionHeader.sectionImage.image = UIImage(systemName: sectionImages[section])
+        
+        // 섹션 타이틀을 비율로 넣기 위해서 이곳에서 오토레이아웃 설정함
+        sectionHeader.sectionTitle.bottomAnchor.constraint(equalTo: sectionHeader.bottomAnchor ,constant:  -.padding.underTitlePadding * view.bounds.height / 844 ).isActive = true
+        sectionHeader.sectionTitle.leadingAnchor.constraint(equalTo: sectionHeader.leadingAnchor, constant: .padding.homeMargin * view.bounds.width / 390).isActive = true
+        
+        return sectionHeader
     }
+    
     // 섹션헤더의 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
@@ -244,6 +248,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             // MARK: - 1. 셀에 cafeInfo를 넘겨줌
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
+            cell.selectionStyle = .none
             return cell
             
         default:

@@ -13,9 +13,9 @@ class MyHeaderView: UIView {
     
     private let headerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "RANG")
+        imageView.image = UIImage(named: "CELEBER")
         return imageView
     }()
     

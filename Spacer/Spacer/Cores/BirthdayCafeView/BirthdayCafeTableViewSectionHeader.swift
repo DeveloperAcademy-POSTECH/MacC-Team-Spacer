@@ -8,11 +8,17 @@
 import UIKit
 
 class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
-
+    let title: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(for: .header3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     static let identifier = "BirthdayCafeTableViewSectionHeader"
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .red
+        addSubview(title)
+    
     }
     
     required init?(coder: NSCoder) {

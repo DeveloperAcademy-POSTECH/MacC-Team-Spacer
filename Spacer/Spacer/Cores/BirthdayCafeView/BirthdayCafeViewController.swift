@@ -187,12 +187,18 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case Sections.recentCafeReview.rawValue:
-            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) else { return UIView()
+            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView()
             }
+            sectionHeader.title.text = sectionTitles[section]
+            sectionHeader.title.bottomAnchor.constraint(equalTo: sectionHeader.bottomAnchor ,constant:  -.padding.underTitlePadding * view.bounds.height / 844 ).isActive = true
+            sectionHeader.title.leadingAnchor.constraint(equalTo: sectionHeader.leadingAnchor, constant: .padding.homeMargin * view.bounds.width / 390).isActive = true
             return sectionHeader
         case Sections.popularCafe.rawValue:
-            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) else { return UIView()
+            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView()
             }
+            sectionHeader.title.text = sectionTitles[section]
+            sectionHeader.title.bottomAnchor.constraint(equalTo: sectionHeader.bottomAnchor ,constant:  -.padding.underTitlePadding * view.bounds.height / 844 ).isActive = true
+            sectionHeader.title.leadingAnchor.constraint(equalTo: sectionHeader.leadingAnchor, constant: .padding.homeMargin * view.bounds.width / 390).isActive = true
             return sectionHeader
         default:
             return UIView()

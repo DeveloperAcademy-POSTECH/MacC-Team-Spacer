@@ -1,16 +1,16 @@
 [{
-    "cafe_id":1, "cafe_name":"랑카페입니당12345", "image_directories":["RANG"],"address":"서울 홍대","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":10,"cafe_max_people":30,"costs":50,"location_id":55,"cafe_star_rating":4.0
+    "cafe_id":1, "cafe_name":"랑카페입니당12345", "image_directories":["CELEBER"],"address":"서울 홍대","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":10,"cafe_max_people":30,"costs":50,"location_id":55,"cafe_star_rating":4.0
 },
     {
-        "cafe_id":2, "cafe_name":"랑카페", "image_directories":["RANG"],"address":"서울 건대","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":5,"cafe_max_people":300,"costs":50,"location_id":55,"cafe_star_rating":3.2
+        "cafe_id":2, "cafe_name":"랑카페", "image_directories":["CELEBER"],"address":"서울 건대","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":5,"cafe_max_people":300,"costs":50,"location_id":55,"cafe_star_rating":3.2
     },
     {
-        "cafe_id":3, "cafe_name":"랑캎", "image_directories":["RANG"],"address":"서울 상수","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":10,"cafe_max_people":15,"costs":50,"location_id":55,"cafe_star_rating":3.5
+        "cafe_id":3, "cafe_name":"랑캎", "image_directories":["CELEBER"],"address":"서울 상수","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":10,"cafe_max_people":15,"costs":50,"location_id":55,"cafe_star_rating":3.5
     },
     {
-        "cafe_id":4, "cafe_name":"카페랑", "image_directories":["RANG"],"address":"서울 영등포","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":0,"cafe_max_people":10,"costs":50,"location_id":55,"cafe_star_rating":2.0
+        "cafe_id":4, "cafe_name":"카페랑", "image_directories":["CELEBER"],"address":"서울 영등포","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":0,"cafe_max_people":10,"costs":50,"location_id":55,"cafe_star_rating":2.0
     },
     {
-        "cafe_id":5, "cafe_name":"가나다랑", "image_directories":["RANG"],"address":"시흥군 ","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":20,"cafe_max_people":40,"costs":50,"location_id":55,"cafe_star_rating":1.1
+        "cafe_id":5, "cafe_name":"가나다랑", "image_directories":["CELEBER"],"address":"시흥군 ","cafe_phone_number":"010-1111-2222","sns":"hurdasol98","cafe_min_people":20,"cafe_max_people":40,"costs":50,"location_id":55,"cafe_star_rating":1.1
     }]
 

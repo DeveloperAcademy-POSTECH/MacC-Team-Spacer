@@ -74,6 +74,7 @@ class BirthdayCafeViewController: UIViewController {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(PopularCafeTableViewCell.self, forCellReuseIdentifier: PopularCafeTableViewCell.identifier)
         table.register(RecentCafeTableViewCell.self, forCellReuseIdentifier: RecentCafeTableViewCell.identifier)
+        table.register(BirthdayCafeTableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: BirthdayCafeTableViewSectionHeader.identifier)
         table.backgroundColor = .white
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
@@ -91,7 +92,7 @@ class BirthdayCafeViewController: UIViewController {
         navBar.addSubview(magnifyButton)
         navBar.addSubview(heartButton)
         
-        headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width*0.66))
+        headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 150 * view.bounds.height / 844))
         birthdayCafeTableView.tableHeaderView = headerView
         // TODO: - 상세 조건 검색 페이지로 이동해야함 (VisualTagCalendarView)
         headerView?.headerButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
@@ -179,10 +180,41 @@ class BirthdayCafeViewController: UIViewController {
 }
 
 extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource {
+    // 섹션 수
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
     }
     
+    // MARK: - SectionHeader
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case Sections.recentCafeReview.rawValue:
+            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) else { return UIView()
+            }
+            return sectionHeader
+        case Sections.popularCafe.rawValue:
+            guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) else { return UIView()
+            }
+            return sectionHeader
+        default:
+            return UIView()
+        }
+    }
+    // 섹션헤더의 높이
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case Sections.recentCafeReview.rawValue:
+            return 64 * view.bounds.height / 844
+        case Sections.popularCafe.rawValue:
+            
+            return 72 * view.bounds.height / 844
+        default:
+            return 10
+        }
+    }
+    
+    // 섹션에 들어갈 셀 수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Sections.recentCafeReview.rawValue: return 1
@@ -192,10 +224,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
-    }
-    
+    // 셀 지정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue :
@@ -220,22 +249,8 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
     }
-    // section마다 title 정의
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case Sections.recentCafeReview.rawValue: return sectionTitles[0]
-        case Sections.popularCafe.rawValue: return sectionTitles[1]
-        default:
-            return  "default"
-        }
-    }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else {return}
-        header.textLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
-        header.textLabel?.textColor = .label
-    }
-    
+    // 셀의 높이 지정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue:
@@ -247,6 +262,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    // 셀을 터치했을 경우
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)

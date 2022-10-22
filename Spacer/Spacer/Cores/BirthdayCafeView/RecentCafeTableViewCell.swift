@@ -17,10 +17,13 @@ class RecentCafeTableViewCell: UITableViewCell {
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 252, height: 120)
+        // 셀 사이의 간격
+        layout.minimumLineSpacing = .padding.betweenContentsPadding
+        layout.itemSize = CGSize(width: 253, height: 100)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        // content와 스크롤뷰(컬렉션뷰)와의 간격
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: .padding.homeMargin, bottom: 0, right: 0)
         collectionView.register(RecentCafeCollectionViewCell.self, forCellWithReuseIdentifier: RecentCafeCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -36,6 +39,7 @@ class RecentCafeTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         collectionView.frame = contentView.bounds
     }
     
@@ -64,4 +68,5 @@ extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         cell.configure(with: tempCafeArray[indexPath.row])
         return cell
     }
+    
 }

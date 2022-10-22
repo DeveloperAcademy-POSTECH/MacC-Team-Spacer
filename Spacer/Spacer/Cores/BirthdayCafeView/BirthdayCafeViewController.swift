@@ -95,11 +95,9 @@ class BirthdayCafeViewController: UIViewController {
         navBar.addSubview(magnifyButton)
         navBar.addSubview(heartButton)
         
-        headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 150 * view.bounds.height / 844))
+        headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
         birthdayCafeTableView.tableHeaderView = headerView
         headerView?.headerButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
-        
-        
         
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
@@ -116,7 +114,7 @@ class BirthdayCafeViewController: UIViewController {
         self.tempCafeArray =  MockManager.shared.getMockData()
         
         magnifyButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
-               heartButton.addTarget(self, action: #selector(goToFavorites), for: .touchUpInside)
+        heartButton.addTarget(self, action: #selector(goToFavorites), for: .touchUpInside)
         
         applyConstraints()
     }
@@ -129,29 +127,39 @@ class BirthdayCafeViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
-        let navBarConstraints = [
+        var navBarConstraints = [
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
             navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
-            navBar.heightAnchor.constraint(equalToConstant: 99 * view.bounds.height / 844)
+            navBar.heightAnchor.constraint(equalToConstant: 99)
         ]
         
+        // 노치가 없을 경우 navBar 오토레이아웃 처리
+        if !UIDevice.current.hasNotch {
+            navBarConstraints = [
+                navBar.topAnchor.constraint(equalTo: view.topAnchor),
+                navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
+                navBar.heightAnchor.constraint(equalToConstant: 69)
+            ]
+        }
+        
+        
         let logoButtonConstraints = [
-            logoButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding * view.bounds.height / 844),
-            logoButton.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: 20 * view.bounds.width / 390),
-            logoButton.widthAnchor.constraint(equalToConstant: 113.89 * view.bounds.width / 390),
-            logoButton.heightAnchor.constraint(equalToConstant: 24 * view.bounds.height / 844)
+            logoButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
+            logoButton.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: .padding.homeMargin),
+            logoButton.widthAnchor.constraint(equalToConstant: 120),
+            logoButton.heightAnchor.constraint(equalToConstant: 24)
         ]
         
         let heartButtonConstraints = [
-            heartButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding * view.bounds.height / 844),
-            heartButton.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -20 * view.bounds.width / 390),
-            heartButton.heightAnchor.constraint(equalToConstant: 24 * view.bounds.height / 844 )
+            heartButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
+            heartButton.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -.padding.homeMargin),
+            heartButton.heightAnchor.constraint(equalToConstant: 24)
         ]
         
         let magnifyButtonConstraints = [
-            magnifyButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding * view.bounds.height / 844),
-            magnifyButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -20 * view.bounds.width / 390),
-            magnifyButton.heightAnchor.constraint(equalToConstant: 24 * view.bounds.height / 844 )
+            magnifyButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
+            magnifyButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -.padding.homeMargin),
+            magnifyButton.heightAnchor.constraint(equalToConstant: 24)
         ]
         
         let birthdayCafeTableViewConstraints = [
@@ -201,10 +209,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         sectionHeader.sectionTitle.text = sectionTitles[section]
         sectionHeader.sectionImage.image = UIImage(systemName: sectionImages[section])
         
-        // 섹션 타이틀을 비율로 넣기 위해서 이곳에서 오토레이아웃 설정함
-        sectionHeader.sectionTitle.bottomAnchor.constraint(equalTo: sectionHeader.bottomAnchor ,constant:  -.padding.underTitlePadding * view.bounds.height / 844 ).isActive = true
-        sectionHeader.sectionTitle.leadingAnchor.constraint(equalTo: sectionHeader.leadingAnchor, constant: .padding.homeMargin * view.bounds.width / 390).isActive = true
-        
         return sectionHeader
     }
     
@@ -212,12 +216,12 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case Sections.recentCafeReview.rawValue:
-            return 64 * view.bounds.height / 844
+            return 64
         case Sections.popularCafe.rawValue:
             
-            return 72 * view.bounds.height / 844
+            return 72
         default:
-            return 10
+            return 72
         }
     }
     
@@ -236,19 +240,23 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue :
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentCafeTableViewCell.identifier, for: indexPath) as? RecentCafeTableViewCell else { return UITableViewCell() }
+            
             cell.backgroundColor = .systemBackground
+            
             cell.configure(with: self.tempCafeArray)
+            
             return cell
+            
         case Sections.popularCafe.rawValue :
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCafeTableViewCell.identifier, for: indexPath) as? PopularCafeTableViewCell else {
-                return UITableViewCell()
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PopularCafeTableViewCell.identifier, for: indexPath) as? PopularCafeTableViewCell else { return UITableViewCell() }
+            
             cell.backgroundColor = .systemBackground
             
             // MARK: - 1. 셀에 cafeInfo를 넘겨줌
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
             cell.selectionStyle = .none
+            
             return cell
             
         default:
@@ -260,9 +268,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue:
-            return 100 * view.bounds.height / 844
+            return 100
         case Sections.popularCafe.rawValue:
-            return 214 * view.bounds.height / 844
+            return 214
         default:
             return 214
         }
@@ -284,4 +292,18 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
             self.navBar.layer.cornerRadius = 0
         }
     }
+}
+
+// MARK: - 기기 별 대응하기 위한 extension
+// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업
+
+extension UIDevice {
+    var hasNotch: Bool {
+        if #available(iOS 11.0, *) {
+            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+        }
+        return false
+    }
+
 }

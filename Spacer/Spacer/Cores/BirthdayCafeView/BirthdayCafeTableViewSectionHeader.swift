@@ -30,10 +30,18 @@ class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
         addSubview(sectionTitle)
         addSubview(sectionImage)
         
+        // 섹션 타이틀을 비율로 넣기 위해서 이곳에서 오토레이아웃 설정함
+        let sectionTitleConstraints = [
+            sectionTitle.bottomAnchor.constraint(equalTo: bottomAnchor ,constant:  -.padding.underTitlePadding),
+            sectionTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.homeMargin)
+        ]
+        
         let sectionImageConstraints = [
             sectionImage.leadingAnchor.constraint(equalTo: sectionTitle.trailingAnchor, constant: 6),
             sectionImage.centerYAnchor.constraint(equalTo: sectionTitle.centerYAnchor)
         ]
+        
+        NSLayoutConstraint.activate(sectionTitleConstraints)
         NSLayoutConstraint.activate(sectionImageConstraints)
     }
     

@@ -138,7 +138,7 @@ class BirthdayCafeViewController: UIViewController {
             navBarConstraints = [
                 navBar.topAnchor.constraint(equalTo: view.topAnchor),
                 navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
-                navBar.heightAnchor.constraint(equalToConstant: 69)
+                navBar.heightAnchor.constraint(equalToConstant: 79)
             ]
         }
         
@@ -256,7 +256,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
             cell.selectionStyle = .none
-            
             return cell
             
         default:

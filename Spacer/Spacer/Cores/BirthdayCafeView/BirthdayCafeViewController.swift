@@ -24,6 +24,8 @@ class BirthdayCafeViewController: UIViewController {
         return scrollView
     }()
     
+    // TODO: - 테두리가 깎이는 상황에서 백그라운드가 clear로 .mainPurple4가 나와야함
+    
     // 커스텀 네비게이션 바
     let navBar: UIView = {
         let navBar = UIView()
@@ -153,13 +155,13 @@ class BirthdayCafeViewController: UIViewController {
         let heartButtonConstraints = [
             heartButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
             heartButton.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -.padding.homeMargin),
-            heartButton.heightAnchor.constraint(equalToConstant: 24)
+            heartButton.heightAnchor.constraint(equalToConstant: 28)
         ]
         
         let magnifyButtonConstraints = [
             magnifyButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
             magnifyButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -.padding.homeMargin),
-            magnifyButton.heightAnchor.constraint(equalToConstant: 24)
+            magnifyButton.heightAnchor.constraint(equalToConstant: 28)
         ]
         
         let birthdayCafeTableViewConstraints = [
@@ -202,8 +204,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     // 커스텀 섹션 헤더 - 타이틀
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView()
-        }
+        guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: BirthdayCafeTableViewSectionHeader.identifier) as? BirthdayCafeTableViewSectionHeader else { return UIView() }
         
         // 섹션 헤더뷰 설정
         sectionHeader.sectionTitle.text = sectionTitles[section]
@@ -212,16 +213,17 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         return sectionHeader
     }
     
+    // TODO: - 사샤에게 패딩 컨펌받기
+    
     // 섹션헤더의 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case Sections.recentCafeReview.rawValue:
-            return 64
+            return .padding.startHierarchyPadding + .padding.underTitlePadding + 24
         case Sections.popularCafe.rawValue:
-            
-            return 72
+            return .padding.differentHierarchyPadding + .padding.underTitlePadding + 24
         default:
-            return 72
+            return 10
         }
     }
     
@@ -256,9 +258,20 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
             cell.selectionStyle = .none
+
+            // cell에 쉐도우 넣기
+            cell.layer.cornerRadius = 12
+            cell.contentView.layer.masksToBounds = true
+            cell.contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.contentView.layer.shadowColor = UIColor.black.cgColor
+            cell.contentView.layer.shadowRadius = 3
+            cell.contentView.layer.shadowOpacity = 0.25
+            cell.contentView.layer.masksToBounds = false
+            
             return cell
             
         default:
+            
             return UITableViewCell()
         }
     }
@@ -267,7 +280,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue:
-            return 100
+            return 112
         case Sections.popularCafe.rawValue:
             return 214
         default:
@@ -285,12 +298,15 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
 // 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정
 extension BirthdayCafeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= headerView!.bounds.height {
+        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
             self.navBar.layer.cornerRadius = 24
         } else {
             self.navBar.layer.cornerRadius = 0
         }
     }
+    
+    // TODO: - ScrollUp방지
+    
 }
 
 // MARK: - 기기 별 대응하기 위한 extension

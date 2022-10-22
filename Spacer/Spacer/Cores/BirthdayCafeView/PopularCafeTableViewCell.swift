@@ -14,7 +14,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     // 카페 이미지
     private let CafeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 12
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
@@ -154,7 +154,9 @@ class PopularCafeTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
     
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: .padding.homeMargin, bottom: .padding.betweenContentsPadding, right: .padding.homeMargin))
+        // TODO: - 사샤에게 패딩 컨펌받기
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: .padding.betweenContentsPadding/2, left: .padding.homeMargin, bottom: .padding.betweenContentsPadding/2, right: .padding.homeMargin))
         
         NSLayoutConstraint.activate([
             CafeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -189,6 +191,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
+        
         gradientLayer.frame = contentView.bounds
     }
 }

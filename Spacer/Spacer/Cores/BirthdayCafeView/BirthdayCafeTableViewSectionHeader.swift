@@ -11,6 +11,8 @@ class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
     
     static let identifier = "BirthdayCafeTableViewSectionHeader"
     
+    // TODO: - underLine 추가
+    
     let sectionTitle: UILabel = {
         let label = UILabel()
         label.font = .systemFont(for: .header3)

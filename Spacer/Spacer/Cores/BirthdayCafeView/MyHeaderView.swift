@@ -13,7 +13,10 @@ class MyHeaderView: UIView {
     
     let headerButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "CELEBER"), for: .normal)
+        button.setImage(UIImage(named: "RecCaf"), for: .normal)
+        button.layer.cornerRadius = 24
+        button.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        button.clipsToBounds = true
         return button
     }()
     

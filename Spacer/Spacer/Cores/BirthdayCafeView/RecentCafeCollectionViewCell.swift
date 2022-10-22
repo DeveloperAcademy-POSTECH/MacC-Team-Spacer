@@ -15,7 +15,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 12
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         // 부분만 둥글게 하기
         imageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
         imageView.clipsToBounds = true
@@ -64,6 +64,14 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    // shadowView
+    var shadowView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    
     // 그라디언트
     let gradientLayer = CAGradientLayer()
     
@@ -74,14 +82,28 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        addSubview(cafeImageView)
-        addSubview(cafeName)
-        addSubview(cafeStarRating)
-        addSubview(cafeStarRatingImage)
-        addSubview(cafeReview)
+        addSubview(shadowView)
+        NSLayoutConstraint.activate([
+            shadowView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            shadowView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            shadowView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            shadowView.topAnchor.constraint(equalTo: topAnchor)
+        ])
+        shadowView.addSubview(cafeImageView)
+        shadowView.addSubview(cafeName)
+        shadowView.addSubview(cafeStarRating)
+        shadowView.addSubview(cafeStarRatingImage)
+        shadowView.addSubview(cafeReview)
         
         applyContraints()
+        
+        self.shadowView.layer.cornerRadius = 12
+        self.shadowView.layer.masksToBounds = true
+        self.shadowView.layer.shadowColor = UIColor.black.cgColor
+        self.shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.shadowView.layer.shadowRadius = 2
+        self.shadowView.layer.shadowOpacity = 0.25
+        self.shadowView.layer.masksToBounds = false
     }
     
     func applyContraints() {

@@ -7,8 +7,12 @@
 
 import UIKit
 
-class VisualTagPeopleTargetViewController: UIViewController {
+let targets = ["아이돌", "배우", "가수", "뮤지컬 배우", "운동선수", "캐릭터", "인플루언서", "래퍼", "성우", "코미디언", "해외 연예인", "기타"]
+var targetItemArray: [Bool] = Array<Bool>(repeating: false, count: targets.count)
 
+class VisualTagPeopleTargetViewController: UIViewController {
+    let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+    
     lazy var headerTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)
@@ -33,6 +37,20 @@ class VisualTagPeopleTargetViewController: UIViewController {
         let button = BackButton()
         button.setView(title: "이전으로 돌아가기", titleColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagPeopleTargetViewController(), action: #selector(buttonAction(_:)))
         return button
+    }()
+    
+    lazy var peopleTargetCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.estimatedItemSize = .zero
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(GridCollectionViewCell.self, forCellWithReuseIdentifier: GridCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = true
+        return collectionView
     }()
     
     override func viewDidLoad() {
@@ -75,6 +93,16 @@ class VisualTagPeopleTargetViewController: UIViewController {
             nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
         ])
+        
+        //collectionview autolayout
+        view.addSubview(self.peopleTargetCollectionView)
+        peopleTargetCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            peopleTargetCollectionView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: 32),
+            peopleTargetCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            peopleTargetCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            peopleTargetCollectionView.heightAnchor.constraint(equalToConstant: 500)
+        ])
     }
     
     //handling action for next, cancel button
@@ -93,5 +121,44 @@ class VisualTagPeopleTargetViewController: UIViewController {
                 print("Error")
             }
         }
+    }
+}
+
+
+extension VisualTagPeopleTargetViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    //collectionViewLayout sectionInsets configuration
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    //size of cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth: CGFloat = 114
+        let cellHeight: CGFloat =  88
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    //return number of cell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return targets.count
+    }
+    
+    //cell configuration
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
+        cell.configue(targets[indexPath.item])
+        return cell
+    }
+    
+    //cell selection handling delegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //전국 버튼을 눌렀을 때
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+        targetItemArray[indexPath.item] = true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            targetItemArray[indexPath.item] = false
     }
 }

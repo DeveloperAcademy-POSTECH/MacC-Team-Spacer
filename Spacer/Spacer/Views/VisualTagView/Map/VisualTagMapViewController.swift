@@ -97,6 +97,7 @@ class VisualTagMapViewController: UIViewController {
             nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
         ])
         
+        //collectionview autolayout
         view.addSubview(self.mapCollectionView)
         mapCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

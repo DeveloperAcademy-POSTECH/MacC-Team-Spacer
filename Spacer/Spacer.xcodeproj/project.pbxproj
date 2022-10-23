@@ -32,6 +32,7 @@
 		D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47429012EB400D6B0A0 /* CancelButton.swift */; };
 		D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47829013DBB00D6B0A0 /* NextButton.swift */; };
 		D486C47B29013FC200D6B0A0 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47A29013FC200D6B0A0 /* BackButton.swift */; };
+		D486C48B290280C200D6B0A0 /* GridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C489290280C200D6B0A0 /* GridCollectionViewCell.swift */; };
 		D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729329011A79007A5297 /* CustomCalenderCell.swift */; };
 		D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */; };
 		D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */; };
@@ -77,6 +78,7 @@
 		D486C47429012EB400D6B0A0 /* CancelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButton.swift; sourceTree = "<group>"; };
 		D486C47829013DBB00D6B0A0 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		D486C47A29013FC200D6B0A0 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		D486C489290280C200D6B0A0 /* GridCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridCollectionViewCell.swift; sourceTree = "<group>"; };
 		D4A3729329011A79007A5297 /* CustomCalenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalenderCell.swift; sourceTree = "<group>"; };
 		D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagCalendarViewController.swift; sourceTree = "<group>"; };
 		D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagMapViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,14 @@
 			path = FavoriteView;
 			sourceTree = "<group>";
 		};
+		D486C4912905A89F00D6B0A0 /* GridCell */ = {
+			isa = PBXGroup;
+			children = (
+				D486C489290280C200D6B0A0 /* GridCollectionViewCell.swift */,
+			);
+			path = GridCell;
+			sourceTree = "<group>";
+		};
 		D4A3729029011A79007A5297 /* VisualTagView */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +260,7 @@
 				D4A3729729011A79007A5297 /* PeopleTarget */,
 				D4A3729929011A79007A5297 /* PeopleRange */,
 				BFD1381429014DAF004E6726 /* Buttons */,
+				D486C4912905A89F00D6B0A0 /* GridCell */,
 			);
 			path = VisualTagView;
 			sourceTree = "<group>";
@@ -419,6 +430,7 @@
 				D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */,
 				BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */,
 				BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */,
+				D486C48B290280C200D6B0A0 /* GridCollectionViewCell.swift in Sources */,
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
 				D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */,

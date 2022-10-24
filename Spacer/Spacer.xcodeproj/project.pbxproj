@@ -38,6 +38,7 @@
 		D4A3729E29011A79007A5297 /* VisualTagPeopleTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */; };
 		D4A3729F29011A79007A5297 /* VisualTagPeopleRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */; };
 		D4A372A229011AB8007A5297 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D4A372A129011AB8007A5297 /* FSCalendar */; };
+		D4A372AF29063C8A007A5297 /* InfomationImageAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
@@ -82,6 +83,7 @@
 		D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagMapViewController.swift; sourceTree = "<group>"; };
 		D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleTargetViewController.swift; sourceTree = "<group>"; };
 		D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleRangeViewController.swift; sourceTree = "<group>"; };
+		D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationImageAndText.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */,
 				D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */,
 				D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */,
+				D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */,
 			);
 			path = CafeDetailView;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
+				D4A372AF29063C8A007A5297 /* InfomationImageAndText.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
 				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,

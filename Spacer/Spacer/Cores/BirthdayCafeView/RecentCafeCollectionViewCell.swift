@@ -116,7 +116,8 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         
         let cafeNameConstraints = [
             cafeName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.littleBoxPadding),
-            cafeName.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.padding.littleBoxPadding)
+            cafeName.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.padding.littleBoxPadding),
+            cafeName.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor)
         ]
         
         let cafeStarRatingConstraints = [

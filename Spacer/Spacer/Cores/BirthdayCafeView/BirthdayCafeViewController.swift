@@ -82,6 +82,8 @@ class BirthdayCafeViewController: UIViewController {
         table.register(BirthdayCafeTableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: BirthdayCafeTableViewSectionHeader.identifier)
         table.backgroundColor = .white
         table.translatesAutoresizingMaskIntoConstraints = false
+        // scrollUp시 navBar와 tableHeader가 떨어지는것 방지
+        table.bounces = false
         // 우측에 생기는 인디케이터 삭제
         table.showsVerticalScrollIndicator = false
         return table

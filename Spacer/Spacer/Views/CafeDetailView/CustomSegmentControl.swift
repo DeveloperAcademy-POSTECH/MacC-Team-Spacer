@@ -60,8 +60,8 @@ class CustomSegmentControl: UISegmentedControl {
         
         // selectedUnderline x, y 설정
         let segmentWidth = self.bounds.width / CGFloat(self.numberOfSegments)
-        let selectedUnderlineXPosition = segmentWidth * CGFloat(self.selectedSegmentIndex) +  (segmentWidth / 2) - (selectedUnderline.bounds.width / 2)
-        self.selectedUnderline.frame.origin.y = self.bounds.height - 4
+        let selectedUnderlineXPosition = segmentWidth * CGFloat(selectedSegmentIndex) +  (segmentWidth / 2) - (selectedUnderline.bounds.width / 2)
+        selectedUnderline.frame.origin.y = self.bounds.height - 4
         
         // selectedUnderline에 애니메이션 효과 추가
         UIView.animate(

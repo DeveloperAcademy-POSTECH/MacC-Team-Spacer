@@ -67,7 +67,7 @@ class InfomationImageAndText: UIView {
 
     private func applyIconConstraints() {
         let iconConstraints = [
-            icon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            icon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             icon.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         

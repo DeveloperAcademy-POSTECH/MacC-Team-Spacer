@@ -10,10 +10,11 @@ import UIKit
 class DetailInfomationViewController: UIViewController {
     // 상세정보 및 카페 조건 등을 보여주는 ViewController
     
+    // 전화번호 영업시간 등을 보여주는 StackView
     let cafeDetailInfoContainer: UIStackView = {
        let container = UIStackView()
         container.isLayoutMarginsRelativeArrangement = true
-        container.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .padding.startHierarchyPadding, leading: 0, bottom: .padding.startHierarchyPadding, trailing: 0)
+        container.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .padding.startHierarchyPadding, leading: 16, bottom: .padding.startHierarchyPadding, trailing: -16)
         container.backgroundColor = .white
         container.axis = .vertical
         container.spacing = .padding.betweenContentsPadding
@@ -28,11 +29,12 @@ class DetailInfomationViewController: UIViewController {
         return divider
     }()
     
+    // 카페의 이벤트 정보나 조건을 보여주는 StackView
     let cafeConditionContainer: UIStackView = {
         let container = UIStackView()
         container.isLayoutMarginsRelativeArrangement = true
         container.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .padding.differentHierarchyPadding, leading: 16, bottom: 0, trailing: -16)
-        container.backgroundColor = .white
+        container.backgroundColor = .blue
         container.axis = .vertical
         container.spacing = .padding.differentHierarchyPadding
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +46,7 @@ class DetailInfomationViewController: UIViewController {
         
         view.backgroundColor = .red
         
+        // InfomationImageAndText를 적용하기 위한 테스트 코드
         lazy var test = InfomationImageAndText(image: "phone.fill", category: "전화번호", discription: "010-7189-8294")
         test.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,6 +58,7 @@ class DetailInfomationViewController: UIViewController {
         
         view.addSubview(cafeDetailInfoContainer)
         view.addSubview(divider)
+        view.addSubview(cafeConditionContainer)
         
         self.cafeDetailInfoContainer.addArrangedSubview(test)
         self.cafeDetailInfoContainer.addArrangedSubview(test2)
@@ -81,7 +85,14 @@ class DetailInfomationViewController: UIViewController {
             divider.heightAnchor.constraint(equalToConstant: 2)
         ]
         
+        let cafeConditionContainerConstraints = [
+            cafeConditionContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cafeConditionContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cafeConditionContainer.topAnchor.constraint(equalTo: divider.bottomAnchor)
+        ]
+        
         NSLayoutConstraint.activate(cafeDetailInfoContainerConstraints)
         NSLayoutConstraint.activate(dividerConstraints)
+        NSLayoutConstraint.activate(cafeConditionContainerConstraints)
     }
 }

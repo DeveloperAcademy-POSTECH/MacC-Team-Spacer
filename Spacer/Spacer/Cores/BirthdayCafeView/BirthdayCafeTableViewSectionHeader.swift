@@ -11,8 +11,6 @@ class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
     
     static let identifier = "BirthdayCafeTableViewSectionHeader"
     
-    // TODO: - underLine 추가
-    
     let sectionTitle: UILabel = {
         let label = UILabel()
         label.font = .systemFont(for: .header3)
@@ -26,13 +24,27 @@ class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
         return imageView
     }()
     
+    let titleUnderLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = .subYellow1
+        line.translatesAutoresizingMaskIntoConstraints = false
+        return line
+    }()
+    
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
-        addSubview(sectionTitle)
+        addSubview(titleUnderLine)
+        titleUnderLine.addSubview(sectionTitle)
         addSubview(sectionImage)
         
-        // 섹션 타이틀을 비율로 넣기 위해서 이곳에서 오토레이아웃 설정함
+        let titleUnderLineConstraints = [
+            titleUnderLine.topAnchor.constraint(equalTo: sectionTitle.topAnchor, constant: 14),
+            titleUnderLine.leadingAnchor.constraint(equalTo: sectionTitle.leadingAnchor),
+            titleUnderLine.trailingAnchor.constraint(equalTo: sectionTitle.trailingAnchor),
+            titleUnderLine.heightAnchor.constraint(equalToConstant: 13)
+        ]
+        
         let sectionTitleConstraints = [
             sectionTitle.bottomAnchor.constraint(equalTo: bottomAnchor ,constant:  -.padding.underTitlePadding),
             sectionTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.homeMargin)
@@ -43,6 +55,7 @@ class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
             sectionImage.centerYAnchor.constraint(equalTo: sectionTitle.centerYAnchor)
         ]
         
+        NSLayoutConstraint.activate(titleUnderLineConstraints)
         NSLayoutConstraint.activate(sectionTitleConstraints)
         NSLayoutConstraint.activate(sectionImageConstraints)
     }

@@ -26,6 +26,8 @@ class RecentCafeTableViewCell: UITableViewCell {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: .padding.homeMargin, bottom: 0, right: 0)
         collectionView.register(RecentCafeCollectionViewCell.self, forCellWithReuseIdentifier: RecentCafeCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        // 아래에 생기는 인디케이터 삭제
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
     

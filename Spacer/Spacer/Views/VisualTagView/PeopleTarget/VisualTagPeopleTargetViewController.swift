@@ -152,7 +152,7 @@ extension VisualTagPeopleTargetViewController: UICollectionViewDataSource, UICol
     
     //cell selection handling delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //전국 버튼을 눌렀을 때
+        //상관없음 버튼을 눌렀을 때
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         targetItemArray[indexPath.item] = true
     }

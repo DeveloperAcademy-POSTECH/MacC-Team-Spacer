@@ -40,11 +40,6 @@ class GridCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //StoryBoard를 사용했을 때 Nib을 활용하여 Cell 구성
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     required init(coder aDecoder: NSCoder){
         fatalError("init(coder: ) has not been implemented")
     }

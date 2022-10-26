@@ -73,7 +73,7 @@ class BirthdayCafeViewController: UIViewController {
     
     // MARK: - 1. 카페 저장소
     
-    var tempCafeArray: [CafeInfo] = [CafeInfo]()
+    var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)

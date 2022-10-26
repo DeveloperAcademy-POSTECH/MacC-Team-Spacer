@@ -11,8 +11,8 @@ class SearchListViewController: UIViewController {
     
     var isFiltering = false
     
-    public var tempCafeArray: [CafeInfo] = [CafeInfo]()
-    public var filterredArr: [CafeInfo] = [CafeInfo]()
+    public var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
+    public var filterredArr: [CafeInfoModel] = [CafeInfoModel]()
     
     // 데이터를 받을 곳
     var startDate: String? = "10/16"
@@ -334,7 +334,7 @@ extension SearchListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text?.lowercased() else { return }
         self.filterredArr = self.tempCafeArray.filter({ CafeInfo in
-            return CafeInfo.cafe_name.localizedCaseInsensitiveContains(text)
+            return CafeInfo.cafeName.localizedCaseInsensitiveContains(text)
         })
         if text == "" {
             self.isFiltering = false

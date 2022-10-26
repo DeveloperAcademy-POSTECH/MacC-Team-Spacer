@@ -10,7 +10,7 @@ import UIKit
 // CollectionView를 담을 1개 짜리 테이블 셀
 class RecentCafeTableViewCell: UITableViewCell {
 
-    public var tempCafeArray: [CafeInfo] = [CafeInfo]()
+    public var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
     
     static let identifier = "RecentCafeTableViewCell"
     
@@ -49,7 +49,7 @@ class RecentCafeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with model: [CafeInfo]) {
+    public func configure(with model: [CafeInfoModel]) {
         self.tempCafeArray = model
         DispatchQueue.main.async {
             self.collectionView.reloadData()

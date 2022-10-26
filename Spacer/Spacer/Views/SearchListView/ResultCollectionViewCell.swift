@@ -116,12 +116,12 @@ class ResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with model: CafeInfo) {
-        self.cafeName.text = model.cafe_name
-        self.cafeImageView.image = UIImage(named: model.image_directories[0])
-        self.cafeStarRating.text = "⭐️" + String(model.cafe_star_rating)
-        self.cafeAddress.text = "📍" + String(model.address)
-        self.cafePeople.text = "👤" + String("\(model.cafe_min_people) ~ \(model.cafe_max_people)")
+    public func configure(with model: CafeInfoModel) {
+        self.cafeName.text = model.cafeName
+        self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
+        self.cafeStarRating.text = "⭐️" + String(model.cafeStarRating)
+        self.cafeAddress.text = "📍" + String(model.cafeAddress)
+        self.cafePeople.text = "👤" + String("\(model.cafeMinPeople) ~ \(model.cafeMaxPeople)")
         
     }
 }

@@ -50,7 +50,7 @@ class DetailInfomationViewController: UIViewController {
         lazy var test = InfomationImageAndText(image: "phone.fill", category: "전화번호", discription: "010-7189-8294")
         test.translatesAutoresizingMaskIntoConstraints = false
         
-        lazy var test2 = InfomationImageAndText(image: "mic.fill", category: "SNS", discription: "010-0000-0000")
+        lazy var test2 = InfomationImageAndText(image: "mic.fill", category: "SNS", discription: ["twitter": "@hurdasol98", "instagram": "@hurdasol92"])
         test.translatesAutoresizingMaskIntoConstraints = false
         
         lazy var test3 = InfomationImageAndText(image: "clock.fill", category: "운영 시간", discription: "09:00 ~ 21:00")
@@ -65,7 +65,7 @@ class DetailInfomationViewController: UIViewController {
         self.cafeDetailInfoContainer.addArrangedSubview(test3)
         
         test.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        test2.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        test2.heightAnchor.constraint(equalToConstant: 42).isActive = true
         test3.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         applyConstraints()

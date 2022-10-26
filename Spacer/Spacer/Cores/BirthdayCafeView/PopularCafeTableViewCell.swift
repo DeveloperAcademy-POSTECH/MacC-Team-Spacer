@@ -193,8 +193,19 @@ class PopularCafeTableViewCell: UITableViewCell {
         self.cafeName.text = model.cafeName
         self.CafeImageView.image = UIImage(named: model.imageDirectories[0])
         self.cafeStarRating.text = String(model.cafeStarRating)
-        self.cafeLocation.text = String(model.locationID!) + "지역"
-        self.cafePeople.text = "\(model.cafeMinPeople) ~ \(model.cafeMaxPeople)"
+        
+        
+        let longCafeAddress = model.cafeAddress.components(separatedBy: " ")
+        var shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
+        self.cafeLocation.text = shortCafeAddress
+        
+        // 둘 중 하나의 값이 없으면 - 표시
+        if let cafeMinPeople = model.cafeMinPeople, let cafeMaxPeople = model.cafeMinPeople {
+            self.cafePeople.text = "\(cafeMinPeople) ~ \(cafeMaxPeople)"
+        } else {
+            self.cafePeople.text = "-"
+        }
+        
     }
     
     // MARK: - layer에다 그라디언트 추가하기

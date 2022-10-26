@@ -18,4 +18,13 @@ struct PaddingTheme {
     let underTitlePadding = CGFloat(16)
     let betweenContentsPadding = CGFloat(12)
     let betweenButtonsPadding = CGFloat(8)
+    
+    let homeMargin = CGFloat(20)
+    let margin = CGFloat(16)
+    
+    let bigBoxPadding = CGFloat(20)
+    let littleBoxPadding = CGFloat(12)
+    let bigBoxTextPadding = CGFloat(8)
+    let littleBoxTextPadding = CGFloat(4)
+    let betweenIconPadding = CGFloat(2)
 }

@@ -11,22 +11,25 @@ class MyHeaderView: UIView {
     
     static let identifier = "MyHeaderView"
     
-    private let headerImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "RANG")
-        return imageView
+    let headerButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "TagBanner"), for: .normal)
+        button.layer.cornerRadius = 24
+        button.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        button.clipsToBounds = true
+        return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(headerImageView)
+        
+        addSubview(headerButton)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        headerImageView.frame = bounds
+        
+        headerButton.frame = bounds
     }
     
     required init?(coder: NSCoder) {

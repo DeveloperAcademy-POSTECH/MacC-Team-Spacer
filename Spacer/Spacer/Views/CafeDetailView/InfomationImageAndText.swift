@@ -32,6 +32,15 @@ class InfomationImageAndText: UIView {
         return discription
     }()
     
+    lazy var verticalStackView: UIStackView = {
+        let verticalStackView = UIStackView()
+        verticalStackView.spacing = 2
+        verticalStackView.axis = .vertical
+        verticalStackView.alignment = .leading
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        return verticalStackView
+    }()
+    
     init(image: String, discription: String) {
         super.init(frame: CGRect())
         
@@ -59,6 +68,47 @@ class InfomationImageAndText: UIView {
         applyIconConstraints()
         applyCategoryConstraints()
         applyDiscriptionConstraints(isCategoryText: true)
+    }
+    
+    init(image: String, category: String, discription: [String: String]) {
+        super.init(frame: CGRect())
+        
+        icon.image = UIImage(systemName: image)
+        self.category.text = category
+        
+        // sns 이름과 sns 아이디를 생성
+        let sortedDiscription = discription.sorted { $0.0 > $1.0 }
+        for (snsName, snsID) in sortedDiscription {
+            let horizentalStackView = UIStackView()
+            horizentalStackView.spacing = 6
+            horizentalStackView.axis = .horizontal
+            horizentalStackView.alignment = .leading
+            
+            let sns = UILabel()
+            sns.text = snsName
+            sns.font = .systemFont(for: .body3)
+            sns.textColor = .grayscale4
+            sns.translatesAutoresizingMaskIntoConstraints = false
+            horizentalStackView.addArrangedSubview(sns)
+            
+            let snsID = UILabel()
+            snsID.text = snsID
+            snsID.font = .systemFont(for: .body3)
+            snsID.textColor = .grayscale1
+            snsID.translatesAutoresizingMaskIntoConstraints = false
+            horizentalStackView.addArrangedSubview(snsID)
+            
+            verticalStackView.addArrangedSubview(horizentalStackView)
+        }
+        
+        self.addSubview(icon)
+        self.addSubview(self.category)
+        self.addSubview(self.discription)
+        self.addSubview(verticalStackView)
+        
+        applyIconConstraints()
+        applyCategoryConstraints()
+        applyVerticalStackViewConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -92,6 +142,14 @@ class InfomationImageAndText: UIView {
         
         NSLayoutConstraint.activate(discriptionConstraints)
     }
-
+    
+    private func applyVerticalStackViewConstraints() {
+        let verticalStackViewConstraints = [
+            verticalStackView.leadingAnchor.constraint(equalTo: category.trailingAnchor, constant: 18),
+            verticalStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(verticalStackViewConstraints)
+    }
 
 }

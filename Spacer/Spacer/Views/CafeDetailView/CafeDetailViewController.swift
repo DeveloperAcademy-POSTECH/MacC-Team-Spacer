@@ -209,9 +209,9 @@ class CafeDetailViewController: UIViewController {
         ]
         
         let bottomBarConstraints = [
-            bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomBar.heightAnchor.constraint(equalToConstant: 100)
         ]
         
@@ -219,21 +219,21 @@ class CafeDetailViewController: UIViewController {
         let chatButtonConstraints = [
             chatButton.widthAnchor.constraint(equalToConstant: 114),
             chatButton.heightAnchor.constraint(equalToConstant: 56),
-            chatButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: 16),
+            chatButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: .padding.margin),
             chatButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
         ]
         
         let reservationButtonConstraints = [
-            reservationButton.widthAnchor.constraint(equalToConstant: 236),
             reservationButton.heightAnchor.constraint(equalToConstant: 56),
-            reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -16),
+            reservationButton.leadingAnchor.constraint(equalTo: chatButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
+            reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -.padding.margin),
             reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
         ]
         
         let segmentControlConstraints = [
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: cafeBasicinfoView.bottomAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: cafeBasicinfoView.bottomAnchor, constant: .padding.differentHierarchyPadding),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
@@ -245,8 +245,8 @@ class CafeDetailViewController: UIViewController {
         ]
         
         let cafeBasicInfoConstraints = [
-            cafeBasicinfoView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            cafeBasicinfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            cafeBasicinfoView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin),
+            cafeBasicinfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -.padding.margin),
             cafeBasicinfoView.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
             cafeBasicinfoView.heightAnchor.constraint(equalToConstant: 131)
         ]

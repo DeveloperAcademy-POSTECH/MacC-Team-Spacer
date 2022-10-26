@@ -9,7 +9,7 @@ import UIKit
 
 class CafeBasicInfoView: UIView {
     
-    let innerMargins: CGFloat = 20
+    private let innerPadding = CafeBasicViewPadding()
 
     let cafeTitle: UILabel = {
        let cafeTitle = UILabel()
@@ -101,44 +101,44 @@ class CafeBasicInfoView: UIView {
     
     private func applyConstraints() {
         let cafeTitleConstraints = [
-            cafeTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerMargins),
-            cafeTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: innerMargins)
+            cafeTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerPadding.innerPadding),
+            cafeTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: innerPadding.innerPadding)
         ]
         
         let highlightBoxConstraints = [
-            highlightBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerMargins),
+            highlightBox.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerPadding.innerPadding),
             highlightBox.topAnchor.constraint(equalTo: cafeTitle.centerYAnchor, constant: 2),
             highlightBox.widthAnchor.constraint(equalTo: cafeTitle.widthAnchor),
             highlightBox.heightAnchor.constraint(equalToConstant: 13)
         ]
         
         let starImageConstraints = [
-            starImage.leadingAnchor.constraint(equalTo: cafeTitle.trailingAnchor, constant: 10),
+            starImage.leadingAnchor.constraint(equalTo: cafeTitle.trailingAnchor, constant: innerPadding.betweenComponent),
             starImage.centerYAnchor.constraint(equalTo: cafeTitle.centerYAnchor)
         ]
         
         let starRateAndReviewCountConstraints = [
-            starRateAndReviewCount.leadingAnchor.constraint(equalTo: starImage.trailingAnchor, constant: 2),
+            starRateAndReviewCount.leadingAnchor.constraint(equalTo: starImage.trailingAnchor, constant: innerPadding.betweenImageAndLabel),
             starRateAndReviewCount.centerYAnchor.constraint(equalTo: starImage.centerYAnchor)
         ]
         
         let favoriteButtonConstraints = [
-            favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -innerMargins),
-            favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: innerMargins),
+            favoriteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -innerPadding.innerPadding),
+            favoriteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: innerPadding.innerPadding),
             favoriteButton.widthAnchor.constraint(equalToConstant: 28),
             favoriteButton.heightAnchor.constraint(equalToConstant: 28)
         ]
         
         let addressInfoConstraints = [
-            addressInfo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerMargins),
-            addressInfo.topAnchor.constraint(equalTo: cafeTitle.bottomAnchor, constant: 15),
-            addressInfo.heightAnchor.constraint(equalToConstant: 20)
+            addressInfo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerPadding.innerPadding),
+            addressInfo.topAnchor.constraint(equalTo: cafeTitle.bottomAnchor, constant: innerPadding.betweentTitleAndComponent),
+            addressInfo.heightAnchor.constraint(equalToConstant: innerPadding.infoCellHeight)
         ]
         
         let peopleCountInfoConstraints = [
-            peopleCountInfo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerMargins),
-            peopleCountInfo.topAnchor.constraint(equalTo: addressInfo.bottomAnchor, constant: 10),
-            peopleCountInfo.heightAnchor.constraint(equalToConstant: 20)
+            peopleCountInfo.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: innerPadding.innerPadding),
+            peopleCountInfo.topAnchor.constraint(equalTo: addressInfo.bottomAnchor, constant: innerPadding.betweenComponent),
+            peopleCountInfo.heightAnchor.constraint(equalToConstant: innerPadding.infoCellHeight)
         ]
         
         NSLayoutConstraint.activate(cafeTitleConstraints)
@@ -150,4 +150,13 @@ class CafeBasicInfoView: UIView {
         NSLayoutConstraint.activate(peopleCountInfoConstraints)
     }
     
+}
+
+
+struct CafeBasicViewPadding {
+    let innerPadding: CGFloat = 16
+    let betweenImageAndLabel: CGFloat = 2
+    let betweenComponent: CGFloat = 10
+    let betweentTitleAndComponent: CGFloat = 15
+    let infoCellHeight: CGFloat = 20
 }

@@ -14,7 +14,7 @@ class DetailInfomationViewController: UIViewController {
     let cafeDetailInfoContainer: UIStackView = {
        let container = UIStackView()
         container.isLayoutMarginsRelativeArrangement = true
-        container.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .padding.startHierarchyPadding, leading: 16, bottom: .padding.startHierarchyPadding, trailing: -16)
+        container.directionalLayoutMargins = NSDirectionalEdgeInsets(top: .padding.startHierarchyPadding, leading: .padding.margin, bottom: .padding.startHierarchyPadding, trailing: -.padding.margin)
         container.backgroundColor = .white
         container.axis = .vertical
         container.spacing = .padding.betweenContentsPadding

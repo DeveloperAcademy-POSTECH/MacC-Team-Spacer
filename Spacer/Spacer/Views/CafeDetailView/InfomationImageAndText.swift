@@ -84,19 +84,19 @@ class InfomationImageAndText: UIView {
             horizentalStackView.axis = .horizontal
             horizentalStackView.alignment = .leading
             
-            let sns = UILabel()
-            sns.text = snsName
-            sns.font = .systemFont(for: .body3)
-            sns.textColor = .grayscale4
-            sns.translatesAutoresizingMaskIntoConstraints = false
-            horizentalStackView.addArrangedSubview(sns)
+            let snsNameLabel = UILabel()
+            snsNameLabel.text = snsName
+            snsNameLabel.font = .systemFont(for: .body3)
+            snsNameLabel.textColor = .grayscale4
+            snsNameLabel.translatesAutoresizingMaskIntoConstraints = false
+            horizentalStackView.addArrangedSubview(snsNameLabel)
             
-            let snsID = UILabel()
-            snsID.text = snsID
-            snsID.font = .systemFont(for: .body3)
-            snsID.textColor = .grayscale1
-            snsID.translatesAutoresizingMaskIntoConstraints = false
-            horizentalStackView.addArrangedSubview(snsID)
+            let snsIDLabel = UILabel()
+            snsIDLabel.text = snsID
+            snsIDLabel.font = .systemFont(for: .body3)
+            snsIDLabel.textColor = .grayscale1
+            snsIDLabel.translatesAutoresizingMaskIntoConstraints = false
+            horizentalStackView.addArrangedSubview(snsIDLabel)
             
             verticalStackView.addArrangedSubview(horizentalStackView)
         }

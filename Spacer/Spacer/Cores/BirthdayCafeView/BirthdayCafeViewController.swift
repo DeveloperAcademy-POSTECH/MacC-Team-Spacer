@@ -193,7 +193,9 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     @objc func goToSearchListView() {
-        show(SearchListViewController(), sender: nil)
+        let vc = UINavigationController(rootViewController: SearchListViewController())
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }
 

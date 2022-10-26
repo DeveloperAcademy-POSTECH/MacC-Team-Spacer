@@ -39,7 +39,7 @@ class BirthdayCafeViewController: UIViewController {
     // 로고 이미지
     let logoButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "CELEBER"), for: .normal)
+        button.setImage(UIImage(named: "CELEBER_Logo"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
         return button

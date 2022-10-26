@@ -19,7 +19,7 @@ class BirthdayCafeViewController: UIViewController {
     // 전체를 감싸는 스크롤뷰 - delegate를 활용하여 navBar 변화를 주기 위해 사용
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
+        scrollView.alwaysBounceVertical = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -301,14 +301,15 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
-// 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정
+// TODO: - 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정 -> 우선순위 낮춤(직각으로)
 extension BirthdayCafeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
-            self.navBar.layer.cornerRadius = 24
-        } else {
-            self.navBar.layer.cornerRadius = 0
-        }
+        
+//        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
+//            self.navBar.layer.cornerRadius = 24
+//        } else {
+//            self.navBar.layer.cornerRadius = 0
+//        }
     }
     
     // TODO: - ScrollUp방지

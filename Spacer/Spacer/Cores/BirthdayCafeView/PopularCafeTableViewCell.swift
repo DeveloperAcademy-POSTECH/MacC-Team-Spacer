@@ -46,7 +46,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafeStarRatingImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "star")
+        imageView.image = UIImage(named: "StarRatingIcon")
         return imageView
     }()
     
@@ -63,7 +63,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafeLocationImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "location")
+        imageView.image = UIImage(named: "LocationIcon")
         return imageView
     }()
 
@@ -81,7 +81,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafePeopleImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(named: "CafePeopleIcon")
         return imageView
     }()
     
@@ -114,7 +114,9 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         let cafeStarRatingImageConstraints = [
             cafeStarRatingImage.leadingAnchor.constraint(equalTo: CafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
-            cafeStarRatingImage.bottomAnchor.constraint(equalTo: CafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding)
+            cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
+            cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         let cafeLocationConstraints = [
@@ -124,7 +126,9 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         let cafeLocationImageConstraints = [
             cafeLocationImage.trailingAnchor.constraint(equalTo: cafeLocation.leadingAnchor, constant: -.padding.betweenIconPadding),
-            cafeLocationImage.bottomAnchor.constraint(equalTo: cafePeople.bottomAnchor),
+            cafeLocationImage.centerYAnchor.constraint(equalTo: cafeLocation.centerYAnchor),
+            cafeLocationImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeLocationImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         let cafePeopleConstraints = [
@@ -134,7 +138,9 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         let cafePeopleImageConstraints = [
             cafePeopleImage.trailingAnchor.constraint(equalTo: cafePeople.leadingAnchor, constant: -.padding.betweenIconPadding),
-            cafePeopleImage.bottomAnchor.constraint(equalTo: cafeStarRating.bottomAnchor)
+            cafePeopleImage.centerYAnchor.constraint(equalTo: cafePeople.centerYAnchor),
+            cafePeopleImage.heightAnchor.constraint(equalToConstant: 18),
+            cafePeopleImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         NSLayoutConstraint.activate(cafeNameConstraints)
@@ -166,14 +172,18 @@ class PopularCafeTableViewCell: UITableViewCell {
         ])
         
         let colorSet = [
-           UIColor(white: 0, alpha: 0),
-           UIColor(white: 0, alpha: 0.6),
-           UIColor(white: 0, alpha: 0.8)
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
+
         ]
         
-        let location = [0.5,0.7,1.0]
+        let location = [0.0, 0.5, 0.7]
         
-        CafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location)
+        let startEndPoint = (CGPoint(x: 0, y: 0),CGPoint(x: 0, y: 1))
+        
+        CafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location,startEndPoints: startEndPoint)
         
     }
     

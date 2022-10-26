@@ -62,6 +62,12 @@ class CafeDetailViewController: UIViewController {
         return scrollView
     }()
     
+    let cafeBasicinfoView: CafeBasicInfoView = {
+        let cafeBasicInfoView = CafeBasicInfoView(title: "카페 로제", starRate: 4.6, reviewCount: 50, location: "서울 마포구 와우산로 90", min: 20, max: 50)
+        cafeBasicInfoView.translatesAutoresizingMaskIntoConstraints = false
+        return cafeBasicInfoView
+    }()
+    
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
@@ -154,6 +160,7 @@ class CafeDetailViewController: UIViewController {
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
         scrollView.addSubview(pageControl)
+        scrollView.addSubview(cafeBasicinfoView)
         scrollView.addSubview(segmentedControl)
         
         // dynamicStackView.addArrangedSubview
@@ -226,7 +233,7 @@ class CafeDetailViewController: UIViewController {
         let segmentControlConstraints = [
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: cafeBasicinfoView.bottomAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
@@ -237,6 +244,13 @@ class CafeDetailViewController: UIViewController {
             pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height)
         ]
         
+        let cafeBasicInfoConstraints = [
+            cafeBasicinfoView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            cafeBasicinfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            cafeBasicinfoView.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
+            cafeBasicinfoView.heightAnchor.constraint(equalToConstant: 131)
+        ]
+        
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
@@ -244,6 +258,7 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(reservationButtonConstraints)
         NSLayoutConstraint.activate(segmentControlConstraints)
         NSLayoutConstraint.activate(pageControllerConstraints)
+        NSLayoutConstraint.activate(cafeBasicInfoConstraints)
     }
                                    
 }

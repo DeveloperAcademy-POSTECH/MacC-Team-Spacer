@@ -196,7 +196,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         // 카페 장소의 앞 2개 단어만 표시
         let longCafeAddress = model.cafeAddress.components(separatedBy: " ")
-        var shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
+        let shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
         self.cafeLocation.text = shortCafeAddress
         
         // 둘 중 하나의 값이 없으면 "-" 표시

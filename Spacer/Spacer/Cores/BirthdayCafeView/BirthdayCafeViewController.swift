@@ -104,7 +104,7 @@ class BirthdayCafeViewController: UIViewController {
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
         birthdayCafeTableView.tableHeaderView = headerView
-        headerView?.headerButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
+        headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
         
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
@@ -125,6 +125,7 @@ class BirthdayCafeViewController: UIViewController {
         
         applyConstraints()
     }
+    
     func applyConstraints() {
         
         let scrollViewConstraints = [
@@ -197,6 +198,12 @@ class BirthdayCafeViewController: UIViewController {
         let vc = SearchListViewController()
         self.navigationController!.pushViewController(vc, animated: true)
     }
+    
+    @objc func goToVisualTagView() {
+        let vc = UINavigationController(rootViewController: VisualTagCalendarViewController())
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -267,7 +274,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
             cell.selectionStyle = .none
-
+            
             // cell에 쉐도우 넣기
             cell.layer.cornerRadius = 12
             cell.contentView.layer.masksToBounds = true

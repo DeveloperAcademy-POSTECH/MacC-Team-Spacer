@@ -79,26 +79,26 @@ class InfomationImageAndText: UIView {
         // sns 이름과 sns 아이디를 생성
         let sortedDiscription = discription.sorted { $0.0 > $1.0 }
         for (snsName, snsID) in sortedDiscription {
-            let horizentalStackView = UIStackView()
-            horizentalStackView.spacing = 6
-            horizentalStackView.axis = .horizontal
-            horizentalStackView.alignment = .leading
+            let horizontalStackView = UIStackView()
+            horizontalStackView.spacing = 6
+            horizontalStackView.axis = .horizontal
+            horizontalStackView.alignment = .leading
             
             let snsNameLabel = UILabel()
             snsNameLabel.text = snsName
             snsNameLabel.font = .systemFont(for: .body3)
             snsNameLabel.textColor = .grayscale4
             snsNameLabel.translatesAutoresizingMaskIntoConstraints = false
-            horizentalStackView.addArrangedSubview(snsNameLabel)
+            horizontalStackView.addArrangedSubview(snsNameLabel)
             
             let snsIDLabel = UILabel()
             snsIDLabel.text = snsID
             snsIDLabel.font = .systemFont(for: .body3)
             snsIDLabel.textColor = .grayscale1
             snsIDLabel.translatesAutoresizingMaskIntoConstraints = false
-            horizentalStackView.addArrangedSubview(snsIDLabel)
+            horizontalStackView.addArrangedSubview(snsIDLabel)
             
-            verticalStackView.addArrangedSubview(horizentalStackView)
+            verticalStackView.addArrangedSubview(horizontalStackView)
         }
         
         self.addSubview(icon)

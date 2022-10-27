@@ -24,7 +24,7 @@ struct CafeInfoModel: Codable {
     let cafeCosts: CostsList
     let locationID: Int?
     let cafeStarRating: Double
-    let cafeEventElement: [Int?]
+    let cafeEventElement: [Int]?
     let cafeAdditionalInfo: String?
 }
 

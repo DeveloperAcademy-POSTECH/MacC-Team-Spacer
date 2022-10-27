@@ -134,7 +134,7 @@ class BirthdayCafeViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
-        var navBarConstraints = [
+        let navBarConstraints = [
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
             navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
             navBar.heightAnchor.constraint(equalToConstant: 99)
@@ -327,4 +327,5 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 //        }
 //        return false
 //    }
+//
 //}

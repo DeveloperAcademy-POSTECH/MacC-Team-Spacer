@@ -35,16 +35,20 @@
 		D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47829013DBB00D6B0A0 /* NextButton.swift */; };
 		D486C47B29013FC200D6B0A0 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C47A29013FC200D6B0A0 /* BackButton.swift */; };
 		D486C48B290280C200D6B0A0 /* GridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D486C489290280C200D6B0A0 /* GridCollectionViewCell.swift */; };
+		D4926668290A5FFB000EFD53 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
+		D4926669290A6025000EFD53 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5228F5294900992600 /* FavoriteViewController.swift */; };
+		D492666A290A6037000EFD53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729329011A79007A5297 /* CustomCalenderCell.swift */; };
 		D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */; };
 		D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */; };
 		D4A3729E29011A79007A5297 /* VisualTagPeopleTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */; };
 		D4A3729F29011A79007A5297 /* VisualTagPeopleRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */; };
 		D4A372A229011AB8007A5297 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D4A372A129011AB8007A5297 /* FSCalendar */; };
+		D4A372AF29063C8A007A5297 /* InfomationImageAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */; };
+		D4A372B12907A58D007A5297 /* CafeBasicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372B02907A58D007A5297 /* CafeBasicInfoView.swift */; };
 		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
 		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
-		D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5228F5294900992600 /* FavoriteViewController.swift */; };
 		D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */; };
 		D4C95C5728F5437200992600 /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5628F5437200992600 /* CafeDetailViewController.swift */; };
 		D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E950BB28EF48CA0066B711 /* AppDelegate.swift */; };
@@ -88,6 +92,8 @@
 		D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagMapViewController.swift; sourceTree = "<group>"; };
 		D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleTargetViewController.swift; sourceTree = "<group>"; };
 		D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleRangeViewController.swift; sourceTree = "<group>"; };
+		D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationImageAndText.swift; sourceTree = "<group>"; };
+		D4A372B02907A58D007A5297 /* CafeBasicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeBasicInfoView.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 		D4C95C4E28F528BA00992600 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D4C95C5028F528CB00992600 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -235,9 +241,11 @@
 			isa = PBXGroup;
 			children = (
 				D4C95C5628F5437200992600 /* CafeDetailViewController.swift */,
+				D4A372B02907A58D007A5297 /* CafeBasicInfoView.swift */,
 				D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */,
 				D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */,
 				D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */,
+				D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */,
 			);
 			path = CafeDetailView;
 			sourceTree = "<group>";
@@ -425,6 +433,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D492666A290A6037000EFD53 /* ChatViewController.swift in Sources */,
+				D4926669290A6025000EFD53 /* FavoriteViewController.swift in Sources */,
+				D4926668290A5FFB000EFD53 /* RequestViewController.swift in Sources */,
 				D486C47B29013FC200D6B0A0 /* BackButton.swift in Sources */,
 				D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */,
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
@@ -439,22 +450,18 @@
 				BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */,
 				D486C48B290280C200D6B0A0 /* GridCollectionViewCell.swift in Sources */,
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,
+				D4A372B12907A58D007A5297 /* CafeBasicInfoView.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
 				D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */,
 				BFEDDE782908023000F1D09E /* CafeInfoModel.swift in Sources */,
-				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
 				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
-				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
-				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
+				D4A372AF29063C8A007A5297 /* InfomationImageAndText.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
-				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
 				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
-				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
 				D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */,
-				D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */,
 				BF5F8AB528FE868E00CF9E3A /* MyHeaderView.swift in Sources */,
 				BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */,
 				BF5F8ABB28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift in Sources */,

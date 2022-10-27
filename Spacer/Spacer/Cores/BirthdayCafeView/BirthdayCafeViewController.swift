@@ -298,6 +298,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
+        let vc = CafeDetailViewController()
+        vc.tempCafeInfo = tempCafeArray[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

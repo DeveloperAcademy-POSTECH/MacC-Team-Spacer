@@ -9,6 +9,9 @@ import UIKit
 
 class CafeDetailViewController: UIViewController {
     
+    // 받아오는 카페 인포
+    var tempCafeInfo: CafeInfoModel?
+    
     // 임시 카페 정보
     private let cafeInfos: [CafeInfoForDetailView] = [
         CafeInfoForDetailView(cafeID: 0, cafeName: "카페로제", imageDirectories: ["signature", "bag.fill", "creditcard.fill", "giftcard", "banknote", "dollarsign.circle.fill", "heart.fill"], address: "서울 홍대 어쩌고 저쩌고 106", cafePhoneNumber: "010-7189-8294", SNS: "@gumbee_h", cafeMinPeople: 20, cafeMaxPeople: 50, locationID: 0),
@@ -142,6 +145,9 @@ class CafeDetailViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        // 네비게이션 바 보이기
+        self.navigationController?.isNavigationBarHidden = false
         
         // scrollView의 width, height
         let scrollViewWidth = imageScrollView.bounds.width, scrollViewHeight = imageScrollView.bounds.height

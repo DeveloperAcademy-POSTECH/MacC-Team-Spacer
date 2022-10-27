@@ -315,10 +315,6 @@ class SearchListViewController: UIViewController {
         self.scrollView.contentSize = CGSize(width: targetButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width+peopleButton.bounds.width+8*6, height: view.bounds.height*0.055)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
     // 키보드 내리기 함수
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         self.searchBar.endEditing(true)

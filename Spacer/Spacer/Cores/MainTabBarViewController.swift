@@ -16,15 +16,25 @@ class MainTabBarViewController: UITabBarController {
         
         let vc1 = UINavigationController(rootViewController: BirthdayCafeViewController())
         let vc2 = UINavigationController(rootViewController: RequestViewController())
-        let vc3 = UINavigationController(rootViewController: ChatViewController())
-        let vc4 = UINavigationController(rootViewController: MyPageViewController())
+        let vc3 = UINavigationController(rootViewController: MyPageViewController())
         
-        vc1.title = "생일카페"
-        vc2.title = "카페 구하기"
-        vc3.title = "채팅"
-        vc4.title = "내 정보"
+        // 선택되었을 경우 색상
+        self.tabBar.tintColor = .mainPurple3
         
-        setViewControllers([vc1, vc2, vc3, vc4], animated: true)
+        // tabBar가 선택되지 않았을 때의 색상
+        self.tabBar.unselectedItemTintColor = .mainPurple3
+        
+        let vc1TabBarItem = UITabBarItem(title: "생일카페", image: UIImage(named: "BirthdayCafe_Outline"), selectedImage: UIImage(named: "BirthdayCafe_Fill"))
+        vc1.tabBarItem = vc1TabBarItem
+        
+        let vc2TabBarItem = UITabBarItem(title: "카페 구하기", image: UIImage(named: "Request_Outline"), selectedImage: UIImage(named: "Request_Fill"))
+        vc2.tabBarItem = vc2TabBarItem
+        
+        let vc3TabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "MyPage_Outline"), selectedImage: UIImage(named: "MyPage_Fill"))
+        vc3.tabBarItem = vc3TabBarItem
+        
+        
+        setViewControllers([vc1, vc2, vc3], animated: true)
     }
     
 }

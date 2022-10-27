@@ -62,15 +62,29 @@ class CafeBasicInfoView: UIView {
         return peopleCount
     }()
     
-    init(title: String, starRate: Double, reviewCount: Int, location: String, min: Int, max: Int) {
+    init(title: String, starRate: Double, reviewCount: Int, address: String, min: Int?, max: Int?) {
         super.init(frame: CGRect())
+        
+        if let minPeople = min, let maxPeople = max {
+            peopleCountInfo.discription.text = "\(minPeople)~\(maxPeople) 명 동시 수용 가능"
+        } else if let maxPeople = max {
+            peopleCountInfo.discription.text = "최대 \(maxPeople) 명 동시 수용 가능"
+
+        } else if let minPeople = min {
+            peopleCountInfo.discription.text = "최소 \(minPeople) 명 동시 수용 가능"
+
+        } else {
+            peopleCountInfo.discription.text = "문의하여 확인해주세요"
+            peopleCountInfo.discription.textColor = .grayscale4
+
+        }
         
         setStyle()
         
         cafeTitle.text = title
         starRateAndReviewCount.text = "\(starRate) (\(reviewCount))"
-        addressInfo.discription.text = location
-        peopleCountInfo.discription.text = "\(min)~\(max) 명 동시 수용 가능"
+        addressInfo.discription.text = address
+        
         
         self.addSubview(highlightBox)
         self.addSubview(cafeTitle)

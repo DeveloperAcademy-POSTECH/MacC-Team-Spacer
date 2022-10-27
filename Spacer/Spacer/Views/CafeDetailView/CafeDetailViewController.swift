@@ -66,7 +66,7 @@ class CafeDetailViewController: UIViewController {
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(changePageControllerViewController(_:)), for: .valueChanged)
+        segmentedControl.addTarget(CafeDetailViewController.self, action: #selector(changePageControllerViewController(_:)), for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()

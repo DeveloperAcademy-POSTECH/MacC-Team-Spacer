@@ -133,20 +133,20 @@ class BirthdayCafeViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
-        var navBarConstraints = [
+        let navBarConstraints = [
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
             navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
             navBar.heightAnchor.constraint(equalToConstant: 99)
         ]
         
-        // 노치가 없을 경우 navBar 오토레이아웃 처리
-        if !UIDevice.current.hasNotch {
-            navBarConstraints = [
-                navBar.topAnchor.constraint(equalTo: view.topAnchor),
-                navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
-                navBar.heightAnchor.constraint(equalToConstant: 79)
-            ]
-        }
+//        // 노치가 없을 경우 navBar 오토레이아웃 처리
+//        if !UIDevice.current.hasNotch {
+//            navBarConstraints = [
+//                navBar.topAnchor.constraint(equalTo: view.topAnchor),
+//                navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
+//                navBar.heightAnchor.constraint(equalToConstant: 79)
+//            ]
+//        }
         
         
         let logoButtonConstraints = [
@@ -316,16 +316,16 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
     
 }
 
-// MARK: - 기기 별 대응하기 위한 extension
-// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업
-
-extension UIDevice {
-    var hasNotch: Bool {
-        if #available(iOS 11.0, *) {
-            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
-        }
-        return false
-    }
-
-}
+//// MARK: - 기기 별 대응하기 위한 extension
+//// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업
+//
+//extension UIDevice {
+//    var hasNotch: Bool {
+//        if #available(iOS 11.0, *) {
+//            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+//            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+//        }
+//        return false
+//    }
+//
+//}

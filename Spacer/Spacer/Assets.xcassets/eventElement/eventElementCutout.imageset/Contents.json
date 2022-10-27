@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "멜로우_002.jpg",
+      "filename" : "eventElementCutout.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "eventElementCutout-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "eventElementCutout-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

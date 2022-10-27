@@ -38,8 +38,8 @@ class CafeDetailViewController: UIViewController {
         let pageControl = UIPageControl(frame: CGRect(x: 0, y: imageScrollView.bounds.height - 45, width: scrollView.bounds.width, height: 55))
         pageControl.numberOfPages = cafeInfos[cafeIndex].imageDirectories.count
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = UIColor(red: 159/255, green: 159/255, blue: 159/255, alpha: 1)
-        pageControl.currentPageIndicatorTintColor = UIColor(red: 67/255, green: 67/255, blue: 67/255, alpha: 1)
+        pageControl.pageIndicatorTintColor = .grayscale4
+        pageControl.currentPageIndicatorTintColor = .grayscale2
         pageControl.isUserInteractionEnabled = false
         return pageControl
     }()
@@ -58,15 +58,20 @@ class CafeDetailViewController: UIViewController {
         scrollView.isPagingEnabled = true
         scrollView.delegate = self
         
-        scrollView.backgroundColor = .systemGray
         return scrollView
+    }()
+    
+    let cafeBasicinfoView: CafeBasicInfoView = {
+        let cafeBasicInfoView = CafeBasicInfoView(title: "카페 로제", starRate: 4.6, reviewCount: 50, location: "서울 마포구 와우산로 90", min: 20, max: 50)
+        cafeBasicInfoView.translatesAutoresizingMaskIntoConstraints = false
+        return cafeBasicInfoView
     }()
     
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(CafeDetailViewController.self, action: #selector(changePageControllerViewController(_:)), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(changePageControllerViewController(_:)), for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
@@ -84,7 +89,7 @@ class CafeDetailViewController: UIViewController {
     // 하단에 고정할 버튼을 담을 View
     let bottomBar: UIView = {
         let bottomBar = UIView()
-        bottomBar.backgroundColor = .systemBackground
+        bottomBar.backgroundColor = UIColor.white
         bottomBar.layer.borderWidth = 1
         bottomBar.layer.borderColor = CGColor(red: 255, green: 255, blue: 255, alpha: 0)
         bottomBar.layer.masksToBounds = false
@@ -97,22 +102,20 @@ class CafeDetailViewController: UIViewController {
     }()
     
     let chatButton: UIButton = {
-        // TODO: 색상, 폰트 교체
         let chatButton = UIButton()
         chatButton.setTitle("1:1 문의", for: .normal)
-        chatButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        chatButton.backgroundColor = UIColor(displayP3Red: 113/255, green: 113/255, blue: 113/255, alpha: 1)
+        chatButton.titleLabel?.font = .systemFont(for: .header6)
+        chatButton.backgroundColor = .grayscale2
         chatButton.layer.cornerRadius = 12
         chatButton.translatesAutoresizingMaskIntoConstraints = false
         return chatButton
     }()
     
     let reservationButton: UIButton = {
-        // TODO: 색상, 폰트 교체
         let reservationButton = UIButton()
         reservationButton.setTitle("예약하기", for: .normal)
-        reservationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        reservationButton.backgroundColor = UIColor(displayP3Red: 119/255, green: 89/255, blue: 240/255, alpha: 1)
+        reservationButton.titleLabel?.font = .systemFont(for: .header6)
+        reservationButton.backgroundColor = .mainPurple3
         reservationButton.layer.cornerRadius = 12
         reservationButton.translatesAutoresizingMaskIntoConstraints = false
         return reservationButton
@@ -138,7 +141,7 @@ class CafeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         
         // scrollView의 width, height
         let scrollViewWidth = imageScrollView.bounds.width, scrollViewHeight = imageScrollView.bounds.height
@@ -154,6 +157,7 @@ class CafeDetailViewController: UIViewController {
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
         scrollView.addSubview(pageControl)
+        scrollView.addSubview(cafeBasicinfoView)
         scrollView.addSubview(segmentedControl)
         
         // dynamicStackView.addArrangedSubview
@@ -202,31 +206,30 @@ class CafeDetailViewController: UIViewController {
         ]
         
         let bottomBarConstraints = [
-            bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-            bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomBar.heightAnchor.constraint(equalToConstant: 100)
         ]
         
-        // TODO: chatButton, reservationButton의 width, height 비율로 바꾸기
         let chatButtonConstraints = [
             chatButton.widthAnchor.constraint(equalToConstant: 114),
             chatButton.heightAnchor.constraint(equalToConstant: 56),
-            chatButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: 16),
+            chatButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: .padding.margin),
             chatButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
         ]
         
         let reservationButtonConstraints = [
-            reservationButton.widthAnchor.constraint(equalToConstant: 236),
             reservationButton.heightAnchor.constraint(equalToConstant: 56),
-            reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -16),
+            reservationButton.leadingAnchor.constraint(equalTo: chatButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
+            reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -.padding.margin),
             reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
         ]
         
         let segmentControlConstraints = [
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            segmentedControl.topAnchor.constraint(equalTo: cafeBasicinfoView.bottomAnchor, constant: .padding.differentHierarchyPadding),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
@@ -237,6 +240,13 @@ class CafeDetailViewController: UIViewController {
             pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height)
         ]
         
+        let cafeBasicInfoConstraints = [
+            cafeBasicinfoView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin),
+            cafeBasicinfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -.padding.margin),
+            cafeBasicinfoView.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
+            cafeBasicinfoView.heightAnchor.constraint(equalToConstant: 131)
+        ]
+        
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
@@ -244,6 +254,7 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(reservationButtonConstraints)
         NSLayoutConstraint.activate(segmentControlConstraints)
         NSLayoutConstraint.activate(pageControllerConstraints)
+        NSLayoutConstraint.activate(cafeBasicInfoConstraints)
     }
                                    
 }

@@ -14,7 +14,7 @@ class CustomSegmentControl: UISegmentedControl {
     
     private lazy var underline: UIView = {
         let underline = UIView()
-        underline.backgroundColor = .gray
+        underline.backgroundColor = .grayscale5
         underline.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(underline)
         
@@ -27,7 +27,7 @@ class CustomSegmentControl: UISegmentedControl {
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         
         let selectedUnderline = UIView(frame: frame)
-        selectedUnderline.backgroundColor = .black
+        selectedUnderline.backgroundColor = .mainPurple3
         selectedUnderline.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(selectedUnderline)
         
@@ -87,10 +87,10 @@ class CustomSegmentControl: UISegmentedControl {
         
         // 기본 & 선택된 segment의 title 색상 변경
         self.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.gray,
+            NSAttributedString.Key.foregroundColor: UIColor.grayscale4,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold)], for: .normal)
         self.setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.foregroundColor: UIColor.mainPurple1,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold)], for: .selected)
     }
     

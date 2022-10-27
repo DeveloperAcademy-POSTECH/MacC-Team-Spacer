@@ -251,6 +251,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.backgroundColor = .systemBackground
             
+            //MARK: - 3. self( = BirthdayCafeViewController)를 cell의 delegate로 채택
+            cell.cellSelectedDelegate = self
+            
             cell.configure(with: self.tempCafeArray)
             
             return cell
@@ -332,3 +335,12 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 //    }
 //
 //}
+
+//MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능
+extension BirthdayCafeViewController: CellSelectedDelegate {
+    func selectionAction(data: CafeInfoModel?, indexPath: IndexPath) {
+        let vc = CafeDetailViewController()
+        vc.tempCafeInfo = data
+        navigationController?.pushViewController(vc, animated: true)
+    }
+}

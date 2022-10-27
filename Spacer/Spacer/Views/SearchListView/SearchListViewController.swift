@@ -31,11 +31,18 @@ class SearchListViewController: UIViewController {
         // 텍스트 필드 내 우측 x 삭제
         search.setImage(UIImage(), for: .clear, state: .normal)
         search.showsCancelButton = false
-        search.sizeToFit()
+        if let textfield = search.value(forKey: "searchField") as? UITextField {
+                    textfield.borderStyle = .none
+                }
         return search
     }()
     
-    let bottomLine = CALayer()
+    let bottomLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blue
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -83,6 +90,8 @@ class SearchListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = false
+        
         view.backgroundColor = .white
         
         self.navigationItem.titleView = searchBar
@@ -90,7 +99,6 @@ class SearchListViewController: UIViewController {
         setButton()
         setCollectionView()
         setSearchBar()
-        
         
         // 모든 경우에서 키보드를 내리기 위해서 터치인식 적용
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
@@ -108,10 +116,16 @@ class SearchListViewController: UIViewController {
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-        
         // 스크롤 뷰 오직 가로로만 움직이게 하기
         scrollView.delegate = self
         
+        searchBar.addSubview(bottomLine)
+        NSLayoutConstraint.activate([
+            bottomLine.topAnchor.constraint(equalTo: searchBar.bottomAnchor , constant: -10),
+            bottomLine.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor,constant: 60),
+            bottomLine.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: -55),
+            bottomLine.heightAnchor.constraint(equalToConstant: 1),
+        ])
     }
     
     func setButton() {
@@ -245,9 +259,9 @@ class SearchListViewController: UIViewController {
         resultCollectionView.delegate = self
         resultCollectionView.dataSource = self
     }
+    
     func setSearchBar() {
         let searchIcon = UIBarButtonItem(systemItem: .search, primaryAction: UIAction(handler: { _ in
-            print("searchIcon")
             self.searchBar.endEditing(true)
             self.tempCafeArray.append(contentsOf: MockManager.shared.getMockData())
             DispatchQueue.main.async {
@@ -255,7 +269,7 @@ class SearchListViewController: UIViewController {
             }
         }))
         
-        let backIcon = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(moveTo))
+        let backIcon = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(backButtonTapped))
         if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
             textfield.backgroundColor = .clear
             // 플레이스홀더 색
@@ -275,36 +289,43 @@ class SearchListViewController: UIViewController {
     // 화면 터치하여 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.searchBar.endEditing(true)
-        bottomLine.backgroundColor = UIColor.blue.cgColor
+        bottomLine.backgroundColor = UIColor.blue//.cgColor
         self.resultCollectionView.reloadData()
     }
     
     // 화면 스크롤할 경우도 키보드 내리기
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchBar.endEditing(true)
-        bottomLine.backgroundColor = UIColor.blue.cgColor
+        bottomLine.backgroundColor = UIColor.blue//.cgColor
         self.resultCollectionView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        bottomLine.backgroundColor = UIColor.blue.cgColor
-        // 서치바 밑줄
-        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
-            textfield.borderStyle = .none
-            bottomLine.frame = CGRect(x: 0, y: textfield.bounds.height, width: textfield.bounds.width, height: 1)
-            textfield.layer.addSublayer(bottomLine)
-        }
+        bottomLine.backgroundColor = UIColor.blue//.cgColor
+        // 서치바 밑줄 - 레이어에서 뷰로 변경
+//        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
+//            textfield.borderStyle = .none
+//            bottomLine.frame = CGRect(x: 0, y: textfield.bounds.height, width: textfield.bounds.width, height: 1)
+//            textfield.layer.addSublayer(bottomLine)
+//            reloadInputViews()
+//            print(textfield.layer.bounds)
+//        }
+        
         self.scrollView.contentSize = CGSize(width: targetButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width+peopleButton.bounds.width+8*6, height: view.bounds.height*0.055)
     }
     
     // 키보드 내리기 함수
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         self.searchBar.endEditing(true)
-        bottomLine.backgroundColor = UIColor.blue.cgColor
-        print("tap working")
+        bottomLine.backgroundColor = UIColor.blue//.cgColor
     }
     
+    // 뒤로 가기 함수
+    @objc func backButtonTapped() {
+        super.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.popViewController(animated: true)
+    }
     // 다음뷰로 이동하는 함수
     @objc func moveTo() {
         let nextVC = BirthdayCafeViewController()
@@ -343,7 +364,7 @@ extension SearchListViewController: UIScrollViewDelegate {
 // RED는 검색중, blue는 일반
 extension SearchListViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        bottomLine.backgroundColor = UIColor.red.cgColor
+        bottomLine.backgroundColor = UIColor.red//.cgColor
         self.isFiltering = true
         return true
     }
@@ -377,7 +398,7 @@ extension SearchListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
         self.resultCollectionView.reloadData()
-        bottomLine.backgroundColor = UIColor.red.cgColor
+        bottomLine.backgroundColor = UIColor.red//.cgColor
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

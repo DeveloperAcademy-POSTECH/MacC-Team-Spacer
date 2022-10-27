@@ -21,7 +21,7 @@ struct CafeInfoModel: Codable {
     let cafeDayOff: String?
     let cafeMinPeople: Int?
     let cafeMaxPeople: Int?
-    let cafeCosts: Int?
+    let cafeCosts: CostsList
     let locationID: Int?
     let cafeStarRating: Double
     let cafeEventElement: [Int?]
@@ -33,4 +33,10 @@ struct SNSList: Codable {
     let twitter: String?
     let facebook: String?
     let homepage: String?
+}
+
+struct CostsList: Codable {
+    let rentalFee: Int?
+    let deposit: Int?
+    let reservartion: Int?
 }

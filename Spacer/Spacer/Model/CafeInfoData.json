@@ -18,7 +18,11 @@
         "cafeDayOff": "월요일",
         "cafeMinPeople": null,
         "cafeMaxPeople": 20,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -43,7 +47,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -68,7 +76,11 @@
     "cafeDayOff": null,
     "cafeMinPeople": null,
     "cafeMaxPeople": 10,
-    "cafeCosts": 100000,
+    "cafeCosts": {
+        "rentalFee": null,
+        "deposit": null,
+        "reservartion": null
+    },
     "locationID":0,
     "cafeStarRating":3.5,
     "cafeEventElement": [0],
@@ -93,7 +105,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": 30,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -118,7 +134,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":50000,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0,1,5],
@@ -143,7 +163,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": 40,
-        "cafeCosts":50000,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -168,7 +192,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":50000,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -193,7 +221,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -218,7 +250,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0,2,3,5],
@@ -243,7 +279,11 @@
         "cafeDayOff": "월요일",
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -268,7 +308,11 @@
         "cafeDayOff": "월요일",
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -293,7 +337,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -318,7 +366,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -343,7 +395,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -368,7 +424,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -393,7 +453,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -418,7 +482,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -443,7 +511,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -468,7 +540,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -493,7 +569,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -518,7 +598,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -543,7 +627,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -568,7 +656,11 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -593,7 +685,11 @@
         "cafeDayOff": "일요일",
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0],
@@ -618,15 +714,14 @@
         "cafeDayOff": null,
         "cafeMinPeople": null,
         "cafeMaxPeople": null,
-        "cafeCosts":null,
+        "cafeCosts": {
+            "rentalFee": null,
+            "deposit": null,
+            "reservartion": null
+        },
         "locationID":0,
         "cafeStarRating":3.5,
         "cafeEventElement": [0,1,2,5,6],
         "cafeAdditionalInfo": null
     }
-    
-    
-    
-    
-
 ]

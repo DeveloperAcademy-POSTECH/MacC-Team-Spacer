@@ -74,6 +74,7 @@ class BirthdayCafeViewController: UIViewController {
     // MARK: - 1. 카페 저장소
     
     var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
+    
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -193,9 +194,8 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     @objc func goToSearchListView() {
-        let vc = UINavigationController(rootViewController: SearchListViewController())
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let vc = SearchListViewController()
+        self.navigationController!.pushViewController(vc, animated: true)
     }
 }
 
@@ -298,6 +298,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
+        let vc = CafeDetailViewController()
+        vc.tempCafeInfo = tempCafeArray[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -316,9 +319,9 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
     
 }
 
-//// MARK: - 기기 별 대응하기 위한 extension
-//// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업
-//
+// MARK: - 기기 별 대응하기 위한 extension
+// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업 - Deprecate되어 다른 방법을 고안해야함
+
 //extension UIDevice {
 //    var hasNotch: Bool {
 //        if #available(iOS 11.0, *) {

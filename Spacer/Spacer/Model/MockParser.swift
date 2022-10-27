@@ -67,7 +67,10 @@ class MockManager {
             cafeDayOff: "안쉽니다",
             cafeMinPeople: 0,
             cafeMaxPeople: 20,
-            cafeCosts: nil,
+            cafeCosts: CostsList(
+                rentalFee: nil,
+                deposit: 50000,
+                reservartion: nil),
             locationID: nil,
             cafeStarRating: 3.5,
             cafeEventElement: [0,3,7],

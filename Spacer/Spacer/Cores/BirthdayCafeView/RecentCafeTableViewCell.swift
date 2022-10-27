@@ -70,5 +70,8 @@ extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         cell.configure(with: tempCafeArray[indexPath.row])
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
     
 }

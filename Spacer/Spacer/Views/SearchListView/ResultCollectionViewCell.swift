@@ -11,6 +11,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ResultCollectionViewCell"
     
+    
     var cafeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,17 +75,41 @@ class ResultCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    // shadowView
+    var shadowView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(shadowView)
+        NSLayoutConstraint.activate([
+            shadowView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            shadowView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            shadowView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            shadowView.topAnchor.constraint(equalTo: topAnchor)
+        ])
         
-        addSubview(cafeImageView)
-        addSubview(cafeName)
-        addSubview(cafeStarRating)
-        addSubview(cafeStarRatingImage)
-        addSubview(cafeLocation)
-        addSubview(cafeLocationImage)
-        addSubview(cafePeople)
-        addSubview(cafePeopleImage)
+        shadowView.addSubview(cafeImageView)
+        shadowView.addSubview(cafeName)
+        shadowView.addSubview(cafeStarRating)
+        shadowView.addSubview(cafeStarRatingImage)
+        shadowView.addSubview(cafeLocation)
+        shadowView.addSubview(cafeLocationImage)
+        shadowView.addSubview(cafePeople)
+        shadowView.addSubview(cafePeopleImage)
+        
+        self.shadowView.layer.cornerRadius = 12
+        self.shadowView.layer.masksToBounds = true
+        self.shadowView.layer.shadowColor = UIColor.black.cgColor
+        self.shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.shadowView.layer.shadowRadius = 2
+        self.shadowView.layer.shadowOpacity = 0.25
+        self.shadowView.layer.masksToBounds = false
         
         
         let cafeImageViewConstraints = [
@@ -158,7 +183,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         self.cafeStarRating.text = String(model.cafeStarRating)
         
         let longCafeAddress = model.cafeAddress.components(separatedBy: " ")
-        var shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
+        let shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
         self.cafeLocation.text = shortCafeAddress
         
         if let cafeMinPeople = model.cafeMinPeople, let cafeMaxPeople = model.cafeMinPeople {

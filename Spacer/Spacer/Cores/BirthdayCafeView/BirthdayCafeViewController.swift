@@ -319,12 +319,12 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 // MARK: - 기기 별 대응하기 위한 extension
 // TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업 - Deprecate되어 다른 방법을 고안해야함
 
-extension UIDevice {
-    var hasNotch: Bool {
-        if #available(iOS 11.0, *) {
-            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
-        }
-        return false
-    }
-}
+//extension UIDevice {
+//    var hasNotch: Bool {
+//        if #available(iOS 11.0, *) {
+//            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+//            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+//        }
+//        return false
+//    }
+//}

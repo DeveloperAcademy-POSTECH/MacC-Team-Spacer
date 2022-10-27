@@ -45,7 +45,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
     private let cafeStarRatingImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "star")
+        imageView.image = UIImage(named: "StarRatingIcon")
         return imageView
     }()
     
@@ -128,7 +128,9 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         
         let cafeStarRatingImageConstraints = [
             cafeStarRatingImage.leadingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: .padding.littleBoxPadding),
-            cafeStarRatingImage.topAnchor.constraint(equalTo: topAnchor, constant: .padding.littleBoxPadding)
+            cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
+            cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         let cafeReviewConstraints = [

@@ -24,40 +24,54 @@ class ResultCollectionViewCell: UICollectionViewCell {
     var cafeName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = .systemFont(for: .header5)
+        label.textColor = .grayscale1
         return label
     }()
     
     let cafeStarRating: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont(name: "Pretendard", size: 14)
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale3
         return label
     }()
     
-    var cafeAddress: UILabel = {
+    let cafeStarRatingImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "StarRatingIcon")
+        return imageView
+    }()
+    
+    let cafeLocation: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale3
         return label
+    }()
+    
+    let cafeLocationImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "LocationIcon")
+        return imageView
     }()
     
     var cafePeople: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale3
         return label
     }()
     
-    private let cafeHeart: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
-        return button
+    let cafePeopleImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "CafePeopleIcon")
+        return imageView
     }()
     
     override init(frame: CGRect) {
@@ -66,50 +80,72 @@ class ResultCollectionViewCell: UICollectionViewCell {
         addSubview(cafeImageView)
         addSubview(cafeName)
         addSubview(cafeStarRating)
-        addSubview(cafeAddress)
+        addSubview(cafeStarRatingImage)
+        addSubview(cafeLocation)
+        addSubview(cafeLocationImage)
         addSubview(cafePeople)
-        addSubview(cafeHeart)
+        addSubview(cafePeopleImage)
+        
         
         let cafeImageViewConstraints = [
             cafeImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             cafeImageView.topAnchor.constraint(equalTo: topAnchor),
             cafeImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            cafeImageView.heightAnchor.constraint(equalToConstant: self.frame.height * 0.53 ),
+            cafeImageView.heightAnchor.constraint(equalToConstant: 106),
         ]
         
         let cafeNameConstraints = [
-            cafeName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            cafeName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-            cafeName.topAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: 10),
-            cafeName.heightAnchor.constraint(equalToConstant: 20)
+            cafeName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.littleBoxPadding),
+            cafeName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.padding.littleBoxPadding),
+            cafeName.topAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: .padding.littleBoxPadding),
+            cafeName.heightAnchor.constraint(equalToConstant: 21)
         ]
         
         let cafeStarRatingConstraints = [
-            cafeStarRating.leadingAnchor.constraint(equalTo: cafeName.leadingAnchor),
-            cafeStarRating.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: 5),
+            cafeStarRating.leadingAnchor.constraint(equalTo: cafeStarRatingImage.trailingAnchor, constant: .padding.betweenIconPadding),
+            cafeStarRating.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: .padding.littleBoxTextPadding)
         ]
         
-        let cafeAddressConstraints = [
-            cafeAddress.leadingAnchor.constraint(equalTo: cafeStarRating.leadingAnchor),
-            cafeAddress.topAnchor.constraint(equalTo: cafeStarRating.bottomAnchor, constant: 5),
+        let cafeStarRatingImageConstraints = [
+            cafeStarRatingImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.littleBoxPadding),
+            cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
+            cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
+        ]
+        
+        let cafeLocationConstraints = [
+            cafeLocation.leadingAnchor.constraint(equalTo: cafeLocationImage.trailingAnchor , constant: .padding.betweenIconPadding),
+            cafeLocation.topAnchor.constraint(equalTo: cafeStarRating.bottomAnchor, constant: .padding.littleBoxTextPadding),
+        ]
+        
+        let cafeLocationImageConstraints = [
+            cafeLocationImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.littleBoxPadding),
+            cafeLocationImage.centerYAnchor.constraint(equalTo: cafeLocation.centerYAnchor),
+            cafeLocationImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeLocationImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         let cafePeopleConstraints = [
-            cafePeople.leadingAnchor.constraint(equalTo: cafeAddress.trailingAnchor, constant: 5),
-            cafePeople.topAnchor.constraint(equalTo: cafeAddress.topAnchor),
+            cafePeople.leadingAnchor.constraint(equalTo: cafePeopleImage.trailingAnchor, constant: .padding.betweenIconPadding),
+            cafePeople.topAnchor.constraint(equalTo: cafeLocation.topAnchor),
         ]
         
-        let cafeHeartConstraints = [
-            cafeHeart.leadingAnchor.constraint(equalTo: cafeName.trailingAnchor, constant: 5),
-            cafeHeart.topAnchor.constraint(equalTo: cafeName.topAnchor),
+        let cafePeopleImageConstraints = [
+            cafePeopleImage.leadingAnchor.constraint(equalTo: cafeLocation.trailingAnchor, constant: .padding.bigBoxTextPadding),
+            cafePeopleImage.centerYAnchor.constraint(equalTo: cafePeople.centerYAnchor),
+            cafePeopleImage.heightAnchor.constraint(equalToConstant: 18),
+            cafePeopleImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         NSLayoutConstraint.activate(cafeImageViewConstraints)
         NSLayoutConstraint.activate(cafeNameConstraints)
         NSLayoutConstraint.activate(cafeStarRatingConstraints)
-        NSLayoutConstraint.activate(cafeAddressConstraints)
+        NSLayoutConstraint.activate(cafeStarRatingImageConstraints)
+        NSLayoutConstraint.activate(cafeLocationConstraints)
+        NSLayoutConstraint.activate(cafeLocationImageConstraints)
         NSLayoutConstraint.activate(cafePeopleConstraints)
-        NSLayoutConstraint.activate(cafeHeartConstraints)
+        NSLayoutConstraint.activate(cafePeopleImageConstraints)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -119,9 +155,17 @@ class ResultCollectionViewCell: UICollectionViewCell {
     public func configure(with model: CafeInfoModel) {
         self.cafeName.text = model.cafeName
         self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
-        self.cafeStarRating.text = "⭐️" + String(model.cafeStarRating)
-        self.cafeAddress.text = "📍" + String(model.cafeAddress)
-        self.cafePeople.text = "👤" + String("\(model.cafeMinPeople) ~ \(model.cafeMaxPeople)")
+        self.cafeStarRating.text = String(model.cafeStarRating)
+        
+        let longCafeAddress = model.cafeAddress.components(separatedBy: " ")
+        var shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
+        self.cafeLocation.text = shortCafeAddress
+        
+        if let cafeMinPeople = model.cafeMinPeople, let cafeMaxPeople = model.cafeMinPeople {
+            self.cafePeople.text = "\(cafeMinPeople) ~ \(cafeMaxPeople)"
+        } else {
+            self.cafePeople.text = "-"
+        }
         
     }
 }

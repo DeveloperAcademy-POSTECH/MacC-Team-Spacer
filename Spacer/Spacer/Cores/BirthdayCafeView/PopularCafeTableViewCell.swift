@@ -12,7 +12,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     static let identifier = "PopularCafeTableViewCell"
     
     // 카페 이미지
-    private let CafeImageView: UIImageView = {
+    private let cafeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 12
@@ -88,7 +88,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(CafeImageView)
+        contentView.addSubview(cafeImageView)
         contentView.addSubview(cafeName)
         contentView.addSubview(cafeStarRating)
         contentView.addSubview(cafeStarRatingImage)
@@ -103,17 +103,17 @@ class PopularCafeTableViewCell: UITableViewCell {
     private func applyConstraints() {
         
         let cafeNameConstraints = [
-            cafeName.leadingAnchor.constraint(equalTo: CafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
+            cafeName.leadingAnchor.constraint(equalTo: cafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
             cafeName.bottomAnchor.constraint(equalTo: cafeStarRating.topAnchor, constant: -.padding.bigBoxTextPadding),
         ]
         
         let cafeStarRatingConstraints = [
             cafeStarRating.leadingAnchor.constraint(equalTo: cafeStarRatingImage.trailingAnchor, constant: .padding.betweenIconPadding),
-            cafeStarRating.bottomAnchor.constraint(equalTo: CafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding)
+            cafeStarRating.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding)
         ]
         
         let cafeStarRatingImageConstraints = [
-            cafeStarRatingImage.leadingAnchor.constraint(equalTo: CafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
+            cafeStarRatingImage.leadingAnchor.constraint(equalTo: cafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
             cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
             cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
             cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
@@ -132,7 +132,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         ]
         
         let cafePeopleConstraints = [
-            cafePeople.trailingAnchor.constraint(equalTo: CafeImageView.trailingAnchor, constant: -.padding.bigBoxPadding),
+            cafePeople.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: -.padding.bigBoxPadding),
             cafePeople.bottomAnchor.constraint(equalTo: cafeStarRating.bottomAnchor)
         ]
         
@@ -165,10 +165,10 @@ class PopularCafeTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: .padding.betweenContentsPadding/2, left: .padding.homeMargin, bottom: .padding.betweenContentsPadding/2, right: .padding.homeMargin))
         
         NSLayoutConstraint.activate([
-            CafeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            CafeImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            CafeImageView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
-            CafeImageView.heightAnchor.constraint(equalToConstant: contentView.frame.height),
+            cafeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cafeImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cafeImageView.widthAnchor.constraint(equalToConstant: contentView.frame.width),
+            cafeImageView.heightAnchor.constraint(equalToConstant: contentView.frame.height),
         ])
         
         let colorSet = [
@@ -183,7 +183,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         let startEndPoint = (CGPoint(x: 0, y: 0),CGPoint(x: 0, y: 1))
         
-        CafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location,startEndPoints: startEndPoint)
+        cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location,startEndPoints: startEndPoint)
         
     }
     
@@ -191,15 +191,15 @@ class PopularCafeTableViewCell: UITableViewCell {
     
     public func configure(with model: CafeInfoModel) {
         self.cafeName.text = model.cafeName
-        self.CafeImageView.image = UIImage(named: model.imageDirectories[0])
+        self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
         self.cafeStarRating.text = String(model.cafeStarRating)
         
-        
+        // 카페 장소의 앞 2개 단어만 표시
         let longCafeAddress = model.cafeAddress.components(separatedBy: " ")
         var shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
         self.cafeLocation.text = shortCafeAddress
         
-        // 둘 중 하나의 값이 없으면 - 표시
+        // 둘 중 하나의 값이 없으면 "-" 표시
         if let cafeMinPeople = model.cafeMinPeople, let cafeMaxPeople = model.cafeMinPeople {
             self.cafePeople.text = "\(cafeMinPeople) ~ \(cafeMaxPeople)"
         } else {

@@ -164,7 +164,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         
         let startEndPoint = (CGPoint(x: 0, y: 0),CGPoint(x: 0, y: 1))
         
-        cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location,startEndPoints: startEndPoint)
+        cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location, startEndPoints: startEndPoint)
     }
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌

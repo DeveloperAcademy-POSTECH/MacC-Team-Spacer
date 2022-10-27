@@ -14,7 +14,8 @@ class MyHeaderView: UIView {
     let headerButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "TagBanner"), for: .normal)
-        button.layer.cornerRadius = 24
+        // TODO: - 우선순위 낮춤(직각으로)
+//        button.layer.cornerRadius = 24
         button.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         button.clipsToBounds = true
         return button

@@ -19,7 +19,7 @@ class BirthdayCafeViewController: UIViewController {
     // 전체를 감싸는 스크롤뷰 - delegate를 활용하여 navBar 변화를 주기 위해 사용
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
+        scrollView.alwaysBounceVertical = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -39,7 +39,7 @@ class BirthdayCafeViewController: UIViewController {
     // 로고 이미지
     let logoButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "CELEBER"), for: .normal)
+        button.setImage(UIImage(named: "CELEBER_Logo"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = false
         return button
@@ -67,13 +67,13 @@ class BirthdayCafeViewController: UIViewController {
     // MARK: - 0. section정보
     
     let sectionTitles: [String] = ["최근 카페 후기", "가장 인기 있는 카페"]
-    let sectionImages: [String] = ["book", "leaf"]
+    let sectionImages: [String] = ["RecentReviewCafeIcon", "PopularCafeIcon"]
     
     private var headerView: MyHeaderView?
     
     // MARK: - 1. 카페 저장소
     
-    var tempCafeArray: [CafeInfo] = [CafeInfo]()
+    var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -133,20 +133,20 @@ class BirthdayCafeViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
-        var navBarConstraints = [
+        let navBarConstraints = [
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
             navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
             navBar.heightAnchor.constraint(equalToConstant: 99)
         ]
         
-        // 노치가 없을 경우 navBar 오토레이아웃 처리
-        if !UIDevice.current.hasNotch {
-            navBarConstraints = [
-                navBar.topAnchor.constraint(equalTo: view.topAnchor),
-                navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
-                navBar.heightAnchor.constraint(equalToConstant: 79)
-            ]
-        }
+//        // 노치가 없을 경우 navBar 오토레이아웃 처리
+//        if !UIDevice.current.hasNotch {
+//            navBarConstraints = [
+//                navBar.topAnchor.constraint(equalTo: view.topAnchor),
+//                navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
+//                navBar.heightAnchor.constraint(equalToConstant: 79)
+//            ]
+//        }
         
         
         let logoButtonConstraints = [
@@ -193,7 +193,9 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     @objc func goToSearchListView() {
-        show(SearchListViewController(), sender: nil)
+        let vc = UINavigationController(rootViewController: SearchListViewController())
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }
 
@@ -212,7 +214,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         
         // 섹션 헤더뷰 설정
         sectionHeader.sectionTitle.text = sectionTitles[section]
-        sectionHeader.sectionImage.image = UIImage(systemName: sectionImages[section])
+        sectionHeader.sectionImage.image = UIImage(named: sectionImages[section])
         
         return sectionHeader
     }
@@ -299,30 +301,31 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
-// 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정
+// TODO: - 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정 -> 우선순위 낮춤(직각으로)
 extension BirthdayCafeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
-            self.navBar.layer.cornerRadius = 24
-        } else {
-            self.navBar.layer.cornerRadius = 0
-        }
+        
+//        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
+//            self.navBar.layer.cornerRadius = 24
+//        } else {
+//            self.navBar.layer.cornerRadius = 0
+//        }
     }
     
     // TODO: - ScrollUp방지
     
 }
 
-// MARK: - 기기 별 대응하기 위한 extension
-// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업
-
-extension UIDevice {
-    var hasNotch: Bool {
-        if #available(iOS 11.0, *) {
-            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
-        }
-        return false
-    }
-
-}
+//// MARK: - 기기 별 대응하기 위한 extension
+//// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업
+//
+//extension UIDevice {
+//    var hasNotch: Bool {
+//        if #available(iOS 11.0, *) {
+//            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+//            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+//        }
+//        return false
+//    }
+//
+//}

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */; };
-		BF5F8AB028FE73AE00CF9E3A /* DummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */; };
+		BF5F8AB028FE73AE00CF9E3A /* CafeInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */; };
 		BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB128FE74A400CF9E3A /* MockParser.swift */; };
 		BF5F8AB528FE868E00CF9E3A /* MyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB428FE868E00CF9E3A /* MyHeaderView.swift */; };
 		BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */; };
@@ -27,6 +27,7 @@
 		BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B129290041A30056626C /* esamanru OTF Bold.otf */; };
 		BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B12B290046BB0056626C /* PaddingExtension.swift */; };
 		BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */; };
+		BFEDDE782908023000F1D09E /* CafeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEDDE772908023000F1D09E /* CafeInfoModel.swift */; };
 		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
 		D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */; };
 		D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */; };
@@ -55,7 +56,7 @@
 
 /* Begin PBXFileReference section */
 		BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInfo.swift; sourceTree = "<group>"; };
-		BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DummyData.json; sourceTree = "<group>"; };
+		BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CafeInfoData.json; sourceTree = "<group>"; };
 		BF5F8AB128FE74A400CF9E3A /* MockParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParser.swift; sourceTree = "<group>"; };
 		BF5F8AB428FE868E00CF9E3A /* MyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHeaderView.swift; sourceTree = "<group>"; };
 		BF5F8AB628FE877200CF9E3A /* PopularCafeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCafeTableViewCell.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		BFB9B129290041A30056626C /* esamanru OTF Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Bold.otf"; sourceTree = "<group>"; };
 		BFB9B12B290046BB0056626C /* PaddingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtension.swift; sourceTree = "<group>"; };
 		BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeTableViewSectionHeader.swift; sourceTree = "<group>"; };
+		BFEDDE772908023000F1D09E /* CafeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInfoModel.swift; sourceTree = "<group>"; };
 		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
 		D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
 		D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeReviewViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */,
-				BF5F8AAF28FE73AE00CF9E3A /* DummyData.json */,
+				BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */,
+				BFEDDE772908023000F1D09E /* CafeInfoModel.swift */,
 				BF5F8AB128FE74A400CF9E3A /* MockParser.swift */,
 			);
 			path = Model;
@@ -404,7 +407,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF5F8AB028FE73AE00CF9E3A /* DummyData.json in Resources */,
+				BF5F8AB028FE73AE00CF9E3A /* CafeInfoData.json in Resources */,
 				BFB9B1242900416A0056626C /* Pretendard-Bold.otf in Resources */,
 				BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */,
 				D4E950C828EF48CB0066B711 /* LaunchScreen.storyboard in Resources */,
@@ -438,6 +441,7 @@
 				BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
 				D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */,
+				BFEDDE782908023000F1D09E /* CafeInfoModel.swift in Sources */,
 				D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */,
 				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
 				D4C95C5328F5294900992600 /* FavoriteViewController.swift in Sources */,
@@ -600,6 +604,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 378ZJRNNF8;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 378ZJRNNF8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Spacer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -614,6 +619,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Spacer.Spacer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = Spacer_App_Devleopment;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Spacer_App_Devleopment;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -629,6 +635,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 378ZJRNNF8;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 378ZJRNNF8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Spacer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -643,6 +650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.Spacer.Spacer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = Spacer_App_Distribution;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = Spacer_App_Distribution;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

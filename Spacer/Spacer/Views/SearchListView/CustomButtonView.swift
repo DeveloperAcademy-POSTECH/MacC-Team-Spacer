@@ -16,15 +16,14 @@ class CustomButtonView: UIButton {
         config.imagePlacement = .trailing
         config.imagePadding = 3
         
-        config.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
-        config.baseBackgroundColor = UIColor(red: 246/255, green: 243/255, blue: 255/255, alpha: 1.0)
+        config.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 14.5)
+        config.baseBackgroundColor = .mainPurple6
         var attrTitle = AttributedString.init("커스텀 버튼")
-        attrTitle.foregroundColor = UIColor(red: 79/255, green: 50/255, blue: 194/255, alpha: 1.0)
+        attrTitle.foregroundColor = .mainPurple2
         config.attributedTitle = attrTitle
-        config.baseForegroundColor = .black
+        config.baseForegroundColor = .grayscale1
         
         self.configuration = config
-        self.setTitleColor(.systemRed, for: .normal)
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false

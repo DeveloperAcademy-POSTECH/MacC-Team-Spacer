@@ -52,7 +52,9 @@ class BirthdayCafeTableViewSectionHeader: UITableViewHeaderFooterView {
         
         let sectionImageConstraints = [
             sectionImage.leadingAnchor.constraint(equalTo: sectionTitle.trailingAnchor, constant: 6),
-            sectionImage.centerYAnchor.constraint(equalTo: sectionTitle.centerYAnchor)
+            sectionImage.topAnchor.constraint(equalTo: sectionTitle.topAnchor),
+            sectionImage.heightAnchor.constraint(equalToConstant: 30),
+            sectionImage.widthAnchor.constraint(equalToConstant: 30)
         ]
         
         NSLayoutConstraint.activate(titleUnderLineConstraints)

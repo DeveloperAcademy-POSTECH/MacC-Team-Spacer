@@ -28,6 +28,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body3)
         label.textColor = .grayscale6
+        label.numberOfLines = 2
         return label
     }()
     
@@ -44,7 +45,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
     private let cafeStarRatingImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "star")
+        imageView.image = UIImage(named: "StarRatingIcon")
         return imageView
     }()
     
@@ -127,7 +128,9 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         
         let cafeStarRatingImageConstraints = [
             cafeStarRatingImage.leadingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: .padding.littleBoxPadding),
-            cafeStarRatingImage.topAnchor.constraint(equalTo: topAnchor, constant: .padding.littleBoxPadding)
+            cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
+            cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         let cafeReviewConstraints = [
@@ -150,21 +153,26 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         gradientLayer.frame = contentView.bounds
         
         let colorSet = [
-            UIColor(white: 0, alpha: 0),
-            UIColor(white: 0, alpha: 0.8),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4),
+            UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.9)
+
         ]
         
-        let location = [0.5,1.0]
+        let location = [0.0, 0.3, 0.6]
         
-        cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location)
+        let startEndPoint = (CGPoint(x: 0, y: 0),CGPoint(x: 0, y: 1))
+        
+        cafeImageView.addGradient(with: gradientLayer, colorSet: colorSet, locations: location, startEndPoints: startEndPoint)
     }
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     
-    public func configure(with model: CafeInfo) {
-        self.cafeName.text = model.cafe_name
-        self.cafeImageView.image = UIImage(named: model.image_directories[0])
-        self.cafeStarRating.text = String(model.cafe_star_rating)
+    public func configure(with model: CafeInfoModel) {
+        self.cafeName.text = model.cafeName
+        self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
+        self.cafeStarRating.text = String(model.cafeStarRating)
     }
     
     required init?(coder: NSCoder) {

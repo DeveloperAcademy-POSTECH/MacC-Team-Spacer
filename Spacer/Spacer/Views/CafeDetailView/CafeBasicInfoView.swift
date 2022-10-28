@@ -69,14 +69,11 @@ class CafeBasicInfoView: UIView {
             peopleCountInfo.discription.text = "\(minPeople)~\(maxPeople) 명 동시 수용 가능"
         } else if let maxPeople = max {
             peopleCountInfo.discription.text = "최대 \(maxPeople) 명 동시 수용 가능"
-
         } else if let minPeople = min {
             peopleCountInfo.discription.text = "최소 \(minPeople) 명 동시 수용 가능"
-
         } else {
             peopleCountInfo.discription.text = "문의하여 확인해주세요"
             peopleCountInfo.discription.textColor = .grayscale4
-
         }
         
         setStyle()
@@ -84,7 +81,6 @@ class CafeBasicInfoView: UIView {
         cafeTitle.text = title
         starRateAndReviewCount.text = "\(starRate) (\(reviewCount))"
         addressInfo.discription.text = address
-        
         
         self.addSubview(highlightBox)
         self.addSubview(cafeTitle)

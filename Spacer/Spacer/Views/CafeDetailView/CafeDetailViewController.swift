@@ -309,5 +309,4 @@ extension CafeDetailViewController: UIPageViewControllerDelegate, UIPageViewCont
         segmentedControl.selectedSegmentIndex = index
     }
     
-    
 }

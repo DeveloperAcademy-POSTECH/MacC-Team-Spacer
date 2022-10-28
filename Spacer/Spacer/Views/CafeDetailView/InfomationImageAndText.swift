@@ -41,6 +41,8 @@ class InfomationImageAndText: UIView {
         return verticalStackView
     }()
     
+    var selfHeight: CGFloat = 0
+    
     init(image: String, discription: String) {
         super.init(frame: CGRect())
         
@@ -54,12 +56,19 @@ class InfomationImageAndText: UIView {
         applyDiscriptionConstraints(isCategoryText: false)
     }
      
-    init(image: String, category: String, discription: String) {
+    init(image: String, category: String, discription: String?) {
         super.init(frame: CGRect())
         
         icon.image = UIImage(systemName: image)
         self.category.text = category
-        self.discription.text = discription
+        
+        // TODO: 데이터에서 전화 번호 옵셔널 삭제한 후 코드 변경 필요
+        if let discription = discription {
+            self.discription.text = discription
+        } else {
+            self.discription.text = "전화번호가 없습니다"
+            self.discription.textColor = .grayscale4
+        }
         
         self.addSubview(icon)
         self.addSubview(self.category)
@@ -70,55 +79,74 @@ class InfomationImageAndText: UIView {
         applyDiscriptionConstraints(isCategoryText: true)
     }
     
-    init(image: String, category: String, discription: [String: String]) {
+    init(image: String, category: String, discription: SNSList) {
         super.init(frame: CGRect())
         
         icon.image = UIImage(systemName: image)
         self.category.text = category
         
-        // sns 이름과 sns 아이디를 생성
-        let sortedDiscription = discription.sorted { $0.0 > $1.0 }
-        for (snsName, snsID) in sortedDiscription {
-            let horizontalStackView = UIStackView()
-            horizontalStackView.spacing = 6
-            horizontalStackView.axis = .horizontal
-            horizontalStackView.alignment = .leading
-            
-            let snsNameLabel = UILabel()
-            snsNameLabel.text = snsName
-            snsNameLabel.font = .systemFont(for: .body3)
-            snsNameLabel.textColor = .grayscale4
-            snsNameLabel.translatesAutoresizingMaskIntoConstraints = false
-            horizontalStackView.addArrangedSubview(snsNameLabel)
-            
-            let snsIDLabel = UILabel()
-            snsIDLabel.text = snsID
-            snsIDLabel.font = .systemFont(for: .body3)
-            snsIDLabel.textColor = .grayscale1
-            snsIDLabel.translatesAutoresizingMaskIntoConstraints = false
-            horizontalStackView.addArrangedSubview(snsIDLabel)
-            
-            verticalStackView.addArrangedSubview(horizontalStackView)
+        if let twitterID = discription.twitter {
+            setLeftSNSNameRightSNSID(snsName: "twitter", snsID: twitterID)
+            selfHeight += 18
+        }
+        if let instagramID = discription.insta {
+            setLeftSNSNameRightSNSID(snsName: "instagram", snsID: instagramID)
+            selfHeight += 18
+        }
+        if let facebookID = discription.insta {
+            setLeftSNSNameRightSNSID(snsName: "facebook", snsID: facebookID)
+            selfHeight += 18
         }
         
         self.addSubview(icon)
         self.addSubview(self.category)
-        self.addSubview(self.discription)
-        self.addSubview(verticalStackView)
+        if selfHeight == 0 {
+            self.discription.text = "SNS 정보가 없습니다"
+            self.discription.textColor = .grayscale4
+            selfHeight += 20
+            self.addSubview(self.discription)
+            applyDiscriptionConstraints(isCategoryText: true)
+        } else {
+            self.addSubview(verticalStackView)
+            applyVerticalStackViewConstraints()
+        }
         
         applyIconConstraints()
         applyCategoryConstraints()
-        applyVerticalStackViewConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func setLeftSNSNameRightSNSID(snsName: String, snsID: String) {
+        let horizontalStackView = UIStackView()
+        horizontalStackView.spacing = 6
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.alignment = .leading
+        
+        let snsNameLabel = UILabel()
+        snsNameLabel.text = snsName
+        snsNameLabel.font = .systemFont(for: .body3)
+        snsNameLabel.textColor = .grayscale4
+        snsNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.addArrangedSubview(snsNameLabel)
+        
+        let snsIDLabel = UILabel()
+        snsIDLabel.text = snsID
+        snsIDLabel.font = .systemFont(for: .body3)
+        snsIDLabel.textColor = .grayscale1
+        snsIDLabel.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.addArrangedSubview(snsIDLabel)
+        
+        verticalStackView.addArrangedSubview(horizontalStackView)
+    }
 
     private func applyIconConstraints() {
         let iconConstraints = [
             icon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            icon.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            icon.topAnchor.constraint(equalTo: self.topAnchor)
         ]
         
         NSLayoutConstraint.activate(iconConstraints)
@@ -127,8 +155,9 @@ class InfomationImageAndText: UIView {
     private func applyCategoryConstraints() {
         let categoryConstraints = [
             category.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8),
-            category.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            category.widthAnchor.constraint(equalToConstant: 52)
+            category.topAnchor.constraint(equalTo: self.topAnchor),
+            category.widthAnchor.constraint(equalToConstant: 52),
+            category.heightAnchor.constraint(equalToConstant: 20)
         ]
 
         NSLayoutConstraint.activate(categoryConstraints)

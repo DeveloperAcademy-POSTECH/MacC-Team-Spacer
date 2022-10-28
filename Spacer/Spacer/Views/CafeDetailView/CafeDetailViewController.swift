@@ -12,14 +12,6 @@ class CafeDetailViewController: UIViewController {
     // 받아오는 카페 인포
     var tempCafeInfo: CafeInfoModel?
     
-    // 임시 카페 정보
-    private let cafeInfos: [CafeInfoForDetailView] = [
-        CafeInfoForDetailView(cafeID: 0, cafeName: "카페로제", imageDirectories: ["signature", "bag.fill", "creditcard.fill", "giftcard", "banknote", "dollarsign.circle.fill", "heart.fill"], address: "서울 홍대 어쩌고 저쩌고 106", cafePhoneNumber: "010-7189-8294", SNS: "@gumbee_h", cafeMinPeople: 20, cafeMaxPeople: 50, locationID: 0),
-        CafeInfoForDetailView(cafeID: 1, cafeName: "랑카페", imageDirectories: ["banknote", "bag.fill", "creditcard.fill", "giftcard", "signature", "dollarsign.circle.fill", "heart.fill"], address: "부산 어쩌고 저쩌고 11", cafePhoneNumber: "010-0000-8294", SNS: "@eunbi_Han", cafeMinPeople: 30, cafeMaxPeople: 40, locationID: 1)
-    ]
-    
-    private let cafeIndex = 0
-    
     // MARK: - UI 요소
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -39,7 +31,6 @@ class CafeDetailViewController: UIViewController {
     // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
     lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl(frame: CGRect(x: 0, y: imageScrollView.bounds.height - 45, width: scrollView.bounds.width, height: 55))
-        pageControl.numberOfPages = cafeInfos[cafeIndex].imageDirectories.count
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = .grayscale4
         pageControl.currentPageIndicatorTintColor = .grayscale2
@@ -51,7 +42,6 @@ class CafeDetailViewController: UIViewController {
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 4 * 3))
-        scrollView.contentSize = CGSize(width: CGFloat(cafeInfos[cafeIndex].imageDirectories.count) * view.bounds.width, height: 0)
         
         // 스크롤 인디케이터 삭제
         scrollView.showsHorizontalScrollIndicator = false
@@ -64,11 +54,7 @@ class CafeDetailViewController: UIViewController {
         return scrollView
     }()
     
-    let cafeBasicinfoView: CafeBasicInfoView = {
-        let cafeBasicInfoView = CafeBasicInfoView(title: "카페 로제", starRate: 4.6, reviewCount: 50, location: "서울 마포구 와우산로 90", min: 20, max: 50)
-        cafeBasicInfoView.translatesAutoresizingMaskIntoConstraints = false
-        return cafeBasicInfoView
-    }()
+    var cafeBasicinfoView: CafeBasicInfoView = CafeBasicInfoView(title: "카페 로제", starRate: 4.6, reviewCount: 50, address: "서울 마포구 와우산로 90", min: 20, max: 50)
     
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
@@ -125,12 +111,12 @@ class CafeDetailViewController: UIViewController {
     }()
     
     // 추후 segmentedControl에 추가할 ViewController 정의
-    let detailInfoView: UIViewController = {
+    var detailInfoView: DetailInfomationViewController = {
         let viewController = DetailInfomationViewController()
         return viewController
     }()
     
-    let reviewView: UIViewController = {
+    let reviewView: CafeReviewViewController = {
         let viewController = CafeReviewViewController()
         return viewController
     }()
@@ -146,6 +132,13 @@ class CafeDetailViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        detailInfoView.cafeInfoData = tempCafeInfo
+        imageScrollView.contentSize = CGSize(width: CGFloat(tempCafeInfo!.imageDirectories.count) * view.bounds.width, height: 0)
+        pageControl.numberOfPages = tempCafeInfo!.imageDirectories.count
+        cafeBasicinfoView = CafeBasicInfoView(title: tempCafeInfo!.cafeName, starRate: tempCafeInfo!
+            .cafeStarRating, reviewCount: 50, address: tempCafeInfo!.cafeAddress, min: tempCafeInfo!.cafeMinPeople, max: tempCafeInfo!.cafeMaxPeople)
+        cafeBasicinfoView.translatesAutoresizingMaskIntoConstraints = false
+        
         // 네비게이션 바 보이기
         self.navigationController?.isNavigationBarHidden = false
         
@@ -153,7 +146,7 @@ class CafeDetailViewController: UIViewController {
         let scrollViewWidth = imageScrollView.bounds.width, scrollViewHeight = imageScrollView.bounds.height
         
         // 카페 이미지 보여주기
-        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeImages: cafeInfos[cafeIndex].imageDirectories, parentView: imageScrollView)
+        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeImages: tempCafeInfo!.imageDirectories, parentView: imageScrollView)
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -187,8 +180,9 @@ class CafeDetailViewController: UIViewController {
         for i in 0 ..< cafeImages.count {
             // 카페 이미지 세팅
             let cafeImage = UIImageView()
-            cafeImage.image = UIImage(systemName: cafeInfos[cafeIndex].imageDirectories[i])
-            cafeImage.contentMode = .scaleAspectFit
+            cafeImage.image = UIImage(named: cafeImages[i])
+            cafeImage.contentMode = .scaleAspectFill
+            cafeImage.clipsToBounds = true
             cafeImage.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: width / 4 * 3)
             
             imageScrollView.addSubview(cafeImage)
@@ -314,6 +308,5 @@ extension CafeDetailViewController: UIPageViewControllerDelegate, UIPageViewCont
         }
         segmentedControl.selectedSegmentIndex = index
     }
-    
     
 }

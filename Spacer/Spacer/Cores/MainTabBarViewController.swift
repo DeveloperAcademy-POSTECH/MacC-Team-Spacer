@@ -33,8 +33,9 @@ class MainTabBarViewController: UITabBarController {
         let MyPageViewControllerTabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "MyPage_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "MyPage_Fill")?.withRenderingMode(.alwaysOriginal))
         MyPageViewController.tabBarItem = MyPageViewControllerTabBarItem
         
-        
         setViewControllers([birthdayCafeViewController, requestViewController, MyPageViewController], animated: true)
+
+
     }
     
 }

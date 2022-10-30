@@ -33,7 +33,6 @@ class MainTabBarViewController: UITabBarController {
         let vc3TabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "MyPage_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "MyPage_Fill")?.withRenderingMode(.alwaysOriginal))
         vc3.tabBarItem = vc3TabBarItem
         
-        
         setViewControllers([vc1, vc2, vc3], animated: true)
     }
     

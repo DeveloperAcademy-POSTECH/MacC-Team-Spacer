@@ -34,8 +34,6 @@ class MainTabBarViewController: UITabBarController {
         MyPageViewController.tabBarItem = MyPageViewControllerTabBarItem
         
         setViewControllers([birthdayCafeViewController, requestViewController, MyPageViewController], animated: true)
-
-
     }
     
 }

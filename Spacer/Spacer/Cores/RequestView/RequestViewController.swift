@@ -37,9 +37,9 @@ class RequestViewController: UIViewController {
     
     @objc func buttonTest(_ sender: Any) {
         if sender is UIButton{
-            let vc = UINavigationController(rootViewController: VisualTagCalendarViewController())
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            let visualTagCalendarViewController = UINavigationController(rootViewController: VisualTagCalendarViewController())
+            visualTagCalendarViewController.modalPresentationStyle = .fullScreen
+            self.present(visualTagCalendarViewController, animated: true, completion: nil)
         }
     }
 

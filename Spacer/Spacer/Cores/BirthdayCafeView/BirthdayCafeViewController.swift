@@ -195,14 +195,14 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     @objc func goToSearchListView() {
-        let vc = SearchListViewController()
-        self.navigationController!.pushViewController(vc, animated: true)
+        let searchListViewController = SearchListViewController()
+        self.navigationController!.pushViewController(searchListViewController, animated: true)
     }
     
     @objc func goToVisualTagView() {
-        let vc = UINavigationController(rootViewController: VisualTagCalendarViewController())
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let visualTagCalendarViewController = UINavigationController(rootViewController: VisualTagCalendarViewController())
+        visualTagCalendarViewController.modalPresentationStyle = .fullScreen
+        self.present(visualTagCalendarViewController, animated: true, completion: nil)
     }
 }
 
@@ -308,9 +308,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
-        let vc = CafeDetailViewController()
-        vc.tempCafeInfo = tempCafeArray[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = tempCafeArray[indexPath.row]
+        self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }
 
@@ -346,8 +346,8 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 //MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능
 extension BirthdayCafeViewController: CellSelectedDelegate {
     func selectionAction(data: CafeInfoModel?, indexPath: IndexPath) {
-        let vc = CafeDetailViewController()
-        vc.tempCafeInfo = data
-        navigationController?.pushViewController(vc, animated: true)
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = data
+        navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }

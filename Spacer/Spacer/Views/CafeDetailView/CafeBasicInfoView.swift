@@ -28,7 +28,7 @@ class CafeBasicInfoView: UIView {
     
     let starImage: UIImageView = {
        let startImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        startImage.image = UIImage(systemName: "star.fill")
+        startImage.image = UIImage(named: "StarRatingIcon")
         startImage.tintColor = .systemYellow
         startImage.translatesAutoresizingMaskIntoConstraints = false
         return startImage
@@ -44,20 +44,19 @@ class CafeBasicInfoView: UIView {
     
     let favoriteButton: UIButton = {
         let favoriteButton = UIButton(type: .custom)
-        favoriteButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
-        favoriteButton.imageView?.tintColor = .systemRed
+        favoriteButton.setImage(UIImage(named: "heartIcon"), for: .normal)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         return favoriteButton
     }()
     
     lazy var addressInfo: InfomationImageAndText = {
-        let address = InfomationImageAndText(image: "pin.fill", discription: "")
+        let address = InfomationImageAndText(image: "mapPinIcon", discription: "")
         address.translatesAutoresizingMaskIntoConstraints = false
         return address
     }()
     
     lazy var peopleCountInfo: InfomationImageAndText = {
-        let peopleCount = InfomationImageAndText(image: "person.fill", discription: "")
+        let peopleCount = InfomationImageAndText(image: "userIcon", discription: "")
         peopleCount.translatesAutoresizingMaskIntoConstraints = false
         return peopleCount
     }()
@@ -124,7 +123,9 @@ class CafeBasicInfoView: UIView {
         
         let starImageConstraints = [
             starImage.leadingAnchor.constraint(equalTo: cafeTitle.trailingAnchor, constant: innerPadding.betweenComponent),
-            starImage.centerYAnchor.constraint(equalTo: cafeTitle.centerYAnchor)
+            starImage.centerYAnchor.constraint(equalTo: cafeTitle.centerYAnchor),
+            starImage.widthAnchor.constraint(equalToConstant: 20),
+            starImage.heightAnchor.constraint(equalToConstant: 20)
         ]
         
         let starRateAndReviewCountConstraints = [

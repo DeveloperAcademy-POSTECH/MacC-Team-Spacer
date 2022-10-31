@@ -46,7 +46,7 @@ class InfomationImageAndText: UIView {
     init(image: String, discription: String) {
         super.init(frame: CGRect())
         
-        icon.image = UIImage(systemName: image)
+        icon.image = UIImage(named: image)
         self.discription.text = discription
         
         self.addSubview(icon)
@@ -59,7 +59,7 @@ class InfomationImageAndText: UIView {
     init(image: String, category: String, discription: String?) {
         super.init(frame: CGRect())
         
-        icon.image = UIImage(systemName: image)
+        icon.image = UIImage(named: image)
         self.category.text = category
         
         // TODO: 데이터에서 전화 번호 옵셔널 삭제한 후 코드 변경 필요
@@ -82,7 +82,7 @@ class InfomationImageAndText: UIView {
     init(image: String, category: String, discription: SNSList) {
         super.init(frame: CGRect())
         
-        icon.image = UIImage(systemName: image)
+        icon.image = UIImage(named: image)
         self.category.text = category
         
         if let twitterID = discription.twitter {
@@ -146,7 +146,9 @@ class InfomationImageAndText: UIView {
     private func applyIconConstraints() {
         let iconConstraints = [
             icon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            icon.topAnchor.constraint(equalTo: self.topAnchor)
+            icon.topAnchor.constraint(equalTo: self.topAnchor),
+            icon.heightAnchor.constraint(equalToConstant: 20),
+            icon.widthAnchor.constraint(equalToConstant: 20)
         ]
         
         NSLayoutConstraint.activate(iconConstraints)

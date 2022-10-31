@@ -104,7 +104,7 @@ class BirthdayCafeViewController: UIViewController {
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
         birthdayCafeTableView.tableHeaderView = headerView
-        headerView?.headerButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
+        headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
         
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
@@ -125,6 +125,7 @@ class BirthdayCafeViewController: UIViewController {
         
         applyConstraints()
     }
+    
     func applyConstraints() {
         
         let scrollViewConstraints = [
@@ -194,8 +195,14 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     @objc func goToSearchListView() {
-        let vc = SearchListViewController()
-        self.navigationController!.pushViewController(vc, animated: true)
+        let searchListViewController = SearchListViewController()
+        self.navigationController!.pushViewController(searchListViewController, animated: true)
+    }
+    
+    @objc func goToVisualTagView() {
+        let visualTagCalendarViewController = UINavigationController(rootViewController: VisualTagCalendarViewController())
+        visualTagCalendarViewController.modalPresentationStyle = .fullScreen
+        self.present(visualTagCalendarViewController, animated: true, completion: nil)
     }
 }
 
@@ -251,6 +258,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.backgroundColor = .systemBackground
             
+            //MARK: - 3. self( = BirthdayCafeViewController)를 cell의 delegate로 채택
+            cell.cellSelectedDelegate = self
+            
             cell.configure(with: self.tempCafeArray)
             
             return cell
@@ -264,7 +274,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.configure(with: self.tempCafeArray[indexPath.row])
             cell.selectionStyle = .none
-
+            
             // cell에 쉐도우 넣기
             cell.layer.cornerRadius = 12
             cell.contentView.layer.masksToBounds = true
@@ -298,9 +308,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 셀 터치시 남아있는 회색 표시 없애기
         tableView.deselectRow(at: indexPath, animated: false)
-        let vc = CafeDetailViewController()
-        vc.tempCafeInfo = tempCafeArray[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = tempCafeArray[indexPath.row]
+        self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }
 
@@ -332,3 +342,12 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 //    }
 //
 //}
+
+//MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능
+extension BirthdayCafeViewController: CellSelectedDelegate {
+    func selectionAction(data: CafeInfoModel?, indexPath: IndexPath) {
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = data
+        navigationController?.pushViewController(cafeDetailViewController, animated: true)
+    }
+}

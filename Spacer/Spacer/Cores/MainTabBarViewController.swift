@@ -14,17 +14,26 @@ class MainTabBarViewController: UITabBarController {
         
         view.backgroundColor = .systemBackground
         
-        let vc1 = UINavigationController(rootViewController: BirthdayCafeViewController())
-        let vc2 = UINavigationController(rootViewController: RequestViewController())
-        let vc3 = UINavigationController(rootViewController: ChatViewController())
-        let vc4 = UINavigationController(rootViewController: MyPageViewController())
+        let birthdayCafeViewController = UINavigationController(rootViewController: BirthdayCafeViewController())
+        let requestViewController = UINavigationController(rootViewController: RequestViewController())
+        let MyPageViewController = UINavigationController(rootViewController: MyPageViewController())
         
-        vc1.title = "생일카페"
-        vc2.title = "카페 구하기"
-        vc3.title = "채팅"
-        vc4.title = "내 정보"
+        // 선택되었을 경우 색상
+        self.tabBar.tintColor = .mainPurple3
         
-        setViewControllers([vc1, vc2, vc3, vc4], animated: true)
+        // tabBar가 선택되지 않았을 때의 색상
+        self.tabBar.unselectedItemTintColor = .mainPurple3
+        
+        let birthdayCafeViewControllerTabBarItem = UITabBarItem(title: "생일카페", image:  UIImage(named: "BirthdayCafe_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "BirthdayCafe_Fill")?.withRenderingMode(.alwaysOriginal))
+        birthdayCafeViewController.tabBarItem = birthdayCafeViewControllerTabBarItem
+        
+        let requestViewControllerTabBarItem = UITabBarItem(title: "카페 구하기", image: UIImage(named: "Request_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Request_Fill")?.withRenderingMode(.alwaysOriginal))
+        requestViewController.tabBarItem = requestViewControllerTabBarItem
+        
+        let MyPageViewControllerTabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "MyPage_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "MyPage_Fill")?.withRenderingMode(.alwaysOriginal))
+        MyPageViewController.tabBarItem = MyPageViewControllerTabBarItem
+        
+        setViewControllers([birthdayCafeViewController, requestViewController, MyPageViewController], animated: true)
     }
     
 }

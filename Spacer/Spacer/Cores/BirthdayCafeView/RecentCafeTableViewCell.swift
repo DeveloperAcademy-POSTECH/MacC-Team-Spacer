@@ -14,6 +14,9 @@ class RecentCafeTableViewCell: UITableViewCell {
     
     static let identifier = "RecentCafeTableViewCell"
     
+    //MARK: - 3. 프로토콜 변수 선언
+    weak var cellSelectedDelegate: CellSelectedDelegate?
+    
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -70,8 +73,17 @@ extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDat
         cell.configure(with: tempCafeArray[indexPath.row])
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        //MARK: - 3. 델리게이트의 값을 넘김
+        cellSelectedDelegate?.selectionAction(data: tempCafeArray[indexPath.item], indexPath: indexPath)
     }
     
+}
+
+//MARK: 3. 프로토콜 선언 - 델리게이트
+protocol CellSelectedDelegate: AnyObject {
+    func selectionAction(data: CafeInfoModel?, indexPath: IndexPath)
 }

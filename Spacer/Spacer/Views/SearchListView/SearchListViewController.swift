@@ -328,8 +328,8 @@ class SearchListViewController: UIViewController {
     }
     // 다음뷰로 이동하는 함수
     @objc func moveTo() {
-        let nextVC = BirthdayCafeViewController()
-        show(nextVC, sender: nil)
+        let birthdayCafeViewController = BirthdayCafeViewController()
+        show(birthdayCafeViewController, sender: nil)
         
     }
 }

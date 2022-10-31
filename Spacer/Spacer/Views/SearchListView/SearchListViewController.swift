@@ -124,7 +124,7 @@ class SearchListViewController: UIViewController {
             bottomLine.topAnchor.constraint(equalTo: searchBar.bottomAnchor , constant: -10),
             bottomLine.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor,constant: 60),
             bottomLine.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: -55),
-            bottomLine.heightAnchor.constraint(equalToConstant: 1),
+            bottomLine.heightAnchor.constraint(equalToConstant: 3),
         ])
     }
     
@@ -289,20 +289,20 @@ class SearchListViewController: UIViewController {
     // 화면 터치하여 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         self.searchBar.endEditing(true)
-        bottomLine.backgroundColor = UIColor.blue//.cgColor
+        bottomLine.backgroundColor = .grayscale4
         self.resultCollectionView.reloadData()
     }
     
     // 화면 스크롤할 경우도 키보드 내리기
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchBar.endEditing(true)
-        bottomLine.backgroundColor = UIColor.blue//.cgColor
+        bottomLine.backgroundColor = .grayscale4
         self.resultCollectionView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        bottomLine.backgroundColor = UIColor.blue//.cgColor
+        bottomLine.backgroundColor = .grayscale4
         // 서치바 밑줄 - 레이어에서 뷰로 변경
 //        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
 //            textfield.borderStyle = .none
@@ -318,7 +318,7 @@ class SearchListViewController: UIViewController {
     // 키보드 내리기 함수
     @objc func tapFunction(sender:UITapGestureRecognizer) {
         self.searchBar.endEditing(true)
-        bottomLine.backgroundColor = UIColor.blue//.cgColor
+        bottomLine.backgroundColor = .grayscale4
     }
     
     // 뒤로 가기 함수
@@ -364,7 +364,7 @@ extension SearchListViewController: UIScrollViewDelegate {
 // RED는 검색중, blue는 일반
 extension SearchListViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        bottomLine.backgroundColor = UIColor.red//.cgColor
+        bottomLine.backgroundColor = .mainPurple3
         self.isFiltering = true
         return true
     }
@@ -398,7 +398,7 @@ extension SearchListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
         self.resultCollectionView.reloadData()
-        bottomLine.backgroundColor = UIColor.red//.cgColor
+        bottomLine.backgroundColor = .mainPurple3
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

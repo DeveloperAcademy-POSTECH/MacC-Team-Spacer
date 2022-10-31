@@ -92,6 +92,7 @@ class BirthdayCafeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = ""
         
         view.addSubview(scrollView)
         view.addSubview(navBar)

@@ -328,9 +328,9 @@ class SearchListViewController: UIViewController {
     }
     // 다음뷰로 이동하는 함수
     @objc func moveTo() {
-        let birthdayCafeViewController = BirthdayCafeViewController()
-        show(birthdayCafeViewController, sender: nil)
-        
+        let simpleTagViewController = SimpleTagViewController()
+        simpleTagViewController.modalPresentationStyle = .fullScreen
+        self.present(simpleTagViewController, animated: false, completion: nil)
     }
 }
 

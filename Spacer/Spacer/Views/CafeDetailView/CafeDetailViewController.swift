@@ -139,8 +139,11 @@ class CafeDetailViewController: UIViewController {
             .cafeStarRating, reviewCount: 50, address: tempCafeInfo!.cafeAddress, min: tempCafeInfo!.cafeMinPeople, max: tempCafeInfo!.cafeMaxPeople)
         cafeBasicinfoView.translatesAutoresizingMaskIntoConstraints = false
         
-        // 네비게이션 바 보이기
-        self.navigationController?.isNavigationBarHidden = false
+        // navigationBar & tabBar 설정
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.tintColor = .black
+        self.title = tempCafeInfo?.cafeName
+        tabBarController?.tabBar.isHidden = true
         
         // scrollView의 width, height
         let scrollViewWidth = imageScrollView.bounds.width, scrollViewHeight = imageScrollView.bounds.height
@@ -167,6 +170,13 @@ class CafeDetailViewController: UIViewController {
         bottomBar.addSubview(reservationButton)
         
         applyConstraints()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+        navigationController?.isNavigationBarHidden = true
     }
     
     // MARK: - functions

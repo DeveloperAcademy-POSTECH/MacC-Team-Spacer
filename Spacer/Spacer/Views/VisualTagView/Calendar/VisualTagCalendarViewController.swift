@@ -398,6 +398,13 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             datesRange = [firstDate!]
             viewWillAppear(false)
             configureVisibleCells()
+        } else {
+            // 동일한 날짜 선택 가능
+            firstDate = date
+            lastDate = date
+            calendar.select(date)
+            viewWillAppear(false)
+            configureVisibleCells()
         }
     }
     

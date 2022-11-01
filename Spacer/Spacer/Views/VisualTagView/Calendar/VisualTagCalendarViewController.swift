@@ -325,7 +325,6 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
         
         // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
-        print(date)
         if date < Date(){
             let alert = UIAlertController(title: "유효하지 않은 날짜입니다.", message: "오늘 날짜보다 이전의 날짜는\n선택할 수 없습니다.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil))
@@ -421,44 +420,34 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     
     private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         let customCell = (cell as! CustomCalenderCell)
-        customCell.circleImageView?.isHidden = !self.calendar.gregorian.isDateInToday(date)
         var selectionType = SelectionType.none
-        
-        if position == .next {
-            customCell.selectionType = selectionType
-            return
-        }
         if position == .current {
             if calendar.selectedDates.contains(date){
                 let previousDate = self.calendar.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.calendar.gregorian.date(byAdding: .day, value: 1, to: date)!
-                if calendar.selectedDates.contains(date){
-                    if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(nextDate) {
-                        selectionType = .mid
-                    }
-                    else if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(date) {
-                        selectionType = .last
-                    }
-                    else if calendar.selectedDates.contains(nextDate) {
-                        selectionType = .first
-                    }
-                    else {
-                        selectionType = .single
-                    }
+                
+                if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(nextDate) {
+                    // 앞 뒤로 날짜가 선택된 기간에 포함된다면 mid
+                    selectionType = .mid
+                } else if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(date) {
+                    // 앞 날짜만 선택된 기간에 포함된다면 last
+                    selectionType = .last
+                } else if calendar.selectedDates.contains(nextDate) {
+                    // 뒤 날짜만 선택된 기간에 포함된다면 first
+                    selectionType = .first
+                } else {
+                    selectionType = .single
                 }
-            }else {
+            } else {
                 selectionType = .none
             }
-            
-            if selectionType == .none {
-                customCell.selectionType = selectionType
-                return
-            }else {
-                customCell.selectionType = selectionType
-            }
-        }
-        else {
+            customCell.selectionType = selectionType
+            return
+        } else {
+            print("not current")
+            customCell.selectionType = selectionType
             return
         }
     }
 }
+

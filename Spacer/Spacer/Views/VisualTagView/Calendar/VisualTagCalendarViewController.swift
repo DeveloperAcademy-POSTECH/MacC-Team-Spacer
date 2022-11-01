@@ -273,6 +273,11 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     
     // 토요일 파랑, 일요일 빨강으로 만들기
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        // 오늘 이전의 날짜는 선택하지 못하도록 색상을 회색으로 처리
+        if date < Date() {
+            return .grayscale5
+        }
+        
         // 요일을 나타냄, 일:1, 월:2...토:7로 나타내서 -1을 하여 인덱스로 접근 가능하도록 함
         let day = Calendar.current.component(.weekday, from: date) - 1
         
@@ -326,9 +331,10 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         
         // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
         if date < Date(){
-            let alert = UIAlertController(title: "유효하지 않은 날짜입니다.", message: "오늘 날짜보다 이전의 날짜는\n선택할 수 없습니다.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            // 이전 날짜를 선택했을 경우 alert 삭제 - 다시 alert를 사용할 수 있어서 주석처리함
+//            let alert = UIAlertController(title: "유효하지 않은 날짜입니다.", message: "오늘 날짜보다 이전의 날짜는\n선택할 수 없습니다.", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
             calendar.deselect(date)
             if firstDate != nil{
                 calendar.deselect(firstDate!)

@@ -46,8 +46,6 @@
 		D4A372A229011AB8007A5297 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D4A372A129011AB8007A5297 /* FSCalendar */; };
 		D4A372AF29063C8A007A5297 /* InfomationImageAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */; };
 		D4A372B12907A58D007A5297 /* CafeBasicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372B02907A58D007A5297 /* CafeBasicInfoView.swift */; };
-		D4C95C4D28F5288F00992600 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4C28F5288F00992600 /* RequestViewController.swift */; };
-		D4C95C4F28F528BA00992600 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C4E28F528BA00992600 /* ChatViewController.swift */; };
 		D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5028F528CB00992600 /* MyPageViewController.swift */; };
 		D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5428F5296800992600 /* BirthdayCafeViewController.swift */; };
 		D4C95C5728F5437200992600 /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C95C5628F5437200992600 /* CafeDetailViewController.swift */; };

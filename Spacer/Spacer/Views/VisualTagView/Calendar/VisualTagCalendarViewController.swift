@@ -220,7 +220,8 @@ extension VisualTagCalendarViewController{
     //handling action for calendar buttons
     @objc func calendarHeaderButton(_ sender: Any) {
         defer {
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
         }
         if let button = sender as? UIButton {
             let _calendar = Calendar.current
@@ -306,7 +307,6 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     
     //delegates for calendar
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
         return cell
     }
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -322,11 +322,11 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
-        //return 되기전에 무조건적으로 실행해야하는 코드
-        //viewWIllApear을 통해 뷰가 업데이트 됨
+        //return 되기전에 무조건적으로 실행해야하는 코드 viewWillAppear -> AppearanceTransition
         defer{
             configureVisibleCells()
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
         }
         
         // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
@@ -401,14 +401,16 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
             configureVisibleCells()
         } else {
             // 동일한 날짜 선택 가능
             firstDate = date
             lastDate = date
             calendar.select(date)
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
             configureVisibleCells()
         }
     }

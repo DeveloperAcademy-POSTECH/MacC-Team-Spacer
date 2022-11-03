@@ -79,21 +79,23 @@ class InfomationImageAndText: UIView {
         applyDiscriptionConstraints(isCategoryText: true)
     }
     
-    init(image: String, category: String, discription: SNSList) {
+    init(image: String, category: String, discription: SNSList?) {
         super.init(frame: CGRect())
         
         icon.image = UIImage(named: image)
         self.category.text = category
         
-        if let twitterID = discription.twitter {
+        guard let snsDiscription = discription else { return }
+        
+        if let twitterID = snsDiscription.twitter {
             setLeftSNSNameRightSNSID(snsName: "twitter", snsID: twitterID)
             selfHeight += 18
         }
-        if let instagramID = discription.insta {
+        if let instagramID = snsDiscription.insta {
             setLeftSNSNameRightSNSID(snsName: "instagram", snsID: instagramID)
             selfHeight += 18
         }
-        if let facebookID = discription.insta {
+        if let facebookID = snsDiscription.insta {
             setLeftSNSNameRightSNSID(snsName: "facebook", snsID: facebookID)
             selfHeight += 18
         }

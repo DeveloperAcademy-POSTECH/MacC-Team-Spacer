@@ -79,7 +79,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         calendar.appearance.titleDefaultColor = .grayscale1
         calendar.appearance.titleSelectionColor = .grayscale6
         calendar.appearance.weekdayTextColor = .grayscale3
-        calendar.register(CustomCalenderCell.self, forCellReuseIdentifier: "cell")
+        calendar.register(CustomCalenderCell.self, forCellReuseIdentifier: CustomCalenderCell.identifier)
         return calendar
     }()
     
@@ -307,6 +307,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     
     //delegates for calendar
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        let cell = calendar.dequeueReusableCell(withIdentifier: CustomCalenderCell.identifier, for: date, at: position)
         return cell
     }
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {

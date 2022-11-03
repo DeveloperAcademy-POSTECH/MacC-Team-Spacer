@@ -9,7 +9,6 @@ import UIKit
 
 import FSCalendar
 
-
 class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppearance {
     
     fileprivate weak var calendar: FSCalendar!

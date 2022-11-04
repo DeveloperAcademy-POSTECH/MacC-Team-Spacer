@@ -33,23 +33,6 @@ class PopularCafeTableViewCell: UITableViewCell {
         return label
     }()
     
-    // 카페 별점
-    private let cafeStarRating: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(for: .body1)
-        label.textColor = .grayscale6
-        return label
-    }()
-    
-    // 카페 별점 이미지
-    private let cafeStarRatingImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "StarRatingIcon")
-        return imageView
-    }()
-    
     // 카페 위치
     private let cafeLocation: UILabel = {
         let label = UILabel()
@@ -66,36 +49,14 @@ class PopularCafeTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "LocationIcon")
         return imageView
     }()
-
-    
-    // 카페 인원수
-    private let cafePeople: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(for: .body1)
-        label.textColor = .grayscale6
-        return label
-    }()
-    
-    // 카페 인원수 이미지
-    private let cafePeopleImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "CafePeopleIcon")
-        return imageView
-    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(cafeImageView)
         contentView.addSubview(cafeName)
-        contentView.addSubview(cafeStarRating)
-        contentView.addSubview(cafeStarRatingImage)
         contentView.addSubview(cafeLocation)
         contentView.addSubview(cafeLocationImage)
-        contentView.addSubview(cafePeople)
-        contentView.addSubview(cafePeopleImage)
         
         applyConstraints()
     }
@@ -104,24 +65,12 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         let cafeNameConstraints = [
             cafeName.leadingAnchor.constraint(equalTo: cafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
-            cafeName.bottomAnchor.constraint(equalTo: cafeStarRating.topAnchor, constant: -.padding.bigBoxTextPadding),
-        ]
-        
-        let cafeStarRatingConstraints = [
-            cafeStarRating.leadingAnchor.constraint(equalTo: cafeStarRatingImage.trailingAnchor, constant: .padding.betweenIconPadding),
-            cafeStarRating.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding)
-        ]
-        
-        let cafeStarRatingImageConstraints = [
-            cafeStarRatingImage.leadingAnchor.constraint(equalTo: cafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
-            cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
-            cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
-            cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
+            cafeName.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxTextPadding),
         ]
         
         let cafeLocationConstraints = [
-            cafeLocation.trailingAnchor.constraint(equalTo: cafePeopleImage.leadingAnchor, constant: -.padding.bigBoxPadding),
-            cafeLocation.bottomAnchor.constraint(equalTo: cafePeople.bottomAnchor),
+            cafeLocation.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: -.padding.bigBoxPadding),
+            cafeLocation.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding),
         ]
         
         let cafeLocationImageConstraints = [
@@ -131,25 +80,9 @@ class PopularCafeTableViewCell: UITableViewCell {
             cafeLocationImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
-        let cafePeopleConstraints = [
-            cafePeople.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: -.padding.bigBoxPadding),
-            cafePeople.bottomAnchor.constraint(equalTo: cafeStarRating.bottomAnchor)
-        ]
-        
-        let cafePeopleImageConstraints = [
-            cafePeopleImage.trailingAnchor.constraint(equalTo: cafePeople.leadingAnchor, constant: -.padding.betweenIconPadding),
-            cafePeopleImage.centerYAnchor.constraint(equalTo: cafePeople.centerYAnchor),
-            cafePeopleImage.heightAnchor.constraint(equalToConstant: 18),
-            cafePeopleImage.widthAnchor.constraint(equalToConstant: 18)
-        ]
-        
         NSLayoutConstraint.activate(cafeNameConstraints)
-        NSLayoutConstraint.activate(cafeStarRatingConstraints)
-        NSLayoutConstraint.activate(cafeStarRatingImageConstraints)
         NSLayoutConstraint.activate(cafeLocationConstraints)
         NSLayoutConstraint.activate(cafeLocationImageConstraints)
-        NSLayoutConstraint.activate(cafePeopleConstraints)
-        NSLayoutConstraint.activate(cafePeopleImageConstraints)
         
     }
     
@@ -190,21 +123,13 @@ class PopularCafeTableViewCell: UITableViewCell {
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     
     public func configure(with model: CafeInfo) {
-        self.cafeName.text = model.cafeName
-        self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
-        self.cafeStarRating.text = String(model.cafeStarRating)
+        self.cafeName.text = model.name
+        self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
         
         // 카페 장소의 앞 2개 단어만 표시
-        let longCafeAddress = model.cafeAddress.components(separatedBy: " ")
+        let longCafeAddress = model.address.components(separatedBy: " ")
         let shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
         self.cafeLocation.text = shortCafeAddress
-        
-        // 둘 중 하나의 값이 없으면 "-" 표시
-        if let cafeMinPeople = model.cafeMinPeople, let cafeMaxPeople = model.cafeMinPeople {
-            self.cafePeople.text = "\(cafeMinPeople) ~ \(cafeMaxPeople)"
-        } else {
-            self.cafePeople.text = "-"
-        }
         
     }
     

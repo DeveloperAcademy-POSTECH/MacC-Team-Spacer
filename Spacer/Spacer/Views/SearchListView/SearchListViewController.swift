@@ -372,7 +372,7 @@ extension SearchListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text?.lowercased() else { return }
         self.filterredArr = self.tempCafeArray.filter({ CafeInfo in
-            return CafeInfo.cafeName.localizedCaseInsensitiveContains(text)
+            return CafeInfo.name.localizedCaseInsensitiveContains(text)
         })
         if text == "" {
             self.isFiltering = false

@@ -10,7 +10,7 @@ import UIKit
 class CafeDetailViewController: UIViewController {
     
     // 받아오는 카페 인포
-    var tempCafeInfo: CafeInfoModel?
+    var tempCafeInfo: CafeInfo?
     
     // MARK: - UI 요소
     lazy var scrollView: UIScrollView = {

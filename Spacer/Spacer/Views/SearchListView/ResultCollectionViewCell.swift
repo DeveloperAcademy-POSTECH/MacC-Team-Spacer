@@ -177,7 +177,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with model: CafeInfoModel) {
+    public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafeName
         self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
         self.cafeStarRating.text = String(model.cafeStarRating)

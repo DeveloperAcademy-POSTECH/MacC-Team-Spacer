@@ -10,7 +10,7 @@ import UIKit
 class DetailInfomationViewController: UIViewController {
     // 상세정보 및 카페 조건 등을 보여주는 ViewController
     
-    var cafeInfoData: CafeInfoModel?
+    var cafeInfoData: CafeInfo?
     
     private let eventElementImageNames = ["eventElementCupholder", "eventElementBigBanner", "eventElementCutout", "eventElementVideoOrScreen", "eventElementEntranceBanner", "eventElementDisplayPlace", "evemtElementCustomCookie", "eventElementCustomReceipt"]
     private let eventElementImageLabels = ["컵홀더", "현수막", "등신대", "영상 상영", "배너", "전시 공간", "맞춤 디저트", "맞춤 영수증 "]

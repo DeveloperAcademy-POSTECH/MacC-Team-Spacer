@@ -10,7 +10,7 @@ import UIKit
 // CollectionView를 담을 1개 짜리 테이블 셀
 class RecentCafeTableViewCell: UITableViewCell {
 
-    public var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
+    public var tempCafeArray: [CafeInfo] = [CafeInfo]()
     
     static let identifier = "RecentCafeTableViewCell"
     
@@ -52,7 +52,7 @@ class RecentCafeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with model: [CafeInfoModel]) {
+    public func configure(with model: [CafeInfo]) {
         self.tempCafeArray = model
         DispatchQueue.main.async {
             self.collectionView.reloadData()
@@ -85,5 +85,5 @@ extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDat
 
 //MARK: 3. 프로토콜 선언 - 델리게이트
 protocol CellSelectedDelegate: AnyObject {
-    func selectionAction(data: CafeInfoModel?, indexPath: IndexPath)
+    func selectionAction(data: CafeInfo?, indexPath: IndexPath)
 }

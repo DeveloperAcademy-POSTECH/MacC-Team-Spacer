@@ -46,36 +46,28 @@ private class MockParser {
 class MockManager {
     static let shared = MockManager()
     private init() {}
-    func getMockData() -> [CafeInfoModel] {
+    func getMockData() -> [CafeInfo] {
         print(#function)
-        return MockParser.load([CafeInfoModel].self, from: "CafeInfoData") ?? [CafeInfoModel(
-            cafeID: 0,
-            cafeName: "cafeName",
-            imageDirectories: ["CELEBER_Logo"],
-            cafeAddress: "cafeAddress",
-            cafePhoneNumber: "010-2715-5629",
-            SNS: SNSList(
-                insta: "instaID",
-                         twitter: "twitterID",
-                         facebook: "facebookID",
-                         homepage: "homepageURL"
-                        ),
-            weekdayTime: "1200~2000",
-            saturdayTime: "1200~2000",
-            sundayTime: "1200~2000",
-            holidayTime: "1200~2000",
-            cafeDayOff: "안쉽니다",
-            cafeMinPeople: 0,
-            cafeMaxPeople: 20,
-            cafeCosts: CostsList(
-                rentalFee: nil,
-                deposit: 50000,
-                reservartion: nil),
-            locationID: nil,
-            cafeStarRating: 3.5,
-            cafeEventElement: [0,3,7],
-            cafeAdditionalInfo: "기타 사항 쓰기")
-        ]
+        return MockParser.load([CafeInfo].self, from: "CafeInfoData") ?? [CafeInfo(
+            ID: "0000000",
+            name: "cafe name",
+            imageInfos: [ImageInfo(images: ["CELEBER_Logo"], category: "category", productSize: "10cmx20cm")],
+            locationID: 1,
+            address: "Full Address",
+            shortAddress: "Short Address",
+            numberOfFavorites: 727,
+            numberOfTables: 27,
+            phoneNumber: "010-0000-0000",
+            SNS: SNSList(insta: "@instaID", twitter: "@twitterID"),
+            weekdayTime: "11:00~20:00",
+            weekendTime: "10:00~22:00",
+            dayOff: "격주로 수요일 휴무",
+            eventElement: [false, false, false, false, false, false, true, true, true, true, true, true],
+            cost: 0,
+            additionalInfo: "카페 사장님이 작성하는 카페에 관한 추가 정보",
+            reviews: [CafeReview(reviewID: 0, userID: "0000", userNickname: "User Nickname", date: Date(), selectedLabel: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], images: ["CELEBER_Logo"], text: "Review")]
+                                                                
+        )]
         
     }
 }

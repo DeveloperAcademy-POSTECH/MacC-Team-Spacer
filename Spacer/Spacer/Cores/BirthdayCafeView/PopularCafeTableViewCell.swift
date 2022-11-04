@@ -189,7 +189,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     
-    public func configure(with model: CafeInfoModel) {
+    public func configure(with model: CafeInfo) {
         self.cafeName.text = model.cafeName
         self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
         self.cafeStarRating.text = String(model.cafeStarRating)

@@ -11,8 +11,8 @@ class SearchListViewController: UIViewController {
     
     var isFiltering = false
     
-    public var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
-    public var filterredArr: [CafeInfoModel] = [CafeInfoModel]()
+    public var tempCafeArray: [CafeInfo] = [CafeInfo]()
+    public var filterredArr: [CafeInfo] = [CafeInfo]()
     
     // 데이터를 받을 곳
     var startDate: String? = "10/16"

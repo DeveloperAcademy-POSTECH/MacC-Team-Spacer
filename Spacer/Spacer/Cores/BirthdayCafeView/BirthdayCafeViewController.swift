@@ -73,7 +73,7 @@ class BirthdayCafeViewController: UIViewController {
     
     // MARK: - 1. 카페 저장소
     
-    var tempCafeArray: [CafeInfoModel] = [CafeInfoModel]()
+    var tempCafeArray: [CafeInfo] = [CafeInfo]()
     
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
@@ -346,7 +346,7 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 
 //MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능
 extension BirthdayCafeViewController: CellSelectedDelegate {
-    func selectionAction(data: CafeInfoModel?, indexPath: IndexPath) {
+    func selectionAction(data: CafeInfo?, indexPath: IndexPath) {
         let cafeDetailViewController = CafeDetailViewController()
         cafeDetailViewController.tempCafeInfo = data
         navigationController?.pushViewController(cafeDetailViewController, animated: true)

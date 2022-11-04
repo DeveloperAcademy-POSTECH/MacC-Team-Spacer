@@ -24,6 +24,7 @@ struct CafeInfo: Codable {
     let eventElement: [Bool]
     let cost: Int
     let additionalInfo: String?
+    let reservationLink: String
     let reviews: [CafeReview]?
 }
 

@@ -12,8 +12,11 @@ class DetailInfomationViewController: UIViewController {
     
     var cafeInfoData: CafeInfo?
     
-    private let eventElementImageNames = ["eventElementCupholder", "eventElementBigBanner", "eventElementCutout", "eventElementVideoOrScreen", "eventElementEntranceBanner", "eventElementDisplayPlace", "evemtElementCustomCookie", "eventElementCustomReceipt"]
-    private let eventElementImageLabels = ["컵홀더", "현수막", "등신대", "영상 상영", "배너", "전시 공간", "맞춤 디저트", "맞춤 영수증 "]
+    // 카페 이벤트 요소 이미지와 타이틀 이름
+    private let eventElementImageNames = ["eventElementCupholder", "eventElementHBanner", "", "eventElementXBanner", "eventElementDisplayPlace", "", "evemtElementCustomCookie", "eventElementCustomReceipt", "eventElementCutout", "", "", "eventElementVideoOrScreen"]
+    private let eventElementImageLabels = ["컵홀더", "현수막", "액자", "배너", "전시 공간", "보틀 음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    
+    // MARK: - UI 요소
     
     // 전화번호 영업시간 등을 보여주는 StackView
     let cafeDetailInfoContainer: UIStackView = {
@@ -33,21 +36,27 @@ class DetailInfomationViewController: UIViewController {
         return divider
     }()
     
-    // 카페의 이벤트 정보나 조건을 보여주는 StackView
+    // 카페에서 진행 가능한 이벤트 요소
     lazy var eventElementStackView: UIStackView = UIStackView()
     
+    // 보증금 액수
     lazy var eventCostStackView: UIStackView = UIStackView()
     
+    // 사장님이 직접 남기는 기타 사항
     lazy var cafeAdditionalInfoStackView: UIStackView = UIStackView()
+    
+    
+    // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 스택뷰 초기 설정
         eventElementStackView = makeStackView()
         eventCostStackView = makeStackView()
         cafeAdditionalInfoStackView = makeStackView()
         
-        lazy var phoneNumber = InfomationImageAndText(image: "phone.fill", category: "전화번호", discription: cafeInfoData?.cafePhoneNumber)
+        lazy var phoneNumber = InfomationImageAndText(image: "phone.fill", category: "전화번호", discription: cafeInfoData?.phoneNumber)
         phoneNumber.translatesAutoresizingMaskIntoConstraints = false
         
         lazy var SNSInfo = InfomationImageAndText(image: "mic.fill", category: "SNS", discription: cafeInfoData!.SNS)
@@ -62,13 +71,13 @@ class DetailInfomationViewController: UIViewController {
         view.addSubview(eventCostStackView)
         view.addSubview(cafeAdditionalInfoStackView)
         
-        setEventElementView(elements: cafeInfoData?.cafeEventElement ?? [])
-        setCostView(costs: cafeInfoData!.cafeCosts)
-        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.cafeAdditionalInfo)
+        setEventElementView(elements: cafeInfoData!.eventElement)
+        setCostView(costs: cafeInfoData!.cost)
+        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
         
-        self.cafeDetailInfoContainer.addArrangedSubview(phoneNumber)
-        self.cafeDetailInfoContainer.addArrangedSubview(SNSInfo)
-        self.cafeDetailInfoContainer.addArrangedSubview(cafeHours)
+        cafeDetailInfoContainer.addArrangedSubview(phoneNumber)
+        cafeDetailInfoContainer.addArrangedSubview(SNSInfo)
+        cafeDetailInfoContainer.addArrangedSubview(cafeHours)
         
         phoneNumber.heightAnchor.constraint(equalToConstant: 20).isActive = true
         SNSInfo.heightAnchor.constraint(equalToConstant: SNSInfo.selfHeight).isActive = true
@@ -76,6 +85,8 @@ class DetailInfomationViewController: UIViewController {
         
         applyConstraints()
     }
+    
+    // MARK: - functions
     
     private func applyConstraints() {
         let cafeDetailInfoContainerConstraints = [
@@ -116,6 +127,7 @@ class DetailInfomationViewController: UIViewController {
         NSLayoutConstraint.activate(cafeAdditionalInfoStackViewConstraints)
     }
     
+    // 카페 정보를 담을 스택뷰 초기화
     private func makeStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -126,14 +138,7 @@ class DetailInfomationViewController: UIViewController {
         return stackView
     }
     
-    private func makeCafeConditionLabel() -> UILabel {
-        let label = UILabel()
-        label.text = "카페 조건"
-        label.textColor = .mainPurple1
-        label.font = .systemFont(for: .header6)
-        return label
-    }
-    
+    // 카페 상세 조건의 이름을 담은 Label
     private func makeConditionTitle(title: String) -> UILabel {
         let titleLabel = UILabel()
         titleLabel.text = title
@@ -144,7 +149,9 @@ class DetailInfomationViewController: UIViewController {
         return titleLabel
     }
     
-    private func makeEventElements(elements: [Int]?) -> UIView {
+    // 이벤트 요소를 라인별로 생성
+    private func makeEventElements(elements: [Bool], lineNumber: Int) -> UIView {
+        // 한 줄에 최대 4개의 이벤트 요소를 담을 View, StackView 생성
         let eventElementsLineView = UIView()
         let elementImageHorizontalStackView = UIStackView()
         elementImageHorizontalStackView.axis = .horizontal
@@ -153,21 +160,28 @@ class DetailInfomationViewController: UIViewController {
         
         eventElementsLineView.addSubview(elementImageHorizontalStackView)
         
-        for element in elements! {
-            let elementImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
-            elementImage.image = UIImage(named: eventElementImageNames[element])
-            elementImage.contentMode = .scaleAspectFit
-            elementImage.tag = 100 + element
+        for (i, isIconOn) in elements.enumerated() {
+            let index =  4 * lineNumber + i
             
+            // TODO: 아이콘 추가 후 삼항연상자 삭제
+            // 이벤트 요소를 나타낼 ImageView 생성
+            let elementImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+            elementImage.image = UIImage(named: eventElementImageNames[index] == "" ? "eventElementCupholder" : eventElementImageNames[index])
+            elementImage.layer.opacity = isIconOn ? 1 : 0.2
+            elementImage.contentMode = .scaleAspectFit
+            
+            // 이벤트 요소에 맞는 이벤트 제목 Label 생성
             let elementTitle = UILabel()
             elementTitle.font = .systemFont(for: .caption)
-            elementTitle.text = eventElementImageLabels[element]
+            elementTitle.text = eventElementImageLabels[index]
             elementTitle.textColor = .grayscale1
+            elementTitle.layer.opacity = isIconOn ? 1 : 0.2
             elementTitle.translatesAutoresizingMaskIntoConstraints = false
             
             elementImageHorizontalStackView.addArrangedSubview(elementImage)
             eventElementsLineView.addSubview(elementTitle)
             
+            // ImageView와 Label에 제약사항 설정
             let elementTitleConstraints = [
                 elementTitle.topAnchor.constraint(equalTo: elementImageHorizontalStackView.bottomAnchor, constant: .padding.betweenButtonsPadding),
                 elementTitle.centerXAnchor.constraint(equalTo: elementImage.centerXAnchor)
@@ -176,6 +190,7 @@ class DetailInfomationViewController: UIViewController {
             NSLayoutConstraint.activate(elementTitleConstraints)
         }
         
+        // ImageView를 담는 StackView에 제약사항 설정
         let elementImageHorizontalStackViewConstraints = [
             elementImageHorizontalStackView.topAnchor.constraint(equalTo: eventElementsLineView.topAnchor),
             elementImageHorizontalStackView.centerXAnchor.constraint(equalTo: eventElementsLineView.centerXAnchor),
@@ -187,42 +202,40 @@ class DetailInfomationViewController: UIViewController {
         return eventElementsLineView
     }
     
-    private func setEventElementView(elements: [Int]?) {
-        let cafeConditionLabel = makeCafeConditionLabel()
-        let conditionTitle = makeConditionTitle(title: "이벤트 진행 요소")
-        
+    private func setEventElementView(elements: [Bool]) {
+        lazy var cafeConditionLabel = UILabel()
+        cafeConditionLabel.text = "카페 조건"
+        cafeConditionLabel.textColor = .mainPurple1
+        cafeConditionLabel.font = .systemFont(for: .header6)
+
+        lazy var conditionTitle = makeConditionTitle(title: "이벤트 진행 요소")
+                
         eventElementStackView.addArrangedSubview(cafeConditionLabel)
         eventElementStackView.addArrangedSubview(conditionTitle)
         
-        if elements!.count < 6 {
-            let eventElementLineView = makeEventElements(elements: elements)
-            eventElementStackView.addArrangedSubview(eventElementLineView)
+        let totalLineCount = Int(ceil(Double(elements.count) / 4.0))
+        
+        for i in 0..<totalLineCount {
+            let starIndex: Int = i * 4
+            let endIndex: Int
+
+            if i == totalLineCount - 1 {
+                endIndex = elements.count - 1
+            } else {
+                endIndex = starIndex + 3
+            }
             
-            let eventElementLineViewConstraints = [
-                eventElementLineView.leadingAnchor.constraint(equalTo: eventElementStackView.leadingAnchor),
-                eventElementLineView.trailingAnchor.constraint(equalTo: eventElementStackView.trailingAnchor),
-                eventElementLineView.heightAnchor.constraint(equalToConstant: 80)
+            let eventElementLineOne = makeEventElements(elements: Array(elements[starIndex...endIndex]), lineNumber: i)
+            eventElementStackView.addArrangedSubview(eventElementLineOne)
+            
+            let eventElementLineOneConstraints = [
+                eventElementLineOne.leadingAnchor.constraint(equalTo: eventElementStackView.leadingAnchor),
+                eventElementLineOne.trailingAnchor.constraint(equalTo: eventElementStackView.trailingAnchor),
+                eventElementLineOne.heightAnchor.constraint(equalToConstant: 80)
             ]
             
-            NSLayoutConstraint.activate(eventElementLineViewConstraints)
-            
-        } else {
-            for i in 0...1 {
-                let startIndex = i == 0 ? 0 : 4
-                let endIndex = i == 0 ? 3 : elements!.count - 1
-                let eventElementLineView = makeEventElements(elements: Array(elements![startIndex...endIndex]))
-                eventElementStackView.addArrangedSubview(eventElementLineView)
-                
-                let eventElementLineViewConstraints = [
-                    eventElementLineView.leadingAnchor.constraint(equalTo: eventElementStackView.leadingAnchor),
-                    eventElementLineView.trailingAnchor.constraint(equalTo: eventElementStackView.trailingAnchor),
-                    eventElementLineView.heightAnchor.constraint(equalToConstant: 80)
-                ]
-                
-                NSLayoutConstraint.activate(eventElementLineViewConstraints)
-            }
+            NSLayoutConstraint.activate(eventElementLineOneConstraints)
         }
-        
     }
     
     private func makeCostTitleAndCost(costName: String, cost: Int) -> UIStackView {
@@ -249,31 +262,26 @@ class DetailInfomationViewController: UIViewController {
         return costInfoStackView
     }
     
-    private func setCostView(costs: CostsList) {
-        let costName = ["대관비", "보증금", "예약금"]
+    private func setCostView(costs: Int) {
+        let costName = "보증금"
         
-        let conditionTitle = makeConditionTitle(title: "비용")
-        let containerView = UIView()
+        lazy var conditionTitle = makeConditionTitle(title: "비용")
+        lazy var containerView = UIView()
         containerView.layer.cornerRadius = 16
         containerView.layer.borderColor = UIColor.white.cgColor
         containerView.layer.borderWidth = 0.1
         containerView.backgroundColor = .mainPurple6
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        let costHorizontalStackView = UIStackView()
+        lazy var costHorizontalStackView = UIStackView()
         costHorizontalStackView.axis = .horizontal
         costHorizontalStackView.spacing = 40
         costHorizontalStackView.alignment = .center
         costHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let rentalStackView = makeCostTitleAndCost(costName: "대관비", cost: costs.rentalFee ?? 0)
-        let depositStackView = makeCostTitleAndCost(costName: "보증금", cost: costs.deposit ?? 0)
-        let reservationStackView = makeCostTitleAndCost(costName: "예약금", cost: costs.reservartion ?? 0)
+        lazy var depositStackView = makeCostTitleAndCost(costName: costName, cost: costs)
         
-        costHorizontalStackView.addArrangedSubview(rentalStackView)
         costHorizontalStackView.addArrangedSubview(depositStackView)
-        costHorizontalStackView.addArrangedSubview(reservationStackView)
-
         eventCostStackView.addArrangedSubview(conditionTitle)
         eventCostStackView.addArrangedSubview(containerView)
         

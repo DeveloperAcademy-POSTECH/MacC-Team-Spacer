@@ -65,6 +65,7 @@ class MockManager {
             eventElement: [false, false, false, false, false, false, true, true, true, true, true, true],
             cost: 0,
             additionalInfo: "카페 사장님이 작성하는 카페에 관한 추가 정보",
+            reservationLink: "https://twitter.com/CELEBER_project",
             reviews: [CafeReview(reviewID: 0, userID: "0000", userNickname: "User Nickname", date: Date(), selectedLabel: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], images: ["CELEBER_Logo"], text: "Review")]
                                                                 
         )]

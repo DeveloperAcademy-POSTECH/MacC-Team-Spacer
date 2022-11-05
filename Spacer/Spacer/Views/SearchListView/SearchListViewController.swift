@@ -15,11 +15,10 @@ class SearchListViewController: UIViewController {
     public var filterredArr: [CafeInfoModel] = [CafeInfoModel]()
     
     // 데이터를 받을 곳
-    var startDate: String? = "10/16"
-    var endDate: String? = "10/18"
+    var startDate: String?
+    var endDate: String?
     var tempDate: String?
     var tempRegion: String?
-    var tempTarget: [String?] = ["아이돌","배우","캐릭터"]
     var tempPeople: String?
     
     let searchBar: UISearchBar = {
@@ -32,8 +31,8 @@ class SearchListViewController: UIViewController {
         search.setImage(UIImage(), for: .clear, state: .normal)
         search.showsCancelButton = false
         if let textfield = search.value(forKey: "searchField") as? UITextField {
-                    textfield.borderStyle = .none
-                }
+            textfield.borderStyle = .none
+        }
         return search
     }()
     
@@ -56,7 +55,6 @@ class SearchListViewController: UIViewController {
     
     let dateButton = CustomButtonView(frame: .zero)
     let regionButton = CustomButtonView(frame: .zero)
-    let targetButton = CustomButtonView(frame: .zero)
     let peopleButton = CustomButtonView(frame: .zero)
     
     // 검색 결과 컬렉션 뷰
@@ -133,7 +131,6 @@ class SearchListViewController: UIViewController {
         
         scrollView.addSubview(dateButton)
         scrollView.addSubview(regionButton)
-        scrollView.addSubview(targetButton)
         scrollView.addSubview(peopleButton)
         
         let scrollViewConstraints = [
@@ -155,31 +152,26 @@ class SearchListViewController: UIViewController {
             regionButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             regionButton.leadingAnchor.constraint(equalTo: dateButton.trailingAnchor, constant: 8),
         ]
-        let mytargetButtonConstraints = [
-            targetButton.heightAnchor.constraint(equalToConstant: 39),
-            targetButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            targetButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
-        ]
+        
         let mypeopleButtonConstraints = [
             peopleButton.heightAnchor.constraint(equalToConstant: 39),
             peopleButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            peopleButton.leadingAnchor.constraint(equalTo: targetButton.trailingAnchor, constant: 8),
+            peopleButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
         ]
         
         NSLayoutConstraint.activate(mydateButtonConstraints)
         NSLayoutConstraint.activate(myregionButtonConstraints)
-        NSLayoutConstraint.activate(mytargetButtonConstraints)
+        
         NSLayoutConstraint.activate(mypeopleButtonConstraints)
         
         dateButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         regionButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        targetButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         peopleButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         
         // 받아온 값을 버튼에 적용하기
         var dateTitle: AttributedString
         var regionTitle: AttributedString
-        var targetTitle: AttributedString
+        
         var peopleTitle: AttributedString
         
         if let startDate = startDate, let endDate = endDate {
@@ -208,29 +200,7 @@ class SearchListViewController: UIViewController {
         }
         regionButton.configuration?.attributedTitle = regionTitle
         
-        // 중복된 코드 정리가 필요함
-        switch tempTarget.count {
-        case 0:
-            targetTitle = AttributedString.init("대상")
-            targetTitle.foregroundColor = .mainPurple2
-            targetButton.configuration?.attributedTitle = targetTitle
-        case 1:
-            if let firstTarget = tempTarget[0] {
-                targetTitle = AttributedString.init(firstTarget)
-                targetTitle.foregroundColor = .grayscale6
-                targetButton.configuration?.baseBackgroundColor = .mainPurple3
-                targetButton.configuration?.baseForegroundColor = .grayscale5
-                targetButton.configuration?.attributedTitle = targetTitle
-            }
-        default:
-            if let firstTarget = tempTarget[0] {
-                targetTitle = AttributedString.init(firstTarget + " 외 \(tempTarget.count - 1)")
-                targetTitle.foregroundColor = .white
-                targetButton.configuration?.baseBackgroundColor = .mainPurple3
-                targetButton.configuration?.baseForegroundColor = .grayscale5
-                targetButton.configuration?.attributedTitle = targetTitle
-            }
-        }
+        
         
         if let tempPeople = tempPeople {
             peopleTitle = AttributedString.init(tempPeople)
@@ -304,15 +274,16 @@ class SearchListViewController: UIViewController {
         super.viewWillLayoutSubviews()
         bottomLine.backgroundColor = .grayscale4
         // 서치바 밑줄 - 레이어에서 뷰로 변경
-//        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
-//            textfield.borderStyle = .none
-//            bottomLine.frame = CGRect(x: 0, y: textfield.bounds.height, width: textfield.bounds.width, height: 1)
-//            textfield.layer.addSublayer(bottomLine)
-//            reloadInputViews()
-//            print(textfield.layer.bounds)
-//        }
+        //        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
+        //            textfield.borderStyle = .none
+        //            bottomLine.frame = CGRect(x: 0, y: textfield.bounds.height, width: textfield.bounds.width, height: 1)
+        //            textfield.layer.addSublayer(bottomLine)
+        //            reloadInputViews()
+        //            print(textfield.layer.bounds)
+        //        }
         
-        self.scrollView.contentSize = CGSize(width: targetButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width+peopleButton.bounds.width+8*6, height: view.bounds.height*0.055)
+        self.scrollView.contentSize = CGSize(width:
+                                                dateButton.bounds.width+regionButton.bounds.width+peopleButton.bounds.width+8*6, height: view.bounds.height*0.055)
     }
     
     // 키보드 내리기 함수

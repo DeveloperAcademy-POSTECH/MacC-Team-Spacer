@@ -111,6 +111,25 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        setup()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func setup() {
+        
+        //cancel button autolayout
+        self.view.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            cancelButton.heightAnchor.constraint(equalToConstant: 24),
+            cancelButton.widthAnchor.constraint(equalToConstant: 24)
+        ])
+        
         //next button autolayout
         self.view.addSubview(self.nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
@@ -121,15 +140,44 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
         ])
         
+        //headerTitle autolayout
+        self.view.addSubview(underLineView)
+        self.view.addSubview(headerTitle)
+        underLineView.translatesAutoresizingMaskIntoConstraints = false
+        headerTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            underLineView.leadingAnchor.constraint(equalTo: headerTitle.leadingAnchor, constant: 67),
+            underLineView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: -10),
+            underLineView.widthAnchor.constraint(equalToConstant: 63),
+            underLineView.heightAnchor.constraint(equalToConstant: 13)
+        ])
+        NSLayoutConstraint.activate([
+            headerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: .padding.startHierarchyPadding),
+            headerTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin)
+        ])
+        
+        //calendar label autolayout
+        self.view.addSubview(calendarLabel)
+        calendarLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            calendarLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            calendarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            
+            calendarLabel.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            calendarLabel.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
+            calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
+        ])
+        
         //calendar creation && autolayout
         self.view.addSubview(myCalendar)
         self.calendar = myCalendar
         calendar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            calendar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            calendar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            calendar.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            calendar.heightAnchor.constraint(equalToConstant: view.bounds.width/10 * 9 + 6)
+            calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            calendar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            calendar.topAnchor.constraint(equalTo: calendarLabel.bottomAnchor, constant: 16),
+            calendar.heightAnchor.constraint(equalToConstant: 400)
         ])
         
         //allow multiple selection to calendar
@@ -155,47 +203,10 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             afterButton.heightAnchor.constraint(equalToConstant: 16)
         ])
         
-        //calendar label autolayout
-        self.view.addSubview(calendarLabel)
-        calendarLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            calendarLabel.centerXAnchor.constraint(equalTo: calendar.centerXAnchor),
-            calendarLabel.bottomAnchor.constraint(equalTo: calendar.topAnchor, constant: -20),
-            calendarLabel.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
-        ])
         
         
-        //cancel button autolayout
-        self.view.addSubview(cancelButton)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            cancelButton.leftAnchor.constraint(equalTo: calendarLabel.leftAnchor, constant: -15),
-            cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            cancelButton.heightAnchor.constraint(equalToConstant: 50),
-            cancelButton.widthAnchor.constraint(equalToConstant: 50)
-        ])
         
-        //headerTitle autolayout
-        self.view.addSubview(underLineView)
-        self.view.addSubview(headerTitle)
-        underLineView.translatesAutoresizingMaskIntoConstraints = false
-        headerTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            underLineView.leadingAnchor.constraint(equalTo: headerTitle.leadingAnchor, constant: 67),
-            underLineView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: -10),
-            underLineView.widthAnchor.constraint(equalToConstant: 63),
-            underLineView.heightAnchor.constraint(equalToConstant: 13)
-        ])
-        NSLayoutConstraint.activate([
-            headerTitle.leadingAnchor.constraint(equalTo: calendarLabel.leadingAnchor),
-            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 7),
-            headerTitle.widthAnchor.constraint(equalTo: calendarLabel.widthAnchor)
-        ])
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        
     }
 }
 

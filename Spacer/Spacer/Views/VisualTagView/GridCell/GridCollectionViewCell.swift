@@ -51,7 +51,7 @@ class GridCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    public func configue(_ sectionLabel: String){
+    public func configure(_ sectionLabel: String){
         self.backgroundColor = UIColor.mainPurple6
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = true

@@ -162,7 +162,7 @@ extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollect
     //cell configuration
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
-        cell.configue(categories[indexPath.item])
+        cell.configure(categories[indexPath.item])
         return cell
     }
     

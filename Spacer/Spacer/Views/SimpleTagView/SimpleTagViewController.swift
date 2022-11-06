@@ -388,6 +388,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
                 calendar.select(d)
             }
             datesRange = range
+            // 2번째를 선택하면 캘린더를 뷰에서 삭제
+            self.myCalendar.removeFromSuperview()
             return
         }
         
@@ -423,6 +425,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()
+            self.myCalendar.removeFromSuperview()
         }
     }
     

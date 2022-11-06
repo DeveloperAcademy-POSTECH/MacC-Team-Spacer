@@ -9,7 +9,6 @@ import UIKit
 
 import FSCalendar
 
-
 class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppearance {
     
     fileprivate weak var calendar: FSCalendar!
@@ -21,18 +20,25 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     lazy var headerTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
-        label.text = "원하는 날짜를 선택해주세요"
+        label.font = .systemFont(for: .header2)
+        label.textColor = .mainPurple1
+        label.text = "원하는 기간을 선택해주세요"
         return label
+    }()
+    
+    lazy var underLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .subYellow1
+        return view
     }()
     
     lazy var calendarLabel: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .mainPurple6
+        label.textColor = .grayscale3
+        label.layer.cornerRadius = 8
         label.clipsToBounds = true
-        label.backgroundColor = UIColor(red: 232/255, green: 231/255, blue: 231/255, alpha: 1)
-        label.textColor = UIColor(red: 132/255, green: 131/255, blue: 131/255, alpha: 1)
-        label.layer.cornerRadius = 10.0
-        label.font = UIFont(name: "Pretendard-Medium", size: 15)
+        label.font = UIFont(name: "Pretendard-Medium", size: 16)
         return label
     }()
     
@@ -47,23 +53,32 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         button.setView(foreground: .black, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
-  
+    
     
     lazy var myCalendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.dataSource = self
         calendar.delegate = self
         calendar.today = nil
+        //Weekday name 언어 변경
         calendar.locale = NSLocale(localeIdentifier: "ko_KR") as Locale
-        //해당 월만 보여줄 수 있게끔 하기
+        calendar.scope = .month  // 월간
+        //해당 월에 해당하는 날만 보여주기
         calendar.placeholderType = .none
         calendar.adjustsBoundingRectWhenChangingMonths = true
-        //전달 다음달 보여주는 헤더 없에버리기
+        //전달 다음달 보여주는 헤더 투명하게 만들기
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0;
         calendar.appearance.headerDateFormat = "YYYY년 MM월"
-        calendar.appearance.borderRadius = 0
-        calendar.appearance.titleFont = UIFont(name: "Pretendard-Medium", size: 16)
-        calendar.register(CustomCalenderCell.self, forCellReuseIdentifier: "cell")
+        calendar.appearance.headerTitleColor = .grayscale1
+        calendar.appearance.headerTitleFont = .systemFont(for: .body1)
+        calendar.appearance.headerTitleAlignment = .center
+        calendar.headerHeight = 45
+        calendar.appearance.headerTitleOffset = .init(x: 0, y: -3)
+        calendar.appearance.titleFont = .systemFont(for: .body1)
+        calendar.appearance.titleDefaultColor = .grayscale1
+        calendar.appearance.titleSelectionColor = .grayscale6
+        calendar.appearance.weekdayTextColor = .grayscale3
+        calendar.register(CustomCalenderCell.self, forCellReuseIdentifier: CustomCalenderCell.identifier)
         return calendar
     }()
     
@@ -71,6 +86,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.tag = 1
+        button.tintColor = .mainPurple3
         button.addTarget(self, action: #selector(calendarHeaderButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -79,6 +95,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.tag = 2
+        button.tintColor = .mainPurple3
         button.addTarget(self, action: #selector(calendarHeaderButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -93,7 +110,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-
+        
         //next button autolayout
         self.view.addSubview(self.nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
@@ -114,6 +131,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             calendar.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             calendar.heightAnchor.constraint(equalToConstant: view.bounds.width/10 * 9 + 6)
         ])
+        
         //allow multiple selection to calendar
         calendar.allowsMultipleSelection = true
         
@@ -123,18 +141,18 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         NSLayoutConstraint.activate([
             beforeButton.centerXAnchor.constraint(equalTo: calendar.calendarHeaderView.centerXAnchor, constant: -70),
             beforeButton.centerYAnchor.constraint(equalTo: calendar.calendarHeaderView.centerYAnchor),
-            beforeButton.widthAnchor.constraint(equalToConstant: 20),
-            beforeButton.heightAnchor.constraint(equalToConstant: 20)
+            beforeButton.widthAnchor.constraint(equalToConstant: 16),
+            beforeButton.heightAnchor.constraint(equalToConstant: 16)
         ])
-
+        
         //after button autolayout
         self.view.addSubview(afterButton)
         afterButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             afterButton.centerXAnchor.constraint(equalTo: calendar.calendarHeaderView.centerXAnchor, constant:  70),
             afterButton.centerYAnchor.constraint(equalTo: calendar.calendarHeaderView.centerYAnchor),
-            afterButton.widthAnchor.constraint(equalToConstant: 20),
-            afterButton.heightAnchor.constraint(equalToConstant: 20)
+            afterButton.widthAnchor.constraint(equalToConstant: 16),
+            afterButton.heightAnchor.constraint(equalToConstant: 16)
         ])
         
         //calendar label autolayout
@@ -146,8 +164,8 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             calendarLabel.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
         ])
-
-
+        
+        
         //cancel button autolayout
         self.view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -157,10 +175,18 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             cancelButton.heightAnchor.constraint(equalToConstant: 50),
             cancelButton.widthAnchor.constraint(equalToConstant: 50)
         ])
-
+        
         //headerTitle autolayout
+        self.view.addSubview(underLineView)
         self.view.addSubview(headerTitle)
+        underLineView.translatesAutoresizingMaskIntoConstraints = false
         headerTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            underLineView.leadingAnchor.constraint(equalTo: headerTitle.leadingAnchor, constant: 67),
+            underLineView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: -10),
+            underLineView.widthAnchor.constraint(equalToConstant: 63),
+            underLineView.heightAnchor.constraint(equalToConstant: 13)
+        ])
         NSLayoutConstraint.activate([
             headerTitle.leadingAnchor.constraint(equalTo: calendarLabel.leadingAnchor),
             headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 7),
@@ -193,7 +219,8 @@ extension VisualTagCalendarViewController{
     //handling action for calendar buttons
     @objc func calendarHeaderButton(_ sender: Any) {
         defer {
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
         }
         if let button = sender as? UIButton {
             let _calendar = Calendar.current
@@ -207,7 +234,7 @@ extension VisualTagCalendarViewController{
                 dateComponents.month = 1
                 calendar.setCurrentPage(_calendar.date(byAdding: dateComponents, to: calendar.currentPage)!, animated: true)
             default:
-            print("Error")
+                print("Error")
             }
         }
     }
@@ -217,8 +244,10 @@ extension VisualTagCalendarViewController{
     private func setCalendarLabel() -> NSMutableAttributedString{
         let attributedString = NSMutableAttributedString(string: " ")
         let calendarImage = NSTextAttachment()
-        calendarImage.image = UIImage(systemName: "calendar")
+        calendarImage.image = UIImage(systemName: "calendar")?.withTintColor(.mainPurple2, renderingMode: .alwaysOriginal)
+        attributedString.append(NSAttributedString("  "))
         attributedString.append(NSAttributedString(attachment: calendarImage))
+        attributedString.append(NSAttributedString(" "))
         if firstDate != nil {
             if lastDate != nil {
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - \(dateFormatConverter(lastDate!))"))
@@ -238,7 +267,27 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd"
         dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: date)
+    }
+    
+    // 토요일 파랑, 일요일 빨강으로 만들기
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        // 오늘 이전의 날짜는 선택하지 못하도록 색상을 회색으로 처리
+        if date < Date() {
+            return .grayscale5
+        }
+        
+        // 요일을 나타냄, 일:1, 월:2...토:7로 나타내서 -1을 하여 인덱스로 접근 가능하도록 함
+        let day = Calendar.current.component(.weekday, from: date) - 1
+        
+        if Calendar.current.shortWeekdaySymbols[day] == "Sun" || Calendar.current.shortWeekdaySymbols[day] == "일" {
+            return .systemRed
+        } else if Calendar.current.shortWeekdaySymbols[day] == "Sat" || Calendar.current.shortWeekdaySymbols[day] == "토" {
+            return .systemBlue
+        } else {
+            return .label
+        }
     }
     
     func datesRange(from: Date, to: Date) -> [Date]{
@@ -247,7 +296,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
         var tempDate = from
         var array = [tempDate]
-    
+
         while tempDate < to{
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)
@@ -257,33 +306,31 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     
     //delegates for calendar
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
+        let cell = calendar.dequeueReusableCell(withIdentifier: CustomCalenderCell.identifier, for: date, at: position)
         return cell
     }
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.configure(cell: cell, for: date, at: monthPosition)
     }
-
+    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         return monthPosition == .current
     }
-
+    
     func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         return monthPosition == .current
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
-        //return 되기전에 무조건적으로 실행해야하는 코드
-        //viewWIllApear을 통해 뷰가 업데이트 됨
+        //return 되기전에 무조건적으로 실행해야하는 코드 viewWillAppear -> AppearanceTransition
         defer{
             configureVisibleCells()
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
         }
-           
+        
+        // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
         if date < Date(){
-            let alert = UIAlertController(title: "유효하지 않은 날짜입니다.", message: "오늘 날짜보다 이전의 날짜는\n선택할 수 없습니다.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "확인", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
             calendar.deselect(date)
             if firstDate != nil{
                 calendar.deselect(firstDate!)
@@ -291,7 +338,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             if lastDate != nil{
                 calendar.deselect(lastDate!)
             }
-
+            
             if datesRange != nil{
                 for d in self.datesRange!{
                     calendar.deselect(d)
@@ -303,30 +350,33 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             return
         }
         
+        // 처음 선택한 값이 아무것도 없을 경우 선택한 date가 firstDate로 들어감
         if firstDate == nil {
             firstDate =  date
             datesRange = [firstDate!]
             return
         }
-        
+        // 처음 선택한 값은 있고 2번째를 선택했을 경우
         if firstDate != nil && lastDate == nil {
+            // 만일 2번째 선택한 값이 첫번째 값보다 적다면... 2번째 선택한 값을 firstDate로 바꿔버림
             if date <= firstDate!{
                 calendar.deselect(firstDate!)
                 firstDate = date
                 datesRange = [firstDate!]
                 return
             }
-            
+            // 2번째 선택한 값까지 캘린더에서 선택함
             let range = datesRange(from: firstDate!, to: date)
             lastDate = range.last
             
             for d in range {
-                calendar.select(d,scrollToDate: false)
+                calendar.select(d)
             }
             datesRange = range
             return
         }
         
+        // 둘 다 값이 있을 경우에 선택했을 경우 다시 초기화
         if firstDate != nil && lastDate != nil {
             for d in calendar.selectedDates{
                 calendar.deselect(d)
@@ -347,11 +397,20 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
-            viewWillAppear(false)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
+            configureVisibleCells()
+        } else {
+            // 동일한 날짜 선택 가능
+            firstDate = date
+            lastDate = date
+            calendar.select(date)
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
             configureVisibleCells()
         }
     }
-
+    
     private func configureVisibleCells() {
         var count = 0
         //지금 보는 페이지의 cell 정리
@@ -362,47 +421,37 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             self.configure(cell: cell, for: date!, at: position)
         }
     }
-
+    
     private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         let customCell = (cell as! CustomCalenderCell)
-        customCell.circleImageView?.isHidden = !self.calendar.gregorian.isDateInToday(date)
         var selectionType = SelectionType.none
-
-        if position == .next {
-            customCell.selectionType = selectionType
-            return
-        }
         if position == .current {
             if calendar.selectedDates.contains(date){
                 let previousDate = self.calendar.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.calendar.gregorian.date(byAdding: .day, value: 1, to: date)!
-                if calendar.selectedDates.contains(date){
-                    if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(nextDate) {
-                        selectionType = .mid
-                    }
-                    else if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(date) {
-                        selectionType = .last
-                    }
-                    else if calendar.selectedDates.contains(nextDate) {
-                        selectionType = .first
-                    }
-                    else {
-                        selectionType = .single
-                    }
+                
+                if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(nextDate) {
+                    // 앞 뒤로 날짜가 선택된 기간에 포함된다면 mid
+                    selectionType = .mid
+                } else if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(date) {
+                    // 앞 날짜만 선택된 기간에 포함된다면 last
+                    selectionType = .last
+                } else if calendar.selectedDates.contains(nextDate) {
+                    // 뒤 날짜만 선택된 기간에 포함된다면 first
+                    selectionType = .first
+                } else {
+                    selectionType = .single
                 }
-            }else {
+            } else {
                 selectionType = .none
             }
-            
-            if selectionType == .none {
-                customCell.selectionType = selectionType
-                return
-            }else {
-                customCell.selectionType = selectionType
-            }
-        }
-        else {
+            customCell.selectionType = selectionType
+            return
+        } else {
+            print("not current")
+            customCell.selectionType = selectionType
             return
         }
     }
 }
+

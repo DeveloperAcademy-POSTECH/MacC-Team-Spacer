@@ -148,7 +148,7 @@ extension VisualTagPeopleRangeViewController: UICollectionViewDataSource, UIColl
     //cell configuration
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
-        cell.configure(ranges[indexPath.item])
+        cell.configure(ranges[indexPath.item], categoryImages[indexPath.item])
         return cell
     }
     

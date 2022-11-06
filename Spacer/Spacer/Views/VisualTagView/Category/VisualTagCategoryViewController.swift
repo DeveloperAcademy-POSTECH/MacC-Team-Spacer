@@ -8,6 +8,8 @@
 import UIKit
 
 let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤\n디저트", "맞춤\n영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+//TODO: - 이미지를 디자이너에게 받아서 변경 요망
+let categoryImages = ["BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline"]
 var categoriesItemArray: [Bool] = Array<Bool>(repeating: false, count: categories.count)
 
 class VisualTagCategoryViewController: UIViewController {
@@ -162,7 +164,7 @@ extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollect
     //cell configuration
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
-        cell.configure(categories[indexPath.item])
+        cell.configure(categories[indexPath.item], categoryImages[indexPath.item])
         return cell
     }
     

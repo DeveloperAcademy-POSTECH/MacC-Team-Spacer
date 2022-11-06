@@ -148,7 +148,7 @@ extension VisualTagMapViewController: UICollectionViewDataSource, UICollectionVi
     //cell configuration
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
-        cell.configure(locations[indexPath.item])
+        cell.configure(locations[indexPath.item], categoryImages[indexPath.item])
         return cell
     }
     

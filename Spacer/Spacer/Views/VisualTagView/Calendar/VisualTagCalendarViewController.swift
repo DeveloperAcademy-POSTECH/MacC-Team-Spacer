@@ -165,7 +165,6 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             calendarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
             
             calendarLabel.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
-            calendarLabel.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
             calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
         ])
         
@@ -202,10 +201,6 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             afterButton.widthAnchor.constraint(equalToConstant: 16),
             afterButton.heightAnchor.constraint(equalToConstant: 16)
         ])
-        
-        
-        
-        
         
     }
 }

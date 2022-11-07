@@ -33,8 +33,7 @@ class CafeDetailViewController: UIViewController {
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 3 * 4))
-//        let scrollView = UIScrollView()
-
+        
         // 스크롤 인디케이터 삭제
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -44,6 +43,30 @@ class CafeDetailViewController: UIViewController {
         scrollView.delegate = self
         
         return scrollView
+    }()
+    
+    // 카페의 이미지에 대한 설명을 담을 뷰
+    lazy var imageDescriptionView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .mainPurple1.withAlphaComponent(0.8)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var categoryLabel: UILabel = {
+       let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(for: .body3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var sizeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .mainPurple5
+        label.font = .systemFont(for: .caption)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
         
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
@@ -115,6 +138,11 @@ class CafeDetailViewController: UIViewController {
         [detailInfoView, reviewView]
     }
     
+    private var totalImageCount = 0
+    
+    private var categoryNames = [String]()
+    private var sizeDescriptions = [String]()
+    
     // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
@@ -127,14 +155,18 @@ class CafeDetailViewController: UIViewController {
         scrollView.contentInsetAdjustmentBehavior = .never
         
         // 카페 이미지 보여주기
-        let totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
+        totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
         
         // 전체 이미지 수에 따라 imageScrollView의 width 설정
         imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
         
+        setImageDescriptionView(categoryName: tempCafeInfo?.imageInfos[0].category ?? "", tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: tempCafeInfo?.imageInfos[0].productSize ?? "")
+        
         // navigationBar & tabBar 설정
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         self.title = tempCafeInfo?.name
         tabBarController?.tabBar.isHidden = true
         
@@ -145,7 +177,11 @@ class CafeDetailViewController: UIViewController {
         // scrollView.addSubView
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
+        scrollView.addSubview(imageDescriptionView)
         scrollView.addSubview(segmentedControl)
+        
+        imageDescriptionView.addSubview(categoryLabel)
+        imageDescriptionView.addSubview(sizeLabel)
         
         // dynamicStackView.addArrangedSubview
         dynamicStackView.addArrangedSubview(pageController.view)
@@ -188,10 +224,17 @@ class CafeDetailViewController: UIViewController {
                 cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 3 * 4)
                 
                 imageScrollView.addSubview(cafeImage)
+                categoryNames.append(imageCategory)
+                sizeDescriptions.append(productSize)
             }
         }
         
         return imageIndex
+    }
+    
+    private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, numberOfImages: Int, sizeDescription: String) {
+        categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(numberOfImages)"
+        sizeLabel.text = sizeDescription
     }
     
     func applyConstraints() {
@@ -213,6 +256,25 @@ class CafeDetailViewController: UIViewController {
         let imageScrollViewConstraints = [
             imageScrollView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             imageScrollView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+        ]
+        
+        let imageDescriptionViewConstraints = [
+            imageDescriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            imageDescriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            imageDescriptionView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            imageDescriptionView.heightAnchor.constraint(equalToConstant: 51)
+        ]
+        
+        let categoryLabelConstraints = [
+            categoryLabel.trailingAnchor.constraint(equalTo: imageDescriptionView.trailingAnchor, constant: -.padding.margin),
+            categoryLabel.topAnchor.constraint(equalTo: imageDescriptionView.topAnchor, constant: 8),
+            categoryLabel.heightAnchor.constraint(equalToConstant: 17)
+        ]
+        
+        let sizeLabelConstraints = [
+            sizeLabel.trailingAnchor.constraint(equalTo: imageDescriptionView.trailingAnchor, constant: -.padding.margin),
+            sizeLabel.bottomAnchor.constraint(equalTo: imageDescriptionView.bottomAnchor, constant: -8),
+            sizeLabel.heightAnchor.constraint(equalToConstant: 14)
         ]
         
         let bottomBarConstraints = [
@@ -253,6 +315,9 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(imageScrollViewConstraints)
+        NSLayoutConstraint.activate(imageDescriptionViewConstraints)
+        NSLayoutConstraint.activate(categoryLabelConstraints)
+        NSLayoutConstraint.activate(sizeLabelConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)
@@ -280,8 +345,9 @@ extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // TODO: 스크롤 될 때, 카테고리 및 사이즈 정보 바뀌도록 변경
+        let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            
+            setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[currentImageNumber])
         }
     }
 }

@@ -18,10 +18,12 @@ enum SelectionType {
 }
 
 class CustomCalenderCell: FSCalendarCell {
+    
+    static let identifier = "CustomCalenderCell"
+    
     weak var circleImageView: UIImageView?
     weak var selectionLayer: CAShapeLayer?
     weak var roundedLayer: CAShapeLayer?
-    weak var todayLayer: CAShapeLayer?
     
     var selectionType: SelectionType = .none {
         didSet {
@@ -40,38 +42,29 @@ class CustomCalenderCell: FSCalendarCell {
     }
     
     private func commonInit() {
+        // 기간을 채우는 레이어
         let selectionLayer = CAShapeLayer()
-        selectionLayer.fillColor = UIColor(red: 227/255, green: 217/255, blue: 255/255, alpha: 1).cgColor
+        selectionLayer.fillColor = UIColor.mainPurple5.cgColor
         selectionLayer.actions = ["hidden": NSNull()]
         self.contentView.layer.insertSublayer(selectionLayer, below: self.titleLabel?.layer)
         self.selectionLayer = selectionLayer
         
+        // 날짜에 원으로 표시됨
         let roundedLayer = CAShapeLayer()
-        roundedLayer.fillColor = UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1).cgColor
+        roundedLayer.fillColor = UIColor.mainPurple3.cgColor
         roundedLayer.actions = ["hidden": NSNull()]
         self.contentView.layer.insertSublayer(roundedLayer, below: self.titleLabel?.layer)
         self.roundedLayer = roundedLayer
         
-        let todayLayer = CAShapeLayer()
-        todayLayer.fillColor = UIColor.clear.cgColor
-        todayLayer.strokeColor = UIColor.orange.cgColor
-        todayLayer.actions = ["hidden" : NSNull()]
-        self.contentView.layer.insertSublayer(todayLayer, below: self.titleLabel?.layer)
-        self.todayLayer = todayLayer
-        
+        // 기존의 레이어 히든처리
         self.shapeLayer.isHidden = true
-        let view = UIView(frame: frame)
-        self.backgroundView = view
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         self.selectionLayer?.frame = self.contentView.bounds
         self.roundedLayer?.frame = self.contentView.bounds
-        self.todayLayer?.frame  = self.contentView.bounds
-        
-        let contentHeight = self.contentView.frame.height
+        let contentHeight =  self.contentView.frame.height
         let contentWidth = self.contentView.frame.width
         
         let selectionLayerBounds = selectionLayer?.bounds ?? .zero
@@ -83,29 +76,26 @@ class CustomCalenderCell: FSCalendarCell {
         case .mid:
             self.selectionLayer?.isHidden = false
             self.roundedLayer?.isHidden = true
-            self.todayLayer?.isHidden = true
-            
             let selectionRect = selectionLayerBounds.insetBy(dx: -1, dy: 4)
+                .offsetBy(dx: 0, dy: -4)
             self.selectionLayer?.path = UIBezierPath(rect: selectionRect).cgPath
             
         case .none:
             self.selectionLayer?.isHidden = true
             self.roundedLayer?.isHidden = true
-            self.todayLayer?.isHidden = true
             
         case .first:
             self.selectionLayer?.isHidden = false
             self.roundedLayer?.isHidden = false
-            self.todayLayer?.isHidden = true
             
             let selectionRect = selectionLayerBounds
                 .insetBy(dx: selectionLayerWidth / 4, dy: 4)
-                .offsetBy(dx: selectionLayerWidth / 4, dy: 0)
+                .offsetBy(dx: selectionLayerWidth / 4, dy: -4)
             self.selectionLayer?.path = UIBezierPath(rect: selectionRect).cgPath
             
             let diameter: CGFloat = min(roundedLayerHeight, roundedLayerWidth)
-            let rect = CGRect(x: contentWidth / 2 - diameter / 2,
-                              y: contentHeight / 2 - diameter / 2,
+            let rect = CGRect(x: (contentWidth - diameter) / 2,
+                              y: (contentHeight - diameter) / 2 - 4,
                               width: diameter,
                               height: diameter)
                 .insetBy(dx: 2.5, dy: 2.5)
@@ -114,16 +104,15 @@ class CustomCalenderCell: FSCalendarCell {
         case .last:
             self.selectionLayer?.isHidden = false
             self.roundedLayer?.isHidden = false
-            self.todayLayer?.isHidden = true
             
             let selectionRect = selectionLayerBounds
                 .insetBy(dx: selectionLayerWidth / 4, dy: 4)
-                .offsetBy(dx: -selectionLayerWidth / 4, dy: 0)
+                .offsetBy(dx: -selectionLayerWidth / 4, dy: -4)
             self.selectionLayer?.path = UIBezierPath(rect: selectionRect).cgPath
             
             let diameter: CGFloat = min(roundedLayerHeight, roundedLayerWidth)
-            let rect = CGRect(x: contentWidth / 2 - diameter / 2,
-                              y: contentHeight / 2 - diameter / 2,
+            let rect = CGRect(x: (contentWidth - diameter) / 2,
+                              y: (contentHeight - diameter) / 2 - 4,
                               width: diameter,
                               height: diameter)
                 .insetBy(dx: 2.5, dy: 2.5)
@@ -132,11 +121,10 @@ class CustomCalenderCell: FSCalendarCell {
         case .single:
             self.selectionLayer?.isHidden = true
             self.roundedLayer?.isHidden = false
-            self.todayLayer?.isHidden = true
             
             let diameter: CGFloat = min(roundedLayerHeight, roundedLayerWidth)
-            let rect = CGRect(x: contentWidth / 2 - diameter / 2,
-                              y: contentHeight / 2 - diameter / 2,
+            let rect = CGRect(x: (contentWidth - diameter) / 2,
+                              y: (contentHeight - diameter) / 2 - 4,
                               width: diameter,
                               height: diameter)
                 .insetBy(dx: 2.5, dy: 2.5)

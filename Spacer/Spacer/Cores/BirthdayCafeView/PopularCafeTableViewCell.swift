@@ -38,7 +38,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body1)
-        label.textColor = .grayscale6
+        label.textColor = .grayscale5
         return label
     }()
     
@@ -55,7 +55,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body1)
-        label.textColor = .grayscale6
+        label.textColor = .grayscale5
         return label
     }()
     
@@ -72,7 +72,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body1)
-        label.textColor = .grayscale6
+        label.textColor = .grayscale5
         return label
     }()
     
@@ -118,7 +118,6 @@ class PopularCafeTableViewCell: UITableViewCell {
             cafeFavoriteImage.heightAnchor.constraint(equalToConstant: 18),
             cafeFavoriteImage.widthAnchor.constraint(equalToConstant: 18)
         ]
-        
         
         let cafeLocationConstraints = [
             cafeLocation.trailingAnchor.constraint(equalTo: cafeTableImage.leadingAnchor, constant: -.padding.bigBoxTextPadding),

@@ -13,6 +13,7 @@ class CafeDetailViewController: UIViewController {
     var tempCafeInfo: CafeInfo?
     
     // MARK: - UI 요소
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
@@ -26,16 +27,6 @@ class CafeDetailViewController: UIViewController {
         dynamicStackView.axis = .vertical
         dynamicStackView.translatesAutoresizingMaskIntoConstraints = false
         return dynamicStackView
-    }()
-    
-    // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
-    lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: CGRect(x: 0, y: imageScrollView.bounds.height - 45, width: scrollView.bounds.width, height: 55))
-        pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = .grayscale4
-        pageControl.currentPageIndicatorTintColor = .grayscale2
-        pageControl.isUserInteractionEnabled = false
-        return pageControl
     }()
     
     // 카페 이미지를 보기 위한 ScrollView
@@ -135,9 +126,8 @@ class CafeDetailViewController: UIViewController {
         // 카페 이미지 보여주기
         let totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
         
-        // 전체 이미지 수에 따라 imageScrollView의 width와 pageControl의 페이지 수 설정
+        // 전체 이미지 수에 따라 imageScrollView의 width 설정
         imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
-        pageControl.numberOfPages = totalImageCount
         
         // navigationBar & tabBar 설정
         navigationController?.isNavigationBarHidden = false
@@ -152,7 +142,7 @@ class CafeDetailViewController: UIViewController {
         // scrollView.addSubView
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
-        scrollView.addSubview(pageControl)
+        //scrollView.addSubview(pageControl)
         scrollView.addSubview(segmentedControl)
         
         // dynamicStackView.addArrangedSubview
@@ -281,9 +271,9 @@ struct CafeInfoForDetailView: Codable {
 extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // ScrollView에 보이는 페이지 이동이 끝나면 PageCtrol의 현재 위치 변경
+        // TODO: 스크롤 될 때, 카테고리 및 사이즈 정보 바뀌도록 변경
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            pageControl.currentPage = Int(scrollView.contentOffset.x / imageScrollView.bounds.width)
+            
         }
     }
 }

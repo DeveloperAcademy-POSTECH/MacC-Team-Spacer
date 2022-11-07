@@ -44,7 +44,8 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .white, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.isEnabled = false
         return button
     }()
     
@@ -335,7 +336,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             endAppearanceTransition()
         }
         
-        // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
+        // 오늘 이전의 날짜를 선택했을 경우 초기화
         if date < Date(){
             calendar.deselect(date)
             if firstDate != nil{
@@ -353,6 +354,10 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = nil
             lastDate = nil
             datesRange = []
+            
+            // 다음 버튼 비활성화
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
             return
         }
         
@@ -379,6 +384,10 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
                 calendar.select(d)
             }
             datesRange = range
+            
+            // 다음 버튼 활성화
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
             return
         }
         
@@ -391,6 +400,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
         }
     }
     
@@ -403,6 +414,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()
@@ -411,6 +424,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             lastDate = date
             calendar.select(date)
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()

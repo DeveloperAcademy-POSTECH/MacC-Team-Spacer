@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "eventElementEntranceBanner.png",
+      "filename" : "eventElementXBanner.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "eventElementEntranceBanner-1.png",
+      "filename" : "eventElementXBanner 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "eventElementEntranceBanner-2.png",
+      "filename" : "eventElementXBanner 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -25,7 +25,7 @@ class VisualTagMapViewController: UIViewController {
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .white, backgroundColor: .mainPurple3, target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     

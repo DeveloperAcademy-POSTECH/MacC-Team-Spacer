@@ -63,7 +63,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafeTableImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "LocationIcon")
+        imageView.image = UIImage(named: "tableIcon")
         return imageView
     }()
     
@@ -80,7 +80,7 @@ class PopularCafeTableViewCell: UITableViewCell {
     private let cafeFavoriteImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "LocationIcon")
+        imageView.image = UIImage(named: "heartIcon")
         return imageView
     }()
     

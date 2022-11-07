@@ -37,7 +37,7 @@ class VisualTagMapViewController: UIViewController {
     
     lazy var backButton: UIButton = {
         let button = BackButton()
-        button.setView(title: "이전으로 돌아가기", titleColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "이전으로 돌아가기", titleColor: .grayscale3, target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     

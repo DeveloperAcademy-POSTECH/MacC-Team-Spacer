@@ -25,7 +25,7 @@ class VisualTagPeopleRangeViewController: UIViewController {
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "완료", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "완료", titleColor: .white, backgroundColor: .mainPurple3, target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
@@ -37,7 +37,7 @@ class VisualTagPeopleRangeViewController: UIViewController {
     
     lazy var backButton: UIButton = {
         let button = BackButton()
-        button.setView(title: "이전으로 돌아가기", titleColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "이전으로 돌아가기", titleColor: .grayscale3, target: VisualTagPeopleRangeViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     

@@ -95,8 +95,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         contentView.addSubview(cafeTableImage)
         contentView.addSubview(cafeFavorite)
         contentView.addSubview(cafeFavoriteImage)
-        self.cafeTable.text = "1"
-        self.cafeFavorite.text = "1"
+        
         applyConstraints()
     }
     

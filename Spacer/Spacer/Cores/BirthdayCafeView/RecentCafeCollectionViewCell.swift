@@ -107,8 +107,6 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         shadowView.addSubview(cafeLocationImage)
         
         applyContraints()
-        
-        
     }
     
     func applyContraints() {
@@ -163,7 +161,6 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
             UIColor.init(red: 0, green: 0, blue: 0, alpha: 0),
             UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4),
             UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.9)
-
         ]
         
         let location = [0.0, 0.3, 0.6]

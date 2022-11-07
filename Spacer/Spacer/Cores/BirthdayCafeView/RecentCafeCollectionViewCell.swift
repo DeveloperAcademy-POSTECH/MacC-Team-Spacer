@@ -32,23 +32,6 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    // 카페 별점
-    let cafeStarRating: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(for: .body2)
-        label.textColor = .grayscale2
-        return label
-    }()
-    
-    // 카페 별점 이미지
-    private let cafeStarRatingImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "StarRatingIcon")
-        return imageView
-    }()
-    
     // 카페 리뷰
     var cafeReview: UILabel = {
         let label = UILabel()
@@ -92,8 +75,6 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         ])
         shadowView.addSubview(cafeImageView)
         shadowView.addSubview(cafeName)
-        shadowView.addSubview(cafeStarRating)
-        shadowView.addSubview(cafeStarRatingImage)
         shadowView.addSubview(cafeReview)
         
         applyContraints()
@@ -121,29 +102,15 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
             cafeName.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor)
         ]
         
-        let cafeStarRatingConstraints = [
-            cafeStarRating.leadingAnchor.constraint(equalTo: cafeStarRatingImage.trailingAnchor, constant: .padding.betweenIconPadding),
-            cafeStarRating.topAnchor.constraint(equalTo: topAnchor, constant: .padding.littleBoxPadding)
-        ]
-        
-        let cafeStarRatingImageConstraints = [
-            cafeStarRatingImage.leadingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: .padding.littleBoxPadding),
-            cafeStarRatingImage.centerYAnchor.constraint(equalTo: cafeStarRating.centerYAnchor),
-            cafeStarRatingImage.heightAnchor.constraint(equalToConstant: 18),
-            cafeStarRatingImage.widthAnchor.constraint(equalToConstant: 18)
-        ]
-        
         let cafeReviewConstraints = [
-            cafeReview.leadingAnchor.constraint(equalTo: cafeStarRatingImage.leadingAnchor),
-            cafeReview.topAnchor.constraint(equalTo: cafeStarRating.bottomAnchor, constant: .padding.bigBoxTextPadding),
+            cafeReview.leadingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: .padding.littleBoxPadding),
+            cafeReview.topAnchor.constraint(equalTo: topAnchor, constant: .padding.bigBoxTextPadding),
             cafeReview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.padding.littleBoxPadding),
             cafeReview.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -.padding.littleBoxPadding)
         ]
         
         NSLayoutConstraint.activate(cafeImageViewConstraints)
         NSLayoutConstraint.activate(cafeNameConstraints)
-        NSLayoutConstraint.activate(cafeStarRatingConstraints)
-        NSLayoutConstraint.activate(cafeStarRatingImageConstraints)
         NSLayoutConstraint.activate(cafeReviewConstraints)
     }
     
@@ -169,10 +136,9 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     
-    public func configure(with model: CafeInfoModel) {
-        self.cafeName.text = model.cafeName
-        self.cafeImageView.image = UIImage(named: model.imageDirectories[0])
-        self.cafeStarRating.text = String(model.cafeStarRating)
+    public func configure(with model: CafeInfo) {
+        self.cafeName.text = model.name
+        self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
     }
     
     required init?(coder: NSCoder) {

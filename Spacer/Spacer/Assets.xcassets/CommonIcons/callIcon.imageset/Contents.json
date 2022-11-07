@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "StarRatingIcon.png",
+      "filename" : "callIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "callIcon 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "callIcon 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

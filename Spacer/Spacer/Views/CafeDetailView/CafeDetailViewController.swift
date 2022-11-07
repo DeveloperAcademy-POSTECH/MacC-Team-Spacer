@@ -32,8 +32,9 @@ class CafeDetailViewController: UIViewController {
     // 카페 이미지를 보기 위한 ScrollView
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 4 * 3))
-        
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 3 * 4))
+//        let scrollView = UIScrollView()
+
         // 스크롤 인디케이터 삭제
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -123,6 +124,8 @@ class CafeDetailViewController: UIViewController {
         
         detailInfoView.cafeInfoData = tempCafeInfo
         
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
         // 카페 이미지 보여주기
         let totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
         
@@ -142,7 +145,6 @@ class CafeDetailViewController: UIViewController {
         // scrollView.addSubView
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
-        //scrollView.addSubview(pageControl)
         scrollView.addSubview(segmentedControl)
         
         // dynamicStackView.addArrangedSubview
@@ -183,7 +185,7 @@ class CafeDetailViewController: UIViewController {
                 imageIndex += 1
                 cafeImage.contentMode = .scaleAspectFill
                 cafeImage.clipsToBounds = true
-                cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 4 * 3)
+                cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 3 * 4)
                 
                 imageScrollView.addSubview(cafeImage)
             }
@@ -202,10 +204,15 @@ class CafeDetailViewController: UIViewController {
         
         let dynamicContentconstraints = [
             dynamicStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            dynamicStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            dynamicStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             dynamicStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             dynamicStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             dynamicStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+        ]
+        
+        let imageScrollViewConstraints = [
+            imageScrollView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            imageScrollView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
         ]
         
         let bottomBarConstraints = [
@@ -230,9 +237,9 @@ class CafeDetailViewController: UIViewController {
         ]
         
         let segmentControlConstraints = [
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            segmentedControl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
@@ -245,6 +252,7 @@ class CafeDetailViewController: UIViewController {
         
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
+        NSLayoutConstraint.activate(imageScrollViewConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)

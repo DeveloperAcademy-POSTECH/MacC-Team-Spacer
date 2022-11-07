@@ -50,7 +50,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    // 카페 위치
+    // 카페 테이블
     private let cafeTable: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         return label
     }()
     
-    // 카페 위치 이미지
+    // 카페 테이블 이미지
     private let cafeTableImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false

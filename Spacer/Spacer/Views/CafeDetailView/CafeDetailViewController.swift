@@ -419,20 +419,6 @@ class CafeDetailViewController: UIViewController {
     
 }
 
-// 임시 카페 정보 구조: Merge 후 정의된 Model로 교체할 예정
-struct CafeInfoForDetailView: Codable {
-    let cafeID: Int
-    let cafeName: String
-    let imageDirectories: [String]
-    let address: String
-    let cafePhoneNumber: String
-    var SNS: String = ""
-    let cafeMinPeople: Int
-    let cafeMaxPeople: Int
-    var costs: Int = 0
-    let locationID: Int
-}
-
 extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

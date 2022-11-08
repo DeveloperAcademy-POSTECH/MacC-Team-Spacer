@@ -49,7 +49,7 @@ class VisualTagCategoryViewController: UIViewController {
         return button
     }()
     
-    lazy var peopleTargetCollectionView: UICollectionView = {
+    lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
@@ -114,13 +114,13 @@ class VisualTagCategoryViewController: UIViewController {
         ])
         
         //collectionview autolayout
-        view.addSubview(self.peopleTargetCollectionView)
-        peopleTargetCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.categoryCollectionView)
+        categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            peopleTargetCollectionView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
-            peopleTargetCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            peopleTargetCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            peopleTargetCollectionView.heightAnchor.constraint(equalToConstant: 500)
+            categoryCollectionView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            categoryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoryCollectionView.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
     

@@ -199,12 +199,20 @@ class VisualTagMapViewController: UIViewController {
             seoulBackConfig.image = UIImage(named: "mapButtonSelected")
             // 부산 버튼 선택안된 이미지로 변경
             busanBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 활성화
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
         } else {
             // 버튼 크기 변경
             seoulButtonWidth?.constant = 100
             seoulButtonHeight?.constant = 110
             // 서울 버튼 선택안된 이미지로 변경
             seoulBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 비활성화
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
         }
         
         seoulConfig.background = seoulBackConfig
@@ -227,12 +235,20 @@ class VisualTagMapViewController: UIViewController {
             busanBackConfig.image = UIImage(named: "mapButtonSelected")
             // 서울 버튼 선택안된 이미지로 변경
             seoulBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 활성화
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
         } else {
             // 버튼 크기 변경
             busanButtonWidth?.constant = 100
             busanButtonHeight?.constant = 110
             // 부산 버튼 선택안된 이미지로 변경
             busanBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 비활성화
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
         }
         
         seoulConfig.background = seoulBackConfig

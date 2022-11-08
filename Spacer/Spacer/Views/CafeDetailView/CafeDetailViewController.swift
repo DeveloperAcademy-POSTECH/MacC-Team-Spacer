@@ -99,6 +99,17 @@ class CafeDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    lazy var callReservationButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("전화 문의하기", for: .normal)
+        button.titleLabel?.font = .systemFont(for: .header6)
+        button.titleLabel?.textColor = .grayscale6
+        button.backgroundColor = .grayscale2
+        button.layer.cornerRadius = 12
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
         
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
@@ -224,6 +235,7 @@ class CafeDetailViewController: UIViewController {
         scrollView.addSubview(cafeTitleLabel)
         scrollView.addSubview(favortieImage)
         scrollView.addSubview(numberOfFavorties)
+        scrollView.addSubview(callReservationButton)
         
         // dynamicStackView.addArrangedSubview
         dynamicStackView.addArrangedSubview(pageController.view)
@@ -332,8 +344,6 @@ class CafeDetailViewController: UIViewController {
             cafeTitleLabel.heightAnchor.constraint(equalToConstant: 23)
         ]
         
-        
-        
         let favoriteImageConstraints = [
             favortieImage.leadingAnchor.constraint(equalTo: cafeTitleLabel.trailingAnchor, constant: 8),
             favortieImage.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 28),
@@ -345,6 +355,13 @@ class CafeDetailViewController: UIViewController {
             numberOfFavorties.leadingAnchor.constraint(equalTo: favortieImage.trailingAnchor, constant: 2),
             numberOfFavorties.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 30),
             numberOfFavorties.heightAnchor.constraint(equalToConstant: 17)
+        ]
+        
+        let callReservationButtonConstraints = [
+            callReservationButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin),
+            callReservationButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -.padding.margin),
+            callReservationButton.topAnchor.constraint(equalTo: cafeTitleLabel.bottomAnchor, constant: 19),
+            callReservationButton.heightAnchor.constraint(equalToConstant: 44)
         ]
         
         let bottomBarConstraints = [
@@ -369,7 +386,7 @@ class CafeDetailViewController: UIViewController {
         ]
         
         let segmentControlConstraints = [
-            segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            segmentedControl.topAnchor.constraint(equalTo: callReservationButton.bottomAnchor, constant: .padding.startHierarchyPadding),
             segmentedControl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
@@ -392,6 +409,7 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(sizeLabelConstraints)
         NSLayoutConstraint.activate(favoriteImageConstraints)
         NSLayoutConstraint.activate(numberOfFavoritesConstraints)
+        NSLayoutConstraint.activate(callReservationButtonConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)

@@ -41,8 +41,6 @@
 		D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729329011A79007A5297 /* CustomCalenderCell.swift */; };
 		D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */; };
 		D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */; };
-		D4A3729E29011A79007A5297 /* VisualTagPeopleTargetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */; };
-		D4A3729F29011A79007A5297 /* VisualTagPeopleRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */; };
 		D4A372A229011AB8007A5297 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D4A372A129011AB8007A5297 /* FSCalendar */; };
 		D4A372AF29063C8A007A5297 /* InfomationImageAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */; };
 		D4A372B12907A58D007A5297 /* CafeBasicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A372B02907A58D007A5297 /* CafeBasicInfoView.swift */; };
@@ -88,8 +86,6 @@
 		D4A3729329011A79007A5297 /* CustomCalenderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalenderCell.swift; sourceTree = "<group>"; };
 		D4A3729429011A79007A5297 /* VisualTagCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagCalendarViewController.swift; sourceTree = "<group>"; };
 		D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagMapViewController.swift; sourceTree = "<group>"; };
-		D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleTargetViewController.swift; sourceTree = "<group>"; };
-		D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualTagPeopleRangeViewController.swift; sourceTree = "<group>"; };
 		D4A372AE29063C8A007A5297 /* InfomationImageAndText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationImageAndText.swift; sourceTree = "<group>"; };
 		D4A372B02907A58D007A5297 /* CafeBasicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeBasicInfoView.swift; sourceTree = "<group>"; };
 		D4C95C4C28F5288F00992600 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
@@ -277,8 +273,6 @@
 				D4A3729129011A79007A5297 /* Calendar */,
 				D4A3729529011A79007A5297 /* Map */,
 				BF682FC32918175E00706D1D /* Category */,
-				D4A3729729011A79007A5297 /* PeopleTarget */,
-				D4A3729929011A79007A5297 /* PeopleRange */,
 				BFD1381429014DAF004E6726 /* Buttons */,
 				D486C4912905A89F00D6B0A0 /* GridCell */,
 			);
@@ -308,22 +302,6 @@
 				D4A3729629011A79007A5297 /* VisualTagMapViewController.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		D4A3729729011A79007A5297 /* PeopleTarget */ = {
-			isa = PBXGroup;
-			children = (
-				D4A3729829011A79007A5297 /* VisualTagPeopleTargetViewController.swift */,
-			);
-			path = PeopleTarget;
-			sourceTree = "<group>";
-		};
-		D4A3729929011A79007A5297 /* PeopleRange */ = {
-			isa = PBXGroup;
-			children = (
-				D4A3729A29011A79007A5297 /* VisualTagPeopleRangeViewController.swift */,
-			);
-			path = PeopleRange;
 			sourceTree = "<group>";
 		};
 		D4E950AF28EF48CA0066B711 = {
@@ -459,7 +437,6 @@
 				D4A372B12907A58D007A5297 /* CafeBasicInfoView.swift in Sources */,
 				D4E950BC28EF48CA0066B711 /* AppDelegate.swift in Sources */,
 				D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */,
-				BFEDDE782908023000F1D09E /* CafeInfoModel.swift in Sources */,
 				BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */,
 				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
@@ -476,8 +453,6 @@
 				BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,
 				D4C95C5728F5437200992600 /* CafeDetailViewController.swift in Sources */,
-				D4A3729E29011A79007A5297 /* VisualTagPeopleTargetViewController.swift in Sources */,
-				D4A3729F29011A79007A5297 /* VisualTagPeopleRangeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

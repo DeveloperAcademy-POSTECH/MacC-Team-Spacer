@@ -145,14 +145,16 @@ class CafeDetailViewController: UIViewController {
         return bottomBar
     }()
     
-    let chatButton: UIButton = {
-        let chatButton = UIButton()
-        chatButton.setTitle("1:1 문의", for: .normal)
-        chatButton.titleLabel?.font = .systemFont(for: .header6)
-        chatButton.backgroundColor = .grayscale2
-        chatButton.layer.cornerRadius = 12
-        chatButton.translatesAutoresizingMaskIntoConstraints = false
-        return chatButton
+    let favoriteOnOffButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+        button.backgroundColor = .mainPurple6
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.mainPurple5.cgColor
+        button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(touchedFavoriteOnOffButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     let reservationButton: UIButton = {
@@ -181,9 +183,9 @@ class CafeDetailViewController: UIViewController {
     }
     
     private var totalImageCount = 0
-    
     private var categoryNames = [String]()
     private var sizeDescriptions = [String]()
+    private var isFavoriteButtonOn = false
     
     // MARK: - ViewDidLoad
     
@@ -241,7 +243,7 @@ class CafeDetailViewController: UIViewController {
         dynamicStackView.addArrangedSubview(pageController.view)
         
         // bottomBar View에 버튼 추가
-        bottomBar.addSubview(chatButton)
+        bottomBar.addSubview(favoriteOnOffButton)
         bottomBar.addSubview(reservationButton)
         
         applyConstraints()
@@ -259,6 +261,17 @@ class CafeDetailViewController: UIViewController {
     // segmentControl을 터치하면 아래 PageViewController의 view가 바뀜
     @objc private func changePageControllerViewController(_ sender: UISegmentedControl) {
         pageController.setViewControllers([dataViewControllers[sender.selectedSegmentIndex]], direction: sender.selectedSegmentIndex == 1 ? .forward : .reverse, animated: true)
+    }
+    
+    // favortieOnOffButton 터치 시 하트 이미지와 전체 하트 수에 변화
+    @objc private func touchedFavoriteOnOffButton(_ sender: UIButton) {
+        isFavoriteButtonOn = !isFavoriteButtonOn
+        if isFavoriteButtonOn {
+            sender.setImage(UIImage(named: "heartIcon"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+        }
+        // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
     }
     
     func showCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo], parentView: UIView) -> Int {
@@ -371,16 +384,16 @@ class CafeDetailViewController: UIViewController {
             bottomBar.heightAnchor.constraint(equalToConstant: 100)
         ]
         
-        let chatButtonConstraints = [
-            chatButton.widthAnchor.constraint(equalToConstant: 114),
-            chatButton.heightAnchor.constraint(equalToConstant: 56),
-            chatButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: .padding.margin),
-            chatButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
+        let favoriteOnOffButtonConstraints = [
+            favoriteOnOffButton.widthAnchor.constraint(equalToConstant: (view.bounds.width - 40) / 5),
+            favoriteOnOffButton.heightAnchor.constraint(equalToConstant: 56),
+            favoriteOnOffButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: .padding.margin),
+            favoriteOnOffButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 8)
         ]
-        
+         
         let reservationButtonConstraints = [
             reservationButton.heightAnchor.constraint(equalToConstant: 56),
-            reservationButton.leadingAnchor.constraint(equalTo: chatButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
+            reservationButton.leadingAnchor.constraint(equalTo: favoriteOnOffButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
             reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -.padding.margin),
             reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
         ]
@@ -411,7 +424,7 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(numberOfFavoritesConstraints)
         NSLayoutConstraint.activate(callReservationButtonConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
-        NSLayoutConstraint.activate(chatButtonConstraints)
+        NSLayoutConstraint.activate(favoriteOnOffButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)
         NSLayoutConstraint.activate(segmentControlConstraints)
         NSLayoutConstraint.activate(pageControllerConstraints)

@@ -104,13 +104,13 @@ class VisualTagCategoryViewController: UIViewController {
         ])
         
         //next button autolayout
-        self.view.addSubview(self.nextButton)
+        view.addSubview(nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -.padding.underTitlePadding),
-            nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            nextButton.heightAnchor.constraint(equalToConstant: 56)
         ])
         
         //collectionview autolayout

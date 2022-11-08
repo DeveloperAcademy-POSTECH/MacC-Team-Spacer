@@ -68,6 +68,15 @@ class CafeDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    lazy var cafeTitleLabel: UILabel = {
+        let label = UILabel()
+        // TODO: 나중에 추가된 커스텀 폰트로 교체해야함
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.textColor = .mainPurple1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
         
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
@@ -170,6 +179,10 @@ class CafeDetailViewController: UIViewController {
         self.title = tempCafeInfo?.name
         tabBarController?.tabBar.isHidden = true
         
+        if let cafeName = tempCafeInfo?.name {
+            cafeTitleLabel.text = cafeName
+        }
+        
         // view.addSubview
         view.addSubview(scrollView)
         view.addSubview(bottomBar)
@@ -178,6 +191,7 @@ class CafeDetailViewController: UIViewController {
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
         scrollView.addSubview(imageDescriptionView)
+        scrollView.addSubview(cafeTitleLabel)
         scrollView.addSubview(segmentedControl)
         
         imageDescriptionView.addSubview(categoryLabel)
@@ -277,6 +291,12 @@ class CafeDetailViewController: UIViewController {
             sizeLabel.heightAnchor.constraint(equalToConstant: 14)
         ]
         
+        let cafeTitleLabelConstraints = [
+            cafeTitleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin), 
+            cafeTitleLabel.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
+            cafeTitleLabel.heightAnchor.constraint(equalToConstant: 23)
+        ]
+        
         let bottomBarConstraints = [
             bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -316,6 +336,7 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(imageScrollViewConstraints)
         NSLayoutConstraint.activate(imageDescriptionViewConstraints)
+        NSLayoutConstraint.activate(cafeTitleLabelConstraints)
         NSLayoutConstraint.activate(categoryLabelConstraints)
         NSLayoutConstraint.activate(sizeLabelConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)

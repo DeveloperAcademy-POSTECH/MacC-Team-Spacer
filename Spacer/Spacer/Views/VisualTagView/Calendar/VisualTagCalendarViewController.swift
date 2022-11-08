@@ -44,17 +44,16 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .white, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .grayscale6, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         button.isEnabled = false
         return button
     }()
     
     lazy var cancelButton: UIButton = {
         let button = CancelButton()
-        button.setView(foreground: .black, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(foreground: .mainPurple1, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
-    
     
     lazy var myCalendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -135,10 +134,10 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         self.view.addSubview(self.nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.centerYAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            nextButton.heightAnchor.constraint(equalToConstant: 56)
         ])
         
         //headerTitle autolayout

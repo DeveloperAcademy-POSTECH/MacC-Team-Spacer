@@ -77,6 +77,28 @@ class CafeDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    lazy var cafeTitleBox: UIView = {
+        let view =  UIView()
+        view.backgroundColor = .subYellow1
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var favortieImage: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "heartIcon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy var numberOfFavorties: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
         
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
@@ -182,6 +204,7 @@ class CafeDetailViewController: UIViewController {
         if let cafeName = tempCafeInfo?.name {
             cafeTitleLabel.text = cafeName
         }
+        numberOfFavorties.text = "\(tempCafeInfo?.numberOfFavorites ?? 0)"
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -191,11 +214,16 @@ class CafeDetailViewController: UIViewController {
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
         scrollView.addSubview(imageDescriptionView)
-        scrollView.addSubview(cafeTitleLabel)
         scrollView.addSubview(segmentedControl)
         
         imageDescriptionView.addSubview(categoryLabel)
         imageDescriptionView.addSubview(sizeLabel)
+        
+        
+        scrollView.addSubview(cafeTitleBox)
+        scrollView.addSubview(cafeTitleLabel)
+        scrollView.addSubview(favortieImage)
+        scrollView.addSubview(numberOfFavorties)
         
         // dynamicStackView.addArrangedSubview
         dynamicStackView.addArrangedSubview(pageController.view)
@@ -291,10 +319,32 @@ class CafeDetailViewController: UIViewController {
             sizeLabel.heightAnchor.constraint(equalToConstant: 14)
         ]
         
+        let cafeTitleBoxConstraints = [
+            cafeTitleBox.leadingAnchor.constraint(equalTo: cafeTitleLabel.leadingAnchor),
+            cafeTitleBox.centerYAnchor.constraint(equalTo: cafeTitleLabel.centerYAnchor, constant: 8),
+            cafeTitleBox.heightAnchor.constraint(equalToConstant: 13),
+            cafeTitleBox.widthAnchor.constraint(equalTo: cafeTitleLabel.widthAnchor)
+        ]
+        
         let cafeTitleLabelConstraints = [
             cafeTitleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin), 
             cafeTitleLabel.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
             cafeTitleLabel.heightAnchor.constraint(equalToConstant: 23)
+        ]
+        
+        
+        
+        let favoriteImageConstraints = [
+            favortieImage.leadingAnchor.constraint(equalTo: cafeTitleLabel.trailingAnchor, constant: 8),
+            favortieImage.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 28),
+            favortieImage.widthAnchor.constraint(equalToConstant: 20),
+            favortieImage.heightAnchor.constraint(equalToConstant: 20)
+        ]
+        
+        let numberOfFavoritesConstraints = [
+            numberOfFavorties.leadingAnchor.constraint(equalTo: favortieImage.trailingAnchor, constant: 2),
+            numberOfFavorties.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 30),
+            numberOfFavorties.heightAnchor.constraint(equalToConstant: 17)
         ]
         
         let bottomBarConstraints = [
@@ -336,9 +386,12 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(imageScrollViewConstraints)
         NSLayoutConstraint.activate(imageDescriptionViewConstraints)
+        NSLayoutConstraint.activate(cafeTitleBoxConstraints)
         NSLayoutConstraint.activate(cafeTitleLabelConstraints)
         NSLayoutConstraint.activate(categoryLabelConstraints)
         NSLayoutConstraint.activate(sizeLabelConstraints)
+        NSLayoutConstraint.activate(favoriteImageConstraints)
+        NSLayoutConstraint.activate(numberOfFavoritesConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
         NSLayoutConstraint.activate(chatButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)

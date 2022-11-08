@@ -45,8 +45,8 @@ class ResultCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    // 카페 테이블
-    private let cafeTable: UILabel = {
+    // 카페 테이블 수
+    private let numberOfTable: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body1)
@@ -63,8 +63,8 @@ class ResultCollectionViewCell: UICollectionViewCell {
     }()
     
     
-    // 카페 좋아요
-    private let cafeFavorite: UILabel = {
+    // 카페 좋아요 수
+    private let numberOfFavorites: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body1)
@@ -111,9 +111,9 @@ class ResultCollectionViewCell: UICollectionViewCell {
         shadowView.addSubview(cafeName)
         shadowView.addSubview(cafeLocation)
         shadowView.addSubview(cafeLocationImage)
-        shadowView.addSubview(cafeTable)
+        shadowView.addSubview(numberOfTable)
         shadowView.addSubview(cafeTableImage)
-        shadowView.addSubview(cafeFavorite)
+        shadowView.addSubview(numberOfFavorites)
         shadowView.addSubview(cafeFavoriteImage)
         
         let cafeImageViewConstraints = [
@@ -141,26 +141,26 @@ class ResultCollectionViewCell: UICollectionViewCell {
             cafeLocationImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
-        let cafeTableConstraints = [
-            cafeTable.leadingAnchor.constraint(equalTo: cafeTableImage.trailingAnchor, constant: .padding.betweenIconPadding),
-            cafeTable.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: .padding.littleBoxTextPadding),
+        let numberOfTableConstraints = [
+            numberOfTable.leadingAnchor.constraint(equalTo: cafeTableImage.trailingAnchor, constant: .padding.betweenIconPadding),
+            numberOfTable.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: .padding.littleBoxTextPadding),
         ]
         
         let cafeTableImageConstraints = [
             cafeTableImage.leadingAnchor.constraint(equalTo: cafeLocation.trailingAnchor, constant: .padding.bigBoxTextPadding),
-            cafeTableImage.centerYAnchor.constraint(equalTo: cafeTable.centerYAnchor),
+            cafeTableImage.centerYAnchor.constraint(equalTo: numberOfTable.centerYAnchor),
             cafeTableImage.heightAnchor.constraint(equalToConstant: 18),
             cafeTableImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
-        let cafeFavoriteConstraints = [
-            cafeFavorite.leadingAnchor.constraint(equalTo: cafeFavoriteImage.trailingAnchor, constant: .padding.betweenIconPadding),
-            cafeFavorite.topAnchor.constraint(equalTo: cafeLocation.bottomAnchor, constant: .padding.littleBoxTextPadding)
+        let numberOfFavortiesConstraints = [
+            numberOfFavorites.leadingAnchor.constraint(equalTo: cafeFavoriteImage.trailingAnchor, constant: .padding.betweenIconPadding),
+            numberOfFavorites.topAnchor.constraint(equalTo: cafeLocation.bottomAnchor, constant: .padding.littleBoxTextPadding)
         ]
         
         let cafeFavoriteImageConstraints = [
             cafeFavoriteImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.littleBoxPadding),
-            cafeFavoriteImage.centerYAnchor.constraint(equalTo: cafeFavorite.centerYAnchor),
+            cafeFavoriteImage.centerYAnchor.constraint(equalTo: numberOfFavorites.centerYAnchor),
             cafeFavoriteImage.heightAnchor.constraint(equalToConstant: 18),
             cafeFavoriteImage.widthAnchor.constraint(equalToConstant: 18)
         ]
@@ -169,9 +169,9 @@ class ResultCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(cafeNameConstraints)
         NSLayoutConstraint.activate(cafeLocationConstraints)
         NSLayoutConstraint.activate(cafeLocationImageConstraints)
-        NSLayoutConstraint.activate(cafeTableConstraints)
+        NSLayoutConstraint.activate(numberOfTableConstraints)
         NSLayoutConstraint.activate(cafeTableImageConstraints)
-        NSLayoutConstraint.activate(cafeFavoriteConstraints)
+        NSLayoutConstraint.activate(numberOfFavortiesConstraints)
         NSLayoutConstraint.activate(cafeFavoriteImageConstraints)
         
     }
@@ -184,8 +184,8 @@ class ResultCollectionViewCell: UICollectionViewCell {
         self.cafeName.text = model.name
         self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
         self.cafeLocation.text = model.shortAddress
-        self.cafeTable.text = String(model.numberOfTables)
-        self.cafeFavorite.text = String(model.numberOfFavorites)
+        self.numberOfTable.text = String(model.numberOfTables)
+        self.numberOfFavorites.text = String(model.numberOfFavorites)
     }
 }
 

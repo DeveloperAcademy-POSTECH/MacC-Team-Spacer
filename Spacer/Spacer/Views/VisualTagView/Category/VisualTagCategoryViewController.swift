@@ -33,7 +33,7 @@ class VisualTagCategoryViewController: UIViewController {
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .white, backgroundColor: .mainPurple3, target: VisualTagPeopleTargetViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "완료", titleColor: .white, backgroundColor: .mainPurple3, target: VisualTagPeopleTargetViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
@@ -129,7 +129,8 @@ class VisualTagCategoryViewController: UIViewController {
         if let button = sender as? UIButton{
             switch button.tag {
             case 1:
-                self.navigationController?.pushViewController(VisualTagPeopleRangeViewController(), animated: true)
+                super.dismiss(animated: true, completion: nil)
+                self.navigationController?.popToRootViewController(animated: false)
             case 2:
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)

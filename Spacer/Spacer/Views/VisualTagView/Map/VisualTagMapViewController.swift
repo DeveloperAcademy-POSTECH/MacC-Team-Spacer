@@ -70,22 +70,24 @@ class VisualTagMapViewController: UIViewController {
     lazy var seoulButton: UIButton = {
         seoulBackConfig.image = UIImage(named: "mapButtonUnselected")
         seoulConfig.background = seoulBackConfig
-        seoulConfig.title = "서울"
+        var seoulAttr = AttributedString.init("서울")
+        seoulAttr.font = .systemFont(for: .header6)
+        seoulConfig.attributedTitle = seoulAttr
         seoulConfig.baseForegroundColor = .mainPurple2
         seoulConfig.contentInsets = .init(top: -4, leading: 0, bottom: 0, trailing: 0)
         let button = UIButton(configuration: seoulConfig)
-        button.titleLabel?.font = .systemFont(for: .header6)
         return button
     }()
     
     lazy var busanButton: UIButton = {
         busanBackConfig.image = UIImage(named: "mapButtonUnselected")
         busanConfig.background = busanBackConfig
-        busanConfig.title = "부산"
+        var busanAttr = AttributedString.init("부산")
+        busanAttr.font = .systemFont(for: .header6)
+        busanConfig.attributedTitle = busanAttr
         busanConfig.baseForegroundColor = .mainPurple2
         busanConfig.contentInsets = .init(top: -4, leading: 0, bottom: 0, trailing: 0)
         let button = UIButton(configuration: busanConfig)
-        button.titleLabel?.font = .systemFont(for: .header6)
         return button
     }()
     

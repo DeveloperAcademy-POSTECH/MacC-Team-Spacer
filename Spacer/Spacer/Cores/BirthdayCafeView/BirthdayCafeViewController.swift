@@ -235,7 +235,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         case Sections.recentCafeReview.rawValue:
             return .padding.startHierarchyPadding + .padding.underTitlePadding + 24
         case Sections.popularCafe.rawValue:
-            return .padding.differentHierarchyPadding + .padding.underTitlePadding + 24
+            return .padding.differentHierarchyPadding + .padding.underTitlePadding
         default:
             return 10
         }

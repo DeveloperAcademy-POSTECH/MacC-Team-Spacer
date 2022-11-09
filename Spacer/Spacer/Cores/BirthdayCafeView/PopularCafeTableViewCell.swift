@@ -38,7 +38,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body1)
-        label.textColor = .grayscale6
+        label.textColor = .grayscale5
         return label
     }()
     
@@ -50,6 +50,40 @@ class PopularCafeTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    // 카페 테이블 수
+    private let numberOfTables: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(for: .body1)
+        label.textColor = .grayscale5
+        return label
+    }()
+    
+    // 카페 테이블 이미지
+    private let cafeTableImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "tableIcon")
+        return imageView
+    }()
+    
+    // 카페 좋아요 수
+    private let numberOfFavorites: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(for: .body1)
+        label.textColor = .grayscale5
+        return label
+    }()
+    
+    // 카페 좋아요 이미지
+    private let cafeFavoriteImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "heartIcon")
+        return imageView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -57,6 +91,10 @@ class PopularCafeTableViewCell: UITableViewCell {
         contentView.addSubview(cafeName)
         contentView.addSubview(cafeLocation)
         contentView.addSubview(cafeLocationImage)
+        contentView.addSubview(numberOfTables)
+        contentView.addSubview(cafeTableImage)
+        contentView.addSubview(numberOfFavorites)
+        contentView.addSubview(cafeFavoriteImage)
         
         applyConstraints()
     }
@@ -65,11 +103,23 @@ class PopularCafeTableViewCell: UITableViewCell {
         
         let cafeNameConstraints = [
             cafeName.leadingAnchor.constraint(equalTo: cafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
-            cafeName.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxTextPadding),
+            cafeName.bottomAnchor.constraint(equalTo: cafeFavoriteImage.topAnchor, constant: -.padding.bigBoxTextPadding),
+        ]
+        
+        let numberOfFavortiesConstraints = [
+            numberOfFavorites.leadingAnchor.constraint(equalTo: cafeFavoriteImage.trailingAnchor, constant: .padding.betweenIconPadding),
+            numberOfFavorites.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding),
+        ]
+        
+        let cafeFavoriteImageConstraints = [
+            cafeFavoriteImage.leadingAnchor.constraint(equalTo: cafeImageView.leadingAnchor, constant: .padding.bigBoxPadding),
+            cafeFavoriteImage.centerYAnchor.constraint(equalTo: numberOfFavorites.centerYAnchor),
+            cafeFavoriteImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeFavoriteImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
         let cafeLocationConstraints = [
-            cafeLocation.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: -.padding.bigBoxPadding),
+            cafeLocation.trailingAnchor.constraint(equalTo: cafeTableImage.leadingAnchor, constant: -.padding.bigBoxTextPadding),
             cafeLocation.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding),
         ]
         
@@ -80,9 +130,28 @@ class PopularCafeTableViewCell: UITableViewCell {
             cafeLocationImage.widthAnchor.constraint(equalToConstant: 18)
         ]
         
+        let numberOfTablesConstraints = [
+            numberOfTables.trailingAnchor.constraint(equalTo: cafeImageView.trailingAnchor, constant: -.padding.bigBoxPadding),
+            numberOfTables.bottomAnchor.constraint(equalTo: cafeImageView.bottomAnchor, constant: -.padding.bigBoxPadding),
+        ]
+        
+        let cafeTableImageConstraints = [
+            cafeTableImage.trailingAnchor.constraint(equalTo: numberOfTables.leadingAnchor, constant: -.padding.betweenIconPadding),
+            cafeTableImage.centerYAnchor.constraint(equalTo: numberOfTables.centerYAnchor),
+            cafeTableImage.heightAnchor.constraint(equalToConstant: 18),
+            cafeTableImage.widthAnchor.constraint(equalToConstant: 18)
+        ]
+        
+        
+        
+        
         NSLayoutConstraint.activate(cafeNameConstraints)
         NSLayoutConstraint.activate(cafeLocationConstraints)
         NSLayoutConstraint.activate(cafeLocationImageConstraints)
+        NSLayoutConstraint.activate(numberOfTablesConstraints)
+        NSLayoutConstraint.activate(cafeTableImageConstraints)
+        NSLayoutConstraint.activate(numberOfFavortiesConstraints)
+        NSLayoutConstraint.activate(cafeFavoriteImageConstraints)
         
     }
     
@@ -125,12 +194,9 @@ class PopularCafeTableViewCell: UITableViewCell {
     public func configure(with model: CafeInfo) {
         self.cafeName.text = model.name
         self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
-        
-        // 카페 장소의 앞 2개 단어만 표시
-        let longCafeAddress = model.address.components(separatedBy: " ")
-        let shortCafeAddress = "\(longCafeAddress[0]) \(longCafeAddress[1])"
-        self.cafeLocation.text = shortCafeAddress
-        
+        self.cafeLocation.text = model.shortAddress
+        self.numberOfTables.text = String(model.numberOfTables)
+        self.numberOfFavorites.text = String(model.numberOfFavorites)
     }
     
     // MARK: - layer에다 그라디언트 추가하기

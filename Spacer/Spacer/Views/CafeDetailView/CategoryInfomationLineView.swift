@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfomationImageAndText: UIView {
+class CategoryInfomationLineView: UIView {
     
     lazy var icon: UIImageView = {
         let icon = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))

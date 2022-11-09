@@ -56,13 +56,13 @@ class DetailInfomationViewController: UIViewController {
         eventCostStackView = makeStackView()
         cafeAdditionalInfoStackView = makeStackView()
         
-        lazy var phoneNumber = InfomationImageAndText(image: "phone.fill", category: "전화번호", discription: cafeInfoData?.phoneNumber)
+        lazy var phoneNumber = CategoryInfomationLineView(image: "phone.fill", category: "전화번호", discription: cafeInfoData?.phoneNumber)
         phoneNumber.translatesAutoresizingMaskIntoConstraints = false
         
-        lazy var SNSInfo = InfomationImageAndText(image: "mic.fill", category: "SNS", discription: cafeInfoData!.SNS)
+        lazy var SNSInfo = CategoryInfomationLineView(image: "mic.fill", category: "SNS", discription: cafeInfoData!.SNS)
         SNSInfo.translatesAutoresizingMaskIntoConstraints = false
         
-        lazy var cafeHours = InfomationImageAndText(image: "clock.fill", category: "운영 시간", discription: "09:00 ~ 21:00")
+        lazy var cafeHours = CategoryInfomationLineView(image: "clock.fill", category: "운영 시간", discription: "09:00 ~ 21:00")
         cafeHours.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(cafeDetailInfoContainer)

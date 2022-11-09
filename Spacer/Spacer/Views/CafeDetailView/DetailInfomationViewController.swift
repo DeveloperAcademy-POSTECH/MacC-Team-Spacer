@@ -12,6 +12,9 @@ class DetailInfomationViewController: UIViewController {
     
     var cafeInfoData: CafeInfo?
     
+    // 현재 View의 높이
+    var selfHeight: CGFloat = 0
+    
     // 카페 이벤트 요소 이미지와 타이틀 이름
     private let eventElementImageNames = ["eventElementCupholder", "eventElementHBanner", "", "eventElementXBanner", "eventElementDisplayPlace", "", "evemtElementCustomCookie", "eventElementCustomReceipt", "eventElementCutout", "", "", "eventElementVideoOrScreen"]
     private let eventElementImageLabels = ["컵홀더", "현수막", "액자", "배너", "전시 공간", "보틀 음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
@@ -71,6 +74,17 @@ class DetailInfomationViewController: UIViewController {
         view.addSubview(cafeAdditionalInfoStackView)
         
         applyConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        // 현재 뷰의 총 높이 계산
+        selfHeight += cafeDetailInfoContainer.frame.height
+        selfHeight += eventElementStackView.frame.height
+        selfHeight += eventCostStackView.frame.height
+        selfHeight += cafeAdditionalInfoStackView.frame.height
+        selfHeight += 8
     }
     
     // MARK: - functions

@@ -214,10 +214,11 @@ extension VisualTagCalendarViewController{
             case 1:
                 self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
                 if let firstDate = firstDate {
-                    UserDefaults.standard.set(firstDate, forKey: "firstDate")
+                    
+                    UserDefaults.standard.set(shortDateFormatConverter(firstDate), forKey: "firstDate")
                 }
                 if let lastDate = lastDate {
-                    UserDefaults.standard.set(lastDate, forKey: "lastDate")
+                    UserDefaults.standard.set(shortDateFormatConverter(lastDate), forKey: "lastDate")
                 }
             case 2:
                 super.dismiss(animated: true, completion: nil)
@@ -279,6 +280,15 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     func dateFormatConverter(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = .autoupdatingCurrent
+        return dateFormatter.string(from: date)
+    }
+    
+    // 년도를 제외한 기간이 나오도록 date format을 변환해줌
+    func shortDateFormatConverter(_ date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd"
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: date)

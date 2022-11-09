@@ -158,13 +158,14 @@ class CafeDetailViewController: UIViewController {
     }()
     
     let reservationButton: UIButton = {
-        let reservationButton = UIButton()
-        reservationButton.setTitle("예약하기", for: .normal)
-        reservationButton.titleLabel?.font = .systemFont(for: .header6)
-        reservationButton.backgroundColor = .mainPurple3
-        reservationButton.layer.cornerRadius = 12
-        reservationButton.translatesAutoresizingMaskIntoConstraints = false
-        return reservationButton
+        let button = UIButton()
+        button.setTitle("예약하러 가기", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.textColor = .grayscale6
+        button.layer.cornerRadius = 12
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     // 추후 segmentedControl에 추가할 ViewController 정의
@@ -204,6 +205,7 @@ class CafeDetailViewController: UIViewController {
         // 전체 이미지 수에 따라 imageScrollView의 width 설정
         imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
         
+        // 이미지별 카테고리와 사이즈 라벨 초기화
         setImageDescriptionView(categoryName: tempCafeInfo?.imageInfos[0].category ?? "", tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: tempCafeInfo?.imageInfos[0].productSize ?? "")
         
         // navigationBar & tabBar 설정
@@ -214,6 +216,7 @@ class CafeDetailViewController: UIViewController {
         self.title = tempCafeInfo?.name
         tabBarController?.tabBar.isHidden = true
         
+        // 카페 이름과 좋아요 수 설정
         if let cafeName = tempCafeInfo?.name {
             cafeTitleLabel.text = cafeName
         }
@@ -249,6 +252,14 @@ class CafeDetailViewController: UIViewController {
         applyConstraints()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let gradientLayer = CAGradientLayer()
+        reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
+
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -265,7 +276,7 @@ class CafeDetailViewController: UIViewController {
     
     // favortieOnOffButton 터치 시 하트 이미지와 전체 하트 수에 변화
     @objc private func touchedFavoriteOnOffButton(_ sender: UIButton) {
-        isFavoriteButtonOn = !isFavoriteButtonOn
+        isFavoriteButtonOn.toggle()
         if isFavoriteButtonOn {
             sender.setImage(UIImage(named: "heartIcon"), for: .normal)
         } else {
@@ -395,7 +406,7 @@ class CafeDetailViewController: UIViewController {
             reservationButton.heightAnchor.constraint(equalToConstant: 56),
             reservationButton.leadingAnchor.constraint(equalTo: favoriteOnOffButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
             reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -.padding.margin),
-            reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
+            reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 8)
         ]
         
         let segmentControlConstraints = [

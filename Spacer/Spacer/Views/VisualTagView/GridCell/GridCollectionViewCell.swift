@@ -11,7 +11,7 @@ class GridCollectionViewCell: UICollectionViewCell {
     //cell의 고유한 ID값 지정
     static let identifier = "GridViewCell"
     
-    lazy var label: UILabel = {
+    lazy var eventElementTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(for: .header6)
         label.textColor = .mainPurple2
@@ -21,7 +21,7 @@ class GridCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var imageView: UIImageView = {
+    lazy var eventElementImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -36,14 +36,14 @@ class GridCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect){
         super.init(frame: .zero)
-        contentView.addSubview(imageView)
-        contentView.addSubview(label)
+        contentView.addSubview(eventElementImage)
+        contentView.addSubview(eventElementTitle)
         setConstraints()
     }
     
     //isSelected 변수 override
     override var isSelected: Bool {
-        didSet{
+        didSet {
             if isSelected{
                 self.backgroundColor = UIColor.mainPurple5
                 self.layer.borderColor = UIColor.mainPurple2.cgColor
@@ -55,7 +55,7 @@ class GridCollectionViewCell: UICollectionViewCell {
                     checkMark.widthAnchor.constraint(equalToConstant: 17),
                     checkMark.heightAnchor.constraint(equalToConstant: 17)
                 ])
-            }else{
+            } else {
                 self.backgroundColor = UIColor.mainPurple6
                 self.layer.borderColor = UIColor.clear.cgColor
                 self.layer.borderWidth = 0
@@ -70,23 +70,22 @@ class GridCollectionViewCell: UICollectionViewCell {
     
     func setConstraints(){
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.firstBaselineAnchor.constraint(equalTo: contentView.topAnchor),
+            eventElementImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            eventElementImage.firstBaselineAnchor.constraint(equalTo: contentView.topAnchor),
             
-            label.lastBaselineAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            label.widthAnchor.constraint(equalToConstant: 70),
-
+            eventElementTitle.lastBaselineAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            eventElementTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            eventElementTitle.widthAnchor.constraint(equalToConstant: 70),
         ])
         
     }
-   
+    
     public func configure(_ sectionLabel: String, _ imageName: String){
         self.backgroundColor = UIColor.mainPurple6
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = true
-        self.label.text = sectionLabel
+        self.eventElementTitle.text = sectionLabel
         
-        self.imageView.image = UIImage(named: imageName)
+        self.eventElementImage.image = UIImage(named: imageName)
     }
 }

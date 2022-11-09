@@ -298,6 +298,7 @@ class SearchListViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "map")
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
+        super.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewWillLayoutSubviews() {
@@ -318,7 +319,6 @@ class SearchListViewController: UIViewController {
     
     // 뒤로 가기 함수
     @objc func backButtonTapped() {
-        super.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
     }
     

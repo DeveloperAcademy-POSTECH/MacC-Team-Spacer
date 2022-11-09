@@ -177,7 +177,7 @@ extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-            collectionView.deselectItem(at: indexPath, animated: false)
+        collectionView.deselectItem(at: indexPath, animated: false)
         categoriesItemArray[indexPath.item] = false
     }
 }

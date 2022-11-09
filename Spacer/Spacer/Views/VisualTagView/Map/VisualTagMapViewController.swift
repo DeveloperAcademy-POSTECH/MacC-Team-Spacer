@@ -97,7 +97,7 @@ class VisualTagMapViewController: UIViewController {
         applyConstraints()
         buttonSetup()
     }
-
+    
     func applyConstraints() {
         //cancel button autolayout
         self.view.addSubview(cancelButton)

@@ -205,7 +205,6 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     }
 }
 
-
 //button method compilation
 extension VisualTagCalendarViewController{
     //handling action for next, cancel button
@@ -302,7 +301,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
         var tempDate = from
         var array = [tempDate]
-
+        
         while tempDate < to{
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)

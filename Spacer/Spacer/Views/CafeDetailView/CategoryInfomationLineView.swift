@@ -45,25 +45,12 @@ class CategoryInfomationLineView: UIView {
     private var categoryName = ""
     
     var selfHeight: CGFloat = 0
-    
-    init(image: String, discription: String) {
-        super.init(frame: CGRect())
-        
-        icon.image = UIImage(systemName: image)
-        self.discription.text = discription
-        
-        self.addSubview(icon)
-        self.addSubview(self.discription)
-        
-        applyIconConstraints()
-        applyDiscriptionConstraints(isCategoryText: false)
-    }
-     
+
     init(type: CategoryType, discription: String?) {
-        super.init(frame: CGRect())
+        super.init(frame: .zero)
         
-        // icon의 image와 category의 text 내용 설정
         setIconImageAndCategoryText(type: type)
+        selfHeight = 20
         
         if let discription = discription {
             self.discription.text = discription
@@ -82,20 +69,16 @@ class CategoryInfomationLineView: UIView {
     }
     
     init(type: CategoryType, discription: SNSList) {
-        super.init(frame: CGRect())
+        super.init(frame: .zero)
         
         setIconImageAndCategoryText(type: type)
         
         if let twitterID = discription.twitter {
-            setLeftSNSNameRightSNSID(snsName: "twitter", snsID: twitterID)
+            setSubTitleAndDescription(subTitle: "twitter", discription: twitterID)
             selfHeight += 18
         }
         if let instagramID = discription.insta {
-            setLeftSNSNameRightSNSID(snsName: "instagram", snsID: instagramID)
-            selfHeight += 18
-        }
-        if let facebookID = discription.insta {
-            setLeftSNSNameRightSNSID(snsName: "facebook", snsID: facebookID)
+            setSubTitleAndDescription(subTitle: "instagram", discription: instagramID)
             selfHeight += 18
         }
         
@@ -114,13 +97,51 @@ class CategoryInfomationLineView: UIView {
         
         applyIconConstraints()
         applyCategoryConstraints()
+    }
+    
+    init(type: CategoryType, weekdayTime: String, weekendTime: String, dayOff: String?) {
+        super.init(frame: .zero)
         
+        setIconImageAndCategoryText(type: type)
+        
+        if weekdayTime != "" {
+            selfHeight += 18
+            setSubTitleAndDescription(subTitle: "평일", discription: weekdayTime)
+        }
+        if weekendTime != "" {
+            selfHeight += 18
+            setSubTitleAndDescription(subTitle: "주말", discription: weekendTime)
+        }
+        if let dayOffText = dayOff {
+            selfHeight += 18
+            let offLabel = UILabel()
+            offLabel.text = dayOffText
+            offLabel.textColor = .grayscale3
+            offLabel.font = .systemFont(for: .body3)
+            verticalStackView.addArrangedSubview(offLabel)
+        }
+        
+        self.addSubview(icon)
+        self.addSubview(category)
+        self.addSubview(verticalStackView)
+        
+        if selfHeight == 0 {
+            selfHeight = 20
+            self.discription.text = "격주로 수요일 휴무"
+            applyDiscriptionConstraints(isCategoryText: true)
+        } else {
+            applyVerticalStackViewConstraints()
+        }
+        
+        applyIconConstraints()
+        applyCategoryConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // icon의 image와 category의 text 내용 설정
     private func setIconImageAndCategoryText(type: CategoryType) {
         switch type {
         case .location:
@@ -144,25 +165,25 @@ class CategoryInfomationLineView: UIView {
         category.text = categoryName
     }
     
-    private func setLeftSNSNameRightSNSID(snsName: String, snsID: String) {
+    private func setSubTitleAndDescription(subTitle: String, discription: String) {
         let horizontalStackView = UIStackView()
         horizontalStackView.spacing = 6
         horizontalStackView.axis = .horizontal
         horizontalStackView.alignment = .leading
         
-        let snsNameLabel = UILabel()
-        snsNameLabel.text = snsName
-        snsNameLabel.font = .systemFont(for: .body3)
-        snsNameLabel.textColor = .grayscale4
-        snsNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.addArrangedSubview(snsNameLabel)
+        let subTitleLabel = UILabel()
+        subTitleLabel.text = subTitle
+        subTitleLabel.font = .systemFont(for: .body3)
+        subTitleLabel.textColor = .grayscale4
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.addArrangedSubview(subTitleLabel)
         
-        let snsIDLabel = UILabel()
-        snsIDLabel.text = snsID
-        snsIDLabel.font = .systemFont(for: .body3)
-        snsIDLabel.textColor = .grayscale1
-        snsIDLabel.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.addArrangedSubview(snsIDLabel)
+        let descriptionLabel = UILabel()
+        descriptionLabel.text = discription
+        descriptionLabel.font = .systemFont(for: .body3)
+        descriptionLabel.textColor = .grayscale1
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.addArrangedSubview(descriptionLabel)
         
         verticalStackView.addArrangedSubview(horizontalStackView)
     }
@@ -170,7 +191,9 @@ class CategoryInfomationLineView: UIView {
     private func applyIconConstraints() {
         let iconConstraints = [
             icon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            icon.topAnchor.constraint(equalTo: self.topAnchor)
+            icon.topAnchor.constraint(equalTo: self.topAnchor),
+            icon.heightAnchor.constraint(equalToConstant: 20),
+            icon.widthAnchor.constraint(equalToConstant: 20)
         ]
         
         NSLayoutConstraint.activate(iconConstraints)

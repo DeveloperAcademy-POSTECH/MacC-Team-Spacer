@@ -14,7 +14,7 @@ class SearchListViewController: UIViewController {
     public var tempCafeArray: [CafeInfo] = [CafeInfo]()
     public var filteredArr: [CafeInfo] = [CafeInfo]()
     
-    let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤\n디저트", "맞춤\n영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     let regions = ["서울","부산"]
     
     // 데이터를 받을 곳

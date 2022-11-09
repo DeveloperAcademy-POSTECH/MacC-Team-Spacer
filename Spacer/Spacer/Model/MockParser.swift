@@ -47,7 +47,6 @@ class MockManager {
     static let shared = MockManager()
     private init() {}
     func getMockData() -> [CafeInfo] {
-        print(#function)
         return MockParser.load([CafeInfo].self, from: "CafeInfoData") ?? [CafeInfo(
             ID: "0000000",
             name: "cafe name",

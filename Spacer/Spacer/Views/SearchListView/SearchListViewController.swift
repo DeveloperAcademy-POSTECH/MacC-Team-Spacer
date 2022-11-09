@@ -249,7 +249,7 @@ class SearchListViewController: UIViewController {
         
         let resultCollectionViewConstraints = [
             resultCollectionView.widthAnchor.constraint(equalToConstant: view.bounds.width),
-            resultCollectionView.heightAnchor.constraint(equalToConstant: view.bounds.height-55),
+            resultCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             resultCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resultCollectionView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: .padding.startHierarchyPadding)
         ]

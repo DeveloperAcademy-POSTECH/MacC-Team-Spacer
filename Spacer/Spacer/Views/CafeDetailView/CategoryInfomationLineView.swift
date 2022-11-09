@@ -140,7 +140,7 @@ class CategoryInfomationLineView: UIView {
             categoryName = "운영 시간"
         }
         
-        icon.image = UIImage(systemName: categoryImageName)
+        icon.image = UIImage(named: categoryImageName)
         category.text = categoryName
     }
     

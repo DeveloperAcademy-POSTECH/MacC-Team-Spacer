@@ -123,6 +123,11 @@ class VisualTagCategoryViewController: UIViewController {
             categoryCollectionView.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 선택되었던 categoriesItemArray를 다시 false로 바꿔서 CafeSearchListView에 발생하는 오류 해결
+        categoriesItemArray =  Array<Bool>(repeating: false, count: categories.count)
+    }
     
     //handling action for next, cancel button
     @objc func buttonAction(_ sender: Any) {
@@ -130,7 +135,6 @@ class VisualTagCategoryViewController: UIViewController {
             switch button.tag {
             case 1:
                 UserDefaults.standard.set(categoriesItemArray, forKey: "categories")
-                
                 // goToSearchListView란 이름의 노티피케이션센터 동작 명령
                 NotificationCenter.default.post(name: NSNotification.Name("goToSearchListView"), object: nil)
                 
@@ -153,7 +157,6 @@ class VisualTagCategoryViewController: UIViewController {
         }
     }
 }
-
 
 extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     //collectionViewLayout sectionInsets configuration

@@ -125,6 +125,9 @@ class BirthdayCafeViewController: UIViewController {
         heartButton.addTarget(self, action: #selector(goToFavorites), for: .touchUpInside)
         
         applyConstraints()
+        
+        // VisualTagCategoryView에서 완료버튼을 눌렀을 경우 SearchListView로 넘어갑니다.
+        NotificationCenter.default.addObserver(self, selector: #selector(goToSearchListView), name: NSNotification.Name("goToSearchListView"), object: nil)
     }
     
     func applyConstraints() {

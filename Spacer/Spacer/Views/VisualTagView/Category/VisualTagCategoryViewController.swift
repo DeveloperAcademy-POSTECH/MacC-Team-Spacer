@@ -130,6 +130,10 @@ class VisualTagCategoryViewController: UIViewController {
             switch button.tag {
             case 1:
                 UserDefaults.standard.set(categoriesItemArray, forKey: "categories")
+                
+                // goToSearchListView란 이름의 노티피케이션센터 동작 명령
+                NotificationCenter.default.post(name: NSNotification.Name("goToSearchListView"), object: nil)
+                
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)
             case 2:

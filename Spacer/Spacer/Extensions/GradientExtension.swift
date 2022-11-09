@@ -14,7 +14,8 @@ extension UIView {
         with layer: CAGradientLayer,
         gradientFrame: CGRect? = nil,
         colorSet: [UIColor],locations: [Double],
-        startEndPoints: (CGPoint, CGPoint)? = nil
+        startEndPoints: (CGPoint, CGPoint)? = nil,
+        layerAt: Int? = nil
     ) {
         layer.frame = gradientFrame ?? self.bounds
         layer.frame.origin = .zero
@@ -30,6 +31,10 @@ extension UIView {
             layer.endPoint = startEndPoints.1
         }
         
-        self.layer.insertSublayer(layer, above: self.layer)
+        if let index = layerAt {
+            self.layer.insertSublayer(layer, at: 0)
+        } else {
+            self.layer.insertSublayer(layer, above: self.layer)
+        }
     }
 }

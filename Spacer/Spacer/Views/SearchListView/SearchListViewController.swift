@@ -326,6 +326,7 @@ class SearchListViewController: UIViewController {
         super.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
     }
+    
     // 다음뷰로 이동하는 함수
     @objc func moveTo() {
         let birthdayCafeViewController = BirthdayCafeViewController()

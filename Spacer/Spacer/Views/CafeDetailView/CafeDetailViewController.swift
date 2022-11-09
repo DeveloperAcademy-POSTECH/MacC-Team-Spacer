@@ -53,7 +53,7 @@ class CafeDetailViewController: UIViewController {
         
         return scrollView
     }()
-        
+    
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])

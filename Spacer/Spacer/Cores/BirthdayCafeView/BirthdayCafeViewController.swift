@@ -142,16 +142,6 @@ class BirthdayCafeViewController: UIViewController {
             navBar.heightAnchor.constraint(equalToConstant: 99)
         ]
         
-//        // 노치가 없을 경우 navBar 오토레이아웃 처리
-//        if !UIDevice.current.hasNotch {
-//            navBarConstraints = [
-//                navBar.topAnchor.constraint(equalTo: view.topAnchor),
-//                navBar.widthAnchor.constraint(equalToConstant: view.bounds.width),
-//                navBar.heightAnchor.constraint(equalToConstant: 79)
-//            ]
-//        }
-        
-        
         let logoButtonConstraints = [
             logoButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
             logoButton.leadingAnchor.constraint(equalTo: navBar.leadingAnchor, constant: .padding.homeMargin),
@@ -319,30 +309,14 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
 extension BirthdayCafeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-//        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
-//            self.navBar.layer.cornerRadius = 24
-//        } else {
-//            self.navBar.layer.cornerRadius = 0
-//        }
+        //        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
+        //            self.navBar.layer.cornerRadius = 24
+        //        } else {
+        //            self.navBar.layer.cornerRadius = 0
+        //        }
     }
     
-    // TODO: - ScrollUp방지
-    
 }
-
-// MARK: - 기기 별 대응하기 위한 extension
-// TODO: - 각 상황마다 어떻게 처리할 지 팀과 합의, case분류 작업 - Deprecate되어 다른 방법을 고안해야함
-
-//extension UIDevice {
-//    var hasNotch: Bool {
-//        if #available(iOS 11.0, *) {
-//            let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-//            return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
-//        }
-//        return false
-//    }
-//
-//}
 
 //MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능
 extension BirthdayCafeViewController: CellSelectedDelegate {

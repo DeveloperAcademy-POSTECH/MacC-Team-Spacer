@@ -9,7 +9,7 @@ import UIKit
 
 // CollectionView를 담을 1개 짜리 테이블 셀
 class RecentCafeTableViewCell: UITableViewCell {
-
+    
     public var tempCafeArray: [CafeInfo] = [CafeInfo]()
     
     static let identifier = "RecentCafeTableViewCell"

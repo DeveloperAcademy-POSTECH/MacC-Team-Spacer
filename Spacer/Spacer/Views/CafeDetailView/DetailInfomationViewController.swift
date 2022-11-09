@@ -56,32 +56,19 @@ class DetailInfomationViewController: UIViewController {
         eventCostStackView = makeStackView()
         cafeAdditionalInfoStackView = makeStackView()
         
-        lazy var phoneNumber = CategoryInfomationLineView(type: CategoryType.phoneNumber, discription: cafeInfoData?.phoneNumber)
-        phoneNumber.translatesAutoresizingMaskIntoConstraints = false
+        // 카페 세부 정보 설정
+        setCafeDetailInfoContainer()
         
-        lazy var SNSInfo = CategoryInfomationLineView(type: CategoryType.SNSList, discription: cafeInfoData!.SNS)
-        SNSInfo.translatesAutoresizingMaskIntoConstraints = false
-        
-        lazy var cafeHours = CategoryInfomationLineView(type: CategoryType.operationTime, discription: "09:00 ~ 21:00")
-        cafeHours.translatesAutoresizingMaskIntoConstraints = false
+        // 카페 조건 설정
+        setEventElementView(elements: cafeInfoData!.eventElement)
+        setCostView(costs: cafeInfoData!.cost)
+        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
         
         view.addSubview(cafeDetailInfoContainer)
         view.addSubview(divider)
         view.addSubview(eventElementStackView)
         view.addSubview(eventCostStackView)
         view.addSubview(cafeAdditionalInfoStackView)
-        
-        setEventElementView(elements: cafeInfoData!.eventElement)
-        setCostView(costs: cafeInfoData!.cost)
-        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
-        
-        cafeDetailInfoContainer.addArrangedSubview(phoneNumber)
-        cafeDetailInfoContainer.addArrangedSubview(SNSInfo)
-        cafeDetailInfoContainer.addArrangedSubview(cafeHours)
-        
-        phoneNumber.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        SNSInfo.heightAnchor.constraint(equalToConstant: SNSInfo.selfHeight).isActive = true
-        cafeHours.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         applyConstraints()
     }
@@ -127,6 +114,61 @@ class DetailInfomationViewController: UIViewController {
         NSLayoutConstraint.activate(cafeAdditionalInfoStackViewConstraints)
     }
     
+    // cafeDetailInfoContainer 내부에 들어갈 카테고리별 정보를 세팅
+    private func setCafeDetailInfoContainer() {
+        lazy var locationCategory = CategoryInfomationLineView(type: CategoryType.location, discription: cafeInfoData?.address)
+        locationCategory.translatesAutoresizingMaskIntoConstraints = false
+        cafeDetailInfoContainer.addArrangedSubview(locationCategory)
+        locationCategory.heightAnchor.constraint(equalToConstant: locationCategory.selfHeight).isActive = true
+        
+        if let phoneNumber = cafeInfoData?.phoneNumber {
+            // 전화번호 형식에 맞게 수정
+            var formatedPhoneNumber = phoneNumber
+            formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 3))
+            formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 8))
+            
+            // 전화번호 정보 카테고리에 추가
+            lazy var phoneNumberCategory = CategoryInfomationLineView(type: CategoryType.phoneNumber, discription: formatedPhoneNumber)
+            phoneNumberCategory.translatesAutoresizingMaskIntoConstraints = false
+            cafeDetailInfoContainer.addArrangedSubview(phoneNumberCategory)
+            phoneNumberCategory.heightAnchor.constraint(equalToConstant: phoneNumberCategory.selfHeight).isActive = true
+        }
+        
+        // 테이블 수 카테고리 추가
+        if let numberOfTables = cafeInfoData?.numberOfTables {
+            lazy var tableCategory = CategoryInfomationLineView(type: CategoryType.tables, discription: String(numberOfTables))
+            tableCategory.translatesAutoresizingMaskIntoConstraints = false
+            cafeDetailInfoContainer.addArrangedSubview(tableCategory)
+            tableCategory.heightAnchor.constraint(equalToConstant: tableCategory.selfHeight).isActive = true
+        }
+        
+        // SNS 카테고리 추가
+        lazy var SNSCategory = CategoryInfomationLineView(type: CategoryType.SNSList, discription: cafeInfoData!.SNS)
+        SNSCategory.translatesAutoresizingMaskIntoConstraints = false
+        cafeDetailInfoContainer.addArrangedSubview(SNSCategory)
+        SNSCategory.heightAnchor.constraint(equalToConstant: SNSCategory.selfHeight).isActive = true
+        
+        // weekdayTime, weekendTime 형식에 맞게 수정
+        var formatedWeekdayTime: String = ""
+        var formatedWeekendTime: String = ""
+        if let weekdayTime = cafeInfoData?.weekdayTime{
+            formatedWeekdayTime = weekdayTime
+            formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 2))
+            formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 8))
+        }
+        if let weekendTime = cafeInfoData?.weekendTime{
+            formatedWeekendTime = weekendTime
+            formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 2))
+            formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 8))
+        }
+        
+        // 운영 시간 카테고리 추가
+        lazy var cafeHoursCategory = CategoryInfomationLineView(type: CategoryType.operationTime, weekdayTime: formatedWeekdayTime, weekendTime: formatedWeekendTime, dayOff: cafeInfoData?.dayOff)
+        cafeHoursCategory.translatesAutoresizingMaskIntoConstraints = false
+        cafeDetailInfoContainer.addArrangedSubview(cafeHoursCategory)
+        cafeHoursCategory.heightAnchor.constraint(equalToConstant: cafeHoursCategory.selfHeight).isActive = true
+    }
+    
     // 카페 정보를 담을 스택뷰 초기화
     private func makeStackView() -> UIStackView {
         let stackView = UIStackView()
@@ -145,7 +187,6 @@ class DetailInfomationViewController: UIViewController {
         titleLabel.textColor = .grayscale3
         titleLabel.font = .systemFont(for: .body3)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
         return titleLabel
     }
     

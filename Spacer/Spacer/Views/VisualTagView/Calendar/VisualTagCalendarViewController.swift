@@ -213,8 +213,16 @@ extension VisualTagCalendarViewController{
             switch button.tag {
             case 1:
                 self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
+                if let firstDate = firstDate {
+                    UserDefaults.standard.set(firstDate, forKey: "firstDate")
+                }
+                if let lastDate = lastDate {
+                    UserDefaults.standard.set(lastDate, forKey: "lastDate")
+                }
             case 2:
                 super.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.removeObject(forKey: "firstDate")
+                UserDefaults.standard.removeObject(forKey: "lastDate")
             default:
                 print("Error")
             }

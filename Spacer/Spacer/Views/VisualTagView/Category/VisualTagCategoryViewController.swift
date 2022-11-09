@@ -129,13 +129,20 @@ class VisualTagCategoryViewController: UIViewController {
         if let button = sender as? UIButton{
             switch button.tag {
             case 1:
+                UserDefaults.standard.set(categoriesItemArray, forKey: "categories")
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)
             case 2:
+                UserDefaults.standard.removeObject(forKey: "categories")
+                UserDefaults.standard.removeObject(forKey: "map")
+                UserDefaults.standard.removeObject(forKey: "firstDate")
+                UserDefaults.standard.removeObject(forKey: "lastDate")
+                
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)
             case 3:
                 self.navigationController?.popViewController(animated: true)
+                UserDefaults.standard.removeObject(forKey: "categories")
             default:
                 print("Error")
             }

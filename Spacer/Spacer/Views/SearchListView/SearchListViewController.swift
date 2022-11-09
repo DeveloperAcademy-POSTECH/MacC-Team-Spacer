@@ -14,13 +14,15 @@ class SearchListViewController: UIViewController {
     public var tempCafeArray: [CafeInfo] = [CafeInfo]()
     public var filteredArr: [CafeInfo] = [CafeInfo]()
     
+    let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤\n디저트", "맞춤\n영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    let regions = ["서울","부산"]
+    
     // 데이터를 받을 곳
-    var startDate: String? = "10/16"
-    var endDate: String? = "10/18"
-    var tempDate: String?
-    var tempRegion: String?
-    var tempTarget: [String?] = ["아이돌","배우","캐릭터"]
-    var tempPeople: String?
+    var startDate: String? = UserDefaults.standard.string(forKey: "firstDate")
+    var endDate: String? = UserDefaults.standard.string(forKey: "lastDate")
+//    var tempDate: String?
+    var tempRegion: String? = UserDefaults.standard.string(forKey: "map")
+    var tempCategory: [Bool]? = UserDefaults.standard.array(forKey: "categories") as? [Bool]
     
     let searchBar: UISearchBar = {
         let search = UISearchBar(frame: .zero)
@@ -32,8 +34,8 @@ class SearchListViewController: UIViewController {
         search.setImage(UIImage(), for: .clear, state: .normal)
         search.showsCancelButton = false
         if let textfield = search.value(forKey: "searchField") as? UITextField {
-                    textfield.borderStyle = .none
-                }
+            textfield.borderStyle = .none
+        }
         return search
     }()
     
@@ -56,8 +58,8 @@ class SearchListViewController: UIViewController {
     
     let dateButton = CustomButtonView(frame: .zero)
     let regionButton = CustomButtonView(frame: .zero)
-    let targetButton = CustomButtonView(frame: .zero)
-    let peopleButton = CustomButtonView(frame: .zero)
+    let categoryButton = CustomButtonView(frame: .zero)
+    
     
     // 검색 결과 컬렉션 뷰
     var resultCollectionView: UICollectionView = {
@@ -133,8 +135,7 @@ class SearchListViewController: UIViewController {
         
         scrollView.addSubview(dateButton)
         scrollView.addSubview(regionButton)
-        scrollView.addSubview(targetButton)
-        scrollView.addSubview(peopleButton)
+        scrollView.addSubview(categoryButton)
         
         let scrollViewConstraints = [
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -155,39 +156,28 @@ class SearchListViewController: UIViewController {
             regionButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             regionButton.leadingAnchor.constraint(equalTo: dateButton.trailingAnchor, constant: 8),
         ]
-        let mytargetButtonConstraints = [
-            targetButton.heightAnchor.constraint(equalToConstant: 39),
-            targetButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            targetButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
-        ]
-        let mypeopleButtonConstraints = [
-            peopleButton.heightAnchor.constraint(equalToConstant: 39),
-            peopleButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            peopleButton.leadingAnchor.constraint(equalTo: targetButton.trailingAnchor, constant: 8),
+        let mycategoryButtonConstraints = [
+            categoryButton.heightAnchor.constraint(equalToConstant: 39),
+            categoryButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            categoryButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
         ]
         
         NSLayoutConstraint.activate(mydateButtonConstraints)
         NSLayoutConstraint.activate(myregionButtonConstraints)
-        NSLayoutConstraint.activate(mytargetButtonConstraints)
-        NSLayoutConstraint.activate(mypeopleButtonConstraints)
+        NSLayoutConstraint.activate(mycategoryButtonConstraints)
         
         dateButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         regionButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        targetButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        peopleButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
+        categoryButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         
         // 받아온 값을 버튼에 적용하기
         var dateTitle: AttributedString
         var regionTitle: AttributedString
-        var targetTitle: AttributedString
-        var peopleTitle: AttributedString
+        var categoryTitle: AttributedString
         
+        // 날짜
         if let startDate = startDate, let endDate = endDate {
-            tempDate = "\(startDate) ~ \(endDate)"
-        }
-        
-        if let tempDate = tempDate {
-            dateTitle = AttributedString.init(tempDate)
+            dateTitle = AttributedString.init("\(startDate) - \(endDate)")
             dateTitle.foregroundColor = .grayscale6
             dateButton.configuration?.baseBackgroundColor = .mainPurple3
             dateButton.configuration?.baseForegroundColor = .grayscale5
@@ -197,8 +187,9 @@ class SearchListViewController: UIViewController {
         }
         dateButton.configuration?.attributedTitle = dateTitle
         
+        // 지역
         if let tempRegion = tempRegion {
-            regionTitle = AttributedString.init(tempRegion)
+            regionTitle = AttributedString.init(regions[Int(tempRegion)!])
             regionTitle.foregroundColor = .grayscale6
             regionButton.configuration?.baseBackgroundColor = .mainPurple3
             regionButton.configuration?.baseForegroundColor = .grayscale5
@@ -208,40 +199,42 @@ class SearchListViewController: UIViewController {
         }
         regionButton.configuration?.attributedTitle = regionTitle
         
-        // 중복된 코드 정리가 필요함
-        switch tempTarget.count {
-        case 0:
-            targetTitle = AttributedString.init("대상")
-            targetTitle.foregroundColor = .mainPurple2
-            targetButton.configuration?.attributedTitle = targetTitle
-        case 1:
-            if let firstTarget = tempTarget[0] {
-                targetTitle = AttributedString.init(firstTarget)
-                targetTitle.foregroundColor = .grayscale6
-                targetButton.configuration?.baseBackgroundColor = .mainPurple3
-                targetButton.configuration?.baseForegroundColor = .grayscale5
-                targetButton.configuration?.attributedTitle = targetTitle
+        // 카테고리
+        if let tempCategory = tempCategory {
+            // 1개 이상 true일 경우
+            var firstCategory = ""
+            var countTrue = 0
+            if tempCategory.contains(true) {
+                for i in tempCategory.indices {
+                    if tempCategory[i] == true {
+                        countTrue += 1
+                        // 첫 true가 나온 카테고리
+                        if countTrue == 1 {
+                            firstCategory = categories[i]
+                        }
+                    }
+                }
+                // true가 2개 이상일 경우 '외 ㅁ개' 표현, true가 1개 일 경우는 카테고리만 나옴
+                if countTrue >= 2 {
+                    categoryTitle = AttributedString.init("\(firstCategory) 외 \(countTrue-1)개")
+                } else {
+                    categoryTitle = AttributedString.init("\(firstCategory)")
+                }
+                
+                categoryTitle.foregroundColor = .grayscale6
+                categoryButton.configuration?.baseBackgroundColor = .mainPurple3
+                categoryButton.configuration?.baseForegroundColor = .grayscale5
+            } else {
+                // 전부 false일 때
+                categoryTitle = AttributedString.init("카테고리")
+                categoryTitle.foregroundColor = .mainPurple2
             }
-        default:
-            if let firstTarget = tempTarget[0] {
-                targetTitle = AttributedString.init(firstTarget + " 외 \(tempTarget.count - 1)")
-                targetTitle.foregroundColor = .white
-                targetButton.configuration?.baseBackgroundColor = .mainPurple3
-                targetButton.configuration?.baseForegroundColor = .grayscale5
-                targetButton.configuration?.attributedTitle = targetTitle
-            }
-        }
-        
-        if let tempPeople = tempPeople {
-            peopleTitle = AttributedString.init(tempPeople)
-            peopleTitle.foregroundColor = .grayscale6
-            peopleButton.configuration?.baseBackgroundColor = .mainPurple3
-            peopleButton.configuration?.baseForegroundColor = .grayscale5
         } else {
-            peopleTitle = AttributedString.init("대상")
-            peopleTitle.foregroundColor = .mainPurple2
+            // 맞춤형 추천이 아닌 기본 상태
+            categoryTitle = AttributedString.init("카테고리")
+            categoryTitle.foregroundColor = .mainPurple2
         }
-        peopleButton.configuration?.attributedTitle = peopleTitle
+        categoryButton.configuration?.attributedTitle = categoryTitle
     }
     
     func setCollectionView() {
@@ -283,7 +276,6 @@ class SearchListViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
         
         searchBar.delegate = self
-        
     }
     
     // 화면 터치하여 키보드 내리기
@@ -300,19 +292,22 @@ class SearchListViewController: UIViewController {
         self.resultCollectionView.reloadData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UserDefaults.standard.removeObject(forKey: "categories")
+        UserDefaults.standard.removeObject(forKey: "map")
+        UserDefaults.standard.removeObject(forKey: "firstDate")
+        UserDefaults.standard.removeObject(forKey: "lastDate")
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         bottomLine.backgroundColor = .grayscale4
-        // 서치바 밑줄 - 레이어에서 뷰로 변경
-//        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
-//            textfield.borderStyle = .none
-//            bottomLine.frame = CGRect(x: 0, y: textfield.bounds.height, width: textfield.bounds.width, height: 1)
-//            textfield.layer.addSublayer(bottomLine)
-//            reloadInputViews()
-//            print(textfield.layer.bounds)
-//        }
         
-        self.scrollView.contentSize = CGSize(width: targetButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width+peopleButton.bounds.width+8*6, height: view.bounds.height*0.055)
+        self.scrollView.contentSize = CGSize(
+            width: categoryButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width,
+            height: view.bounds.height*0.055
+        )
     }
     
     // 키보드 내리기 함수
@@ -337,7 +332,7 @@ class SearchListViewController: UIViewController {
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFiltering && filterredArr.count == 0 { // 화면 바로 가자마자 문구가 필요하다면 "|| tempCafeArray.count == 0" 부분추가
+        if isFiltering && filteredArr.count == 0 { // 화면 바로 가자마자 문구가 필요하다면 "|| tempCafeArray.count == 0" 부분추가
             view.addSubview(emptyLabel)
             emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
             emptyLabel.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true

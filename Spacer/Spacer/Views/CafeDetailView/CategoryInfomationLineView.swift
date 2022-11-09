@@ -41,6 +41,9 @@ class CategoryInfomationLineView: UIView {
         return verticalStackView
     }()
     
+    private var categoryImageName = ""
+    private var categoryName = ""
+    
     var selfHeight: CGFloat = 0
     
     init(image: String, discription: String) {
@@ -56,22 +59,21 @@ class CategoryInfomationLineView: UIView {
         applyDiscriptionConstraints(isCategoryText: false)
     }
      
-    init(image: String, category: String, discription: String?) {
+    init(type: CategoryType, discription: String?) {
         super.init(frame: CGRect())
         
-        icon.image = UIImage(systemName: image)
-        self.category.text = category
+        // icon의 image와 category의 text 내용 설정
+        setIconImageAndCategoryText(type: type)
         
-        // TODO: 데이터에서 전화 번호 옵셔널 삭제한 후 코드 변경 필요
         if let discription = discription {
             self.discription.text = discription
         } else {
-            self.discription.text = "전화번호가 없습니다"
+            self.discription.text = "정보가 없습니다"
             self.discription.textColor = .grayscale4
         }
         
         self.addSubview(icon)
-        self.addSubview(self.category)
+        self.addSubview(category)
         self.addSubview(self.discription)
         
         applyIconConstraints()
@@ -79,11 +81,10 @@ class CategoryInfomationLineView: UIView {
         applyDiscriptionConstraints(isCategoryText: true)
     }
     
-    init(image: String, category: String, discription: SNSList) {
+    init(type: CategoryType, discription: SNSList) {
         super.init(frame: CGRect())
         
-        icon.image = UIImage(systemName: image)
-        self.category.text = category
+        setIconImageAndCategoryText(type: type)
         
         if let twitterID = discription.twitter {
             setLeftSNSNameRightSNSID(snsName: "twitter", snsID: twitterID)
@@ -99,9 +100,9 @@ class CategoryInfomationLineView: UIView {
         }
         
         self.addSubview(icon)
-        self.addSubview(self.category)
+        self.addSubview(category)
         if selfHeight == 0 {
-            self.discription.text = "SNS 정보가 없습니다"
+            self.discription.text = "정보가 없습니다"
             self.discription.textColor = .grayscale4
             selfHeight += 20
             self.addSubview(self.discription)
@@ -118,6 +119,29 @@ class CategoryInfomationLineView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setIconImageAndCategoryText(type: CategoryType) {
+        switch type {
+        case .location:
+            categoryImageName = "LocationIcon"
+            categoryName = "위치"
+        case .phoneNumber:
+            categoryImageName = "callIcon"
+            categoryName = "전화번호"
+        case .tables:
+            categoryImageName = "tableIcon"
+            categoryName = "테이블 수"
+        case .SNSList:
+            categoryImageName = "messageIcon"
+            categoryName = "SNS"
+        case .operationTime:
+            categoryImageName = "timeIcon"
+            categoryName = "운영 시간"
+        }
+        
+        icon.image = UIImage(systemName: categoryImageName)
+        category.text = categoryName
     }
     
     private func setLeftSNSNameRightSNSID(snsName: String, snsID: String) {
@@ -181,4 +205,13 @@ class CategoryInfomationLineView: UIView {
         NSLayoutConstraint.activate(verticalStackViewConstraints)
     }
 
+}
+
+// 어떤 정보를 나타내는 라인인지 쉽게 알기 위해 enum 타입 생성
+enum CategoryType {
+    case location
+    case phoneNumber
+    case tables
+    case SNSList
+    case operationTime
 }

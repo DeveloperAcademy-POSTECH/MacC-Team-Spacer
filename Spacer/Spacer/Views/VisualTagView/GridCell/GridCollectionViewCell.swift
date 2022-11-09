@@ -11,31 +11,55 @@ class GridCollectionViewCell: UICollectionViewCell {
     //cell의 고유한 ID값 지정
     static let identifier = "GridViewCell"
     
-    lazy var label: UILabel = {
+    lazy var eventElementTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(for: .header6)
         label.textColor = .mainPurple2
+        label.numberOfLines = 2
+        label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    lazy var eventElementImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy var checkMark: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.mainPurple2, renderingMode: .alwaysOriginal)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(frame: CGRect){
         super.init(frame: .zero)
-        contentView.addSubview(label)
+        contentView.addSubview(eventElementImage)
+        contentView.addSubview(eventElementTitle)
         setConstraints()
     }
     
     //isSelected 변수 override
     override var isSelected: Bool {
-        didSet{
+        didSet {
             if isSelected{
                 self.backgroundColor = UIColor.mainPurple5
                 self.layer.borderColor = UIColor.mainPurple2.cgColor
                 self.layer.borderWidth = 3
-            }else{
+                contentView.addSubview(checkMark)
+                NSLayoutConstraint.activate([
+                    checkMark.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+                    checkMark.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 12),
+                    checkMark.widthAnchor.constraint(equalToConstant: 17),
+                    checkMark.heightAnchor.constraint(equalToConstant: 17)
+                ])
+            } else {
                 self.backgroundColor = UIColor.mainPurple6
                 self.layer.borderColor = UIColor.clear.cgColor
                 self.layer.borderWidth = 0
+                checkMark.removeFromSuperview()
             }
         }
     }
@@ -46,15 +70,22 @@ class GridCollectionViewCell: UICollectionViewCell {
     
     func setConstraints(){
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            eventElementImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            eventElementImage.firstBaselineAnchor.constraint(equalTo: contentView.topAnchor),
+            
+            eventElementTitle.lastBaselineAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            eventElementTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            eventElementTitle.widthAnchor.constraint(equalToConstant: 70),
         ])
+        
     }
     
-    public func configue(_ sectionLabel: String){
+    public func configure(_ sectionLabel: String, _ imageName: String){
         self.backgroundColor = UIColor.mainPurple6
         self.layer.cornerRadius = 8
         self.layer.masksToBounds = true
-        self.label.text = sectionLabel
+        self.eventElementTitle.text = sectionLabel
+        
+        self.eventElementImage.image = UIImage(named: imageName)
     }
 }

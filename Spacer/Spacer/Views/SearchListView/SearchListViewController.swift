@@ -12,7 +12,7 @@ class SearchListViewController: UIViewController {
     var isFiltering = false
     
     public var tempCafeArray: [CafeInfo] = [CafeInfo]()
-    public var filterredArr: [CafeInfo] = [CafeInfo]()
+    public var filteredArr: [CafeInfo] = [CafeInfo]()
     
     // 데이터를 받을 곳
     var startDate: String? = "10/16"
@@ -346,12 +346,12 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             self.emptyLabel.removeFromSuperview()
         }
-        return isFiltering ? filterredArr.count : tempCafeArray.count
+        return isFiltering ? filteredArr.count : tempCafeArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
-        isFiltering ? cell.configure(with: filterredArr[indexPath.row]) : cell.configure(with: tempCafeArray[indexPath.row])
+        isFiltering ? cell.configure(with: filteredArr[indexPath.row]) : cell.configure(with: tempCafeArray[indexPath.row])
         return cell
     }
 }
@@ -372,7 +372,7 @@ extension SearchListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text?.lowercased() else { return }
-        self.filterredArr = self.tempCafeArray.filter({ CafeInfo in
+        self.filteredArr = self.tempCafeArray.filter({ CafeInfo in
             return CafeInfo.name.localizedCaseInsensitiveContains(text)
         })
         if text == "" {

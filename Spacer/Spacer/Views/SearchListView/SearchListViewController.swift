@@ -9,10 +9,17 @@ import UIKit
 
 class SearchListViewController: UIViewController {
     
+    // 첫번째 검색인지 확인
     var isFiltering = false
+    // 태그로 들어온지 확인
+    var isTagged = false
+    // 태그로 들어와서 서치바를 사용한지 확인
+    var UsingTagText = false
     
     public var tempCafeArray: [CafeInfo] = [CafeInfo]()
     public var filteredArr: [CafeInfo] = [CafeInfo]()
+    // 태그 검색중에서 텍스트로 또 검색하였을 경우 filteredArr를 수정하지 않고 다른 배열로 받아서 보여줌
+    public var filteredTagTextArr: [CafeInfo] = [CafeInfo]()
     
     let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     let regions = ["서울","부산"]
@@ -278,16 +285,25 @@ class SearchListViewController: UIViewController {
     }
     
     func setCafeData() {
-        // CafeInfo는 받아온 개별 카페
-        self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-            if let tempRegion = tempRegion, let tempCategory = tempCategory {
-                isFiltering = true
-                //TODO: - 지역으로 분류는 가능하지만 카테고리를 포함한 값을 내는걸 알아내야함
-                return CafeInfo.locationID == Int(tempRegion)!
-            } else {
-                return true
-            }
-        })
+        if let tempRegion = tempRegion, let tempCategory = tempCategory {
+            isTagged = true
+            isFiltering = true
+            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
+                var isCategoryEnough: Bool = true
+                for i in categories.indices {
+                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
+                    if tempCategory[i] {
+                        if !CafeInfo.eventElement[i] {
+                            isCategoryEnough = false
+                        }
+                    }
+                }
+                return CafeInfo.locationID == Int(tempRegion)! && isCategoryEnough
+            })
+        } else {
+            // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
+            tempCafeArray = MockManager.shared.getMockData()
+        }
     }
     
     // 화면 터치하여 키보드 내리기
@@ -310,6 +326,7 @@ class SearchListViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "map")
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
+        isFiltering = false
         super.navigationController?.isNavigationBarHidden = true
     }
     
@@ -338,13 +355,12 @@ class SearchListViewController: UIViewController {
     @objc func moveTo() {
         let birthdayCafeViewController = BirthdayCafeViewController()
         show(birthdayCafeViewController, sender: nil)
-        
     }
 }
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFiltering && filteredArr.count == 0 { // 화면 바로 가자마자 문구가 필요하다면 "|| tempCafeArray.count == 0" 부분추가
+        if isFiltering && filteredArr.count == 0 || UsingTagText && filteredTagTextArr.count == 0{
             view.addSubview(emptyLabel)
             emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
             emptyLabel.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
@@ -353,12 +369,12 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             self.emptyLabel.removeFromSuperview()
         }
-        return isFiltering ? filteredArr.count : tempCafeArray.count
+        return UsingTagText ? filteredTagTextArr.count : filteredArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
-        isFiltering ? cell.configure(with: filteredArr[indexPath.row]) : cell.configure(with: tempCafeArray[indexPath.row])
+        UsingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
         return cell
     }
 }
@@ -369,23 +385,26 @@ extension SearchListViewController: UIScrollViewDelegate {
         self.scrollView.contentOffset.y = 0
     }
 }
-// RED는 검색중, blue는 일반
+
 extension SearchListViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         bottomLine.backgroundColor = .mainPurple3
-        self.isFiltering = true
+        isFiltering = true
         return true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let text = searchBar.text?.lowercased() else { return }
-        self.filteredArr = self.tempCafeArray.filter({ CafeInfo in
-            return CafeInfo.name.localizedCaseInsensitiveContains(text)
-        })
-        if text == "" {
-            self.isFiltering = false
+        
+        if isTagged {
+            UsingTagText = true
+            self.filteredTagTextArr = self.filteredArr.filter({ CafeInfo in
+                return CafeInfo.name.localizedCaseInsensitiveContains(text)
+            })
         } else {
-            self.isFiltering = true
+            self.filteredArr = self.tempCafeArray.filter({ CafeInfo in
+                return CafeInfo.name.localizedCaseInsensitiveContains(text)
+            })
         }
         // 바로바로 업데이트 되게 만들기
         // self.resultCollectionView.reloadData()
@@ -393,11 +412,14 @@ extension SearchListViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
         if let text = searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines){
-            if text == "" {
-                self.isFiltering = false
-            } else {
-                self.isFiltering = true
+            if isTagged {
+                if text == "" {
+                    self.UsingTagText = false
+                } else {
+                    UsingTagText = true
+                }
             }
         }
         self.resultCollectionView.reloadData()
@@ -412,7 +434,6 @@ extension SearchListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.text = ""
         self.searchBar.resignFirstResponder()
-        self.isFiltering = false
         self.resultCollectionView.reloadData()
     }
 }

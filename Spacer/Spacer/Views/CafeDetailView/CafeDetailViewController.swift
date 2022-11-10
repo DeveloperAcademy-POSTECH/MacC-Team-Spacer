@@ -107,6 +107,8 @@ class CafeDetailViewController: UIViewController {
         button.titleLabel?.textColor = .grayscale6
         button.backgroundColor = .grayscale2
         button.layer.cornerRadius = 12
+        button.tag = 100
+        button.addTarget(self, action: #selector(touchedReservationButton(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -164,6 +166,8 @@ class CafeDetailViewController: UIViewController {
         button.titleLabel?.textColor = .grayscale6
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
+        button.tag = 101
+        button.addTarget(self, action: #selector(touchedReservationButton(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -197,6 +201,7 @@ class CafeDetailViewController: UIViewController {
         
         detailInfoView.cafeInfoData = tempCafeInfo
         
+        // scrollView의 topAnchor가 안전영역 끝쪽에 붙도록
         scrollView.contentInsetAdjustmentBehavior = .never
         
         // 카페 이미지 보여주기
@@ -207,6 +212,9 @@ class CafeDetailViewController: UIViewController {
         
         // 이미지별 카테고리와 사이즈 라벨 초기화
         setImageDescriptionView(categoryName: tempCafeInfo?.imageInfos[0].category ?? "", tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: tempCafeInfo?.imageInfos[0].productSize ?? "")
+        
+        // callReservationButton과 reservationButton 세팅
+        setIfButtonDisable()
         
         // navigationBar & tabBar 설정
         navigationController?.isNavigationBarHidden = false
@@ -255,9 +263,11 @@ class CafeDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // reservationButton에 그라디언트 백그라운드 레이어 추가
-        let gradientLayer = CAGradientLayer()
-        reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
+        // reservationButton의 터치가 가능할 때 그라디언트 백그라운드 레이어 추가
+        if reservationButton.isUserInteractionEnabled == true {
+            let gradientLayer = CAGradientLayer()
+            reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -272,6 +282,25 @@ class CafeDetailViewController: UIViewController {
     // segmentControl을 터치하면 아래 PageViewController의 view가 바뀜
     @objc private func changePageControllerViewController(_ sender: UISegmentedControl) {
         pageController.setViewControllers([dataViewControllers[sender.selectedSegmentIndex]], direction: sender.selectedSegmentIndex == 1 ? .forward : .reverse, animated: true)
+    }
+    
+    @objc private func touchedReservationButton(_ sender: UIButton) {
+        var urlResource: String?
+
+        switch sender.tag {
+        case 100:
+            urlResource = "tel://\(tempCafeInfo!.phoneNumber)"
+        case 101:
+            urlResource = tempCafeInfo?.reservationLink
+        default:
+            break
+        }
+
+        // url 인스턴스를 만들고, canOpenURL 메서드를 이용해 앱을 사용할 수 있는지 확인
+        if let url = NSURL(string: urlResource ?? ""), UIApplication.shared.canOpenURL(url as URL) {
+            // 사용 가능할 경우 url 인스턴스를 열어 연결
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
     }
     
     // favortieOnOffButton 터치 시 하트 이미지와 전체 하트 수에 변화
@@ -313,6 +342,18 @@ class CafeDetailViewController: UIViewController {
     private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, numberOfImages: Int, sizeDescription: String) {
         categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(numberOfImages)"
         sizeLabel.text = sizeDescription
+    }
+    
+    private func setIfButtonDisable() {
+        if tempCafeInfo?.phoneNumber == nil || tempCafeInfo?.phoneNumber == "" {
+            callReservationButton.backgroundColor = .grayscale5
+            callReservationButton.isUserInteractionEnabled = false
+        }
+        
+        if tempCafeInfo?.reservationLink == nil || tempCafeInfo?.reservationLink == "" {
+            reservationButton.backgroundColor = .grayscale5
+            reservationButton.isUserInteractionEnabled = false
+        }
     }
     
     func applyConstraints() {

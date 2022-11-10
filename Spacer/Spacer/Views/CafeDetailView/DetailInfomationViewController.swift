@@ -258,14 +258,7 @@ class DetailInfomationViewController: UIViewController {
     }
     
     private func setEventElementView(elements: [Bool]) {
-        lazy var cafeConditionLabel = UILabel()
-        cafeConditionLabel.text = "카페 조건"
-        cafeConditionLabel.textColor = .mainPurple1
-        cafeConditionLabel.font = .systemFont(for: .header6)
-
         lazy var conditionTitle = makeConditionTitle(title: "이벤트 진행 요소")
-                
-        eventElementStackView.addArrangedSubview(cafeConditionLabel)
         eventElementStackView.addArrangedSubview(conditionTitle)
         
         let totalLineCount = Int(ceil(Double(elements.count) / 4.0))

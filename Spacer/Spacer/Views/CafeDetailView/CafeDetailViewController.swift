@@ -255,9 +255,9 @@ class CafeDetailViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        // reservationButton에 그라디언트 백그라운드 레이어 추가
         let gradientLayer = CAGradientLayer()
         reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -420,7 +420,7 @@ class CafeDetailViewController: UIViewController {
             pageController.view.leadingAnchor.constraint(equalTo: dynamicStackView.leadingAnchor),
             pageController.view.trailingAnchor.constraint(equalTo: dynamicStackView.trailingAnchor),
             pageController.view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height)
+            pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height * 1.3)
         ]
         
         NSLayoutConstraint.activate(scrollViewConstraints)

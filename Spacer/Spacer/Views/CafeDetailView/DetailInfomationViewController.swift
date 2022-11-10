@@ -135,7 +135,7 @@ class DetailInfomationViewController: UIViewController {
         cafeDetailInfoContainer.addArrangedSubview(locationCategory)
         locationCategory.heightAnchor.constraint(equalToConstant: locationCategory.selfHeight).isActive = true
         
-        if let phoneNumber = cafeInfoData?.phoneNumber {
+        if let phoneNumber = cafeInfoData?.phoneNumber, phoneNumber != "" {
             // 전화번호 형식에 맞게 수정
             var formatedPhoneNumber = phoneNumber
             formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 3))
@@ -165,12 +165,12 @@ class DetailInfomationViewController: UIViewController {
         // weekdayTime, weekendTime 형식에 맞게 수정
         var formatedWeekdayTime: String = ""
         var formatedWeekendTime: String = ""
-        if let weekdayTime = cafeInfoData?.weekdayTime{
+        if let weekdayTime = cafeInfoData?.weekdayTime, weekdayTime != "" {
             formatedWeekdayTime = weekdayTime
             formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 2))
             formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 8))
         }
-        if let weekendTime = cafeInfoData?.weekendTime{
+        if let weekendTime = cafeInfoData?.weekendTime, weekendTime != "" {
             formatedWeekendTime = weekendTime
             formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 2))
             formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 8))

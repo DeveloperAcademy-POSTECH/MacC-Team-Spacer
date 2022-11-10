@@ -20,7 +20,6 @@ class SearchListViewController: UIViewController {
     // 데이터를 받을 곳
     var startDate: String? = UserDefaults.standard.string(forKey: "firstDate")
     var endDate: String? = UserDefaults.standard.string(forKey: "lastDate")
-//    var tempDate: String?
     var tempRegion: String? = UserDefaults.standard.string(forKey: "map")
     var tempCategory: [Bool]? = UserDefaults.standard.array(forKey: "categories") as? [Bool]
     
@@ -101,6 +100,7 @@ class SearchListViewController: UIViewController {
         setButton()
         setCollectionView()
         setSearchBar()
+        setCafeData()
         
         // 모든 경우에서 키보드를 내리기 위해서 터치인식 적용
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
@@ -256,7 +256,6 @@ class SearchListViewController: UIViewController {
     func setSearchBar() {
         let searchIcon = UIBarButtonItem(systemItem: .search, primaryAction: UIAction(handler: { _ in
             self.searchBar.endEditing(true)
-            self.tempCafeArray.append(contentsOf: MockManager.shared.getMockData())
             DispatchQueue.main.async {
                 self.resultCollectionView.reloadData()
             }
@@ -276,6 +275,19 @@ class SearchListViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
         
         searchBar.delegate = self
+    }
+    
+    func setCafeData() {
+        // CafeInfo는 받아온 개별 카페
+        self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
+            if let tempRegion = tempRegion, let tempCategory = tempCategory {
+                isFiltering = true
+                //TODO: - 지역으로 분류는 가능하지만 카테고리를 포함한 값을 내는걸 알아내야함
+                return CafeInfo.locationID == Int(tempRegion)!
+            } else {
+                return true
+            }
+        })
     }
     
     // 화면 터치하여 키보드 내리기

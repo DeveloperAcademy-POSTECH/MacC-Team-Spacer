@@ -324,7 +324,11 @@ class SearchListViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
         isFiltering = false
-        super.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillLayoutSubviews() {

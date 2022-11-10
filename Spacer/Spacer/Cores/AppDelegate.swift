@@ -31,6 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    //앱을 종료하였을 경우 userDefaults에 저장된 필터Tag삭제
+    func applicationWillTerminate(_ application: UIApplication) {
+        UserDefaults.standard.removeObject(forKey: "categories")
+        UserDefaults.standard.removeObject(forKey: "map")
+        UserDefaults.standard.removeObject(forKey: "firstDate")
+        UserDefaults.standard.removeObject(forKey: "lastDate")
+    }
 
 }
 

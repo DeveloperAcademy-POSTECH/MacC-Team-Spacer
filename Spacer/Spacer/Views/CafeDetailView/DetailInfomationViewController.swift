@@ -32,12 +32,11 @@ class DetailInfomationViewController: UIViewController {
         return container
     }()
     
-    let divider: UIView = {
-        let divider = UIView()
-        divider.backgroundColor = .grayscale5
-        divider.translatesAutoresizingMaskIntoConstraints = false
-        return divider
-    }()
+    private var dividerUnderDetailInfomation: UIView = UIView()
+    
+    private var dividerUnderEventElement: UIView = UIView()
+
+    private var dividerUnderCost: UIView = UIView()
     
     // 카페에서 진행 가능한 이벤트 요소
     lazy var eventElementStackView: UIStackView = UIStackView()
@@ -59,18 +58,25 @@ class DetailInfomationViewController: UIViewController {
         eventCostStackView = makeStackView()
         cafeAdditionalInfoStackView = makeStackView()
         
+        // 디바이더 초기 설정
+        dividerUnderDetailInfomation = makeDivider()
+        dividerUnderEventElement = makeDivider()
+        dividerUnderCost = makeDivider()
+        
         // 카페 세부 정보 설정
         setCafeDetailInfoContainer()
         
-        // 카페 조건 설정
+        // 카페 조건 내부 컴포넌트 설정
         setEventElementView(elements: cafeInfoData!.eventElement)
         setCostView(costs: cafeInfoData!.cost)
         setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
         
         view.addSubview(cafeDetailInfoContainer)
-        view.addSubview(divider)
+        view.addSubview(dividerUnderDetailInfomation)
         view.addSubview(eventElementStackView)
+        view.addSubview(dividerUnderEventElement)
         view.addSubview(eventCostStackView)
+        view.addSubview(dividerUnderCost)
         view.addSubview(cafeAdditionalInfoStackView)
         
         applyConstraints()
@@ -96,35 +102,51 @@ class DetailInfomationViewController: UIViewController {
             cafeDetailInfoContainer.topAnchor.constraint(equalTo: view.topAnchor)
         ]
         
-        let dividerConstraints = [
-            divider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            divider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            divider.topAnchor.constraint(equalTo: cafeDetailInfoContainer.bottomAnchor),
-            divider.heightAnchor.constraint(equalToConstant: 2)
+        let dividerUnderDetailInfomationConstraints = [
+            dividerUnderDetailInfomation.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderDetailInfomation.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderDetailInfomation.topAnchor.constraint(equalTo: cafeDetailInfoContainer.bottomAnchor),
+            dividerUnderDetailInfomation.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         let eventElementStackViewConstraints = [
             eventElementStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             eventElementStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            eventElementStackView.topAnchor.constraint(equalTo: divider.bottomAnchor)
+            eventElementStackView.topAnchor.constraint(equalTo: dividerUnderDetailInfomation.bottomAnchor)
+        ]
+        
+        let dividerUnderEventElementConstraints = [
+            dividerUnderEventElement.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderEventElement.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderEventElement.topAnchor.constraint(equalTo: eventElementStackView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            dividerUnderEventElement.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         let eventCostStackViewConstraints = [
             eventCostStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             eventCostStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            eventCostStackView.topAnchor.constraint(equalTo: eventElementStackView.bottomAnchor)
+            eventCostStackView.topAnchor.constraint(equalTo: dividerUnderEventElement.bottomAnchor)
+        ]
+        
+        let dividerUnderCostConstraints = [
+            dividerUnderCost.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderCost.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderCost.topAnchor.constraint(equalTo: eventCostStackView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            dividerUnderCost.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         let cafeAdditionalInfoStackViewConstraints = [
             cafeAdditionalInfoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             cafeAdditionalInfoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            cafeAdditionalInfoStackView.topAnchor.constraint(equalTo: eventCostStackView.bottomAnchor)
+            cafeAdditionalInfoStackView.topAnchor.constraint(equalTo: dividerUnderCost.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(cafeDetailInfoContainerConstraints)
-        NSLayoutConstraint.activate(dividerConstraints)
+        NSLayoutConstraint.activate(dividerUnderDetailInfomationConstraints)
         NSLayoutConstraint.activate(eventElementStackViewConstraints)
+        NSLayoutConstraint.activate(dividerUnderEventElementConstraints)
         NSLayoutConstraint.activate(eventCostStackViewConstraints)
+        NSLayoutConstraint.activate(dividerUnderCostConstraints)
         NSLayoutConstraint.activate(cafeAdditionalInfoStackViewConstraints)
     }
     
@@ -192,6 +214,15 @@ class DetailInfomationViewController: UIViewController {
         stackView.spacing = .padding.underTitlePadding
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
+    }
+    
+    // 세부 정보 요소를 구분할 디바이더 기본 설정
+    private func makeDivider() -> UIView {
+        let divider = UIView()
+        // TODO: Color extentsion 추가 후 수정 필요
+        divider.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
     }
     
     // 카페 상세 조건의 이름을 담은 Label

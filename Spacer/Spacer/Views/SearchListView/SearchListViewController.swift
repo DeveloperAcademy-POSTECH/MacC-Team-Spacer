@@ -113,9 +113,6 @@ class SearchListViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         emptyLabel.isUserInteractionEnabled = true
         emptyLabel.addGestureRecognizer(tap)
-        resultCollectionView.isUserInteractionEnabled = true
-        resultCollectionView.addGestureRecognizer(tap)
-        
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -376,6 +373,13 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
         usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = usingTagText ? filteredTagTextArr[indexPath.row]: filteredArr[indexPath.row]
+        self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }
 

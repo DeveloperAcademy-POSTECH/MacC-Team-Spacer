@@ -14,7 +14,7 @@ class SearchListViewController: UIViewController {
     // 태그로 들어온지 확인
     var isTagged = false
     // 태그로 들어와서 서치바를 사용한지 확인
-    var UsingTagText = false
+    var usingTagText = false
     
     public var tempCafeArray: [CafeInfo] = [CafeInfo]()
     public var filteredArr: [CafeInfo] = [CafeInfo]()
@@ -360,7 +360,7 @@ class SearchListViewController: UIViewController {
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFiltering && filteredArr.count == 0 || UsingTagText && filteredTagTextArr.count == 0{
+        if isFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
             view.addSubview(emptyLabel)
             emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
             emptyLabel.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
@@ -369,12 +369,12 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             self.emptyLabel.removeFromSuperview()
         }
-        return UsingTagText ? filteredTagTextArr.count : filteredArr.count
+        return usingTagText ? filteredTagTextArr.count : filteredArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
-        UsingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
+        usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
         return cell
     }
 }
@@ -397,7 +397,7 @@ extension SearchListViewController: UISearchBarDelegate {
         guard let text = searchBar.text?.lowercased() else { return }
         
         if isTagged {
-            UsingTagText = true
+            usingTagText = true
             self.filteredTagTextArr = self.filteredArr.filter({ CafeInfo in
                 return CafeInfo.name.localizedCaseInsensitiveContains(text)
             })
@@ -416,9 +416,9 @@ extension SearchListViewController: UISearchBarDelegate {
         if let text = searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines){
             if isTagged {
                 if text == "" {
-                    self.UsingTagText = false
+                    self.usingTagText = false
                 } else {
-                    UsingTagText = true
+                    usingTagText = true
                 }
             }
         }

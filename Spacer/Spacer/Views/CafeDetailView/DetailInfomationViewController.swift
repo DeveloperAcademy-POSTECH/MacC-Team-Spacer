@@ -16,8 +16,8 @@ class DetailInfomationViewController: UIViewController {
     var selfHeight: CGFloat = 0
     
     // 카페 이벤트 요소 이미지와 타이틀 이름
-    private let eventElementImageNames = ["eventElementCupholder", "eventElementHBanner", "", "eventElementXBanner", "eventElementDisplayPlace", "", "evemtElementCustomCookie", "eventElementCustomReceipt", "eventElementCutout", "", "", "eventElementVideoOrScreen"]
-    private let eventElementImageLabels = ["컵홀더", "현수막", "액자", "배너", "전시 공간", "보틀 음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    private let eventElementImageNames = ["eventElementCupholder", "eventElementXBanner", "eventElementFrame", "eventElementHBanner", "eventElementExhibitionArea", "eventElementBottle", "eventElementCustomCookie", "eventElementCustomReceipt", "eventElementCutout", "eventElementVideoOrScreen", "eventElementPhotoCard", "eventElementVideoShow"]
+    private let eventElementImageLabels = ["컵홀더", "배너", "액자", "현수막", "전시 공간", "보틀 음료", "맞춤 디저트", "맞춤 영수증", "등신대", "영상 상영", "포토 카드", "포토존"]
     
     // MARK: - UI 요소
     
@@ -241,7 +241,6 @@ class DetailInfomationViewController: UIViewController {
         let eventElementsLineView = UIView()
         let elementImageHorizontalStackView = UIStackView()
         elementImageHorizontalStackView.axis = .horizontal
-        elementImageHorizontalStackView.spacing = .padding.underTitlePadding
         elementImageHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         eventElementsLineView.addSubview(elementImageHorizontalStackView)

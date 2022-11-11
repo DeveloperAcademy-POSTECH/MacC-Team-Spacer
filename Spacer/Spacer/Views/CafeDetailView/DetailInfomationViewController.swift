@@ -287,7 +287,7 @@ class DetailInfomationViewController: UIViewController {
     }
     
     private func setEventElementView(elements: [Bool]) {
-        lazy var conditionTitle = makeConditionTitle(title: "이벤트 진행 요소")
+        lazy var conditionTitle = makeConditionTitle(title: "데코레이션 요소")
         eventElementStackView.addArrangedSubview(conditionTitle)
         
         let totalLineCount = Int(ceil(Double(elements.count) / 4.0))

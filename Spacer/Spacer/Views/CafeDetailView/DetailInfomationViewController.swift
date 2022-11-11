@@ -248,10 +248,9 @@ class DetailInfomationViewController: UIViewController {
         for (i, isIconOn) in elements.enumerated() {
             let index =  4 * lineNumber + i
             
-            // TODO: 아이콘 추가 후 삼항연상자 삭제
             // 이벤트 요소를 나타낼 ImageView 생성
             let elementImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
-            elementImage.image = UIImage(named: eventElementImageNames[index] == "" ? "eventElementCupholder" : eventElementImageNames[index])
+            elementImage.image = UIImage(named: eventElementImageNames[index])
             elementImage.layer.opacity = isIconOn ? 1 : 0.2
             elementImage.contentMode = .scaleAspectFit
             

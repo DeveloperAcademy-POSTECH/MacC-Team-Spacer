@@ -16,7 +16,7 @@ class CategoryInfomationLineView: UIView {
         return icon
     }()
     
-    lazy var category: UILabel = {
+    lazy var categoryLabel: UILabel = {
         let category = UILabel()
         category.font = .systemFont(for: .body3)
         category.textColor = .grayscale1
@@ -60,7 +60,7 @@ class CategoryInfomationLineView: UIView {
         }
         
         self.addSubview(icon)
-        self.addSubview(category)
+        self.addSubview(categoryLabel)
         self.addSubview(descriptionLabel)
         
         applyIconConstraints()
@@ -83,7 +83,7 @@ class CategoryInfomationLineView: UIView {
         }
         
         self.addSubview(icon)
-        self.addSubview(category)
+        self.addSubview(categoryLabel)
         if selfHeight == 0 {
             descriptionLabel.text = "정보가 없습니다"
             descriptionLabel.textColor = .grayscale4
@@ -122,7 +122,7 @@ class CategoryInfomationLineView: UIView {
         }
         
         self.addSubview(icon)
-        self.addSubview(category)
+        self.addSubview(categoryLabel)
         self.addSubview(verticalStackView)
         
         if selfHeight == 0 {
@@ -162,7 +162,7 @@ class CategoryInfomationLineView: UIView {
         }
         
         icon.image = UIImage(named: categoryImageName)
-        category.text = categoryName
+        categoryLabel.text = categoryName
     }
     
     private func setSubTitleAndDescription(subTitle: String, description: String) {
@@ -201,10 +201,10 @@ class CategoryInfomationLineView: UIView {
     
     private func applyCategoryConstraints() {
         let categoryConstraints = [
-            category.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8),
-            category.topAnchor.constraint(equalTo: self.topAnchor),
-            category.widthAnchor.constraint(equalToConstant: 52),
-            category.heightAnchor.constraint(equalToConstant: 20)
+            categoryLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8),
+            categoryLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            categoryLabel.widthAnchor.constraint(equalToConstant: 52),
+            categoryLabel.heightAnchor.constraint(equalToConstant: 20)
         ]
 
         NSLayoutConstraint.activate(categoryConstraints)
@@ -212,7 +212,7 @@ class CategoryInfomationLineView: UIView {
     
     private func applyDescriptionConstraints(isCategoryText: Bool) {
         let descriptionConstraints = [
-            descriptionLabel.leadingAnchor.constraint(equalTo: isCategoryText ? category.trailingAnchor : icon.trailingAnchor, constant: isCategoryText ? 18 : 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: isCategoryText ? categoryLabel.trailingAnchor : icon.trailingAnchor, constant: isCategoryText ? 18 : 8),
             descriptionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         
@@ -221,7 +221,7 @@ class CategoryInfomationLineView: UIView {
     
     private func applyVerticalStackViewConstraints() {
         let verticalStackViewConstraints = [
-            verticalStackView.leadingAnchor.constraint(equalTo: category.trailingAnchor, constant: 18),
+            verticalStackView.leadingAnchor.constraint(equalTo: categoryLabel.trailingAnchor, constant: 18),
             verticalStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         

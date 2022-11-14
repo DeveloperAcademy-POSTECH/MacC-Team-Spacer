@@ -297,9 +297,9 @@ class CafeDetailViewController: UIViewController {
         }
 
         // url 인스턴스를 만들고, canOpenURL 메서드를 이용해 앱을 사용할 수 있는지 확인
-        if let url = NSURL(string: urlResource ?? ""), UIApplication.shared.canOpenURL(url as URL) {
+        if let url = URL(string: urlResource ?? ""), UIApplication.shared.canOpenURL(url) {
             // 사용 가능할 경우 url 인스턴스를 열어 연결
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     

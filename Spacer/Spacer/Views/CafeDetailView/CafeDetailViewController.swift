@@ -78,7 +78,7 @@ class CafeDetailViewController: UIViewController {
         return label
     }()
     
-    lazy var cafeTitleBox: UIView = {
+    lazy var cafeTitleUnderLine: UIView = {
         let view =  UIView()
         view.backgroundColor = .subYellow1
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -244,7 +244,7 @@ class CafeDetailViewController: UIViewController {
         imageDescriptionView.addSubview(sizeLabel)
         
         
-        scrollView.addSubview(cafeTitleBox)
+        scrollView.addSubview(cafeTitleUnderLine)
         scrollView.addSubview(cafeTitleLabel)
         scrollView.addSubview(favortieImage)
         scrollView.addSubview(numberOfFavorties)
@@ -396,11 +396,11 @@ class CafeDetailViewController: UIViewController {
             sizeLabel.heightAnchor.constraint(equalToConstant: 14)
         ]
         
-        let cafeTitleBoxConstraints = [
-            cafeTitleBox.leadingAnchor.constraint(equalTo: cafeTitleLabel.leadingAnchor),
-            cafeTitleBox.centerYAnchor.constraint(equalTo: cafeTitleLabel.centerYAnchor, constant: 8),
-            cafeTitleBox.heightAnchor.constraint(equalToConstant: 13),
-            cafeTitleBox.widthAnchor.constraint(equalTo: cafeTitleLabel.widthAnchor)
+        let cafeTitleUnderLineConstraints = [
+            cafeTitleUnderLine.leadingAnchor.constraint(equalTo: cafeTitleLabel.leadingAnchor),
+            cafeTitleUnderLine.centerYAnchor.constraint(equalTo: cafeTitleLabel.centerYAnchor, constant: 8),
+            cafeTitleUnderLine.heightAnchor.constraint(equalToConstant: 13),
+            cafeTitleUnderLine.widthAnchor.constraint(equalTo: cafeTitleLabel.widthAnchor)
         ]
         
         let cafeTitleLabelConstraints = [
@@ -468,7 +468,7 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(imageScrollViewConstraints)
         NSLayoutConstraint.activate(imageDescriptionViewConstraints)
-        NSLayoutConstraint.activate(cafeTitleBoxConstraints)
+        NSLayoutConstraint.activate(cafeTitleUnderLineConstraints)
         NSLayoutConstraint.activate(cafeTitleLabelConstraints)
         NSLayoutConstraint.activate(categoryLabelConstraints)
         NSLayoutConstraint.activate(sizeLabelConstraints)

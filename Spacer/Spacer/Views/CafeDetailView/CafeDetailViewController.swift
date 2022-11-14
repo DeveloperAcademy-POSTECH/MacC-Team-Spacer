@@ -205,7 +205,7 @@ class CafeDetailViewController: UIViewController {
         scrollView.contentInsetAdjustmentBehavior = .never
         
         // 카페 이미지 보여주기
-        totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
+        setCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos)
         
         // 전체 이미지 수에 따라 imageScrollView의 width 설정
         imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
@@ -314,7 +314,7 @@ class CafeDetailViewController: UIViewController {
         // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
     }
     
-    func showCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo], parentView: UIView) -> Int {
+    func setCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo]) {
         var imageIndex = 0
         
         for cafeImageInfo in cafeImageInfos {
@@ -336,7 +336,7 @@ class CafeDetailViewController: UIViewController {
             }
         }
         
-        return imageIndex
+        totalImageCount = imageIndex
     }
     
     private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, numberOfImages: Int, sizeDescription: String) {

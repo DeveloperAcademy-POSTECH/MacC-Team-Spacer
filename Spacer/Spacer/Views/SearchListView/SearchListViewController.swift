@@ -153,25 +153,25 @@ class SearchListViewController: UIViewController {
         
         NSLayoutConstraint.activate(scrollViewConstraints)
         
-        let mydateButtonConstraints = [
+        let dateButtonConstraints = [
             dateButton.heightAnchor.constraint(equalToConstant: 39),
             dateButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             dateButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 16),
         ]
-        let myregionButtonConstraints = [
+        let regionButtonConstraints = [
             regionButton.heightAnchor.constraint(equalToConstant: 39),
             regionButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             regionButton.leadingAnchor.constraint(equalTo: dateButton.trailingAnchor, constant: 8),
         ]
-        let myeventElementButtonConstraints = [
+        let eventElementButtonConstraints = [
             eventElementButton.heightAnchor.constraint(equalToConstant: 39),
             eventElementButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             eventElementButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
         ]
         
-        NSLayoutConstraint.activate(mydateButtonConstraints)
-        NSLayoutConstraint.activate(myregionButtonConstraints)
-        NSLayoutConstraint.activate(myeventElementButtonConstraints)
+        NSLayoutConstraint.activate(dateButtonConstraints)
+        NSLayoutConstraint.activate(regionButtonConstraints)
+        NSLayoutConstraint.activate(eventElementButtonConstraints)
         
         dateButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         regionButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
@@ -289,16 +289,16 @@ class SearchListViewController: UIViewController {
             isTagged = true
             isFirstFiltering = true
             self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-                var iseventElementEnough: Bool = true
+                var isEventElementEnough: Bool = true
                 for i in eventElements.indices {
                     // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
                     if selectedEventElement[i] {
                         if !CafeInfo.eventElement[i] {
-                            iseventElementEnough = false
+                            isEventElementEnough = false
                         }
                     }
                 }
-                return CafeInfo.locationID == Int(selectedRegion)! && iseventElementEnough
+                return CafeInfo.locationID == Int(selectedRegion)! && isEventElementEnough
             })
         } else {
             // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠

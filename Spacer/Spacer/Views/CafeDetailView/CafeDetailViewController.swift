@@ -461,7 +461,7 @@ class CafeDetailViewController: UIViewController {
             pageController.view.leadingAnchor.constraint(equalTo: dynamicStackView.leadingAnchor),
             pageController.view.trailingAnchor.constraint(equalTo: dynamicStackView.trailingAnchor),
             pageController.view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height * 1.3)
+            pageController.view.heightAnchor.constraint(equalToConstant: 1100)
         ]
         
         NSLayoutConstraint.activate(scrollViewConstraints)

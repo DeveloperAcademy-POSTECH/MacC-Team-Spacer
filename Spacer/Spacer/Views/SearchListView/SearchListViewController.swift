@@ -211,28 +211,28 @@ class SearchListViewController: UIViewController {
             // 1개 이상 true일 경우
             var firsteventElement = ""
             var countTrue = 0
-            if selectedEventElement.contains(true) {
-                for i in selectedEventElement.indices {
-                    if selectedEventElement[i] == true {
-                        countTrue += 1
-                        // 첫 true가 나온 카테고리
-                        if countTrue == 1 {
-                            firsteventElement = eventElements[i]
-                        }
+            
+            for i in selectedEventElement.indices {
+                if selectedEventElement[i] == true {
+                    countTrue += 1
+                    // 첫 true가 나온 카테고리
+                    if countTrue == 1 {
+                        firsteventElement = eventElements[i]
                     }
                 }
-                // true가 2개 이상일 경우 '외 ㅁ개' 표현, true가 1개 일 경우는 eventElement만 나옴
-                if countTrue >= 2 {
-                    eventElementTitle = AttributedString.init("\(firsteventElement) 외 \(countTrue-1)개")
-                } else {
-                    eventElementTitle = AttributedString.init("\(firsteventElement)")
-                }
-                
+            }
+            // true가 2개 이상일 경우 '외 ㅁ개' 표현, true가 1개 일 경우는 eventElement만 나옴, 전부 false인 경우 카테고리
+            if countTrue >= 2 {
+                eventElementTitle = AttributedString.init("\(firsteventElement) 외 \(countTrue-1)개")
+                eventElementTitle.foregroundColor = .grayscale6
+                eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
+                eventElementButton.configuration?.baseForegroundColor = .grayscale5
+            } else if countTrue == 1{
+                eventElementTitle = AttributedString.init("\(firsteventElement)")
                 eventElementTitle.foregroundColor = .grayscale6
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
                 eventElementButton.configuration?.baseForegroundColor = .grayscale5
             } else {
-                // 전부 false일 때
                 eventElementTitle = AttributedString.init("카테고리")
                 eventElementTitle.foregroundColor = .mainPurple2
             }

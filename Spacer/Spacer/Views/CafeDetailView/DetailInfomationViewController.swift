@@ -12,9 +12,12 @@ class DetailInfomationViewController: UIViewController {
     
     var cafeInfoData: CafeInfo?
     
+    // 현재 View의 높이
+    var selfHeight: CGFloat = 0
+    
     // 카페 이벤트 요소 이미지와 타이틀 이름
-    private let eventElementImageNames = ["eventElementCupholder", "eventElementHBanner", "", "eventElementXBanner", "eventElementDisplayPlace", "", "evemtElementCustomCookie", "eventElementCustomReceipt", "eventElementCutout", "", "", "eventElementVideoOrScreen"]
-    private let eventElementImageLabels = ["컵홀더", "현수막", "액자", "배너", "전시 공간", "보틀 음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    private let eventElementImageNames = ["eventElementCupholder", "eventElementXBanner", "eventElementFrame", "eventElementHBanner", "eventElementExhibitionArea", "eventElementBottle", "eventElementCustomCookie", "eventElementCustomReceipt", "eventElementCutout", "eventElementVideoOrScreen", "eventElementPhotoCard", "eventElementVideoShow"]
+    private let eventElementImageLabels = ["컵홀더", "배너", "액자", "현수막", "전시 공간", "보틀 음료", "맞춤 디저트", "맞춤 영수증", "등신대", "영상 상영", "포토 카드", "포토존"]
     
     // MARK: - UI 요소
     
@@ -29,21 +32,20 @@ class DetailInfomationViewController: UIViewController {
         return container
     }()
     
-    let divider: UIView = {
-        let divider = UIView()
-        divider.backgroundColor = .grayscale5
-        divider.translatesAutoresizingMaskIntoConstraints = false
-        return divider
-    }()
+    private lazy var dividerUnderDetailInfomation: UIView = makeDivider()
+    
+    private lazy var dividerUnderEventElement: UIView = makeDivider()
+
+    private lazy var dividerUnderCost: UIView = makeDivider()
     
     // 카페에서 진행 가능한 이벤트 요소
-    lazy var eventElementStackView: UIStackView = UIStackView()
+    private lazy var eventElementStackView: UIStackView = makeStackView()
     
     // 보증금 액수
-    lazy var eventCostStackView: UIStackView = UIStackView()
+    private lazy var eventCostStackView: UIStackView = makeStackView()
     
     // 사장님이 직접 남기는 기타 사항
-    lazy var cafeAdditionalInfoStackView: UIStackView = UIStackView()
+    private lazy var cafeAdditionalInfoStackView: UIStackView = makeStackView()
     
     
     // MARK: - viewDidLoad
@@ -51,39 +53,34 @@ class DetailInfomationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 스택뷰 초기 설정
-        eventElementStackView = makeStackView()
-        eventCostStackView = makeStackView()
-        cafeAdditionalInfoStackView = makeStackView()
+        // 카페 세부 정보 설정
+        setCafeDetailInfoContainer()
         
-        lazy var phoneNumber = InfomationImageAndText(image: "phone.fill", category: "전화번호", discription: cafeInfoData?.phoneNumber)
-        phoneNumber.translatesAutoresizingMaskIntoConstraints = false
-        
-        lazy var SNSInfo = InfomationImageAndText(image: "mic.fill", category: "SNS", discription: cafeInfoData!.SNS)
-        SNSInfo.translatesAutoresizingMaskIntoConstraints = false
-        
-        lazy var cafeHours = InfomationImageAndText(image: "clock.fill", category: "운영 시간", discription: "09:00 ~ 21:00")
-        cafeHours.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(cafeDetailInfoContainer)
-        view.addSubview(divider)
-        view.addSubview(eventElementStackView)
-        view.addSubview(eventCostStackView)
-        view.addSubview(cafeAdditionalInfoStackView)
-        
+        // 카페 조건 내부 컴포넌트 설정
         setEventElementView(elements: cafeInfoData!.eventElement)
         setCostView(costs: cafeInfoData!.cost)
         setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
         
-        cafeDetailInfoContainer.addArrangedSubview(phoneNumber)
-        cafeDetailInfoContainer.addArrangedSubview(SNSInfo)
-        cafeDetailInfoContainer.addArrangedSubview(cafeHours)
-        
-        phoneNumber.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        SNSInfo.heightAnchor.constraint(equalToConstant: SNSInfo.selfHeight).isActive = true
-        cafeHours.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        view.addSubview(cafeDetailInfoContainer)
+        view.addSubview(dividerUnderDetailInfomation)
+        view.addSubview(eventElementStackView)
+        view.addSubview(dividerUnderEventElement)
+        view.addSubview(eventCostStackView)
+        view.addSubview(dividerUnderCost)
+        view.addSubview(cafeAdditionalInfoStackView)
         
         applyConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        // 현재 뷰의 총 높이 계산
+        selfHeight += cafeDetailInfoContainer.frame.height
+        selfHeight += eventElementStackView.frame.height
+        selfHeight += eventCostStackView.frame.height
+        selfHeight += cafeAdditionalInfoStackView.frame.height
+        selfHeight += 8
     }
     
     // MARK: - functions
@@ -95,36 +92,107 @@ class DetailInfomationViewController: UIViewController {
             cafeDetailInfoContainer.topAnchor.constraint(equalTo: view.topAnchor)
         ]
         
-        let dividerConstraints = [
-            divider.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            divider.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            divider.topAnchor.constraint(equalTo: cafeDetailInfoContainer.bottomAnchor),
-            divider.heightAnchor.constraint(equalToConstant: 2)
+        let dividerUnderDetailInfomationConstraints = [
+            dividerUnderDetailInfomation.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderDetailInfomation.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderDetailInfomation.topAnchor.constraint(equalTo: cafeDetailInfoContainer.bottomAnchor),
+            dividerUnderDetailInfomation.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         let eventElementStackViewConstraints = [
             eventElementStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             eventElementStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            eventElementStackView.topAnchor.constraint(equalTo: divider.bottomAnchor)
+            eventElementStackView.topAnchor.constraint(equalTo: dividerUnderDetailInfomation.bottomAnchor)
+        ]
+        
+        let dividerUnderEventElementConstraints = [
+            dividerUnderEventElement.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderEventElement.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderEventElement.topAnchor.constraint(equalTo: eventElementStackView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            dividerUnderEventElement.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         let eventCostStackViewConstraints = [
             eventCostStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             eventCostStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            eventCostStackView.topAnchor.constraint(equalTo: eventElementStackView.bottomAnchor)
+            eventCostStackView.topAnchor.constraint(equalTo: dividerUnderEventElement.bottomAnchor)
+        ]
+        
+        let dividerUnderCostConstraints = [
+            dividerUnderCost.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderCost.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderCost.topAnchor.constraint(equalTo: eventCostStackView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            dividerUnderCost.heightAnchor.constraint(equalToConstant: 2)
         ]
         
         let cafeAdditionalInfoStackViewConstraints = [
             cafeAdditionalInfoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             cafeAdditionalInfoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            cafeAdditionalInfoStackView.topAnchor.constraint(equalTo: eventCostStackView.bottomAnchor)
+            cafeAdditionalInfoStackView.topAnchor.constraint(equalTo: dividerUnderCost.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(cafeDetailInfoContainerConstraints)
-        NSLayoutConstraint.activate(dividerConstraints)
+        NSLayoutConstraint.activate(dividerUnderDetailInfomationConstraints)
         NSLayoutConstraint.activate(eventElementStackViewConstraints)
+        NSLayoutConstraint.activate(dividerUnderEventElementConstraints)
         NSLayoutConstraint.activate(eventCostStackViewConstraints)
+        NSLayoutConstraint.activate(dividerUnderCostConstraints)
         NSLayoutConstraint.activate(cafeAdditionalInfoStackViewConstraints)
+    }
+    
+    // cafeDetailInfoContainer 내부에 들어갈 카테고리별 정보를 세팅
+    private func setCafeDetailInfoContainer() {
+        lazy var locationCategory = CategoryInfomationLineView(type: CategoryType.location, description: cafeInfoData?.address)
+        locationCategory.translatesAutoresizingMaskIntoConstraints = false
+        cafeDetailInfoContainer.addArrangedSubview(locationCategory)
+        locationCategory.heightAnchor.constraint(equalToConstant: locationCategory.selfHeight).isActive = true
+        
+        if let phoneNumber = cafeInfoData?.phoneNumber, phoneNumber != "" {
+            // 전화번호 형식에 맞게 수정
+            var formatedPhoneNumber = phoneNumber
+            formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 3))
+            formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 8))
+            
+            // 전화번호 정보 카테고리에 추가
+            lazy var phoneNumberCategory = CategoryInfomationLineView(type: CategoryType.phoneNumber, description: formatedPhoneNumber)
+            phoneNumberCategory.translatesAutoresizingMaskIntoConstraints = false
+            cafeDetailInfoContainer.addArrangedSubview(phoneNumberCategory)
+            phoneNumberCategory.heightAnchor.constraint(equalToConstant: phoneNumberCategory.selfHeight).isActive = true
+        }
+        
+        // 테이블 수 카테고리 추가
+        if let numberOfTables = cafeInfoData?.numberOfTables {
+            lazy var tableCategory = CategoryInfomationLineView(type: CategoryType.tables, description: String(numberOfTables))
+            tableCategory.translatesAutoresizingMaskIntoConstraints = false
+            cafeDetailInfoContainer.addArrangedSubview(tableCategory)
+            tableCategory.heightAnchor.constraint(equalToConstant: tableCategory.selfHeight).isActive = true
+        }
+        
+        // SNS 카테고리 추가
+        lazy var SNSCategory = CategoryInfomationLineView(type: CategoryType.SNSList, description: cafeInfoData!.SNS)
+        SNSCategory.translatesAutoresizingMaskIntoConstraints = false
+        cafeDetailInfoContainer.addArrangedSubview(SNSCategory)
+        SNSCategory.heightAnchor.constraint(equalToConstant: SNSCategory.selfHeight).isActive = true
+        
+        // weekdayTime, weekendTime 형식에 맞게 수정
+        var formatedWeekdayTime: String = ""
+        var formatedWeekendTime: String = ""
+        if let weekdayTime = cafeInfoData?.weekdayTime, weekdayTime != "" {
+            formatedWeekdayTime = weekdayTime
+            formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 2))
+            formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 8))
+        }
+        if let weekendTime = cafeInfoData?.weekendTime, weekendTime != "" {
+            formatedWeekendTime = weekendTime
+            formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 2))
+            formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 8))
+        }
+        
+        // 운영 시간 카테고리 추가
+        lazy var cafeHoursCategory = CategoryInfomationLineView(type: CategoryType.operationTime, weekdayTime: formatedWeekdayTime, weekendTime: formatedWeekendTime, dayOff: cafeInfoData?.dayOff)
+        cafeHoursCategory.translatesAutoresizingMaskIntoConstraints = false
+        cafeDetailInfoContainer.addArrangedSubview(cafeHoursCategory)
+        cafeHoursCategory.heightAnchor.constraint(equalToConstant: cafeHoursCategory.selfHeight).isActive = true
     }
     
     // 카페 정보를 담을 스택뷰 초기화
@@ -138,6 +206,15 @@ class DetailInfomationViewController: UIViewController {
         return stackView
     }
     
+    // 세부 정보 요소를 구분할 디바이더 기본 설정
+    private func makeDivider() -> UIView {
+        let divider = UIView()
+        // TODO: Color extentsion 추가 후 수정 필요
+        divider.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
+    }
+    
     // 카페 상세 조건의 이름을 담은 Label
     private func makeConditionTitle(title: String) -> UILabel {
         let titleLabel = UILabel()
@@ -145,7 +222,6 @@ class DetailInfomationViewController: UIViewController {
         titleLabel.textColor = .grayscale3
         titleLabel.font = .systemFont(for: .body3)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
         return titleLabel
     }
     
@@ -155,7 +231,6 @@ class DetailInfomationViewController: UIViewController {
         let eventElementsLineView = UIView()
         let elementImageHorizontalStackView = UIStackView()
         elementImageHorizontalStackView.axis = .horizontal
-        elementImageHorizontalStackView.spacing = .padding.underTitlePadding
         elementImageHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         eventElementsLineView.addSubview(elementImageHorizontalStackView)
@@ -163,10 +238,9 @@ class DetailInfomationViewController: UIViewController {
         for (i, isIconOn) in elements.enumerated() {
             let index =  4 * lineNumber + i
             
-            // TODO: 아이콘 추가 후 삼항연상자 삭제
             // 이벤트 요소를 나타낼 ImageView 생성
-            let elementImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
-            elementImage.image = UIImage(named: eventElementImageNames[index] == "" ? "eventElementCupholder" : eventElementImageNames[index])
+            let elementImage = UIImageView(frame: .zero)
+            elementImage.image = UIImage(named: eventElementImageNames[index])
             elementImage.layer.opacity = isIconOn ? 1 : 0.2
             elementImage.contentMode = .scaleAspectFit
             
@@ -203,14 +277,7 @@ class DetailInfomationViewController: UIViewController {
     }
     
     private func setEventElementView(elements: [Bool]) {
-        lazy var cafeConditionLabel = UILabel()
-        cafeConditionLabel.text = "카페 조건"
-        cafeConditionLabel.textColor = .mainPurple1
-        cafeConditionLabel.font = .systemFont(for: .header6)
-
-        lazy var conditionTitle = makeConditionTitle(title: "이벤트 진행 요소")
-                
-        eventElementStackView.addArrangedSubview(cafeConditionLabel)
+        lazy var conditionTitle = makeConditionTitle(title: "데코레이션 요소")
         eventElementStackView.addArrangedSubview(conditionTitle)
         
         let totalLineCount = Int(ceil(Double(elements.count) / 4.0))

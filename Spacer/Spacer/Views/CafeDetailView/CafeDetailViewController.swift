@@ -13,6 +13,7 @@ class CafeDetailViewController: UIViewController {
     var tempCafeInfo: CafeInfo?
     
     // MARK: - UI 요소
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
@@ -28,20 +29,10 @@ class CafeDetailViewController: UIViewController {
         return dynamicStackView
     }()
     
-    // 카페 이미지를 볼 때 몇번째인지 표시하기 위한 PageControl
-    lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl(frame: CGRect(x: 0, y: imageScrollView.bounds.height - 45, width: scrollView.bounds.width, height: 55))
-        pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = .grayscale4
-        pageControl.currentPageIndicatorTintColor = .grayscale2
-        pageControl.isUserInteractionEnabled = false
-        return pageControl
-    }()
-    
     // 카페 이미지를 보기 위한 ScrollView
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 4 * 3))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 3 * 4))
         
         // 스크롤 인디케이터 삭제
         scrollView.showsHorizontalScrollIndicator = false
@@ -54,6 +45,74 @@ class CafeDetailViewController: UIViewController {
         return scrollView
     }()
     
+    // 카페의 이미지에 대한 설명을 담을 뷰
+    lazy var imageDescriptionView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .mainPurple1.withAlphaComponent(0.8)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var categoryLabel: UILabel = {
+       let label = UILabel()
+        label.textColor = .grayscale6
+        label.font = .systemFont(for: .body3)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var sizeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .mainPurple5
+        label.font = .systemFont(for: .caption)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var cafeTitleLabel: UILabel = {
+        let label = UILabel()
+        // TODO: 나중에 추가된 커스텀 폰트로 교체해야함
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.textColor = .mainPurple1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var cafeTitleUnderLine: UIView = {
+        let view =  UIView()
+        view.backgroundColor = .subYellow1
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var favortieImage: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "heartIcon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy var numberOfFavorties: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var callReservationButton: UIButton = {
+       let button = UIButton()
+        button.setTitle("전화 문의하기", for: .normal)
+        button.titleLabel?.font = .systemFont(for: .header6)
+        button.titleLabel?.textColor = .grayscale6
+        button.backgroundColor = .grayscale2
+        button.layer.cornerRadius = 12
+        button.tag = 100
+        button.addTarget(self, action: #selector(touchedReservationButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+        
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = CustomSegmentControl(items: ["상세정보", "리뷰"])
@@ -88,24 +147,29 @@ class CafeDetailViewController: UIViewController {
         return bottomBar
     }()
     
-    let chatButton: UIButton = {
-        let chatButton = UIButton()
-        chatButton.setTitle("1:1 문의", for: .normal)
-        chatButton.titleLabel?.font = .systemFont(for: .header6)
-        chatButton.backgroundColor = .grayscale2
-        chatButton.layer.cornerRadius = 12
-        chatButton.translatesAutoresizingMaskIntoConstraints = false
-        return chatButton
+    let favoriteOnOffButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+        button.backgroundColor = .mainPurple6
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.mainPurple5.cgColor
+        button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(touchedFavoriteOnOffButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     let reservationButton: UIButton = {
-        let reservationButton = UIButton()
-        reservationButton.setTitle("예약하기", for: .normal)
-        reservationButton.titleLabel?.font = .systemFont(for: .header6)
-        reservationButton.backgroundColor = .mainPurple3
-        reservationButton.layer.cornerRadius = 12
-        reservationButton.translatesAutoresizingMaskIntoConstraints = false
-        return reservationButton
+        let button = UIButton()
+        button.setTitle("예약하러 가기", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.textColor = .grayscale6
+        button.layer.cornerRadius = 12
+        button.clipsToBounds = true
+        button.tag = 101
+        button.addTarget(self, action: #selector(touchedReservationButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     // 추후 segmentedControl에 추가할 ViewController 정의
@@ -123,6 +187,11 @@ class CafeDetailViewController: UIViewController {
         [detailInfoView, reviewView]
     }
     
+    private var totalImageCount = 0
+    private var categoryNames = [String]()
+    private var sizeDescriptions = [String]()
+    private var isFavoriteButtonOn = false
+    
     // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
@@ -132,18 +201,34 @@ class CafeDetailViewController: UIViewController {
         
         detailInfoView.cafeInfoData = tempCafeInfo
         
-        // 카페 이미지 보여주기
-        let totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
+        // scrollView의 topAnchor가 안전영역 끝쪽에 붙도록
+        scrollView.contentInsetAdjustmentBehavior = .never
         
-        // 전체 이미지 수에 따라 imageScrollView의 width와 pageControl의 페이지 수 설정
+        // 카페 이미지 보여주기
+        setCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos)
+        
+        // 전체 이미지 수에 따라 imageScrollView의 width 설정
         imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
-        pageControl.numberOfPages = totalImageCount
+        
+        // 이미지별 카테고리와 사이즈 라벨 초기화
+        setImageDescriptionView(categoryName: tempCafeInfo?.imageInfos[0].category ?? "", tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: tempCafeInfo?.imageInfos[0].productSize ?? "")
+        
+        // callReservationButton과 reservationButton 세팅
+        setIfButtonDisable()
         
         // navigationBar & tabBar 설정
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         self.title = tempCafeInfo?.name
         tabBarController?.tabBar.isHidden = true
+        
+        // 카페 이름과 좋아요 수 설정
+        if let cafeName = tempCafeInfo?.name {
+            cafeTitleLabel.text = cafeName
+        }
+        numberOfFavorties.text = "\(tempCafeInfo?.numberOfFavorites ?? 0)"
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -152,17 +237,37 @@ class CafeDetailViewController: UIViewController {
         // scrollView.addSubView
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
-        scrollView.addSubview(pageControl)
+        scrollView.addSubview(imageDescriptionView)
         scrollView.addSubview(segmentedControl)
+        
+        imageDescriptionView.addSubview(categoryLabel)
+        imageDescriptionView.addSubview(sizeLabel)
+        
+        
+        scrollView.addSubview(cafeTitleUnderLine)
+        scrollView.addSubview(cafeTitleLabel)
+        scrollView.addSubview(favortieImage)
+        scrollView.addSubview(numberOfFavorties)
+        scrollView.addSubview(callReservationButton)
         
         // dynamicStackView.addArrangedSubview
         dynamicStackView.addArrangedSubview(pageController.view)
         
         // bottomBar View에 버튼 추가
-        bottomBar.addSubview(chatButton)
+        bottomBar.addSubview(favoriteOnOffButton)
         bottomBar.addSubview(reservationButton)
         
         applyConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // reservationButton의 터치가 가능할 때 그라디언트 백그라운드 레이어 추가
+        if reservationButton.isUserInteractionEnabled == true {
+            let gradientLayer = CAGradientLayer()
+            reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -178,7 +283,37 @@ class CafeDetailViewController: UIViewController {
         pageController.setViewControllers([dataViewControllers[sender.selectedSegmentIndex]], direction: sender.selectedSegmentIndex == 1 ? .forward : .reverse, animated: true)
     }
     
-    func showCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo], parentView: UIView) -> Int {
+    @objc private func touchedReservationButton(_ sender: UIButton) {
+        var urlResource: String?
+
+        switch sender.tag {
+        case 100:
+            urlResource = "tel://\(tempCafeInfo!.phoneNumber)"
+        case 101:
+            urlResource = tempCafeInfo?.reservationLink
+        default:
+            break
+        }
+
+        // url 인스턴스를 만들고, canOpenURL 메서드를 이용해 앱을 사용할 수 있는지 확인
+        if let url = URL(string: urlResource ?? ""), UIApplication.shared.canOpenURL(url) {
+            // 사용 가능할 경우 url 인스턴스를 열어 연결
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    // favortieOnOffButton 터치 시 하트 이미지와 전체 하트 수에 변화
+    @objc private func touchedFavoriteOnOffButton(_ sender: UIButton) {
+        isFavoriteButtonOn.toggle()
+        if isFavoriteButtonOn {
+            sender.setImage(UIImage(named: "heartIcon"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+        }
+        // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
+    }
+    
+    func setCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo]) {
         var imageIndex = 0
         
         for cafeImageInfo in cafeImageInfos {
@@ -192,13 +327,32 @@ class CafeDetailViewController: UIViewController {
                 imageIndex += 1
                 cafeImage.contentMode = .scaleAspectFill
                 cafeImage.clipsToBounds = true
-                cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 4 * 3)
+                cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 3 * 4)
                 
                 imageScrollView.addSubview(cafeImage)
+                categoryNames.append(imageCategory)
+                sizeDescriptions.append(productSize)
             }
         }
         
-        return imageIndex
+        totalImageCount = imageIndex
+    }
+    
+    private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, numberOfImages: Int, sizeDescription: String) {
+        categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(numberOfImages)"
+        sizeLabel.text = sizeDescription
+    }
+    
+    private func setIfButtonDisable() {
+        if tempCafeInfo?.phoneNumber == nil || tempCafeInfo?.phoneNumber == "" {
+            callReservationButton.backgroundColor = .grayscale5
+            callReservationButton.isUserInteractionEnabled = false
+        }
+        
+        if tempCafeInfo?.reservationLink == nil || tempCafeInfo?.reservationLink == "" {
+            reservationButton.backgroundColor = .grayscale5
+            reservationButton.isUserInteractionEnabled = false
+        }
     }
     
     func applyConstraints() {
@@ -211,10 +365,67 @@ class CafeDetailViewController: UIViewController {
         
         let dynamicContentconstraints = [
             dynamicStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            dynamicStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            dynamicStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
             dynamicStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             dynamicStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             dynamicStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+        ]
+        
+        let imageScrollViewConstraints = [
+            imageScrollView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            imageScrollView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+        ]
+        
+        let imageDescriptionViewConstraints = [
+            imageDescriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            imageDescriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            imageDescriptionView.bottomAnchor.constraint(equalTo: imageScrollView.bottomAnchor),
+            imageDescriptionView.heightAnchor.constraint(equalToConstant: 51)
+        ]
+        
+        let categoryLabelConstraints = [
+            categoryLabel.trailingAnchor.constraint(equalTo: imageDescriptionView.trailingAnchor, constant: -.padding.margin),
+            categoryLabel.topAnchor.constraint(equalTo: imageDescriptionView.topAnchor, constant: 8),
+            categoryLabel.heightAnchor.constraint(equalToConstant: 17)
+        ]
+        
+        let sizeLabelConstraints = [
+            sizeLabel.trailingAnchor.constraint(equalTo: imageDescriptionView.trailingAnchor, constant: -.padding.margin),
+            sizeLabel.bottomAnchor.constraint(equalTo: imageDescriptionView.bottomAnchor, constant: -8),
+            sizeLabel.heightAnchor.constraint(equalToConstant: 14)
+        ]
+        
+        let cafeTitleUnderLineConstraints = [
+            cafeTitleUnderLine.leadingAnchor.constraint(equalTo: cafeTitleLabel.leadingAnchor),
+            cafeTitleUnderLine.centerYAnchor.constraint(equalTo: cafeTitleLabel.centerYAnchor, constant: 8),
+            cafeTitleUnderLine.heightAnchor.constraint(equalToConstant: 13),
+            cafeTitleUnderLine.widthAnchor.constraint(equalTo: cafeTitleLabel.widthAnchor)
+        ]
+        
+        let cafeTitleLabelConstraints = [
+            cafeTitleLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin), 
+            cafeTitleLabel.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
+            cafeTitleLabel.heightAnchor.constraint(equalToConstant: 23)
+        ]
+        
+        let favoriteImageConstraints = [
+            favortieImage.leadingAnchor.constraint(equalTo: cafeTitleLabel.trailingAnchor, constant: 8),
+            favortieImage.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 28),
+            favortieImage.widthAnchor.constraint(equalToConstant: 20),
+            favortieImage.heightAnchor.constraint(equalToConstant: 20)
+        ]
+        
+        let numberOfFavoritesConstraints = [
+            numberOfFavorties.leadingAnchor.constraint(equalTo: favortieImage.trailingAnchor, constant: 2),
+            numberOfFavorties.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: 30),
+            numberOfFavorties.heightAnchor.constraint(equalToConstant: 17)
+        ]
+        
+        let callReservationButtonConstraints = [
+            callReservationButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin),
+            callReservationButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -.padding.margin),
+            callReservationButton.topAnchor.constraint(equalTo: cafeTitleLabel.bottomAnchor, constant: 19),
+            callReservationButton.heightAnchor.constraint(equalToConstant: 44)
         ]
         
         let bottomBarConstraints = [
@@ -224,24 +435,24 @@ class CafeDetailViewController: UIViewController {
             bottomBar.heightAnchor.constraint(equalToConstant: 100)
         ]
         
-        let chatButtonConstraints = [
-            chatButton.widthAnchor.constraint(equalToConstant: 114),
-            chatButton.heightAnchor.constraint(equalToConstant: 56),
-            chatButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: .padding.margin),
-            chatButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
+        let favoriteOnOffButtonConstraints = [
+            favoriteOnOffButton.widthAnchor.constraint(equalToConstant: (view.bounds.width - 40) / 5),
+            favoriteOnOffButton.heightAnchor.constraint(equalToConstant: 56),
+            favoriteOnOffButton.leadingAnchor.constraint(equalTo: bottomBar.leadingAnchor, constant: .padding.margin),
+            favoriteOnOffButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 8)
         ]
-        
+         
         let reservationButtonConstraints = [
             reservationButton.heightAnchor.constraint(equalToConstant: 56),
-            reservationButton.leadingAnchor.constraint(equalTo: chatButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
+            reservationButton.leadingAnchor.constraint(equalTo: favoriteOnOffButton.trailingAnchor, constant: .padding.betweenButtonsPadding),
             reservationButton.trailingAnchor.constraint(equalTo: bottomBar.trailingAnchor, constant: -.padding.margin),
-            reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 10)
+            reservationButton.topAnchor.constraint(equalTo: bottomBar.topAnchor, constant: 8)
         ]
         
         let segmentControlConstraints = [
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            segmentedControl.topAnchor.constraint(equalTo: callReservationButton.bottomAnchor, constant: .padding.startHierarchyPadding),
+            segmentedControl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
@@ -249,13 +460,22 @@ class CafeDetailViewController: UIViewController {
             pageController.view.leadingAnchor.constraint(equalTo: dynamicStackView.leadingAnchor),
             pageController.view.trailingAnchor.constraint(equalTo: dynamicStackView.trailingAnchor),
             pageController.view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height)
+            pageController.view.heightAnchor.constraint(equalToConstant: 1100)
         ]
         
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
+        NSLayoutConstraint.activate(imageScrollViewConstraints)
+        NSLayoutConstraint.activate(imageDescriptionViewConstraints)
+        NSLayoutConstraint.activate(cafeTitleUnderLineConstraints)
+        NSLayoutConstraint.activate(cafeTitleLabelConstraints)
+        NSLayoutConstraint.activate(categoryLabelConstraints)
+        NSLayoutConstraint.activate(sizeLabelConstraints)
+        NSLayoutConstraint.activate(favoriteImageConstraints)
+        NSLayoutConstraint.activate(numberOfFavoritesConstraints)
+        NSLayoutConstraint.activate(callReservationButtonConstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
-        NSLayoutConstraint.activate(chatButtonConstraints)
+        NSLayoutConstraint.activate(favoriteOnOffButtonConstraints)
         NSLayoutConstraint.activate(reservationButtonConstraints)
         NSLayoutConstraint.activate(segmentControlConstraints)
         NSLayoutConstraint.activate(pageControllerConstraints)
@@ -263,26 +483,13 @@ class CafeDetailViewController: UIViewController {
     
 }
 
-// 임시 카페 정보 구조: Merge 후 정의된 Model로 교체할 예정
-struct CafeInfoForDetailView: Codable {
-    let cafeID: Int
-    let cafeName: String
-    let imageDirectories: [String]
-    let address: String
-    let cafePhoneNumber: String
-    var SNS: String = ""
-    let cafeMinPeople: Int
-    let cafeMaxPeople: Int
-    var costs: Int = 0
-    let locationID: Int
-}
-
 extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // ScrollView에 보이는 페이지 이동이 끝나면 PageCtrol의 현재 위치 변경
+        // 이미지를 스크롤해서 넘기면 해당 이미지의 카테고리와 세부 사이즈 정보, 현재 이미지 번호로 업데이트
+        let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            pageControl.currentPage = Int(scrollView.contentOffset.x / imageScrollView.bounds.width)
+            setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[currentImageNumber])
         }
     }
 }

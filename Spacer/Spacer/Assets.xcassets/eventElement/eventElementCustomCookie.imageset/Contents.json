@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "LocationIcon.png",
+      "filename" : "eventElementCustomCookie.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "LocationIcon 1.png",
+      "filename" : "eventElementCustomCookie 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "LocationIcon 2.png",
+      "filename" : "eventElementCustomCookie 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

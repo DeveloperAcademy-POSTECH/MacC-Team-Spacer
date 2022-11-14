@@ -152,7 +152,7 @@ class DetailInfomationViewController: UIViewController {
     
     // cafeDetailInfoContainer 내부에 들어갈 카테고리별 정보를 세팅
     private func setCafeDetailInfoContainer() {
-        lazy var locationCategory = CategoryInfomationLineView(type: CategoryType.location, discription: cafeInfoData?.address)
+        lazy var locationCategory = CategoryInfomationLineView(type: CategoryType.location, description: cafeInfoData?.address)
         locationCategory.translatesAutoresizingMaskIntoConstraints = false
         cafeDetailInfoContainer.addArrangedSubview(locationCategory)
         locationCategory.heightAnchor.constraint(equalToConstant: locationCategory.selfHeight).isActive = true
@@ -164,7 +164,7 @@ class DetailInfomationViewController: UIViewController {
             formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 8))
             
             // 전화번호 정보 카테고리에 추가
-            lazy var phoneNumberCategory = CategoryInfomationLineView(type: CategoryType.phoneNumber, discription: formatedPhoneNumber)
+            lazy var phoneNumberCategory = CategoryInfomationLineView(type: CategoryType.phoneNumber, description: formatedPhoneNumber)
             phoneNumberCategory.translatesAutoresizingMaskIntoConstraints = false
             cafeDetailInfoContainer.addArrangedSubview(phoneNumberCategory)
             phoneNumberCategory.heightAnchor.constraint(equalToConstant: phoneNumberCategory.selfHeight).isActive = true
@@ -172,14 +172,14 @@ class DetailInfomationViewController: UIViewController {
         
         // 테이블 수 카테고리 추가
         if let numberOfTables = cafeInfoData?.numberOfTables {
-            lazy var tableCategory = CategoryInfomationLineView(type: CategoryType.tables, discription: String(numberOfTables))
+            lazy var tableCategory = CategoryInfomationLineView(type: CategoryType.tables, description: String(numberOfTables))
             tableCategory.translatesAutoresizingMaskIntoConstraints = false
             cafeDetailInfoContainer.addArrangedSubview(tableCategory)
             tableCategory.heightAnchor.constraint(equalToConstant: tableCategory.selfHeight).isActive = true
         }
         
         // SNS 카테고리 추가
-        lazy var SNSCategory = CategoryInfomationLineView(type: CategoryType.SNSList, discription: cafeInfoData!.SNS)
+        lazy var SNSCategory = CategoryInfomationLineView(type: CategoryType.SNSList, description: cafeInfoData!.SNS)
         SNSCategory.translatesAutoresizingMaskIntoConstraints = false
         cafeDetailInfoContainer.addArrangedSubview(SNSCategory)
         SNSCategory.heightAnchor.constraint(equalToConstant: SNSCategory.selfHeight).isActive = true

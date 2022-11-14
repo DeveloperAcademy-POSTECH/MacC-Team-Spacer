@@ -24,12 +24,12 @@ class CategoryInfomationLineView: UIView {
         return category
     }()
     
-    lazy var discription: UILabel = {
-        let discription = UILabel()
-        discription.font = .systemFont(for: .body3)
-        discription.textColor = .grayscale1
-        discription.translatesAutoresizingMaskIntoConstraints = false
-        return discription
+    lazy var descriptionLabel: UILabel = {
+        let description = UILabel()
+        description.font = .systemFont(for: .body3)
+        description.textColor = .grayscale1
+        description.translatesAutoresizingMaskIntoConstraints = false
+        return description
     }()
     
     lazy var verticalStackView: UIStackView = {
@@ -46,50 +46,50 @@ class CategoryInfomationLineView: UIView {
     
     var selfHeight: CGFloat = 0
 
-    init(type: CategoryType, discription: String?) {
+    init(type: CategoryType, description: String?) {
         super.init(frame: .zero)
         
         setIconImageAndCategoryText(type: type)
         selfHeight = 20
         
-        if let discription = discription {
-            self.discription.text = discription
+        if let description = description {
+            descriptionLabel.text = description
         } else {
-            self.discription.text = "정보가 없습니다"
-            self.discription.textColor = .grayscale4
+            descriptionLabel.text = "정보가 없습니다"
+            descriptionLabel.textColor = .grayscale4
         }
         
         self.addSubview(icon)
         self.addSubview(category)
-        self.addSubview(self.discription)
+        self.addSubview(descriptionLabel)
         
         applyIconConstraints()
         applyCategoryConstraints()
-        applyDiscriptionConstraints(isCategoryText: true)
+        applyDescriptionConstraints(isCategoryText: true)
     }
     
-    init(type: CategoryType, discription: SNSList) {
+    init(type: CategoryType, description: SNSList) {
         super.init(frame: .zero)
         
         setIconImageAndCategoryText(type: type)
         
-        if let twitterID = discription.twitter {
-            setSubTitleAndDescription(subTitle: "twitter", discription: twitterID)
+        if let twitterID = description.twitter {
+            setSubTitleAndDescription(subTitle: "twitter", description: twitterID)
             selfHeight += 18
         }
-        if let instagramID = discription.insta {
-            setSubTitleAndDescription(subTitle: "instagram", discription: instagramID)
+        if let instagramID = description.insta {
+            setSubTitleAndDescription(subTitle: "instagram", description: instagramID)
             selfHeight += 18
         }
         
         self.addSubview(icon)
         self.addSubview(category)
         if selfHeight == 0 {
-            self.discription.text = "정보가 없습니다"
-            self.discription.textColor = .grayscale4
+            descriptionLabel.text = "정보가 없습니다"
+            descriptionLabel.textColor = .grayscale4
             selfHeight += 20
-            self.addSubview(self.discription)
-            applyDiscriptionConstraints(isCategoryText: true)
+            self.addSubview(descriptionLabel)
+            applyDescriptionConstraints(isCategoryText: true)
         } else {
             self.addSubview(verticalStackView)
             applyVerticalStackViewConstraints()
@@ -106,11 +106,11 @@ class CategoryInfomationLineView: UIView {
         
         if weekdayTime != "" {
             selfHeight += 18
-            setSubTitleAndDescription(subTitle: "평일", discription: weekdayTime)
+            setSubTitleAndDescription(subTitle: "평일", description: weekdayTime)
         }
         if weekendTime != "" {
             selfHeight += 18
-            setSubTitleAndDescription(subTitle: "주말", discription: weekendTime)
+            setSubTitleAndDescription(subTitle: "주말", description: weekendTime)
         }
         if let dayOffText = dayOff {
             selfHeight += 18
@@ -127,8 +127,8 @@ class CategoryInfomationLineView: UIView {
         
         if selfHeight == 0 {
             selfHeight = 20
-            self.discription.text = "격주로 수요일 휴무"
-            applyDiscriptionConstraints(isCategoryText: true)
+            self.descriptionLabel.text = "격주로 수요일 휴무"
+            applyDescriptionConstraints(isCategoryText: true)
         } else {
             applyVerticalStackViewConstraints()
         }
@@ -165,7 +165,7 @@ class CategoryInfomationLineView: UIView {
         category.text = categoryName
     }
     
-    private func setSubTitleAndDescription(subTitle: String, discription: String) {
+    private func setSubTitleAndDescription(subTitle: String, description: String) {
         let horizontalStackView = UIStackView()
         horizontalStackView.spacing = 6
         horizontalStackView.axis = .horizontal
@@ -179,7 +179,7 @@ class CategoryInfomationLineView: UIView {
         horizontalStackView.addArrangedSubview(subTitleLabel)
         
         let descriptionLabel = UILabel()
-        descriptionLabel.text = discription
+        descriptionLabel.text = description
         descriptionLabel.font = .systemFont(for: .body3)
         descriptionLabel.textColor = .grayscale1
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -210,13 +210,13 @@ class CategoryInfomationLineView: UIView {
         NSLayoutConstraint.activate(categoryConstraints)
     }
     
-    private func applyDiscriptionConstraints(isCategoryText: Bool) {
-        let discriptionConstraints = [
-            discription.leadingAnchor.constraint(equalTo: isCategoryText ? category.trailingAnchor : icon.trailingAnchor, constant: isCategoryText ? 18 : 8),
-            discription.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+    private func applyDescriptionConstraints(isCategoryText: Bool) {
+        let descriptionConstraints = [
+            descriptionLabel.leadingAnchor.constraint(equalTo: isCategoryText ? category.trailingAnchor : icon.trailingAnchor, constant: isCategoryText ? 18 : 8),
+            descriptionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         
-        NSLayoutConstraint.activate(discriptionConstraints)
+        NSLayoutConstraint.activate(descriptionConstraints)
     }
     
     private func applyVerticalStackViewConstraints() {

@@ -123,12 +123,12 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BF682FC32918175E00706D1D /* Category */ = {
+		BF682FC32918175E00706D1D /* EventElements */ = {
 			isa = PBXGroup;
 			children = (
 				BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */,
 			);
-			path = Category;
+			path = EventElements;
 			sourceTree = "<group>";
 		};
 		BFB9B120290040F50056626C /* Fonts */ = {
@@ -269,7 +269,7 @@
 			children = (
 				D4A3729129011A79007A5297 /* Calendar */,
 				D4A3729529011A79007A5297 /* Map */,
-				BF682FC32918175E00706D1D /* Category */,
+				BF682FC32918175E00706D1D /* EventElements */,
 				BFD1381429014DAF004E6726 /* Buttons */,
 				D486C4912905A89F00D6B0A0 /* GridCell */,
 			);

@@ -168,9 +168,9 @@ class SearchListViewController: UIViewController {
         NSLayoutConstraint.activate(regionButtonConstraints)
         NSLayoutConstraint.activate(eventElementButtonConstraints)
         
-        dateButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        regionButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        eventElementButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
+        dateButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
+        regionButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
+        eventElementButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
         
         // 받아온 값을 버튼에 적용하기
         var dateTitle: AttributedString
@@ -359,9 +359,10 @@ class SearchListViewController: UIViewController {
     }
     
     // 다음뷰로 이동하는 함수
-    @objc func moveTo() {
-        let birthdayCafeViewController = SimpleTagViewController()
-        show(birthdayCafeViewController, sender: nil)
+    @objc func goToSimpleTagView() {
+        let simpleTagViewController = SimpleTagViewController()
+        simpleTagViewController.modalPresentationStyle = .fullScreen
+        self.present(simpleTagViewController, animated: true, completion: nil)
     }
 }
 

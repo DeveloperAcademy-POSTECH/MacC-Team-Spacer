@@ -34,25 +34,7 @@ class SimpleTagViewController: UIViewController {
     
     let dateLabel:UILabel = {
         let label = UILabel(frame: .zero)
-        label.text = "지역"
-        label.font = .systemFont(for: .header4)
-        label.textColor = .mainPurple1
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let locationLabel:UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "지역"
-        label.font = .systemFont(for: .header4)
-        label.textColor = .mainPurple1
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let decorationLabel:UILabel = {
-        let label = UILabel(frame: .zero)
-        label.text = "데코레이션"
+        label.text = "날짜"
         label.font = .systemFont(for: .header4)
         label.textColor = .mainPurple1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -154,6 +136,28 @@ class SimpleTagViewController: UIViewController {
         button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    // 지역
+    let locationLabel:UILabel = {
+        let label = UILabel(frame: .zero)
+        label.text = "지역"
+        label.font = .systemFont(for: .header4)
+        label.textColor = .mainPurple1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    
+    // 데코레이션
+    let decorationLabel:UILabel = {
+        let label = UILabel(frame: .zero)
+        label.text = "데코레이션"
+        label.font = .systemFont(for: .header4)
+        label.textColor = .mainPurple1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     

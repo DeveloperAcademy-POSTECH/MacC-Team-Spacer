@@ -214,7 +214,6 @@ extension VisualTagCalendarViewController{
             case 1:
                 self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
                 if let firstDate = firstDate {
-                    
                     UserDefaults.standard.set(shortDateFormatConverter(firstDate), forKey: "firstDate")
                 }
                 if let lastDate = lastDate {

@@ -98,8 +98,6 @@ class SearchListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = false
-        
         view.backgroundColor = .white
         
         self.navigationItem.titleView = searchBar

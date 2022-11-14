@@ -169,7 +169,6 @@ class CafeDetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.tabBarController?.tabBar.isHidden = false
-        navigationController?.isNavigationBarHidden = true
     }
     
     // MARK: - functions

@@ -239,7 +239,7 @@ class DetailInfomationViewController: UIViewController {
             let index =  4 * lineNumber + i
             
             // 이벤트 요소를 나타낼 ImageView 생성
-            let elementImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
+            let elementImage = UIImageView(frame: .zero)
             elementImage.image = UIImage(named: eventElementImageNames[index])
             elementImage.layer.opacity = isIconOn ? 1 : 0.2
             elementImage.contentMode = .scaleAspectFit

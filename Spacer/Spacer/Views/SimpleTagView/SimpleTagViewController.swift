@@ -77,6 +77,7 @@ class SimpleTagViewController: UIViewController {
         button.tag = 1
         button.tintColor = .mainPurple3
         button.addTarget(self, action: #selector(calendarHeaderButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -86,6 +87,7 @@ class SimpleTagViewController: UIViewController {
         button.tag = 2
         button.tintColor = .mainPurple3
         button.addTarget(self, action: #selector(calendarHeaderButton(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -135,6 +137,25 @@ class SimpleTagViewController: UIViewController {
         return calendar
     }()
     
+    // 캘린더와 확인을 나누는 선
+    lazy var calendarDivder: UIView = {
+        let UIView = UIView()
+        UIView.backgroundColor = .grayscale5
+        UIView.tintColor = .red
+        UIView.translatesAutoresizingMaskIntoConstraints = false
+        return UIView
+    }()
+    
+    // 캘린더 확인 버튼
+    lazy var calendarCloseButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("확인", for: .normal)
+        button.setTitleColor(.grayscale4, for: .normal)
+        button.isEnabled = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     
     
     override func viewDidLoad() {
@@ -150,7 +171,7 @@ class SimpleTagViewController: UIViewController {
         super.viewWillAppear(animated)
         
         calendarButton.setAttributedTitle(setCalendarLabel(), for: .normal)
-
+        
     }
     func setup() {
         // nav
@@ -186,6 +207,7 @@ class SimpleTagViewController: UIViewController {
     func setAction() {
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)
+        calendarCloseButton.addTarget(self, action: #selector(calendarCloseButtonTapped), for: .touchUpInside)
     }
     
     @objc func closeButtonTapped() {
@@ -193,17 +215,17 @@ class SimpleTagViewController: UIViewController {
     }
     
     @objc func calendarButtonTapped() {
+        // 달력
         view.addSubview(myCalendar)
         NSLayoutConstraint.activate([
             myCalendar.topAnchor.constraint(equalTo: calendarButton.bottomAnchor, constant: 20),
             myCalendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             myCalendar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            myCalendar.heightAnchor.constraint(equalToConstant: 410)
+            myCalendar.heightAnchor.constraint(equalToConstant: 450)
         ])
         
-        //before button autolayout
-        self.view.addSubview(beforeButton)
-        beforeButton.translatesAutoresizingMaskIntoConstraints = false
+        // 달력 < 버튼
+        view.addSubview(beforeButton)
         NSLayoutConstraint.activate([
             beforeButton.centerXAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerXAnchor, constant: -70),
             beforeButton.centerYAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerYAnchor),
@@ -211,15 +233,33 @@ class SimpleTagViewController: UIViewController {
             beforeButton.heightAnchor.constraint(equalToConstant: 16)
         ])
         
-        //after button autolayout
-        self.view.addSubview(afterButton)
-        afterButton.translatesAutoresizingMaskIntoConstraints = false
+        // 달력 > 버튼
+        view.addSubview(afterButton)
         NSLayoutConstraint.activate([
             afterButton.centerXAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerXAnchor, constant:  70),
             afterButton.centerYAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerYAnchor),
             afterButton.widthAnchor.constraint(equalToConstant: 16),
             afterButton.heightAnchor.constraint(equalToConstant: 16)
         ])
+        
+        // 달력 확인 버튼
+        myCalendar.addSubview(calendarCloseButton)
+        NSLayoutConstraint.activate([
+            calendarCloseButton.bottomAnchor.constraint(equalTo: myCalendar.bottomAnchor, constant: -.padding.underTitlePadding),
+            calendarCloseButton.trailingAnchor.constraint(equalTo: myCalendar.trailingAnchor, constant: -.padding.underTitlePadding)
+        ])
+        
+        // 달력 divider
+        myCalendar.addSubview(calendarDivder)
+        NSLayoutConstraint.activate([
+            calendarDivder.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
+            calendarDivder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            calendarDivder.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            calendarDivder.heightAnchor.constraint(equalToConstant:1)
+        ])
+    }
+    @objc func calendarCloseButtonTapped() {
+        self.myCalendar.removeFromSuperview()
     }
     
     //handling action for calendar buttons
@@ -244,7 +284,7 @@ class SimpleTagViewController: UIViewController {
             }
         }
     }
-
+    
     private func setCalendarLabel() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: "  ")
         let calendarImage = NSTextAttachment()
@@ -262,7 +302,7 @@ class SimpleTagViewController: UIViewController {
         
         return attributedString
     }
-
+    
 }
 
 //FSCalendar Delegate
@@ -305,13 +345,14 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             return .grayscale1
         }
     }
+    
     func datesRange(from: Date, to: Date) -> [Date]{
         if from > to{
             return [Date]()
         }
         var tempDate = from
         var array = [tempDate]
-
+        
         while tempDate < to{
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)
@@ -388,8 +429,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
                 calendar.select(d)
             }
             datesRange = range
-            // 2번째를 선택하면 캘린더를 뷰에서 삭제
-            self.myCalendar.removeFromSuperview()
+            calendarCloseButton.setTitleColor(.mainPurple3, for: .normal)
+            calendarCloseButton.isEnabled = true
             return
         }
         
@@ -402,6 +443,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
+            calendarCloseButton.setTitleColor(.grayscale5, for: .normal)
+            calendarCloseButton.isEnabled = false
         }
     }
     
@@ -417,6 +460,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()
+            calendarCloseButton.setTitleColor(.grayscale5, for: .normal)
+            calendarCloseButton.isEnabled = false
         } else {
             // 동일한 날짜 선택 가능
             firstDate = date
@@ -425,7 +470,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()
-            self.myCalendar.removeFromSuperview()
+            calendarCloseButton.setTitleColor(.mainPurple3, for: .normal)
+            calendarCloseButton.isEnabled = true
         }
     }
     

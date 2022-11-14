@@ -361,7 +361,7 @@ class SearchListViewController: UIViewController {
     
     // 다음뷰로 이동하는 함수
     @objc func moveTo() {
-        let birthdayCafeViewController = BirthdayCafeViewController()
+        let birthdayCafeViewController = SimpleTagViewController()
         show(birthdayCafeViewController, sender: nil)
     }
 }

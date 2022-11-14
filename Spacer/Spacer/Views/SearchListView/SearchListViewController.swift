@@ -10,7 +10,7 @@ import UIKit
 class SearchListViewController: UIViewController {
     
     // 첫번째 검색인지 확인
-    var isFiltering = false
+    var isFirstFiltering = false
     // 태그로 들어온지 확인
     var isTagged = false
     // 태그로 들어와서 서치바를 사용한지 확인
@@ -21,14 +21,14 @@ class SearchListViewController: UIViewController {
     // 태그 검색중에서 텍스트로 또 검색하였을 경우 filteredArr를 수정하지 않고 다른 배열로 받아서 보여줌
     public var filteredTagTextArr: [CafeInfo] = [CafeInfo]()
     
-    let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     let regions = ["서울","부산"]
     
     // 데이터를 받을 곳
     var startDate: String? = UserDefaults.standard.string(forKey: "firstDate")
     var endDate: String? = UserDefaults.standard.string(forKey: "lastDate")
-    var tempRegion: String? = UserDefaults.standard.string(forKey: "map")
-    var tempCategory: [Bool]? = UserDefaults.standard.array(forKey: "categories") as? [Bool]
+    var selectedRegion: String? = UserDefaults.standard.string(forKey: "region")
+    var selectedEventElement: [Bool]? = UserDefaults.standard.array(forKey: "eventElements") as? [Bool]
     
     let searchBar: UISearchBar = {
         let search = UISearchBar(frame: .zero)
@@ -64,7 +64,7 @@ class SearchListViewController: UIViewController {
     
     let dateButton = CustomButtonView(frame: .zero)
     let regionButton = CustomButtonView(frame: .zero)
-    let categoryButton = CustomButtonView(frame: .zero)
+    let eventElementButton = CustomButtonView(frame: .zero)
     
     
     // 검색 결과 컬렉션 뷰
@@ -137,7 +137,7 @@ class SearchListViewController: UIViewController {
         
         scrollView.addSubview(dateButton)
         scrollView.addSubview(regionButton)
-        scrollView.addSubview(categoryButton)
+        scrollView.addSubview(eventElementButton)
         
         let scrollViewConstraints = [
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -148,34 +148,34 @@ class SearchListViewController: UIViewController {
         
         NSLayoutConstraint.activate(scrollViewConstraints)
         
-        let mydateButtonConstraints = [
+        let dateButtonConstraints = [
             dateButton.heightAnchor.constraint(equalToConstant: 39),
             dateButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             dateButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 16),
         ]
-        let myregionButtonConstraints = [
+        let regionButtonConstraints = [
             regionButton.heightAnchor.constraint(equalToConstant: 39),
             regionButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             regionButton.leadingAnchor.constraint(equalTo: dateButton.trailingAnchor, constant: 8),
         ]
-        let mycategoryButtonConstraints = [
-            categoryButton.heightAnchor.constraint(equalToConstant: 39),
-            categoryButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            categoryButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
+        let eventElementButtonConstraints = [
+            eventElementButton.heightAnchor.constraint(equalToConstant: 39),
+            eventElementButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            eventElementButton.leadingAnchor.constraint(equalTo: regionButton.trailingAnchor, constant: 8),
         ]
         
-        NSLayoutConstraint.activate(mydateButtonConstraints)
-        NSLayoutConstraint.activate(myregionButtonConstraints)
-        NSLayoutConstraint.activate(mycategoryButtonConstraints)
+        NSLayoutConstraint.activate(dateButtonConstraints)
+        NSLayoutConstraint.activate(regionButtonConstraints)
+        NSLayoutConstraint.activate(eventElementButtonConstraints)
         
         dateButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         regionButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        categoryButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
+        eventElementButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
         
         // 받아온 값을 버튼에 적용하기
         var dateTitle: AttributedString
         var regionTitle: AttributedString
-        var categoryTitle: AttributedString
+        var eventElementTitle: AttributedString
         
         // 날짜
         if let startDate = startDate, let endDate = endDate {
@@ -190,8 +190,8 @@ class SearchListViewController: UIViewController {
         dateButton.configuration?.attributedTitle = dateTitle
         
         // 지역
-        if let tempRegion = tempRegion {
-            regionTitle = AttributedString.init(regions[Int(tempRegion)!])
+        if let selectedRegion = selectedRegion {
+            regionTitle = AttributedString.init(regions[Int(selectedRegion)!])
             regionTitle.foregroundColor = .grayscale6
             regionButton.configuration?.baseBackgroundColor = .mainPurple3
             regionButton.configuration?.baseForegroundColor = .grayscale5
@@ -202,41 +202,41 @@ class SearchListViewController: UIViewController {
         regionButton.configuration?.attributedTitle = regionTitle
         
         // 카테고리
-        if let tempCategory = tempCategory {
+        if let selectedEventElement = selectedEventElement {
             // 1개 이상 true일 경우
-            var firstCategory = ""
+            var firsteventElement = ""
             var countTrue = 0
-            if tempCategory.contains(true) {
-                for i in tempCategory.indices {
-                    if tempCategory[i] == true {
-                        countTrue += 1
-                        // 첫 true가 나온 카테고리
-                        if countTrue == 1 {
-                            firstCategory = categories[i]
-                        }
+            
+            for i in selectedEventElement.indices {
+                if selectedEventElement[i] == true {
+                    countTrue += 1
+                    // 첫 true가 나온 카테고리
+                    if countTrue == 1 {
+                        firsteventElement = eventElements[i]
                     }
                 }
-                // true가 2개 이상일 경우 '외 ㅁ개' 표현, true가 1개 일 경우는 카테고리만 나옴
-                if countTrue >= 2 {
-                    categoryTitle = AttributedString.init("\(firstCategory) 외 \(countTrue-1)개")
-                } else {
-                    categoryTitle = AttributedString.init("\(firstCategory)")
-                }
-                
-                categoryTitle.foregroundColor = .grayscale6
-                categoryButton.configuration?.baseBackgroundColor = .mainPurple3
-                categoryButton.configuration?.baseForegroundColor = .grayscale5
+            }
+            // true가 2개 이상일 경우 '외 ㅁ개' 표현, true가 1개 일 경우는 eventElement만 나옴, 전부 false인 경우 카테고리
+            if countTrue >= 2 {
+                eventElementTitle = AttributedString.init("\(firsteventElement) 외 \(countTrue-1)개")
+                eventElementTitle.foregroundColor = .grayscale6
+                eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
+                eventElementButton.configuration?.baseForegroundColor = .grayscale5
+            } else if countTrue == 1{
+                eventElementTitle = AttributedString.init("\(firsteventElement)")
+                eventElementTitle.foregroundColor = .grayscale6
+                eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
+                eventElementButton.configuration?.baseForegroundColor = .grayscale5
             } else {
-                // 전부 false일 때
-                categoryTitle = AttributedString.init("카테고리")
-                categoryTitle.foregroundColor = .mainPurple2
+                eventElementTitle = AttributedString.init("카테고리")
+                eventElementTitle.foregroundColor = .mainPurple2
             }
         } else {
             // 맞춤형 추천이 아닌 기본 상태
-            categoryTitle = AttributedString.init("카테고리")
-            categoryTitle.foregroundColor = .mainPurple2
+            eventElementTitle = AttributedString.init("카테고리")
+            eventElementTitle.foregroundColor = .mainPurple2
         }
-        categoryButton.configuration?.attributedTitle = categoryTitle
+        eventElementButton.configuration?.attributedTitle = eventElementTitle
     }
     
     func setCollectionView() {
@@ -280,20 +280,20 @@ class SearchListViewController: UIViewController {
     }
     
     func setCafeData() {
-        if let tempRegion = tempRegion, let tempCategory = tempCategory {
+        if let selectedRegion = selectedRegion, let selectedEventElement = selectedEventElement {
             isTagged = true
-            isFiltering = true
+            isFirstFiltering = true
             self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-                var isCategoryEnough: Bool = true
-                for i in categories.indices {
+                var isEventElementEnough: Bool = true
+                for i in eventElements.indices {
                     // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                    if tempCategory[i] {
+                    if selectedEventElement[i] {
                         if !CafeInfo.eventElement[i] {
-                            isCategoryEnough = false
+                            isEventElementEnough = false
                         }
                     }
                 }
-                return CafeInfo.locationID == Int(tempRegion)! && isCategoryEnough
+                return CafeInfo.locationID == Int(selectedRegion)! && isEventElementEnough
             })
         } else {
             // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
@@ -317,8 +317,8 @@ class SearchListViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UserDefaults.standard.removeObject(forKey: "categories")
-        UserDefaults.standard.removeObject(forKey: "map")
+        UserDefaults.standard.removeObject(forKey: "eventElements")
+        UserDefaults.standard.removeObject(forKey: "region")
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
         isFiltering = false
@@ -334,8 +334,8 @@ class SearchListViewController: UIViewController {
         bottomLine.backgroundColor = .grayscale4
         
         self.scrollView.contentSize = CGSize(
-            width: categoryButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width,
-            height: view.bounds.height*0.055
+            width: eventElementButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width,
+            height: .zero
         )
     }
     
@@ -359,7 +359,7 @@ class SearchListViewController: UIViewController {
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
+        if isFirstFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
             view.addSubview(emptyLabel)
             emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
             emptyLabel.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
@@ -395,7 +395,7 @@ extension SearchListViewController: UIScrollViewDelegate {
 extension SearchListViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         bottomLine.backgroundColor = .mainPurple3
-        isFiltering = true
+        isFirstFiltering = true
         return true
     }
     

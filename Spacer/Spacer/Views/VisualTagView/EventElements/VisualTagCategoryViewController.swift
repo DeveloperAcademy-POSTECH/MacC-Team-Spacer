@@ -7,12 +7,13 @@
 
 import UIKit
 
-let categories = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤\n디저트", "맞춤\n영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
-//TODO: - 이미지를 디자이너에게 받아서 변경 요망
-let categoryImages = ["BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline"]
-var categoriesItemArray: [Bool] = Array<Bool>(repeating: false, count: categories.count)
+let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤\n디저트", "맞춤\n영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
 
-class VisualTagCategoryViewController: UIViewController {
+let eventElementsImages = ["visualCategoryCupHolder","visualCategoryHBanner","visualCategoryFrame","visualCategoryXBanner","visualCategoryExhibitionArea","visualCategoryBottle","visualCategoryCustomCookie","visualCategoryCustomReceipt","visualCategoryCutout","visualCategoryPhotoCard","visualCategoryPhotoZone","visualCategoryVideoShow"]
+var eventElementsItemArray: [Bool] = Array<Bool>(repeating: false, count: eventElements.count)
+
+
+class VisualTagEventElementsViewController: UIViewController {
     let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
     
     lazy var headerTitle: UILabel = {
@@ -33,23 +34,23 @@ class VisualTagCategoryViewController: UIViewController {
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "완료", titleColor: .white, backgroundColor: .mainPurple3, target: VisualTagCategoryViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "완료", titleColor: .white, backgroundColor: .mainPurple3, target: VisualTagEventElementsViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
     lazy var cancelButton: UIButton = {
         let button = CancelButton()
-        button.setView(foreground: .mainPurple1, image: UIImage(systemName: "multiply"), target: VisualTagCategoryViewController(), action: #selector(buttonAction(_:)))
+        button.setView(foreground: .mainPurple1, image: UIImage(systemName: "multiply"), target: VisualTagEventElementsViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
     lazy var backButton: UIButton = {
         let button = BackButton()
-        button.setView(title: "이전으로 돌아가기", titleColor: .grayscale3, target: VisualTagCategoryViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "이전으로 돌아가기", titleColor: .grayscale3, target: VisualTagEventElementsViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
-    lazy var categoryCollectionView: UICollectionView = {
+    lazy var eventElementsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
@@ -114,19 +115,19 @@ class VisualTagCategoryViewController: UIViewController {
         ])
         
         //collectionview autolayout
-        view.addSubview(self.categoryCollectionView)
-        categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.eventElementsCollectionView)
+        eventElementsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoryCollectionView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
-            categoryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 500)
+            eventElementsCollectionView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            eventElementsCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            eventElementsCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            eventElementsCollectionView.heightAnchor.constraint(equalToConstant: 500)
         ])
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 선택되었던 categoriesItemArray를 다시 false로 바꿔서 CafeSearchListView에 발생하는 오류 해결
-        categoriesItemArray =  Array<Bool>(repeating: false, count: categories.count)
+        // 선택되었던 eventElementsItemArray를 다시 false로 바꿔서 여러번 맞춤형 카페 검색을 진행하였을 경우 이전에 선택한 eventElements값들이 여전히 남아있는 이슈 해결
+        eventElementsItemArray =  Array<Bool>(repeating: false, count: eventElements.count)
     }
     
     //handling action for next, cancel button
@@ -134,15 +135,15 @@ class VisualTagCategoryViewController: UIViewController {
         if let button = sender as? UIButton{
             switch button.tag {
             case 1:
-                UserDefaults.standard.set(categoriesItemArray, forKey: "categories")
+                UserDefaults.standard.set(eventElementsItemArray, forKey: "eventElements")
                 // goToSearchListView란 이름의 노티피케이션센터 동작 명령
                 NotificationCenter.default.post(name: NSNotification.Name("goToSearchListView"), object: nil)
                 
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)
             case 2:
-                UserDefaults.standard.removeObject(forKey: "categories")
-                UserDefaults.standard.removeObject(forKey: "map")
+                UserDefaults.standard.removeObject(forKey: "eventElements")
+                UserDefaults.standard.removeObject(forKey: "region")
                 UserDefaults.standard.removeObject(forKey: "firstDate")
                 UserDefaults.standard.removeObject(forKey: "lastDate")
                 
@@ -150,7 +151,7 @@ class VisualTagCategoryViewController: UIViewController {
                 self.navigationController?.popToRootViewController(animated: false)
             case 3:
                 self.navigationController?.popViewController(animated: true)
-                UserDefaults.standard.removeObject(forKey: "categories")
+                UserDefaults.standard.removeObject(forKey: "eventElements")
             default:
                 print("Error")
             }
@@ -158,7 +159,7 @@ class VisualTagCategoryViewController: UIViewController {
     }
 }
 
-extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension VisualTagEventElementsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     //collectionViewLayout sectionInsets configuration
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
@@ -173,13 +174,13 @@ extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollect
     
     //return number of cell
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return eventElements.count
     }
     
     //cell configuration
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
-        cell.configure(categories[indexPath.item], categoryImages[indexPath.item])
+        cell.configure(eventElements[indexPath.item], eventElementsImages[indexPath.item])
         return cell
     }
     
@@ -187,11 +188,11 @@ extension VisualTagCategoryViewController: UICollectionViewDataSource, UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //상관없음 버튼을 눌렀을 때
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-        categoriesItemArray[indexPath.item] = true
+        eventElementsItemArray[indexPath.item] = true
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-        categoriesItemArray[indexPath.item] = false
+        eventElementsItemArray[indexPath.item] = false
     }
 }

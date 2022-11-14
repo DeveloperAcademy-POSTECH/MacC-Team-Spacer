@@ -263,14 +263,14 @@ class VisualTagMapViewController: UIViewController {
         if let button = sender as? UIButton {
             switch button.tag {
             case 1:
-                self.navigationController?.pushViewController(VisualTagCategoryViewController(), animated: true)
+                self.navigationController?.pushViewController(VisualTagEventElementsViewController(), animated: true)
                 if isSeoulOn {
-                    UserDefaults.standard.set(0, forKey: "map")
+                    UserDefaults.standard.set(0, forKey: "region")
                 } else {
-                    UserDefaults.standard.set(1, forKey: "map")
+                    UserDefaults.standard.set(1, forKey: "region")
                 }
             case 2:
-                UserDefaults.standard.removeObject(forKey: "map")
+                UserDefaults.standard.removeObject(forKey: "region")
                 UserDefaults.standard.removeObject(forKey: "firstDate")
                 UserDefaults.standard.removeObject(forKey: "lastDate")
                 
@@ -278,7 +278,7 @@ class VisualTagMapViewController: UIViewController {
                 self.navigationController?.popToRootViewController(animated: false)
             case 3:
                 self.navigationController?.popViewController(animated: true)
-                UserDefaults.standard.removeObject(forKey: "map")
+                UserDefaults.standard.removeObject(forKey: "region")
             default:
                 print("Error")
             }

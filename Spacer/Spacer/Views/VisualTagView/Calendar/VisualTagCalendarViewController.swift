@@ -214,7 +214,6 @@ extension VisualTagCalendarViewController{
             case 1:
                 self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
                 if let firstDate = firstDate {
-                    
                     UserDefaults.standard.set(shortDateFormatConverter(firstDate), forKey: "firstDate")
                 }
                 if let lastDate = lastDate {
@@ -289,8 +288,6 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     func shortDateFormatConverter(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: date)
     }
     

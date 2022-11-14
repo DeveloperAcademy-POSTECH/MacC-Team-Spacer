@@ -8,9 +8,10 @@
 import UIKit
 
 let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤\n디저트", "맞춤\n영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
-//TODO: - 이미지를 디자이너에게 받아서 변경 요망
-let eventElementsImages = ["BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline","BirthdayCafe_Outline"]
+
+let eventElementsImages = ["visualCategoryCupHolder","visualCategoryHBanner","visualCategoryFrame","visualCategoryXBanner","visualCategoryExhibitionArea","visualCategoryBottle","visualCategoryCustomCookie","visualCategoryCustomReceipt","visualCategoryCutout","visualCategoryPhotoCard","visualCategoryPhotoZone","visualCategoryVideoShow"]
 var eventElementsItemArray: [Bool] = Array<Bool>(repeating: false, count: eventElements.count)
+
 
 class VisualTagEventElementsViewController: UIViewController {
     let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)

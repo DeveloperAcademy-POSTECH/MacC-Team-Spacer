@@ -98,8 +98,6 @@ class SearchListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = false
-        
         view.backgroundColor = .white
         
         self.navigationItem.titleView = searchBar
@@ -113,9 +111,6 @@ class SearchListViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         emptyLabel.isUserInteractionEnabled = true
         emptyLabel.addGestureRecognizer(tap)
-        resultCollectionView.isUserInteractionEnabled = true
-        resultCollectionView.addGestureRecognizer(tap)
-        
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
@@ -327,7 +322,11 @@ class SearchListViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
         isFirstFiltering = false
-        super.navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -384,6 +383,13 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
         usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = usingTagText ? filteredTagTextArr[indexPath.row]: filteredArr[indexPath.row]
+        self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }
 

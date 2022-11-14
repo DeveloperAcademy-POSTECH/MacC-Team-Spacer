@@ -107,9 +107,6 @@ class BirthdayCafeViewController: UIViewController {
         birthdayCafeTableView.tableHeaderView = headerView
         headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
         
-        // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
-        navigationController?.isNavigationBarHidden = true
-        
         scrollView.delegate = self
         
         birthdayCafeTableView.delegate = self
@@ -182,6 +179,12 @@ class BirthdayCafeViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
+        navigationController?.isNavigationBarHidden = true
     }
     
     @objc func goToFavorites() {

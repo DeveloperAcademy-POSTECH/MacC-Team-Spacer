@@ -8,188 +8,280 @@
 import UIKit
 
 
-let locations = ["전국", "서울", "부산"]
-var selectItemArray: [Bool] = Array<Bool>(repeating: false, count: locations.count)
 
 class VisualTagMapViewController: UIViewController {
-    //insets size for collection View
-    let sectionInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
+    
+    // 서울, 부산 버튼이 선택되었는지 확인
+    var isSeoulOn: Bool = false
+    var isBusanOn: Bool = false
+    
+    // 서울,부산 버튼 크기 변경을 위한 Constraint
+    var seoulButtonWidth: NSLayoutConstraint?
+    var seoulButtonHeight: NSLayoutConstraint?
+    var busanButtonWidth: NSLayoutConstraint?
+    var busanButtonHeight: NSLayoutConstraint?
+    
+    // 버튼 백그라운드
+    var seoulConfig = UIButton.Configuration.plain()
+    var seoulBackConfig = UIBackgroundConfiguration.clear()
+    var busanConfig = UIButton.Configuration.plain()
+    var busanBackConfig = UIBackgroundConfiguration.clear()
+    
     
     lazy var headerTitle: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red: 25/255, green: 0, blue: 80/255, alpha: 1)
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
+        label.textColor = .mainPurple1
+        label.font = .systemFont(for: .header2)
         label.text = "원하는 지역을 선택해주세요."
         return label
     }()
     
+    let titleUnderLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = .subYellow1
+        return line
+    }()
+    
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .grayscale6, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.isEnabled = false
         return button
     }()
     
     lazy var cancelButton: UIButton = {
         let button = CancelButton()
-        button.setView(foreground: .black, image: UIImage(systemName: "multiply"), target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
+        button.setView(foreground: .mainPurple1, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
     lazy var backButton: UIButton = {
         let button = BackButton()
-        button.setView(title: "이전으로 돌아가기", titleColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "이전으로 돌아가기", titleColor: .grayscale3, target: VisualTagMapViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
     
-    lazy var mapCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        layout.estimatedItemSize = .zero
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(GridCollectionViewCell.self, forCellWithReuseIdentifier: GridCollectionViewCell.identifier)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.allowsMultipleSelection = true
-        return collectionView
+    lazy var mapImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "map")
+        return imageView
+    }()
+    
+    lazy var seoulButton: UIButton = {
+        seoulBackConfig.image = UIImage(named: "mapButtonUnselected")
+        seoulConfig.background = seoulBackConfig
+        var seoulAttr = AttributedString.init("서울")
+        seoulAttr.font = .systemFont(for: .header6)
+        seoulConfig.attributedTitle = seoulAttr
+        seoulConfig.baseForegroundColor = .mainPurple2
+        seoulConfig.contentInsets = .init(top: -4, leading: 0, bottom: 0, trailing: 0)
+        let button = UIButton(configuration: seoulConfig)
+        return button
+    }()
+    
+    lazy var busanButton: UIButton = {
+        busanBackConfig.image = UIImage(named: "mapButtonUnselected")
+        busanConfig.background = busanBackConfig
+        var busanAttr = AttributedString.init("부산")
+        busanAttr.font = .systemFont(for: .header6)
+        busanConfig.attributedTitle = busanAttr
+        busanConfig.baseForegroundColor = .mainPurple2
+        busanConfig.contentInsets = .init(top: -4, leading: 0, bottom: 0, trailing: 0)
+        let button = UIButton(configuration: busanConfig)
+        return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
+        applyConstraints()
+        buttonSetup()
+    }
+    
+    func applyConstraints() {
         //cancel button autolayout
-        self.view.addSubview(self.cancelButton)
+        self.view.addSubview(cancelButton)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: (view.bounds.width/10)/2 - 15),
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            cancelButton.heightAnchor.constraint(equalToConstant: 50),
-            cancelButton.widthAnchor.constraint(equalToConstant: 50)
+            cancelButton.heightAnchor.constraint(equalToConstant: 24),
+            cancelButton.widthAnchor.constraint(equalToConstant: 24)
         ])
         
         //headerTitle autolayout
+        view.addSubview(titleUnderLine)
         view.addSubview(headerTitle)
+        titleUnderLine.translatesAutoresizingMaskIntoConstraints = false
         headerTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            headerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: (view.bounds.width/10)/2),
-            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 7),
-            headerTitle.widthAnchor.constraint(equalToConstant: view.bounds.width/10*9)
+            titleUnderLine.leadingAnchor.constraint(equalTo: headerTitle.leadingAnchor, constant: 66),
+            titleUnderLine.topAnchor.constraint(equalTo: headerTitle.topAnchor, constant: 18),
+            titleUnderLine.widthAnchor.constraint(equalToConstant: 64),
+            titleUnderLine.heightAnchor.constraint(equalToConstant: 13)
+        ])
+        NSLayoutConstraint.activate([
+            headerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: .padding.startHierarchyPadding)
         ])
         
         //backButton autolayout
         view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            backButton.widthAnchor.constraint(equalTo: headerTitle.widthAnchor),
+            backButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -.padding.underTitlePadding),
             backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         //next button autolayout
-        view.addSubview(self.nextButton)
+        view.addSubview(nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -8),
-            nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
+            nextButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -.padding.underTitlePadding),
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            nextButton.heightAnchor.constraint(equalToConstant: 56)
         ])
         
-        //collectionview autolayout
-        view.addSubview(self.mapCollectionView)
-        mapCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        // 지도
+        view.addSubview(mapImageView)
+        mapImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mapCollectionView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: 32),
-            mapCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mapCollectionView.heightAnchor.constraint(equalToConstant: 400)
+            mapImageView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: 60),
+            mapImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mapImageView.heightAnchor.constraint(equalToConstant: 430),
+            mapImageView.widthAnchor.constraint(equalToConstant: 290)
         ])
         
+        // 서울 버튼
+        view.addSubview(seoulButton)
+        seoulButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            seoulButton.centerXAnchor.constraint(equalTo: mapImageView.leadingAnchor, constant: 97),
+            seoulButton.centerYAnchor.constraint(equalTo: mapImageView.topAnchor, constant: 48)
+        ])
+        // 변경되는 constraint를 위해서 따로 설정
+        seoulButtonWidth = seoulButton.widthAnchor.constraint(equalToConstant: 100)
+        seoulButtonWidth?.isActive = true
+        seoulButtonHeight = seoulButton.heightAnchor.constraint(equalToConstant: 110)
+        seoulButtonHeight?.isActive = true
+        
+        // 부산 버튼
+        view.addSubview(busanButton)
+        busanButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            busanButton.centerXAnchor.constraint(equalTo: mapImageView.trailingAnchor, constant: -61),
+            busanButton.centerYAnchor.constraint(equalTo: mapImageView.bottomAnchor, constant: -215)
+            
+        ])
+        busanButtonWidth = busanButton.widthAnchor.constraint(equalToConstant: 100)
+        busanButtonWidth?.isActive = true
+        busanButtonHeight = busanButton.heightAnchor.constraint(equalToConstant: 110)
+        busanButtonHeight?.isActive = true
     }
+    
+    func buttonSetup() {
+        seoulButton.addTarget(self, action: #selector(seoulButtonTapped), for: .touchUpInside)
+        busanButton.addTarget(self, action: #selector(busanButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func seoulButtonTapped() {
+        isBusanOn = false
+        isSeoulOn.toggle()
+        if isSeoulOn {
+            // 버튼 크기 변경
+            seoulButtonWidth?.constant = 130
+            seoulButtonHeight?.constant = 140
+            busanButtonWidth?.constant = 100
+            busanButtonHeight?.constant = 110
+            
+            // 서울 버튼 선택된 이미지로 변경
+            seoulBackConfig.image = UIImage(named: "mapButtonSelected")
+            // 부산 버튼 선택안된 이미지로 변경
+            busanBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 활성화
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
+        } else {
+            // 버튼 크기 변경
+            seoulButtonWidth?.constant = 100
+            seoulButtonHeight?.constant = 110
+            // 서울 버튼 선택안된 이미지로 변경
+            seoulBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 비활성화
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
+        }
+        
+        seoulConfig.background = seoulBackConfig
+        seoulButton.configuration = seoulConfig
+        busanConfig.background = busanBackConfig
+        busanButton.configuration = busanConfig
+    }
+    
+    @objc func busanButtonTapped() {
+        isSeoulOn = false
+        isBusanOn.toggle()
+        if isBusanOn {
+            // 버튼 크기 변경
+            busanButtonWidth?.constant = 130
+            busanButtonHeight?.constant = 140
+            seoulButtonWidth?.constant = 100
+            seoulButtonHeight?.constant = 110
+            
+            // 부산 버튼 선택된 이미지로 변경
+            busanBackConfig.image = UIImage(named: "mapButtonSelected")
+            // 서울 버튼 선택안된 이미지로 변경
+            seoulBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 활성화
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
+        } else {
+            // 버튼 크기 변경
+            busanButtonWidth?.constant = 100
+            busanButtonHeight?.constant = 110
+            // 부산 버튼 선택안된 이미지로 변경
+            busanBackConfig.image = UIImage(named: "mapButtonUnselected")
+            
+            // 다음 버튼 비활성화
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
+        }
+        
+        seoulConfig.background = seoulBackConfig
+        seoulButton.configuration = seoulConfig
+        busanConfig.background = busanBackConfig
+        busanButton.configuration = busanConfig
+    }
+    
     
     //handling action for next, cancel button
     @objc func buttonAction(_ sender: Any) {
         if let button = sender as? UIButton {
             switch button.tag {
             case 1:
-                self.navigationController?.pushViewController(VisualTagPeopleTargetViewController(), animated: true)
+                self.navigationController?.pushViewController(VisualTagEventElementsViewController(), animated: true)
+                if isSeoulOn {
+                    UserDefaults.standard.set(0, forKey: "region")
+                } else {
+                    UserDefaults.standard.set(1, forKey: "region")
+                }
             case 2:
+                UserDefaults.standard.removeObject(forKey: "region")
+                UserDefaults.standard.removeObject(forKey: "firstDate")
+                UserDefaults.standard.removeObject(forKey: "lastDate")
+                
                 super.dismiss(animated: true, completion: nil)
                 self.navigationController?.popToRootViewController(animated: false)
             case 3:
                 self.navigationController?.popViewController(animated: true)
+                UserDefaults.standard.removeObject(forKey: "region")
             default:
                 print("Error")
             }
-        }
-    }
-}
-
-extension VisualTagMapViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    //collectionViewLayout sectionInsets configuration
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
-    }
-    
-    //size of cell
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth: CGFloat = 114
-        let cellHeight: CGFloat =  88
-        return CGSize(width: cellWidth, height: cellHeight)
-    }
-    
-    //return number of cell
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return locations.count
-    }
-    
-    //cell configuration
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GridCollectionViewCell.identifier, for: indexPath) as! GridCollectionViewCell
-        cell.configue(locations[indexPath.item])
-        return cell
-    }
-    
-    //cell selection handling delegate
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //전국 버튼을 눌렀을 때
-        if indexPath.item == 0 {
-            for visibleCell in collectionView.indexPathsForVisibleItems{
-                collectionView.selectItem(at: visibleCell, animated: false, scrollPosition: [])
-                selectItemArray[visibleCell.item] = true
-            }
-        }else{
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            selectItemArray[indexPath.item] = true
-        }
-        
-        //전국 버튼을 제외한 나머지 버튼들이 활성화가 되어 있다면 전국 버튼 활성화
-        let selection: [Bool] = Array(selectItemArray[1...])
-        if(selection.contains(false)) {return}
-        else{
-            collectionView.selectItem(at: [0,0], animated: false, scrollPosition: [])
-            selectItemArray[0] = true
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0{
-            for visibleCell in collectionView.indexPathsForVisibleItems{
-                collectionView.deselectItem(at: visibleCell, animated: false)
-                selectItemArray[visibleCell.item] = false
-            }
-        }
-        else if indexPath.item != 0 && selectItemArray[0] == true{
-            collectionView.deselectItem(at: [0,0], animated: false)
-            collectionView.deselectItem(at: indexPath, animated: false)
-            selectItemArray[indexPath.item] = false
-            selectItemArray[0] = false
-        }
-        else{
-            collectionView.deselectItem(at: indexPath, animated: false)
-            selectItemArray[indexPath.item] = false
         }
     }
 }

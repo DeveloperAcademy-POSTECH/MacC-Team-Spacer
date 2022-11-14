@@ -100,7 +100,7 @@ class CustomCalenderCell: FSCalendarCell {
                               height: diameter)
                 .insetBy(dx: 2.5, dy: 2.5)
             self.roundedLayer?.path = UIBezierPath(ovalIn: rect).cgPath
-        
+            
         case .last:
             self.selectionLayer?.isHidden = false
             self.roundedLayer?.isHidden = false

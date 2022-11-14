@@ -20,7 +20,7 @@ class BackButton: UIButton {
     func setView(title: String?, titleColor: UIColor, target: Any, action: Selector) {
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
-        self.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 15)
+        self.titleLabel?.font = .systemFont(for: .header6)
         self.tag = 3
         self.addTarget(target, action: action, for: .touchUpInside)
     }

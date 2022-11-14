@@ -44,16 +44,16 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .white, backgroundColor: UIColor(red: 119/255, green: 89/255, blue: 240/255, alpha: 1), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .grayscale6, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.isEnabled = false
         return button
     }()
     
     lazy var cancelButton: UIButton = {
         let button = CancelButton()
-        button.setView(foreground: .black, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(foreground: .mainPurple1, image: UIImage(systemName: "multiply"), target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         return button
     }()
-    
     
     lazy var myCalendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -111,14 +111,61 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
+        setup()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func setup() {
+        
+        //cancel button autolayout
+        self.view.addSubview(cancelButton)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            cancelButton.heightAnchor.constraint(equalToConstant: 24),
+            cancelButton.widthAnchor.constraint(equalToConstant: 24)
+        ])
+        
         //next button autolayout
         self.view.addSubview(self.nextButton)
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.centerYAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            nextButton.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            nextButton.heightAnchor.constraint(equalToConstant: view.bounds.height/17)
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            nextButton.heightAnchor.constraint(equalToConstant: 56)
+        ])
+        
+        //headerTitle autolayout
+        self.view.addSubview(underLineView)
+        self.view.addSubview(headerTitle)
+        underLineView.translatesAutoresizingMaskIntoConstraints = false
+        headerTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            underLineView.leadingAnchor.constraint(equalTo: headerTitle.leadingAnchor, constant: 67),
+            underLineView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: -10),
+            underLineView.widthAnchor.constraint(equalToConstant: 63),
+            underLineView.heightAnchor.constraint(equalToConstant: 13)
+        ])
+        NSLayoutConstraint.activate([
+            headerTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: .padding.startHierarchyPadding),
+            headerTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin)
+        ])
+        
+        //calendar label autolayout
+        self.view.addSubview(calendarLabel)
+        calendarLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            calendarLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            calendarLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            
+            calendarLabel.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
         ])
         
         //calendar creation && autolayout
@@ -126,10 +173,10 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         self.calendar = myCalendar
         calendar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            calendar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            calendar.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            calendar.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            calendar.heightAnchor.constraint(equalToConstant: view.bounds.width/10 * 9 + 6)
+            calendar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            calendar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            calendar.topAnchor.constraint(equalTo: calendarLabel.bottomAnchor, constant: 16),
+            calendar.heightAnchor.constraint(equalToConstant: 400)
         ])
         
         //allow multiple selection to calendar
@@ -155,50 +202,8 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
             afterButton.heightAnchor.constraint(equalToConstant: 16)
         ])
         
-        //calendar label autolayout
-        self.view.addSubview(calendarLabel)
-        calendarLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            calendarLabel.centerXAnchor.constraint(equalTo: calendar.centerXAnchor),
-            calendarLabel.bottomAnchor.constraint(equalTo: calendar.topAnchor, constant: -20),
-            calendarLabel.widthAnchor.constraint(equalToConstant: view.bounds.width/10 * 9),
-            calendarLabel.heightAnchor.constraint(equalToConstant: view.bounds.height/20)
-        ])
-        
-        
-        //cancel button autolayout
-        self.view.addSubview(cancelButton)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            cancelButton.leftAnchor.constraint(equalTo: calendarLabel.leftAnchor, constant: -15),
-            cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            cancelButton.heightAnchor.constraint(equalToConstant: 50),
-            cancelButton.widthAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        //headerTitle autolayout
-        self.view.addSubview(underLineView)
-        self.view.addSubview(headerTitle)
-        underLineView.translatesAutoresizingMaskIntoConstraints = false
-        headerTitle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            underLineView.leadingAnchor.constraint(equalTo: headerTitle.leadingAnchor, constant: 67),
-            underLineView.topAnchor.constraint(equalTo: headerTitle.bottomAnchor, constant: -10),
-            underLineView.widthAnchor.constraint(equalToConstant: 63),
-            underLineView.heightAnchor.constraint(equalToConstant: 13)
-        ])
-        NSLayoutConstraint.activate([
-            headerTitle.leadingAnchor.constraint(equalTo: calendarLabel.leadingAnchor),
-            headerTitle.topAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: 7),
-            headerTitle.widthAnchor.constraint(equalTo: calendarLabel.widthAnchor)
-        ])
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 }
-
 
 //button method compilation
 extension VisualTagCalendarViewController{
@@ -208,8 +213,16 @@ extension VisualTagCalendarViewController{
             switch button.tag {
             case 1:
                 self.navigationController?.pushViewController(VisualTagMapViewController(), animated: true)
+                if let firstDate = firstDate {
+                    UserDefaults.standard.set(shortDateFormatConverter(firstDate), forKey: "firstDate")
+                }
+                if let lastDate = lastDate {
+                    UserDefaults.standard.set(shortDateFormatConverter(lastDate), forKey: "lastDate")
+                }
             case 2:
                 super.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.removeObject(forKey: "firstDate")
+                UserDefaults.standard.removeObject(forKey: "lastDate")
             default:
                 print("Error")
             }
@@ -271,6 +284,13 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         return dateFormatter.string(from: date)
     }
     
+    // 년도를 제외한 기간이 나오도록 date format을 변환해줌
+    func shortDateFormatConverter(_ date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd"
+        return dateFormatter.string(from: date)
+    }
+    
     // 토요일 파랑, 일요일 빨강으로 만들기
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         // 오늘 이전의 날짜는 선택하지 못하도록 색상을 회색으로 처리
@@ -296,7 +316,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
         var tempDate = from
         var array = [tempDate]
-
+        
         while tempDate < to{
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)
@@ -329,7 +349,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             endAppearanceTransition()
         }
         
-        // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
+        // 오늘 이전의 날짜를 선택했을 경우 초기화
         if date < Date(){
             calendar.deselect(date)
             if firstDate != nil{
@@ -347,6 +367,10 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = nil
             lastDate = nil
             datesRange = []
+            
+            // 다음 버튼 비활성화
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
             return
         }
         
@@ -373,6 +397,10 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
                 calendar.select(d)
             }
             datesRange = range
+            
+            // 다음 버튼 활성화
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
             return
         }
         
@@ -385,6 +413,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
         }
     }
     
@@ -397,6 +427,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             calendar.select(date)
             datesRange = [firstDate!]
+            self.nextButton.isEnabled = false
+            self.nextButton.backgroundColor = .grayscale5
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()
@@ -405,6 +437,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             firstDate = date
             lastDate = date
             calendar.select(date)
+            self.nextButton.isEnabled = true
+            self.nextButton.backgroundColor = .mainPurple3
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()

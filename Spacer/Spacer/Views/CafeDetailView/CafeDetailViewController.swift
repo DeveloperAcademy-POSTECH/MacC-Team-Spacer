@@ -10,14 +10,14 @@ import UIKit
 class CafeDetailViewController: UIViewController {
     
     // 받아오는 카페 인포
-    var tempCafeInfo: CafeInfoModel?
+    var tempCafeInfo: CafeInfo?
     
     // MARK: - UI 요소
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-       return scrollView
+        return scrollView
     }()
     
     var dynamicStackView: UIStackView = {
@@ -53,8 +53,6 @@ class CafeDetailViewController: UIViewController {
         
         return scrollView
     }()
-    
-    var cafeBasicinfoView: CafeBasicInfoView = CafeBasicInfoView(title: "카페 로제", starRate: 4.6, reviewCount: 50, address: "서울 마포구 와우산로 90", min: 20, max: 50)
     
     // 상세정보와 리뷰 페이지를 위한 segmentedControl
     let segmentedControl: UISegmentedControl = {
@@ -133,23 +131,19 @@ class CafeDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         detailInfoView.cafeInfoData = tempCafeInfo
-        imageScrollView.contentSize = CGSize(width: CGFloat(tempCafeInfo!.imageDirectories.count) * view.bounds.width, height: 0)
-        pageControl.numberOfPages = tempCafeInfo!.imageDirectories.count
-        cafeBasicinfoView = CafeBasicInfoView(title: tempCafeInfo!.cafeName, starRate: tempCafeInfo!
-            .cafeStarRating, reviewCount: 50, address: tempCafeInfo!.cafeAddress, min: tempCafeInfo!.cafeMinPeople, max: tempCafeInfo!.cafeMaxPeople)
-        cafeBasicinfoView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 카페 이미지 보여주기
+        let totalImageCount = showCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos, parentView: imageScrollView)
+        
+        // 전체 이미지 수에 따라 imageScrollView의 width와 pageControl의 페이지 수 설정
+        imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
+        pageControl.numberOfPages = totalImageCount
         
         // navigationBar & tabBar 설정
         navigationController?.isNavigationBarHidden = false
         navigationController?.navigationBar.tintColor = .black
-        self.title = tempCafeInfo?.cafeName
+        self.title = tempCafeInfo?.name
         tabBarController?.tabBar.isHidden = true
-        
-        // scrollView의 width, height
-        let scrollViewWidth = imageScrollView.bounds.width, scrollViewHeight = imageScrollView.bounds.height
-        
-        // 카페 이미지 보여주기
-        showCafeImages(width: scrollViewWidth, height: scrollViewHeight, cafeImages: tempCafeInfo!.imageDirectories, parentView: imageScrollView)
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -159,7 +153,6 @@ class CafeDetailViewController: UIViewController {
         scrollView.addSubview(dynamicStackView)
         scrollView.addSubview(imageScrollView)
         scrollView.addSubview(pageControl)
-        scrollView.addSubview(cafeBasicinfoView)
         scrollView.addSubview(segmentedControl)
         
         // dynamicStackView.addArrangedSubview
@@ -186,17 +179,27 @@ class CafeDetailViewController: UIViewController {
         pageController.setViewControllers([dataViewControllers[sender.selectedSegmentIndex]], direction: sender.selectedSegmentIndex == 1 ? .forward : .reverse, animated: true)
     }
     
-    func showCafeImages(width: CGFloat, height: CGFloat, cafeImages: [String], parentView: UIView) {
-        for i in 0 ..< cafeImages.count {
-            // 카페 이미지 세팅
-            let cafeImage = UIImageView()
-            cafeImage.image = UIImage(named: cafeImages[i])
-            cafeImage.contentMode = .scaleAspectFill
-            cafeImage.clipsToBounds = true
-            cafeImage.frame = CGRect(x: CGFloat(i) * width, y: 0, width: width, height: width / 4 * 3)
+    func showCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo], parentView: UIView) -> Int {
+        var imageIndex = 0
+        
+        for cafeImageInfo in cafeImageInfos {
+            let images = cafeImageInfo.images
+            let imageCategory = cafeImageInfo.category
+            let productSize = cafeImageInfo.productSize
             
-            imageScrollView.addSubview(cafeImage)
+            for image in images {
+                let cafeImage = UIImageView()
+                cafeImage.image = UIImage(named: image)
+                imageIndex += 1
+                cafeImage.contentMode = .scaleAspectFill
+                cafeImage.clipsToBounds = true
+                cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 4 * 3)
+                
+                imageScrollView.addSubview(cafeImage)
+            }
         }
+        
+        return imageIndex
     }
     
     func applyConstraints() {
@@ -239,7 +242,7 @@ class CafeDetailViewController: UIViewController {
         let segmentControlConstraints = [
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentedControl.topAnchor.constraint(equalTo: cafeBasicinfoView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            segmentedControl.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.differentHierarchyPadding),
             segmentedControl.heightAnchor.constraint(equalToConstant: 34)
         ]
         
@@ -250,13 +253,6 @@ class CafeDetailViewController: UIViewController {
             pageController.view.heightAnchor.constraint(equalToConstant: pageController.view.bounds.height)
         ]
         
-        let cafeBasicInfoConstraints = [
-            cafeBasicinfoView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: .padding.margin),
-            cafeBasicinfoView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -.padding.margin),
-            cafeBasicinfoView.topAnchor.constraint(equalTo: imageScrollView.bottomAnchor, constant: .padding.startHierarchyPadding),
-            cafeBasicinfoView.heightAnchor.constraint(equalToConstant: 131)
-        ]
-        
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(dynamicContentconstraints)
         NSLayoutConstraint.activate(bottomBarConstraints)
@@ -264,9 +260,8 @@ class CafeDetailViewController: UIViewController {
         NSLayoutConstraint.activate(reservationButtonConstraints)
         NSLayoutConstraint.activate(segmentControlConstraints)
         NSLayoutConstraint.activate(pageControllerConstraints)
-        NSLayoutConstraint.activate(cafeBasicInfoConstraints)
     }
-                                   
+    
 }
 
 // 임시 카페 정보 구조: Merge 후 정의된 Model로 교체할 예정

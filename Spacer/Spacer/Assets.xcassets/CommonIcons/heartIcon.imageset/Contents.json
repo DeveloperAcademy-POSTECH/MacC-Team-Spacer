@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "eventElementEntranceBanner.png",
+      "filename" : "heartIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "eventElementEntranceBanner-1.png",
+      "filename" : "heartIcon 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "eventElementEntranceBanner-2.png",
+      "filename" : "heartIcon 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

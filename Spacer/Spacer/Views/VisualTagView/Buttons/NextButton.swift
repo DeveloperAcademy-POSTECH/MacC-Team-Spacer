@@ -20,9 +20,9 @@ class NextButton: UIButton {
     func setView(title: String?, titleColor: UIColor, backgroundColor: UIColor, target: Any, action: Selector) {
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
-        self.titleLabel?.font = UIFont(name: "Pretendard-Bold", size: 15)
+        self.titleLabel?.font = .systemFont(for: .header6)
         self.backgroundColor = backgroundColor
-        self.layer.cornerRadius = 10.0
+        self.layer.cornerRadius = 12
         self.tag = 1
         self.addTarget(target, action: action, for: .touchUpInside)
     }

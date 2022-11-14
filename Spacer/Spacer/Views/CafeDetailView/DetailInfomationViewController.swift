@@ -32,36 +32,26 @@ class DetailInfomationViewController: UIViewController {
         return container
     }()
     
-    private var dividerUnderDetailInfomation: UIView = UIView()
+    private lazy var dividerUnderDetailInfomation: UIView = makeDivider()
     
-    private var dividerUnderEventElement: UIView = UIView()
+    private lazy var dividerUnderEventElement: UIView = makeDivider()
 
-    private var dividerUnderCost: UIView = UIView()
+    private lazy var dividerUnderCost: UIView = makeDivider()
     
     // 카페에서 진행 가능한 이벤트 요소
-    lazy var eventElementStackView: UIStackView = UIStackView()
+    private lazy var eventElementStackView: UIStackView = makeStackView()
     
     // 보증금 액수
-    lazy var eventCostStackView: UIStackView = UIStackView()
+    private lazy var eventCostStackView: UIStackView = makeStackView()
     
     // 사장님이 직접 남기는 기타 사항
-    lazy var cafeAdditionalInfoStackView: UIStackView = UIStackView()
+    private lazy var cafeAdditionalInfoStackView: UIStackView = makeStackView()
     
     
     // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 스택뷰 초기 설정
-        eventElementStackView = makeStackView()
-        eventCostStackView = makeStackView()
-        cafeAdditionalInfoStackView = makeStackView()
-        
-        // 디바이더 초기 설정
-        dividerUnderDetailInfomation = makeDivider()
-        dividerUnderEventElement = makeDivider()
-        dividerUnderCost = makeDivider()
         
         // 카페 세부 정보 설정
         setCafeDetailInfoContainer()

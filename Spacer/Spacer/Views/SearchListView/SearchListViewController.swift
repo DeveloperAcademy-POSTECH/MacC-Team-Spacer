@@ -336,7 +336,7 @@ class SearchListViewController: UIViewController {
         
         self.scrollView.contentSize = CGSize(
             width: eventElementButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width,
-            height: view.bounds.height*0.055
+            height: .zero
         )
     }
     

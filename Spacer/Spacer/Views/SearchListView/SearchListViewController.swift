@@ -321,7 +321,7 @@ class SearchListViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "region")
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
-        isFiltering = false
+        isFirstFiltering = false
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -55,7 +55,7 @@ class CafeDetailViewController: UIViewController {
     
     lazy var categoryLabel: UILabel = {
        let label = UILabel()
-        label.textColor = .white
+        label.textColor = .grayscale6
         label.font = .systemFont(for: .body3)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

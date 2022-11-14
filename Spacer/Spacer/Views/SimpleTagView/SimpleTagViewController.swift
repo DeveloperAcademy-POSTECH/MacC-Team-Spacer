@@ -202,6 +202,16 @@ class SimpleTagViewController: UIViewController {
             calendarButton.heightAnchor.constraint(equalToConstant: 42)
         ])
         
+        // 지역
+        view.addSubview(locationLabel)
+        NSLayoutConstraint.activate([
+            locationLabel.topAnchor.constraint(equalTo: calendarButton.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -.padding.margin),
+            locationLabel.heightAnchor.constraint(equalToConstant: 24)
+        ])
+        
+        
     }
     
     func setAction() {

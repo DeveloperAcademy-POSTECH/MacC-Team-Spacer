@@ -17,6 +17,7 @@ class CafeDetailViewController: UIViewController {
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
+        scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -191,6 +192,7 @@ class CafeDetailViewController: UIViewController {
     private var categoryNames = [String]()
     private var sizeDescriptions = [String]()
     private var isFavoriteButtonOn = false
+    private let navigationAppearance = UINavigationBarAppearance()
     
     // MARK: - ViewDidLoad
     
@@ -491,6 +493,23 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
             setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[currentImageNumber])
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 세로방향 스크롤 높이에 따라 navigationBar와 bottom 상태 업데이트
+        if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 {
+            // 카페 이미지를 반 이상 내리면 navigationBar 스타일과 title 지정 및 bottomBar 보이도록 설정
+            title = tempCafeInfo?.name
+            navigationAppearance.configureWithTransparentBackground()
+            navigationAppearance.backgroundColor = .white.withAlphaComponent(0.9)
+            bottomBar.isHidden = false
+        } else {
+            // 카페 이미지 높이의 반 미만일 때 navigationBar 스타일 및 bottomBar 안보이도록 설정
+            title = ""
+            navigationAppearance.configureWithTransparentBackground()
+            bottomBar.isHidden = true
+        }
+        navigationController?.navigationBar.standardAppearance = navigationAppearance
     }
 }
 

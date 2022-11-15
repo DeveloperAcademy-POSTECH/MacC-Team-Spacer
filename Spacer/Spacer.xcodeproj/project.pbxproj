@@ -19,6 +19,7 @@
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
 		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */; };
+		BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */; };
 		BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11828FFDA460056626C /* GradientExtension.swift */; };
 		BFB9B11F29003F110056626C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11E29003F110056626C /* FontExtension.swift */; };
 		BFB9B1222900415E0056626C /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */; };
@@ -67,6 +68,7 @@
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCategoryViewController.swift; sourceTree = "<group>"; };
+		BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFB9B11828FFDA460056626C /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
 		BFB9B11E29003F110056626C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				BFF518E5290FBF6F0050FE06 /* SimpleTagViewController.swift */,
+				BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */,
 			);
 			path = SimpleTagView;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
 				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
 				BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */,
+				BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */,
 				D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */,
 				BFF518E6290FBF6F0050FE06 /* SimpleTagViewController.swift in Sources */,
 				BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */,

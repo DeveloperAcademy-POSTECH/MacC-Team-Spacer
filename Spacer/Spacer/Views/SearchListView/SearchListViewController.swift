@@ -179,7 +179,11 @@ class SearchListViewController: UIViewController {
         
         // 날짜
         if let startDate = startDate, let endDate = endDate {
-            dateTitle = AttributedString.init("\(startDate) - \(endDate)")
+            let startDateSlice = startDate.components(separatedBy: ". ")
+            let shortStartDate = "\(startDateSlice[1]) / \(startDateSlice[2])"
+            let endDateSlice = endDate.components(separatedBy: ". ")
+            let shortEndDate = "\(endDateSlice[1]) / \(endDateSlice[2])"
+            dateTitle = AttributedString.init("\(shortStartDate) - \(shortEndDate)")
             dateTitle.foregroundColor = .grayscale6
             dateButton.configuration?.baseBackgroundColor = .mainPurple3
             dateButton.configuration?.baseForegroundColor = .grayscale5
@@ -362,6 +366,7 @@ class SearchListViewController: UIViewController {
     @objc func goToSimpleTagView() {
         let simpleTagViewController = SimpleTagViewController()
         simpleTagViewController.modalPresentationStyle = .fullScreen
+        simpleTagViewController.configure()
         self.present(simpleTagViewController, animated: true, completion: nil)
     }
 }

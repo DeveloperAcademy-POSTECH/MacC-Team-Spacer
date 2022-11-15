@@ -10,10 +10,17 @@ import UIKit
 import FSCalendar
 
 class SimpleTagViewController: UIViewController {
+    let regions = ["서울", "부산"]
+    let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     
     private var firstDate: Date?
     private var lastDate: Date?
     private var datesRange: [Date]?
+    
+    var startDate: String? = UserDefaults.standard.string(forKey: "firstDate")
+    var endDate: String? = UserDefaults.standard.string(forKey: "lastDate")
+    var selectedRegion: String? = UserDefaults.standard.string(forKey: "region")
+    var selectedEventElement: [Bool]? = UserDefaults.standard.array(forKey: "eventElements") as? [Bool]
     
     let closeButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -32,7 +39,7 @@ class SimpleTagViewController: UIViewController {
         return label
     }()
     
-    let dateLabel:UILabel = {
+    let dateLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = "날짜"
         label.font = .systemFont(for: .header4)
@@ -139,7 +146,7 @@ class SimpleTagViewController: UIViewController {
     }()
     
     // 지역
-    let locationLabel:UILabel = {
+    let locationLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.text = "지역"
         label.font = .systemFont(for: .header4)
@@ -148,7 +155,20 @@ class SimpleTagViewController: UIViewController {
         return label
     }()
     
-    
+    // 지역 선택
+    lazy var locationCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 8
+        layout.estimatedItemSize = .zero
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(SimpleTagCollectionViewCell.self, forCellWithReuseIdentifier: SimpleTagCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     // 데코레이션
     let decorationLabel:UILabel = {
@@ -160,7 +180,21 @@ class SimpleTagViewController: UIViewController {
         return label
     }()
     
-    
+    // 데코레이션 선택
+    lazy var decorationCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 8
+        layout.estimatedItemSize = .zero
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.allowsMultipleSelection = true
+        collectionView.register(SimpleTagCollectionViewCell.self, forCellWithReuseIdentifier: SimpleTagCollectionViewCell.identifier)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,14 +242,33 @@ class SimpleTagViewController: UIViewController {
         
         // 지역
         view.addSubview(locationLabel)
+        view.addSubview(locationCollectionView)
         NSLayoutConstraint.activate([
             locationLabel.topAnchor.constraint(equalTo: calendarButton.bottomAnchor, constant: .padding.differentHierarchyPadding),
             locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             locationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -.padding.margin),
-            locationLabel.heightAnchor.constraint(equalToConstant: 24)
+            locationLabel.heightAnchor.constraint(equalToConstant: 24),
+            
+            locationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            locationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            locationCollectionView.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: .padding.underTitlePadding),
+            locationCollectionView.heightAnchor.constraint(equalToConstant: 42)
         ])
         
-        
+        // 데코레이션
+        view.addSubview(decorationLabel)
+        view.addSubview(decorationCollectionView)
+        NSLayoutConstraint.activate([
+            decorationLabel.topAnchor.constraint(equalTo: locationCollectionView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            decorationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            decorationLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -.padding.margin),
+            decorationLabel.heightAnchor.constraint(equalToConstant: 24),
+            
+            decorationCollectionView.topAnchor.constraint(equalTo: decorationLabel.bottomAnchor, constant: .padding.underTitlePadding),
+            decorationCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            decorationCollectionView.heightAnchor.constraint(equalToConstant: 192),
+            decorationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin)
+        ])
     }
     
     func setAction() {
@@ -239,7 +292,7 @@ class SimpleTagViewController: UIViewController {
         ])
         
         // 달력 < 버튼
-        view.addSubview(beforeButton)
+        myCalendar.addSubview(beforeButton)
         NSLayoutConstraint.activate([
             beforeButton.centerXAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerXAnchor, constant: -70),
             beforeButton.centerYAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerYAnchor),
@@ -248,7 +301,7 @@ class SimpleTagViewController: UIViewController {
         ])
         
         // 달력 > 버튼
-        view.addSubview(afterButton)
+        myCalendar.addSubview(afterButton)
         NSLayoutConstraint.activate([
             afterButton.centerXAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerXAnchor, constant:  70),
             afterButton.centerYAnchor.constraint(equalTo: myCalendar.calendarHeaderView.centerYAnchor),
@@ -317,6 +370,12 @@ class SimpleTagViewController: UIViewController {
         return attributedString
     }
     
+    public func configure() {
+        if let startDate = startDate, let endDate = endDate {
+            firstDate = dateFormatConverter(startDate)
+            lastDate = dateFormatConverter(endDate)
+        }
+    }
 }
 
 //FSCalendar Delegate
@@ -327,6 +386,14 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: date)
+    }
+    
+    func dateFormatConverter(_ date: String) -> Date?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = .autoupdatingCurrent
+        return dateFormatter.date(from: date)
     }
     
     // 토요일 파랑, 일요일 빨강으로 만들기
@@ -349,7 +416,6 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     func returnColor (date: Date) -> UIColor? {
-        
         let day = Calendar.current.component(.weekday, from: date) - 1
         if Calendar.current.shortWeekdaySymbols[day] == "Sun" || Calendar.current.shortWeekdaySymbols[day] == "일" {
             return .systemRed
@@ -534,3 +600,43 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
 }
 
 
+extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == locationCollectionView {
+            return regions.count
+        } else {
+            return eventElements.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimpleTagCollectionViewCell.identifier, for: indexPath) as! SimpleTagCollectionViewCell
+        if collectionView == locationCollectionView {
+            cell.configure(buttonTitle: regions[indexPath.item])
+        } else {
+            cell.configure(buttonTitle: eventElements[indexPath.item])
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var cellWidth: CGFloat
+        var cellHeight: CGFloat
+        if collectionView == locationCollectionView {
+            cellWidth = 175
+            cellHeight = 42
+        } else {
+            cellWidth = 114
+            cellHeight = 42
+        }
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}

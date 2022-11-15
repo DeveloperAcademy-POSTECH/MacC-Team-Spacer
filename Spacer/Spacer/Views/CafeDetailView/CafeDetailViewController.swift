@@ -219,11 +219,10 @@ class CafeDetailViewController: UIViewController {
         setIfButtonDisable()
         
         // navigationBar & tabBar 설정
+        navigationAppearance.configureWithTransparentBackground()
         navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        self.title = tempCafeInfo?.name
+        navigationController?.navigationBar.standardAppearance = navigationAppearance
+        navigationController?.navigationBar.tintColor = .mainPurple1
         tabBarController?.tabBar.isHidden = true
         
         // 카페 이름과 좋아요 수 설정

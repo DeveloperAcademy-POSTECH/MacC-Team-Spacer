@@ -499,13 +499,12 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 {
             // 카페 이미지를 반 이상 내리면 navigationBar 스타일과 title 지정 및 bottomBar 보이도록 설정
             title = tempCafeInfo?.name
-            navigationAppearance.configureWithTransparentBackground()
             navigationAppearance.backgroundColor = .white.withAlphaComponent(0.9)
             bottomBar.isHidden = false
         } else {
             // 카페 이미지 높이의 반 미만일 때 navigationBar 스타일 및 bottomBar 안보이도록 설정
             title = ""
-            navigationAppearance.configureWithTransparentBackground()
+            navigationAppearance.backgroundColor = .clear
             bottomBar.isHidden = true
         }
         navigationController?.navigationBar.standardAppearance = navigationAppearance

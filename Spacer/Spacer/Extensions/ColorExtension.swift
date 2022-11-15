@@ -28,9 +28,12 @@ extension UIColor {
     static let grayscale6 = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1.0)
     static let grayscale7 = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
     
-    //System Color
+    // System Color
     static let systemBlue = UIColor(red: 104/255, green: 155/255, blue: 255/255, alpha: 1.0)
     static let systemYellow = UIColor(red: 255/255, green: 168/255, blue: 0/255, alpha: 1.0)
     static let systemRed = UIColor(red: 255/255, green: 120/255, blue: 120/255, alpha: 1.0)
+    
+    // Gradient Color
+    static let gradient1 = [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1.0), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1.0)]
 }
 

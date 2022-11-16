@@ -327,17 +327,9 @@ class SearchListViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         bottomLine.backgroundColor = .grayscale4
-        // 서치바 밑줄 - 레이어에서 뷰로 변경
-        //        if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
-        //            textfield.borderStyle = .none
-        //            bottomLine.frame = CGRect(x: 0, y: textfield.bounds.height, width: textfield.bounds.width, height: 1)
-        //            textfield.layer.addSublayer(bottomLine)
-        //            reloadInputViews()
-        //            print(textfield.layer.bounds)
-        //        }
         
         self.scrollView.contentSize = CGSize(
-            width: eventElementButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width,
+            width: eventElementButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width + 48,
             height: .zero
         )
     }

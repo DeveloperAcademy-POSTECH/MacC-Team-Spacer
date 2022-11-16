@@ -406,6 +406,9 @@ class SimpleTagViewController: UIViewController {
         if firstDate != nil {
             if lastDate != nil {
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - \(dateFormatConverter(lastDate!))"))
+                calendarButton.backgroundColor = .mainPurple5
+                calendarButton.layer.borderColor = UIColor.mainPurple2.cgColor
+                calendarButton.layer.borderWidth = 2
             } else {
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - 선택 안함"))
             }
@@ -648,8 +651,6 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
         }
     }
     
-    //MARK: - willDisplay cell
-    //MARK: - 마지막 셀에서만 백그라운드 적용이 안되는 문제
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // SearchListView에서 선택되었던 지역을 선택함
         if collectionView == locationCollectionView {

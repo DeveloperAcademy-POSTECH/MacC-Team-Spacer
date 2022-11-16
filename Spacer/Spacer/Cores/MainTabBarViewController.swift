@@ -24,6 +24,16 @@ class MainTabBarViewController: UITabBarController {
         // tabBar가 선택되지 않았을 때의 색상
         self.tabBar.unselectedItemTintColor = .mainPurple3
         
+        // tabBar 기본 배경색
+        tabBar.backgroundColor = .white
+        
+        // tabBar shadow 세팅
+        tabBar.layer.shadowColor = UIColor.black.cgColor
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: -0.5)
+        tabBar.layer.shadowOpacity = 0.2
+        tabBar.layer.shadowRadius = 0
+        
+        
         let birthdayCafeViewControllerTabBarItem = UITabBarItem(title: "생일카페", image:  UIImage(named: "BirthdayCafe_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "BirthdayCafe_Fill")?.withRenderingMode(.alwaysOriginal))
         birthdayCafeViewController.tabBarItem = birthdayCafeViewControllerTabBarItem
         

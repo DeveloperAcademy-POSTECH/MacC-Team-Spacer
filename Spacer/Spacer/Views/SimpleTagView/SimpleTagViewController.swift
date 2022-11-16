@@ -651,9 +651,3 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
     }
 }
 
-    }
-    
-//        collectionView.deselectItem(at: indexPath, animated: true)
-    }
-}
-

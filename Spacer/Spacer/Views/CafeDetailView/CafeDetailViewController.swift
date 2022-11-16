@@ -56,7 +56,7 @@ class CafeDetailViewController: UIViewController {
     
     lazy var categoryLabel: UILabel = {
        let label = UILabel()
-        label.textColor = .grayscale6
+        label.textColor = .grayscale7
         label.font = .systemFont(for: .body3)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -105,7 +105,7 @@ class CafeDetailViewController: UIViewController {
        let button = UIButton()
         button.setTitle("전화 문의하기", for: .normal)
         button.titleLabel?.font = .systemFont(for: .header6)
-        button.titleLabel?.textColor = .grayscale6
+        button.titleLabel?.textColor = .grayscale7
         button.backgroundColor = .grayscale2
         button.layer.cornerRadius = 12
         button.tag = 100
@@ -164,7 +164,7 @@ class CafeDetailViewController: UIViewController {
         let button = UIButton()
         button.setTitle("예약하러 가기", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.titleLabel?.textColor = .grayscale6
+        button.titleLabel?.textColor = .grayscale7
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
         button.tag = 101

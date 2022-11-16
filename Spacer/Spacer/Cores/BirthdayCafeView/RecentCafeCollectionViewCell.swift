@@ -27,7 +27,7 @@ class RecentCafeCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .body3)
-        label.textColor = .grayscale6
+        label.textColor = .grayscale7
         label.numberOfLines = 2
         return label
     }()

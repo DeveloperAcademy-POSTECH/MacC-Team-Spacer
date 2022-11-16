@@ -44,7 +44,7 @@ class VisualTagMapViewController: UIViewController {
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .grayscale6, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .grayscale7, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         button.isEnabled = false
         return button
     }()

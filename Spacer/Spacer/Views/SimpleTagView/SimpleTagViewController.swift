@@ -660,6 +660,7 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
             for i in selectedEventElement.indices {
                 if selectedEventElement[i] == true {
                     decorationCollectionView.selectItem(at: [0, i], animated: true, scrollPosition: [])
+                    eventElementsItemArray[i] = true
                 }
             }
         }
@@ -686,5 +687,18 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
             cellHeight = 42
         }
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == decorationCollectionView {
+            eventElementsItemArray[indexPath.item] = true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        if collectionView == decorationCollectionView {
+            eventElementsItemArray[indexPath.item] = false
+        }
     }
 }

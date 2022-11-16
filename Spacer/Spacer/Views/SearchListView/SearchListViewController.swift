@@ -7,10 +7,10 @@
 
 import UIKit
 
+// 첫번째 검색인지 확인
+var isFirstFiltering = false
+
 class SearchListViewController: UIViewController {
-    
-    // 첫번째 검색인지 확인
-    var isFirstFiltering = false
     // 태그로 들어온지 확인
     var isTagged = false
     // 태그로 들어와서 서치바를 사용한지 확인
@@ -319,15 +319,6 @@ class SearchListViewController: UIViewController {
         self.resultCollectionView.reloadData()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UserDefaults.standard.removeObject(forKey: "eventElements")
-        UserDefaults.standard.removeObject(forKey: "region")
-        UserDefaults.standard.removeObject(forKey: "firstDate")
-        UserDefaults.standard.removeObject(forKey: "lastDate")
-        isFirstFiltering = false
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
@@ -360,13 +351,17 @@ class SearchListViewController: UIViewController {
     // 뒤로 가기 함수
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+        UserDefaults.standard.removeObject(forKey: "eventElements")
+        UserDefaults.standard.removeObject(forKey: "region")
+        UserDefaults.standard.removeObject(forKey: "firstDate")
+        UserDefaults.standard.removeObject(forKey: "lastDate")
+        isFirstFiltering = false
     }
     
     // 다음뷰로 이동하는 함수
     @objc func goToSimpleTagView() {
         let simpleTagViewController = SimpleTagViewController()
         simpleTagViewController.modalPresentationStyle = .fullScreen
-        simpleTagViewController.configure()
         self.present(simpleTagViewController, animated: true, completion: nil)
     }
 }
@@ -375,10 +370,12 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isFirstFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
             view.addSubview(emptyLabel)
-            emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-            emptyLabel.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
-            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            NSLayoutConstraint.activate([
+                emptyLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width),
+                emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                emptyLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
         } else {
             self.emptyLabel.removeFromSuperview()
         }

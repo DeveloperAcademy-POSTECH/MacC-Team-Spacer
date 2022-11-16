@@ -12,7 +12,7 @@ import FSCalendar
 class SimpleTagViewController: UIViewController {
     let regions = ["서울", "부산"]
     let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
-    var eventElementsItemArray: [Bool] = []
+    var eventElementsItemArray: [Bool] = Array<Bool>(repeating: false, count: 12)
     
     private var firstDate: Date?
     private var lastDate: Date?
@@ -197,10 +197,22 @@ class SimpleTagViewController: UIViewController {
         return collectionView
     }()
     
+    // 필터 적용하기 버튼
+    lazy var applyFilterButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("필터 적용하기", for: .normal)
+        button.setTitleColor(.grayscale7, for: .normal)
+        button.backgroundColor = .mainPurple3
+        button.layer.cornerRadius = 12
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .subYellow1
+        view.backgroundColor = .white
         
         setup()
         setAction()
@@ -216,6 +228,7 @@ class SimpleTagViewController: UIViewController {
         super.viewWillAppear(animated)
         
         calendarButton.setAttributedTitle(setCalendarLabel(), for: .normal)
+        eventElementsItemArray =  Array<Bool>(repeating: false, count: eventElements.count)
     }
     
     func setup() {
@@ -276,12 +289,22 @@ class SimpleTagViewController: UIViewController {
             decorationCollectionView.heightAnchor.constraint(equalToConstant: 192),
             decorationCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin)
         ])
+        
+        // 필터 적용하기 버튼
+        view.addSubview(applyFilterButton)
+        NSLayoutConstraint.activate([
+            applyFilterButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            applyFilterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            applyFilterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            applyFilterButton.heightAnchor.constraint(equalToConstant: 56)
+        ])
     }
     
     func setAction() {
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         calendarButton.addTarget(self, action: #selector(calendarButtonTapped), for: .touchUpInside)
         calendarCloseButton.addTarget(self, action: #selector(calendarCloseButtonTapped), for: .touchUpInside)
+        applyFilterButton.addTarget(self, action: #selector(applyFilterButtonTapped), for: .touchUpInside)
     }
     
     @objc func closeButtonTapped() {
@@ -335,6 +358,21 @@ class SimpleTagViewController: UIViewController {
     
     @objc func calendarCloseButtonTapped() {
         self.myCalendar.removeFromSuperview()
+    }
+    
+    @objc func applyFilterButtonTapped() {
+        if let firstDate = firstDate, let lastDate = lastDate {
+            UserDefaults.standard.set(dateFormatConverter(firstDate), forKey: "firstDate")
+            UserDefaults.standard.set(dateFormatConverter(lastDate), forKey: "lastDate")
+        }
+        
+        if let locationFirst = locationCollectionView.indexPathsForSelectedItems?.first {
+            UserDefaults.standard.set(locationFirst.item, forKey: "region")
+        }
+        
+        UserDefaults.standard.set(eventElementsItemArray, forKey: "eventElements")
+        
+        dismiss(animated: true)
     }
     
     //handling action for calendar buttons
@@ -650,4 +688,3 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
-

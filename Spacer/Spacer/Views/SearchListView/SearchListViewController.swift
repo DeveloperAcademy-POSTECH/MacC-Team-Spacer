@@ -7,6 +7,7 @@
 
 import UIKit
 
+//TODO: - SimpleTagView에서 선택한 값을 화면에 보이도록 하기
 // 첫번째 검색인지 확인
 var isFirstFiltering = false
 
@@ -105,7 +106,6 @@ class SearchListViewController: UIViewController {
         setButton()
         setCollectionView()
         setSearchBar()
-        setCafeData()
         
         // 모든 경우에서 키보드를 내리기 위해서 터치인식 적용
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
@@ -171,7 +171,13 @@ class SearchListViewController: UIViewController {
         dateButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
         regionButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
         eventElementButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
-        
+    }
+    
+    func buttonTitleUpdate() {
+        startDate = UserDefaults.standard.string(forKey: "firstDate")
+        endDate = UserDefaults.standard.string(forKey: "lastDate")
+        selectedRegion = UserDefaults.standard.string(forKey: "region")
+        selectedEventElement = UserDefaults.standard.array(forKey: "eventElements") as? [Bool]
         // 받아온 값을 버튼에 적용하기
         var dateTitle: AttributedString
         var regionTitle: AttributedString
@@ -234,6 +240,8 @@ class SearchListViewController: UIViewController {
             } else {
                 eventElementTitle = AttributedString.init("카테고리")
                 eventElementTitle.foregroundColor = .mainPurple2
+                eventElementButton.configuration?.baseBackgroundColor = .mainPurple6
+                eventElementButton.configuration?.baseForegroundColor = .mainPurple2
             }
         } else {
             // 맞춤형 추천이 아닌 기본 상태
@@ -242,6 +250,7 @@ class SearchListViewController: UIViewController {
         }
         eventElementButton.configuration?.attributedTitle = eventElementTitle
     }
+    
     
     func setCollectionView() {
         view.addSubview(resultCollectionView)
@@ -303,6 +312,7 @@ class SearchListViewController: UIViewController {
             // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
             tempCafeArray = MockManager.shared.getMockData()
         }
+        resultCollectionView.reloadData()
     }
     
     // 화면 터치하여 키보드 내리기
@@ -322,6 +332,8 @@ class SearchListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
+        buttonTitleUpdate()
+        setCafeData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -446,6 +458,3 @@ extension SearchListViewController: UISearchBarDelegate {
         self.resultCollectionView.reloadData()
     }
 }
-
-
-

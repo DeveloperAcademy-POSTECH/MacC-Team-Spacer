@@ -73,7 +73,7 @@ class CafeDetailViewController: UIViewController {
     lazy var cafeTitleLabel: UILabel = {
         let label = UILabel()
         // TODO: 나중에 추가된 커스텀 폰트로 교체해야함
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(for: .header1_2)
         label.textColor = .mainPurple1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -163,7 +163,7 @@ class CafeDetailViewController: UIViewController {
     let reservationButton: UIButton = {
         let button = UIButton()
         button.setTitle("예약하러 가기", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(for: .header1_3)
         button.titleLabel?.textColor = .grayscale7
         button.layer.cornerRadius = 12
         button.clipsToBounds = true

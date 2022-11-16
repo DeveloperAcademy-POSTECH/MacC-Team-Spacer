@@ -29,7 +29,7 @@ class PopularCafeTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(for: .header4)
-        label.textColor = .grayscale6
+        label.textColor = .grayscale7
         return label
     }()
     

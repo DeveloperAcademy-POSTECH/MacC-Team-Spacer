@@ -15,6 +15,8 @@ extension UIFont {
         switch customStyle {
         case .header1:
             customFont = UIFont(name: CustomFont.esamanruBold.name, size: 24)!
+        case .header1_2:
+            customFont = UIFont(name: CustomFont.esamanruBold.name, size: 20)!
         case .header2:
             customFont = UIFont(name: CustomFont.pretendardSemiBold.name, size: 24)!
         case .header3:
@@ -64,6 +66,7 @@ enum CustomFont {
 
 enum CustomTextStyle {
     case header1
+    case header1_2
     case header2
     case header3
     case header4

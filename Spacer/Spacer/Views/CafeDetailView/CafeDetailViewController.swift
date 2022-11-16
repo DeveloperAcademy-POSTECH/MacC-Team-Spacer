@@ -234,6 +234,7 @@ class CafeDetailViewController: UIViewController {
         // view.addSubview
         view.addSubview(scrollView)
         view.addSubview(bottomBar)
+        bottomBar.isHidden = true
         
         // scrollView.addSubView
         scrollView.addSubview(dynamicStackView)
@@ -496,18 +497,31 @@ extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 세로방향 스크롤 높이에 따라 navigationBar와 bottom 상태 업데이트
-        if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 {
+        if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 && bottomBar.isHidden {
             // 카페 이미지를 반 이상 내리면 navigationBar 스타일과 title 지정 및 bottomBar 보이도록 설정
             title = tempCafeInfo?.name
-            navigationAppearance.backgroundColor = .white.withAlphaComponent(0.9)
+            navigationController?.navigationBar.standardAppearance.backgroundColor = .white
+            navigationController?.navigationBar.alpha = 0
             bottomBar.isHidden = false
-        } else {
+            bottomBar.alpha = 0
+            UIView.animate(withDuration: 0.2, animations: { [self] in
+                navigationController?.navigationBar.alpha = 0.9
+                bottomBar.alpha = 1
+            })
+        } else if scrollView.contentOffset.y < view.bounds.width / 3 * 2 && !bottomBar.isHidden {
             // 카페 이미지 높이의 반 미만일 때 navigationBar 스타일 및 bottomBar 안보이도록 설정
-            title = ""
-            navigationAppearance.backgroundColor = .clear
-            bottomBar.isHidden = true
+            UIView.animate(withDuration: 0.2, animations: {
+                self.navigationController?.navigationBar.alpha = 0
+                self.bottomBar.alpha = 0
+            })
+            // animation이 동작하는 시간이 지나면 navigationBar와 bottomBar 설정 변경
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                self.navigationController?.navigationBar.standardAppearance.backgroundColor = .clear
+                self.navigationController?.navigationBar.alpha = 1
+                self.title = nil
+                self.bottomBar.isHidden = true
+            })
         }
-        navigationController?.navigationBar.standardAppearance = navigationAppearance
     }
 }
 

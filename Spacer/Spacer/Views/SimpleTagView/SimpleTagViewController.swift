@@ -675,8 +675,14 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimpleTagCollectionViewCell.identifier, for: indexPath) as! SimpleTagCollectionViewCell
         if collectionView == locationCollectionView {
             cell.configure(buttonTitle: regions[indexPath.item])
+            if cell.isSelected {
+                cell.backgroundColor = .mainPurple5
+            }
         } else {
             cell.configure(buttonTitle: eventElements[indexPath.item])
+            if cell.isSelected {
+                cell.backgroundColor = .mainPurple5
+            }
         }
         return cell
     }

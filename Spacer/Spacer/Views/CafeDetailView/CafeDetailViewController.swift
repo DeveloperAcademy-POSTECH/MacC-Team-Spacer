@@ -268,7 +268,7 @@ class CafeDetailViewController: UIViewController {
         // reservationButton의 터치가 가능할 때 그라디언트 백그라운드 레이어 추가
         if reservationButton.isUserInteractionEnabled == true {
             let gradientLayer = CAGradientLayer()
-            reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
+            reservationButton.addGradient(with: gradientLayer, colorSet: UIColor.gradient1, locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
         }
     }
     

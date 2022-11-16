@@ -12,6 +12,7 @@ import FSCalendar
 class SimpleTagViewController: UIViewController {
     let regions = ["서울", "부산"]
     let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    var eventElementsItemArray: [Bool] = []
     
     private var firstDate: Date?
     private var lastDate: Date?
@@ -203,14 +204,20 @@ class SimpleTagViewController: UIViewController {
         
         setup()
         setAction()
+        
+        // SearchListView에서 선택되었던 날짜를 보임
+        if let startDate = startDate, let endDate = endDate{
+            firstDate = dateFormatConverter(startDate)
+            lastDate = dateFormatConverter(endDate)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         calendarButton.setAttributedTitle(setCalendarLabel(), for: .normal)
-        
     }
+    
     func setup() {
         // nav
         view.addSubview(closeButton)
@@ -325,6 +332,7 @@ class SimpleTagViewController: UIViewController {
             calendarDivder.heightAnchor.constraint(equalToConstant:1)
         ])
     }
+    
     @objc func calendarCloseButtonTapped() {
         self.myCalendar.removeFromSuperview()
     }
@@ -366,15 +374,7 @@ class SimpleTagViewController: UIViewController {
         } else {
             attributedString.append(NSAttributedString(string: " 선택 안함 - 선택 안함"))
         }
-        
         return attributedString
-    }
-    
-    public func configure() {
-        if let startDate = startDate, let endDate = endDate {
-            firstDate = dateFormatConverter(startDate)
-            lastDate = dateFormatConverter(endDate)
-        }
     }
 }
 
@@ -445,6 +445,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         let cell = calendar.dequeueReusableCell(withIdentifier: CustomCalenderCell.identifier, for: date, at: position)
         return cell
     }
+    
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.configure(cell: cell, for: date, at: monthPosition)
     }
@@ -609,6 +610,23 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
         }
     }
     
+    //MARK: - willDisplay cell
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // SearchListView에서 선택되었던 지역을 선택함
+        if let selectedRegion = selectedRegion {
+            locationCollectionView.selectItem(at: [0,Int(selectedRegion)!], animated: true, scrollPosition: [])
+        }
+        
+        // SearchListView에서 선택되었던 데코레이션을 선택함
+        if let selectedEventElement = selectedEventElement {
+            for i in selectedEventElement.indices {
+                if selectedEventElement[i] == true {
+                    decorationCollectionView.selectItem(at: [0, i], animated: true, scrollPosition: [])
+                }
+            }
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimpleTagCollectionViewCell.identifier, for: indexPath) as! SimpleTagCollectionViewCell
         if collectionView == locationCollectionView {
@@ -631,12 +649,11 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+}
+
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 //        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
+

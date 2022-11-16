@@ -18,8 +18,8 @@ class CategoryInfomationLineView: UIView {
     
     lazy var categoryLabel: UILabel = {
         let category = UILabel()
-        category.font = .systemFont(for: .body3)
-        category.textColor = .grayscale1
+        category.font = .systemFont(for: .body2)
+        category.textColor = .grayscale3
         category.translatesAutoresizingMaskIntoConstraints = false
         return category
     }()
@@ -174,7 +174,7 @@ class CategoryInfomationLineView: UIView {
         let subTitleLabel = UILabel()
         subTitleLabel.text = subTitle
         subTitleLabel.font = .systemFont(for: .body3)
-        subTitleLabel.textColor = .grayscale4
+        subTitleLabel.textColor = .grayscale3
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         horizontalStackView.addArrangedSubview(subTitleLabel)
         

@@ -510,16 +510,16 @@ extension CafeDetailViewController: UIScrollViewDelegate {
             })
         } else if scrollView.contentOffset.y < view.bounds.width / 3 * 2 && !bottomBar.isHidden {
             // 카페 이미지 높이의 반 미만일 때 navigationBar 스타일 및 bottomBar 안보이도록 설정
-            UIView.animate(withDuration: 0.2, animations: {
-                self.navigationController?.navigationBar.alpha = 0
-                self.bottomBar.alpha = 0
+            UIView.animate(withDuration: 0.2, animations: { [self] in
+                navigationController?.navigationBar.alpha = 0
+                bottomBar.alpha = 0
             })
             // animation이 동작하는 시간이 지나면 navigationBar와 bottomBar 설정 변경
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-                self.navigationController?.navigationBar.standardAppearance.backgroundColor = .clear
-                self.navigationController?.navigationBar.alpha = 1
-                self.title = nil
-                self.bottomBar.isHidden = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [self] in
+                navigationController?.navigationBar.standardAppearance.backgroundColor = .clear
+                navigationController?.navigationBar.alpha = 1
+                title = nil
+                bottomBar.isHidden = true
             })
         }
     }

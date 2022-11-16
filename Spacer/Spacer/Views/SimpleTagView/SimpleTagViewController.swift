@@ -649,18 +649,23 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     //MARK: - willDisplay cell
+    //MARK: - 마지막 셀에서만 백그라운드 적용이 안되는 문제
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // SearchListView에서 선택되었던 지역을 선택함
-        if let selectedRegion = selectedRegion {
-            locationCollectionView.selectItem(at: [0,Int(selectedRegion)!], animated: true, scrollPosition: [])
+        if collectionView == locationCollectionView {
+            if let selectedRegion = selectedRegion {
+                locationCollectionView.selectItem(at: [0,Int(selectedRegion)!], animated: true, scrollPosition: [])
+            }
         }
         
-        // SearchListView에서 선택되었던 데코레이션을 선택함
-        if let selectedEventElement = selectedEventElement {
-            for i in selectedEventElement.indices {
-                if selectedEventElement[i] == true {
-                    decorationCollectionView.selectItem(at: [0, i], animated: true, scrollPosition: [])
-                    eventElementsItemArray[i] = true
+        if collectionView == decorationCollectionView {
+            // SearchListView에서 선택되었던 데코레이션을 선택함
+            if let selectedEventElement = selectedEventElement {
+                for i in selectedEventElement.indices {
+                    if selectedEventElement[i] == true {
+                        decorationCollectionView.selectItem(at: [0, i], animated: true, scrollPosition: [])
+                        eventElementsItemArray[i] = true
+                    }
                 }
             }
         }

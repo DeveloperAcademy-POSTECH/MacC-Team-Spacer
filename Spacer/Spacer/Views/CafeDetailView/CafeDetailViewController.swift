@@ -73,7 +73,7 @@ class CafeDetailViewController: UIViewController {
     lazy var cafeTitleLabel: UILabel = {
         let label = UILabel()
         // TODO: 나중에 추가된 커스텀 폰트로 교체해야함
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(for: .header1_2)
         label.textColor = .mainPurple1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -163,7 +163,7 @@ class CafeDetailViewController: UIViewController {
     let reservationButton: UIButton = {
         let button = UIButton()
         button.setTitle("예약하러 가기", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(for: .header1_3)
         button.titleLabel?.textColor = .grayscale7
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
@@ -268,7 +268,7 @@ class CafeDetailViewController: UIViewController {
         // reservationButton의 터치가 가능할 때 그라디언트 백그라운드 레이어 추가
         if reservationButton.isUserInteractionEnabled == true {
             let gradientLayer = CAGradientLayer()
-            reservationButton.addGradient(with: gradientLayer, colorSet: [UIColor(red: 79/255, green: 44/255, blue: 218/255, alpha: 1), UIColor(red: 148/255, green: 121/255, blue: 255/255, alpha: 1)], locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
+            reservationButton.addGradient(with: gradientLayer, colorSet: UIColor.gradient1, locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
         }
     }
     

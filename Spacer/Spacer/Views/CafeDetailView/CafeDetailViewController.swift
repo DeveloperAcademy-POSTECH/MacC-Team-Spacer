@@ -16,7 +16,8 @@ class CafeDetailViewController: UIViewController {
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = true
+        scrollView.bounces = false
+        scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
@@ -191,6 +192,7 @@ class CafeDetailViewController: UIViewController {
     private var categoryNames = [String]()
     private var sizeDescriptions = [String]()
     private var isFavoriteButtonOn = false
+    private let navigationAppearance = UINavigationBarAppearance()
     
     // MARK: - ViewDidLoad
     
@@ -217,11 +219,10 @@ class CafeDetailViewController: UIViewController {
         setIfButtonDisable()
         
         // navigationBar & tabBar 설정
+        navigationAppearance.configureWithTransparentBackground()
         navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.tintColor = .black
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        self.title = tempCafeInfo?.name
+        navigationController?.navigationBar.standardAppearance = navigationAppearance
+        navigationController?.navigationBar.tintColor = .mainPurple1
         tabBarController?.tabBar.isHidden = true
         
         // 카페 이름과 좋아요 수 설정
@@ -233,6 +234,7 @@ class CafeDetailViewController: UIViewController {
         // view.addSubview
         view.addSubview(scrollView)
         view.addSubview(bottomBar)
+        bottomBar.isHidden = true
         
         // scrollView.addSubView
         scrollView.addSubview(dynamicStackView)
@@ -490,6 +492,35 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
             setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[currentImageNumber])
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 세로방향 스크롤 높이에 따라 navigationBar와 bottom 상태 업데이트
+        if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 && bottomBar.isHidden {
+            // 카페 이미지를 반 이상 내리면 navigationBar 스타일과 title 지정 및 bottomBar 보이도록 설정
+            title = tempCafeInfo?.name
+            navigationController?.navigationBar.standardAppearance.backgroundColor = .white
+            navigationController?.navigationBar.alpha = 0
+            bottomBar.isHidden = false
+            bottomBar.alpha = 0
+            UIView.animate(withDuration: 0.2, animations: { [self] in
+                navigationController?.navigationBar.alpha = 0.9
+                bottomBar.alpha = 1
+            })
+        } else if scrollView.contentOffset.y < view.bounds.width / 3 * 2 && !bottomBar.isHidden {
+            // 카페 이미지 높이의 반 미만일 때 navigationBar 스타일 및 bottomBar 안보이도록 설정
+            UIView.animate(withDuration: 0.2, animations: { [self] in
+                navigationController?.navigationBar.alpha = 0
+                bottomBar.alpha = 0
+            })
+            // animation이 동작하는 시간이 지나면 navigationBar와 bottomBar 설정 변경
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: { [self] in
+                navigationController?.navigationBar.standardAppearance.backgroundColor = .clear
+                navigationController?.navigationBar.alpha = 1
+                title = nil
+                bottomBar.isHidden = true
+            })
         }
     }
 }

@@ -196,7 +196,7 @@ class SearchListViewController: UIViewController {
         // 지역
         if let selectedRegion = selectedRegion {
             regionTitle = AttributedString.init(regions[Int(selectedRegion)!])
-            regionTitle.foregroundColor = .grayscale6
+            regionTitle.foregroundColor = .grayscale7
             regionButton.configuration?.baseBackgroundColor = .mainPurple3
             regionButton.configuration?.baseForegroundColor = .grayscale5
         } else {
@@ -223,12 +223,12 @@ class SearchListViewController: UIViewController {
             // true가 2개 이상일 경우 '외 ㅁ개' 표현, true가 1개 일 경우는 eventElement만 나옴, 전부 false인 경우 카테고리
             if countTrue >= 2 {
                 eventElementTitle = AttributedString.init("\(firsteventElement) 외 \(countTrue-1)개")
-                eventElementTitle.foregroundColor = .grayscale6
+                eventElementTitle.foregroundColor = .grayscale7
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
                 eventElementButton.configuration?.baseForegroundColor = .grayscale5
             } else if countTrue == 1{
                 eventElementTitle = AttributedString.init("\(firsteventElement)")
-                eventElementTitle.foregroundColor = .grayscale6
+                eventElementTitle.foregroundColor = .grayscale7
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
                 eventElementButton.configuration?.baseForegroundColor = .grayscale5
             } else {

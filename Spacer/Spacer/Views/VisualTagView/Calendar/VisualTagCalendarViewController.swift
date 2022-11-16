@@ -44,7 +44,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
     
     lazy var nextButton: UIButton = {
         let button = NextButton()
-        button.setView(title: "다음", titleColor: .grayscale6, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
+        button.setView(title: "다음", titleColor: .grayscale7, backgroundColor: .grayscale5, target: VisualTagCalendarViewController(), action: #selector(buttonAction(_:)))
         button.isEnabled = false
         return button
     }()
@@ -76,7 +76,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         calendar.appearance.headerTitleOffset = .init(x: 0, y: -3)
         calendar.appearance.titleFont = .systemFont(for: .body1)
         calendar.appearance.titleDefaultColor = .grayscale1
-        calendar.appearance.titleSelectionColor = .grayscale6
+        calendar.appearance.titleSelectionColor = .grayscale7
         calendar.appearance.weekdayTextColor = .grayscale3
         calendar.register(CustomCalenderCell.self, forCellReuseIdentifier: CustomCalenderCell.identifier)
         return calendar

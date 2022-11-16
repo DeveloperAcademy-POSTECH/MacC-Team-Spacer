@@ -186,9 +186,9 @@ class SearchListViewController: UIViewController {
         // 날짜
         if let startDate = startDate, let endDate = endDate {
             let startDateSlice = startDate.components(separatedBy: ". ")
-            let shortStartDate = "\(startDateSlice[1]) / \(startDateSlice[2])"
+            let shortStartDate = "\(startDateSlice[1])/\(startDateSlice[2])"
             let endDateSlice = endDate.components(separatedBy: ". ")
-            let shortEndDate = "\(endDateSlice[1]) / \(endDateSlice[2])"
+            let shortEndDate = "\(endDateSlice[1])/\(endDateSlice[2])"
             dateTitle = AttributedString.init("\(shortStartDate) - \(shortEndDate)")
             dateTitle.foregroundColor = .grayscale6
             dateButton.configuration?.baseBackgroundColor = .mainPurple3

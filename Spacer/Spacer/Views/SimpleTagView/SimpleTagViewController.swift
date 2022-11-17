@@ -127,14 +127,14 @@ class SimpleTagViewController: UIViewController {
         return calendar
     }()
     
-    // 캘린더와 확인을 나누는 선
-    lazy var calendarDivider: UIView = {
-        let UIView = UIView()
-        UIView.backgroundColor = .grayscale5
-        UIView.tintColor = .red
-        UIView.translatesAutoresizingMaskIntoConstraints = false
-        return UIView
-    }()
+    // 캘린더와 확인을 나누는 선 - 임시로 삭제
+//    lazy var calendarDivider: UIView = {
+//        let UIView = UIView()
+//        UIView.backgroundColor = .grayscale5
+//        UIView.tintColor = .red
+//        UIView.translatesAutoresizingMaskIntoConstraints = false
+//        return UIView
+//    }()
     
     // 캘린더 확인 버튼
     lazy var calendarCloseButton: UIButton = {
@@ -347,13 +347,13 @@ class SimpleTagViewController: UIViewController {
         ])
         
         // 달력 divider
-        myCalendar.addSubview(calendarDivider)
-        NSLayoutConstraint.activate([
-            calendarDivider.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
-            calendarDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
-            calendarDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            calendarDivider.heightAnchor.constraint(equalToConstant:1)
-        ])
+//        myCalendar.addSubview(calendarDivider)
+//        NSLayoutConstraint.activate([
+//            calendarDivider.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
+//            calendarDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+//            calendarDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+//            calendarDivider.heightAnchor.constraint(equalToConstant:1)
+//        ])
     }
     
     @objc func calendarCloseButtonTapped() {
@@ -388,7 +388,7 @@ class SimpleTagViewController: UIViewController {
             switch button.tag {
             case 1:
                 dateComponents.month = -1
-                myCalendar.setCurrentPage(_calendar.date(byAdding: dateComponents, to: myCalendar.currentPage)!, animated: true)
+                myCalendar.setCurrentPage(Calendar.current.date(byAdding: dateComponents, to: myCalendar.currentPage)!, animated: true)
             case 2:
                 dateComponents.month = 1
                 myCalendar.setCurrentPage(_calendar.date(byAdding: dateComponents, to: myCalendar.currentPage)!, animated: true)

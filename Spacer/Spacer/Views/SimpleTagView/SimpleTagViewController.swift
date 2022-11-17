@@ -10,9 +10,9 @@ import UIKit
 import FSCalendar
 
 class SimpleTagViewController: UIViewController {
-    private let regions = ["서울", "부산"]
-    private let eventElements = ["컵홀더", "현수막", "액자", "배 너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
-    private var eventElementsItemArray: [Bool] = Array<Bool>(repeating: false, count: 12)
+    let regions = ["서울", "부산"]
+    let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
+    var eventElementsItemArray: [Bool] = Array<Bool>(repeating: false, count: 12)
     
     private var firstDate: Date?
     private var lastDate: Date?

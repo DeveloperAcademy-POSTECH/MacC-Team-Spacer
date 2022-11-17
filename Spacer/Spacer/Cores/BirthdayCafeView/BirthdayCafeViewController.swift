@@ -79,7 +79,11 @@ class BirthdayCafeViewController: UIViewController {
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(PopularCafeTableViewCell.self, forCellReuseIdentifier: PopularCafeTableViewCell.identifier)
-        table.register(RecentCafeTableViewCell.self, forCellReuseIdentifier: RecentCafeTableViewCell.identifier)
+        
+        //MARK: - 리뷰가 완료 되기 전까지 RecentCafeTableViewCell가 아닌 ReviewUnderConstructionTableViewCell로 대체됨
+        
+//        table.register(RecentCafeTableViewCell.self, forCellReuseIdentifier: RecentCafeTableViewCell.identifier)
+        table.register(ReviewUnderConstructionTableViewCell.self, forCellReuseIdentifier: ReviewUnderConstructionTableViewCell.identifier)
         table.register(BirthdayCafeTableViewSectionHeader.self, forHeaderFooterViewReuseIdentifier: BirthdayCafeTableViewSectionHeader.identifier)
         table.backgroundColor = .white
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -251,14 +255,17 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case Sections.recentCafeReview.rawValue :
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentCafeTableViewCell.identifier, for: indexPath) as? RecentCafeTableViewCell else { return UITableViewCell() }
             
+            //MARK: - 리뷰가 완료 되기 전까지 RecentCafeTableViewCell가 아닌 ReviewUnderConstructionTableViewCell로 대체됨
+            
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentCafeTableViewCell.identifier, for: indexPath) as? RecentCafeTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewUnderConstructionTableViewCell.identifier) as? ReviewUnderConstructionTableViewCell else { return UITableViewCell() }
             cell.backgroundColor = .systemBackground
             
             //MARK: - 3. self( = BirthdayCafeViewController)를 cell의 delegate로 채택
-            cell.cellSelectedDelegate = self
+//            cell.cellSelectedDelegate = self
             
-            cell.configure(with: self.tempCafeArray)
+//            cell.configure(with: self.tempCafeArray)
             
             return cell
             

@@ -35,7 +35,7 @@ class SimpleTagViewController: UIViewController {
         let label = UILabel()
         label.text = "필터"
         label.textColor = .grayscale1
-        label.font = .systemFont(ofSize: 17)
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

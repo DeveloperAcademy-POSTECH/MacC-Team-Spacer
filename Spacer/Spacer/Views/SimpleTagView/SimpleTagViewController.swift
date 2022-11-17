@@ -128,7 +128,7 @@ class SimpleTagViewController: UIViewController {
     }()
     
     // 캘린더와 확인을 나누는 선
-    lazy var calendarDivder: UIView = {
+    lazy var calendarDivider: UIView = {
         let UIView = UIView()
         UIView.backgroundColor = .grayscale5
         UIView.tintColor = .red
@@ -347,12 +347,12 @@ class SimpleTagViewController: UIViewController {
         ])
         
         // 달력 divider
-        myCalendar.addSubview(calendarDivder)
+        myCalendar.addSubview(calendarDivider)
         NSLayoutConstraint.activate([
-            calendarDivder.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
-            calendarDivder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
-            calendarDivder.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            calendarDivder.heightAnchor.constraint(equalToConstant:1)
+            calendarDivider.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
+            calendarDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            calendarDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            calendarDivider.heightAnchor.constraint(equalToConstant:1)
         ])
     }
     

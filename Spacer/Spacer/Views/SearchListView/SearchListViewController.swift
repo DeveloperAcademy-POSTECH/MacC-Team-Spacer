@@ -7,11 +7,9 @@
 
 import UIKit
 
-//TODO: - SimpleTagView에서 선택한 값을 화면에 보이도록 하기
-// 첫번째 검색인지 확인
-var isFirstFiltering = false
-
 class SearchListViewController: UIViewController {
+    // 첫번째 검색인지 확인
+    var isFirstFiltering = false
     // 태그로 들어온지 확인
     var isTagged = false
     // 태그로 들어와서 서치바를 사용한지 확인

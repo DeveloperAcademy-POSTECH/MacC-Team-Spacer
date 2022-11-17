@@ -197,7 +197,6 @@ class BirthdayCafeViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "region")
         UserDefaults.standard.removeObject(forKey: "firstDate")
         UserDefaults.standard.removeObject(forKey: "lastDate")
-        isFirstFiltering = false
         let searchListViewController = SearchListViewController()
         self.navigationController!.pushViewController(searchListViewController, animated: true)
     }

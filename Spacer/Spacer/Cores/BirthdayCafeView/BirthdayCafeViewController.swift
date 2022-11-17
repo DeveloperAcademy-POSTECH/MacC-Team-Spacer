@@ -261,6 +261,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
 //            guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentCafeTableViewCell.identifier, for: indexPath) as? RecentCafeTableViewCell else { return UITableViewCell() }
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewUnderConstructionTableViewCell.identifier) as? ReviewUnderConstructionTableViewCell else { return UITableViewCell() }
             cell.backgroundColor = .systemBackground
+            cell.selectionStyle = .none
             
             //MARK: - 3. self( = BirthdayCafeViewController)를 cell의 delegate로 채택
 //            cell.cellSelectedDelegate = self

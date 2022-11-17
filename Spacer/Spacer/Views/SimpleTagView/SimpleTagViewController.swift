@@ -18,8 +18,8 @@ class SimpleTagViewController: UIViewController {
     private var lastDate: Date?
     private var datesRange: [Date]?
     
-    var startDate: String? = UserDefaults.standard.string(forKey: "firstDate")
-    var endDate: String? = UserDefaults.standard.string(forKey: "lastDate")
+    var storedFirstDate: String? = UserDefaults.standard.string(forKey: "firstDate")
+    var storedLastDate: String? = UserDefaults.standard.string(forKey: "lastDate")
     var selectedRegion: String? = UserDefaults.standard.string(forKey: "region")
     var selectedEventElement: [Bool]? = UserDefaults.standard.array(forKey: "eventElements") as? [Bool]
     
@@ -218,9 +218,9 @@ class SimpleTagViewController: UIViewController {
         setAction()
         
         // SearchListView에서 선택되었던 날짜를 보임
-        if let startDate = startDate, let endDate = endDate{
-            firstDate = dateFormatConverter(startDate)
-            lastDate = dateFormatConverter(endDate)
+        if let storedFirstDate = storedFirstDate, let storedLastDate = storedLastDate{
+            firstDate = dateFormatConverter(storedFirstDate)
+            lastDate = dateFormatConverter(storedLastDate)
         }
     }
     

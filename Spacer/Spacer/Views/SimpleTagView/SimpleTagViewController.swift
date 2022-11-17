@@ -582,7 +582,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
             configureVisibleCells()
-            calendarCloseButton.setTitleColor(.grayscale5, for: .normal)
+            calendarCloseButton.setTitleColor(.grayscale4, for: .normal)
             calendarCloseButton.isEnabled = false
         } else {
             // 동일한 날짜 선택 가능

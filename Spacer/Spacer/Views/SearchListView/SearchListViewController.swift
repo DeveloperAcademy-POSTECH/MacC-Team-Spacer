@@ -263,7 +263,7 @@ class SearchListViewController: UIViewController {
             }
         }))
         
-        let backIcon = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(backButtonTapped))
+        let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(backButtonTapped))
         if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
             textfield.backgroundColor = .clear
             // 플레이스홀더 색

@@ -306,6 +306,21 @@ class SearchListViewController: UIViewController {
                 }
                 return CafeInfo.locationID == Int(selectedRegion)! && isEventElementEnough
             })
+        } else if let selectedEventElement = selectedEventElement {
+            isTagged = true
+            isFirstFiltering = true
+            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
+                var isEventElementEnough: Bool = true
+                for i in eventElements.indices {
+                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
+                    if selectedEventElement[i] {
+                        if !CafeInfo.eventElement[i] {
+                            isEventElementEnough = false
+                        }
+                    }
+                }
+                return isEventElementEnough
+            })
         } else {
             // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
             tempCafeArray = MockManager.shared.getMockData()

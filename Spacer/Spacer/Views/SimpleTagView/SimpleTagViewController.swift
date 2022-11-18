@@ -128,13 +128,13 @@ class SimpleTagViewController: UIViewController {
     }()
     
     // 캘린더와 확인을 나누는 선 - 임시로 삭제
-//    lazy var calendarDivider: UIView = {
-//        let UIView = UIView()
-//        UIView.backgroundColor = .grayscale5
-//        UIView.tintColor = .red
-//        UIView.translatesAutoresizingMaskIntoConstraints = false
-//        return UIView
-//    }()
+    //    lazy var calendarDivider: UIView = {
+    //        let UIView = UIView()
+    //        UIView.backgroundColor = .grayscale5
+    //        UIView.tintColor = .red
+    //        UIView.translatesAutoresizingMaskIntoConstraints = false
+    //        return UIView
+    //    }()
     
     // 캘린더 확인 버튼
     lazy var calendarCloseButton: UIButton = {
@@ -218,7 +218,7 @@ class SimpleTagViewController: UIViewController {
         setAction()
         
         // SearchListView에서 선택되었던 날짜를 보임
-        if let storedFirstDate = storedFirstDate, let storedLastDate = storedLastDate{
+        if let storedFirstDate = storedFirstDate, let storedLastDate = storedLastDate {
             firstDate = dateFormatConverter(storedFirstDate)
             lastDate = dateFormatConverter(storedLastDate)
         }
@@ -347,13 +347,13 @@ class SimpleTagViewController: UIViewController {
         ])
         
         // 달력 divider
-//        myCalendar.addSubview(calendarDivider)
-//        NSLayoutConstraint.activate([
-//            calendarDivider.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
-//            calendarDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
-//            calendarDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-//            calendarDivider.heightAnchor.constraint(equalToConstant:1)
-//        ])
+        //        myCalendar.addSubview(calendarDivider)
+        //        NSLayoutConstraint.activate([
+        //            calendarDivider.bottomAnchor.constraint(equalTo: calendarCloseButton.topAnchor, constant: -.padding.underTitlePadding),
+        //            calendarDivider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+        //            calendarDivider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+        //            calendarDivider.heightAnchor.constraint(equalToConstant:1)
+        //        ])
     }
     
     @objc func calendarCloseButtonTapped() {
@@ -421,14 +421,14 @@ class SimpleTagViewController: UIViewController {
 
 //FSCalendar Delegate
 extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-    func dateFormatConverter(_ date: Date) -> String{
+    func dateFormatConverter(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd"
         dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: date)
     }
     
-    func dateFormatConverter(_ date: String) -> Date?{
+    func dateFormatConverter(_ date: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = .autoupdatingCurrent
@@ -440,7 +440,6 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         // 오늘 이전의 날짜는 선택하지 못하도록 색상을 회색으로 처리
         if date < Date() {
             return .grayscale5
-            
         }
         // 요일을 나타냄, 일:1, 월:2...토:7로 나타내서 -1을 하여 인덱스로 접근 가능하도록 함
         let day = Calendar.current.component(.weekday, from: date) - 1
@@ -465,7 +464,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         }
     }
     
-    func datesRange(from: Date, to: Date) -> [Date]{
+    func datesRange(from: Date, to: Date) -> [Date] {
         if from > to{
             return [Date]()
         }
@@ -497,16 +496,16 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         return monthPosition == .current
     }
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         //return 되기전에 무조건적으로 실행해야하는 코드 viewWillAppear -> AppearanceTransition
-        defer{
+        defer {
             configureVisibleCells()
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
         }
         
         // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
-        if date < Date(){
+        if date < Date() {
             calendar.deselect(date)
             if firstDate != nil{
                 calendar.deselect(firstDate!)
@@ -514,7 +513,6 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             if lastDate != nil{
                 calendar.deselect(lastDate!)
             }
-            
             if datesRange != nil{
                 for d in self.datesRange!{
                     calendar.deselect(d)
@@ -532,6 +530,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             datesRange = [firstDate!]
             return
         }
+        
         // 처음 선택한 값은 있고 2번째를 선택했을 경우
         if firstDate != nil && lastDate == nil {
             // 만일 2번째 선택한 값이 첫번째 값보다 적다면... 2번째 선택한 값을 firstDate로 바꿔버림
@@ -541,6 +540,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
                 datesRange = [firstDate!]
                 return
             }
+            
             // 2번째 선택한 값까지 캘린더에서 선택함
             let range = datesRange(from: firstDate!, to: date)
             lastDate = range.last
@@ -548,6 +548,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             for d in range {
                 calendar.select(d)
             }
+            
             datesRange = range
             calendarCloseButton.setTitleColor(.mainPurple3, for: .normal)
             calendarCloseButton.isEnabled = true
@@ -610,7 +611,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
         let customCell = (cell as! CustomCalenderCell)
         var selectionType = SelectionType.none
         if position == .current {
-            if myCalendar.selectedDates.contains(date){
+            if myCalendar.selectedDates.contains(date) {
                 let previousDate = self.myCalendar.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.myCalendar.gregorian.date(byAdding: .day, value: 1, to: date)!
                 
@@ -640,7 +641,7 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
 }
 
 
-extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == locationCollectionView {
             return regions.count

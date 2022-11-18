@@ -230,7 +230,7 @@ class SearchListViewController: UIViewController {
                 eventElementTitle.foregroundColor = .grayscale7
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
                 eventElementButton.configuration?.baseForegroundColor = .grayscale5
-            } else if countTrue == 1{
+            } else if countTrue == 1 {
                 eventElementTitle = AttributedString.init("\(firsteventElement)")
                 eventElementTitle.foregroundColor = .grayscale7
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
@@ -329,7 +329,7 @@ class SearchListViewController: UIViewController {
     }
     
     // 화면 터치하여 키보드 내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchBar.endEditing(true)
         bottomLine.backgroundColor = .grayscale4
         self.resultCollectionView.reloadData()
@@ -400,7 +400,8 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell()
+        }
         usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
         return cell
     }

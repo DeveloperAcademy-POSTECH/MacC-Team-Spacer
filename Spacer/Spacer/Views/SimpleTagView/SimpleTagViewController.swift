@@ -465,13 +465,13 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     func datesRange(from: Date, to: Date) -> [Date] {
-        if from > to{
+        if from > to {
             return [Date]()
         }
         var tempDate = from
         var array = [tempDate]
         
-        while tempDate < to{
+        while tempDate < to {
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)
         }

@@ -388,7 +388,7 @@ class SimpleTagViewController: UIViewController {
             switch button.tag {
             case 1:
                 dateComponents.month = -1
-                myCalendar.setCurrentPage(Calendar.current.date(byAdding: dateComponents, to: myCalendar.currentPage)!, animated: true)
+                myCalendar.setCurrentPage(_calendar.date(byAdding: dateComponents, to: myCalendar.currentPage)!, animated: true)
             case 2:
                 dateComponents.month = 1
                 myCalendar.setCurrentPage(_calendar.date(byAdding: dateComponents, to: myCalendar.currentPage)!, animated: true)
@@ -500,13 +500,6 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
-        //return 되기전에 무조건적으로 실행해야하는 코드 viewWillAppear -> AppearanceTransition
-        defer{
-            configureVisibleCells()
-            beginAppearanceTransition(true, animated: true)
-            endAppearanceTransition()
-        }
-        
         // 오늘 이전의 날짜를 선택했을 경우 경고창과 함께 모든 선택 값 초기화
         if date < Date(){
             calendar.deselect(date)
@@ -567,6 +560,12 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
             datesRange = [firstDate!]
             calendarCloseButton.setTitleColor(.grayscale5, for: .normal)
             calendarCloseButton.isEnabled = false
+        }
+        //return 되기전에 무조건적으로 실행해야하는 코드 viewWillAppear -> AppearanceTransition
+        defer{
+            configureVisibleCells()
+            beginAppearanceTransition(true, animated: true)
+            endAppearanceTransition()
         }
     }
     

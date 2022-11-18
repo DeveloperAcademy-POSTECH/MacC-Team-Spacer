@@ -424,7 +424,6 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     func dateFormatConverter(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.string(from: date)
     }
@@ -432,7 +431,6 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     func dateFormatConverter(_ date: String) -> Date?{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.timeZone = .autoupdatingCurrent
         return dateFormatter.date(from: date)
     }

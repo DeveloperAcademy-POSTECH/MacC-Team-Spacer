@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoriteViewController: UIViewController {
+    let realm = try! Realm()
+    // favorite된 카페 수
+    var NumberOfFavoriteCafe = 0
+    var favoriteCafes: [CafeInfo] = []
     
     lazy var favoriteCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -19,12 +24,19 @@ class FavoriteViewController: UIViewController {
         collectionView.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.backgroundColor = .red
         return collectionView
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함
+        let storedCafes = realm.objects(FavoriteCafe.self)
+        NumberOfFavoriteCafe = storedCafes.count
+        for i in storedCafes.indices {
+            favoriteCafes.append(contentsOf: (MockManager.shared.getMockData().filter { CafeInfo in
+                CafeInfo.name == storedCafes[i].cafeName
+            }))
+        }
         view.backgroundColor = .white
         setNavBar()
         setCollectionView()
@@ -67,15 +79,20 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return NumberOfFavoriteCafe
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
         //TODO: - 이곳에다가 CafeInfo를 넘겨줌, 코어데이터 혹은 realm으로 저장된 값으로 배열을 불러옴
-//        cell.configure(with: <#T##CafeInfo#>)
+        cell.configure(with: favoriteCafes[indexPath.row])
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        let cafeDetailViewController = CafeDetailViewController()
+        cafeDetailViewController.tempCafeInfo = favoriteCafes[indexPath.row]
+        self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
+    }
 }

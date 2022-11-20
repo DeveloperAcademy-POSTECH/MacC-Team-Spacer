@@ -50,12 +50,20 @@ class SimpleTagViewController: UIViewController {
     }()
     
     let calendarButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.clipsToBounds = true
-        button.backgroundColor = .mainPurple6
-        button.setTitleColor(.mainPurple2, for: .normal)
-        button.tintColor = .mainPurple1
+        
+        var config = UIButton.Configuration.filled()
+        config.image = UIImage(systemName: "calendar")?.withTintColor(.mainPurple2, renderingMode: .alwaysOriginal)
+        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 18)
+        config.imagePlacement = .leading
+        config.imagePadding = 4
+        config.baseBackgroundColor = .mainPurple6
+        config.baseForegroundColor = .mainPurple2
+        var attrTitle = AttributedString.init("")
+        attrTitle.foregroundColor = .mainPurple2
+        config.attributedTitle = attrTitle
+        let button = UIButton(configuration: config)
         button.layer.cornerRadius = 10.0
+        button.clipsToBounds = true
         button.contentHorizontalAlignment = .leading
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -227,7 +235,7 @@ class SimpleTagViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        calendarButton.setAttributedTitle(setCalendarLabel(), for: .normal)
+        setCalendarLabel()
         eventElementsItemArray =  Array<Bool>(repeating: false, count: eventElements.count)
     }
     
@@ -398,25 +406,22 @@ class SimpleTagViewController: UIViewController {
         }
     }
     
-    private func setCalendarLabel() -> NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString(string: "  ")
-        let calendarImage = NSTextAttachment()
-        calendarImage.image = UIImage(systemName: "calendar")?.withTintColor(.mainPurple2)
-        attributedString.append(NSAttributedString(attachment: calendarImage))
+    private func setCalendarLabel() {
         if firstDate != nil {
             if lastDate != nil {
-                attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - \(dateFormatConverter(lastDate!))"))
-                calendarButton.backgroundColor = .mainPurple5
+                calendarButton.configuration?.attributedTitle = AttributedString(" \(dateFormatConverter(firstDate!)) - \(dateFormatConverter(lastDate!))")
+                calendarButton.configuration?.baseBackgroundColor = .mainPurple5
                 calendarButton.layer.borderColor = UIColor.mainPurple2.cgColor
                 calendarButton.layer.borderWidth = 2
             } else {
-                attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - 선택 안함"))
+                calendarButton.configuration?.attributedTitle = AttributedString(" \(dateFormatConverter(firstDate!)) - 선택 안함")
             }
         } else {
-            attributedString.append(NSAttributedString(string: " 선택 안함 - 선택 안함"))
+            calendarButton.configuration?.attributedTitle = AttributedString(" 선택 안함 - 선택 안함")
         }
-        return attributedString
+        calendarButton.configuration?.attributedTitle?.font = .systemFont(for: .body1)
     }
+    
 }
 
 //FSCalendar Delegate

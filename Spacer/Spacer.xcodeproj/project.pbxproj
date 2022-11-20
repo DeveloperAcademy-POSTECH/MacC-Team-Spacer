@@ -19,6 +19,8 @@
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
 		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */; };
+		BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */; };
+		BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */; };
 		BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11828FFDA460056626C /* GradientExtension.swift */; };
 		BFB9B11F29003F110056626C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11E29003F110056626C /* FontExtension.swift */; };
 		BFB9B1222900415E0056626C /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */; };
@@ -66,6 +68,8 @@
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCategoryViewController.swift; sourceTree = "<group>"; };
+		BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageViewController.swift; sourceTree = "<group>"; };
 		BFB9B11828FFDA460056626C /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
 		BFB9B11E29003F110056626C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -129,6 +133,15 @@
 				BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */,
 			);
 			path = EventElements;
+			sourceTree = "<group>";
+		};
+		BF81BDB3292A814800C57870 /* OnBoardingView */ = {
+			isa = PBXGroup;
+			children = (
+				BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */,
+				BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */,
+			);
+			path = OnBoardingView;
 			sourceTree = "<group>";
 		};
 		BFB9B120290040F50056626C /* Fonts */ = {
@@ -200,6 +213,7 @@
 		BFD1381329014D7E004E6726 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BF81BDB3292A814800C57870 /* OnBoardingView */,
 				BFD1381629014E0A004E6726 /* CafeDetailView */,
 				BFD1381529014DCF004E6726 /* SearchListView */,
 				D4A3729029011A79007A5297 /* VisualTagView */,
@@ -416,6 +430,7 @@
 				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
 				BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */,
 				D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */,
+				BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */,
 				BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */,
 				D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */,
 				D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */,
@@ -434,6 +449,7 @@
 				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
 				D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */,
+				BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */,
 				BF5F8AB528FE868E00CF9E3A /* MyHeaderView.swift in Sources */,
 				BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */,
 				BF5F8ABB28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift in Sources */,

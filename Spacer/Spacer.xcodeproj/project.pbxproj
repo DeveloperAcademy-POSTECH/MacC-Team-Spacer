@@ -29,6 +29,7 @@
 		BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B12B290046BB0056626C /* PaddingExtension.swift */; };
 		BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */; };
 		D40DAB702925337D0042127A /* esamanru OTF Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D40DAB6F2925337D0042127A /* esamanru OTF Medium.otf */; };
+		D41F69D4292A9195006B35EC /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41F69D3292A9195006B35EC /* APICaller.swift */; };
 		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
 		D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */; };
 		D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */; };
@@ -76,6 +77,7 @@
 		BFB9B12B290046BB0056626C /* PaddingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtension.swift; sourceTree = "<group>"; };
 		BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeTableViewSectionHeader.swift; sourceTree = "<group>"; };
 		D40DAB6F2925337D0042127A /* esamanru OTF Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Medium.otf"; sourceTree = "<group>"; };
+		D41F69D3292A9195006B35EC /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
 		D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
 		D454704928FDA79200CFDB25 /* CafeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeReviewViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +250,14 @@
 			path = FavoriteView;
 			sourceTree = "<group>";
 		};
+		D41F69D2292A9176006B35EC /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D41F69D3292A9195006B35EC /* APICaller.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		D486C4912905A89F00D6B0A0 /* GridCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +322,7 @@
 		D4E950BA28EF48CA0066B711 /* Spacer */ = {
 			isa = PBXGroup;
 			children = (
+				D41F69D2292A9176006B35EC /* Managers */,
 				BFD1380E29014B80004E6726 /* Cores */,
 				BFD1381329014D7E004E6726 /* Views */,
 				BFD1380D29014A8E004E6726 /* Extensions */,
@@ -410,6 +421,7 @@
 				D492666A290A6037000EFD53 /* ChatViewController.swift in Sources */,
 				D4926669290A6025000EFD53 /* FavoriteViewController.swift in Sources */,
 				D486C47B29013FC200D6B0A0 /* BackButton.swift in Sources */,
+				D41F69D4292A9195006B35EC /* APICaller.swift in Sources */,
 				D4A3729D29011A79007A5297 /* VisualTagMapViewController.swift in Sources */,
 				D4C95C5528F5296800992600 /* BirthdayCafeViewController.swift in Sources */,
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,

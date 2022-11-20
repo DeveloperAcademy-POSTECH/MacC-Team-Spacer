@@ -249,7 +249,6 @@ class SearchListViewController: UIViewController {
         eventElementButton.configuration?.attributedTitle = eventElementTitle
     }
     
-    
     func setCollectionView() {
         view.addSubview(resultCollectionView)
         

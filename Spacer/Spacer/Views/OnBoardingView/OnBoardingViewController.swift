@@ -20,7 +20,6 @@ class OnBoardingViewController: UIViewController {
         label.textColor = .mainPurple1
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         label.numberOfLines = 2
-        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

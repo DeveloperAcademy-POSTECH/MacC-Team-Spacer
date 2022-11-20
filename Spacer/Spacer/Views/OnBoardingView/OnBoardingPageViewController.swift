@@ -25,8 +25,9 @@ class OnBoardingPageViewController: UIPageViewController {
     lazy var lastButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("생일 카페를 찾으러 가볼까요?", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemPurple
+        button.setTitleColor(.grayscale7, for: .normal)
+        button.titleLabel?.font = .systemFont(for: .header6)
+        button.backgroundColor = .mainPurple3
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +45,7 @@ class OnBoardingPageViewController: UIPageViewController {
         let firstOnBoardView = OnBoardingViewController()
         firstOnBoardView.mainImage.image = UIImage(named: "TagBanner")
         firstOnBoardView.mainLabel.text = "생일 카페를 선택할 때는 \n3가지 조건을 생각하세요!"
+        setAttr(label: firstOnBoardView.mainLabel)
         
         let underLine1 = makeUnderLine()
         firstOnBoardView.view.insertSubview(underLine1, at: 0)
@@ -57,6 +59,7 @@ class OnBoardingPageViewController: UIPageViewController {
         let secondOnBoardView = OnBoardingViewController()
         secondOnBoardView.mainImage.image = UIImage(named: "TagBanner")
         secondOnBoardView.mainLabel.text = "내가 원하는 기간에 예약이\n가능한 카페를 찾아야 해요"
+        setAttr(label: secondOnBoardView.mainLabel)
         
         let underLine2 = makeUnderLine()
         secondOnBoardView.view.insertSubview(underLine2, at: 0)
@@ -84,6 +87,7 @@ class OnBoardingPageViewController: UIPageViewController {
         let fourthOnBoardView = OnBoardingViewController()
         fourthOnBoardView.mainImage.image = UIImage(named: "TagBanner")
         fourthOnBoardView.mainLabel.text = "나의 예산과 카페에서 가능한\n전시를 고려해야 해요"
+        setAttr(label: fourthOnBoardView.mainLabel)
         
         let underLine4 = makeUnderLine()
         fourthOnBoardView.view.insertSubview(underLine4, at: 0)
@@ -148,6 +152,16 @@ class OnBoardingPageViewController: UIPageViewController {
         underLine.backgroundColor = .subYellow1
         underLine.translatesAutoresizingMaskIntoConstraints = false
         return underLine
+    }
+    
+    // lineSpacing 설정 함수
+    func setAttr(label: UILabel) {
+        let attrString = NSMutableAttributedString(string: label.text!)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 4
+        paragraphStyle.alignment = .center
+        attrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
+        label.attributedText = attrString
     }
     
     @objc func pageControlTapped(sender: UIPageControl) {

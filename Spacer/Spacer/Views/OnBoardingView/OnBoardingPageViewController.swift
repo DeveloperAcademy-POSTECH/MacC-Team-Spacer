@@ -45,17 +45,63 @@ class OnBoardingPageViewController: UIPageViewController {
         firstOnBoardView.mainImage.image = UIImage(named: "TagBanner")
         firstOnBoardView.mainLabel.text = "생일 카페를 선택할 때는 \n3가지 조건을 생각하세요!"
         
+        let underLine1 = makeUnderLine()
+        firstOnBoardView.view.insertSubview(underLine1, at: 0)
+        NSLayoutConstraint.activate([
+            underLine1.leadingAnchor.constraint(equalTo: firstOnBoardView.mainLabel.leadingAnchor),
+            underLine1.bottomAnchor.constraint(equalTo: firstOnBoardView.mainLabel.bottomAnchor, constant: -4),
+            underLine1.widthAnchor.constraint(equalToConstant: 103),
+            underLine1.heightAnchor.constraint(equalToConstant: 13)
+        ])
+        
         let secondOnBoardView = OnBoardingViewController()
         secondOnBoardView.mainImage.image = UIImage(named: "TagBanner")
-        secondOnBoardView.mainLabel.text = "내가 원하는 기간에 예약이 가능한 카페를 찾아야 해요"
+        secondOnBoardView.mainLabel.text = "내가 원하는 기간에 예약이\n가능한 카페를 찾아야 해요"
+        
+        let underLine2 = makeUnderLine()
+        secondOnBoardView.view.insertSubview(underLine2, at: 0)
+        NSLayoutConstraint.activate([
+            underLine2.centerXAnchor.constraint(equalTo: secondOnBoardView.mainLabel.centerXAnchor, constant: -10),
+            underLine2.topAnchor.constraint(equalTo: secondOnBoardView.mainLabel.topAnchor, constant: 24),
+            underLine2.widthAnchor.constraint(equalToConstant: 130),
+            underLine2.heightAnchor.constraint(equalToConstant: 13)
+        ])
         
         let thirdOnBoardView = OnBoardingViewController()
         thirdOnBoardView.mainImage.image = UIImage(named: "TagBanner")
-        thirdOnBoardView.mainLabel.text = "원하는 위치에 있는 카페를 골라야 해요"
+        thirdOnBoardView.mainLabel.text = "원하는 위치에 있는\n카페를 골라야 해요"
+        setAttr(label: thirdOnBoardView.mainLabel)
+        
+        let underLine3 = makeUnderLine()
+        thirdOnBoardView.view.insertSubview(underLine3, at: 0)
+        NSLayoutConstraint.activate([
+            underLine3.centerXAnchor.constraint(equalTo: thirdOnBoardView.mainLabel.centerXAnchor, constant: -24),
+            underLine3.topAnchor.constraint(equalTo: thirdOnBoardView.mainLabel.topAnchor, constant: 24),
+            underLine3.widthAnchor.constraint(equalToConstant: 130),
+            underLine3.heightAnchor.constraint(equalToConstant: 13)
+        ])
         
         let fourthOnBoardView = OnBoardingViewController()
         fourthOnBoardView.mainImage.image = UIImage(named: "TagBanner")
-        fourthOnBoardView.mainLabel.text = "원하는 위치에 있는 카페를 골라야 해요"
+        fourthOnBoardView.mainLabel.text = "나의 예산과 카페에서 가능한\n전시를 고려해야 해요"
+        
+        let underLine4 = makeUnderLine()
+        fourthOnBoardView.view.insertSubview(underLine4, at: 0)
+        NSLayoutConstraint.activate([
+            underLine4.centerXAnchor.constraint(equalTo: fourthOnBoardView.mainLabel.centerXAnchor, constant: -77),
+            underLine4.topAnchor.constraint(equalTo: fourthOnBoardView.mainLabel.topAnchor, constant: 24),
+            underLine4.widthAnchor.constraint(equalToConstant: 110),
+            underLine4.heightAnchor.constraint(equalToConstant: 13)
+        ])
+        
+        let underLine5 = makeUnderLine()
+        fourthOnBoardView.view.insertSubview(underLine5, at: 0)
+        NSLayoutConstraint.activate([
+            underLine5.centerXAnchor.constraint(equalTo: fourthOnBoardView.mainLabel.centerXAnchor, constant: -66),
+            underLine5.bottomAnchor.constraint(equalTo: fourthOnBoardView.mainLabel.bottomAnchor, constant: -4),
+            underLine5.widthAnchor.constraint(equalToConstant: 64),
+            underLine5.heightAnchor.constraint(equalToConstant: 13)
+        ])
         
         onBoardPages.append(firstOnBoardView)
         onBoardPages.append(secondOnBoardView)
@@ -89,11 +135,19 @@ class OnBoardingPageViewController: UIPageViewController {
         
         view.addSubview(pageController)
         NSLayoutConstraint.activate([
-            pageController.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60),
+            pageController.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -140),
             pageController.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         pageController.addTarget(self, action: #selector(pageControlTapped), for: .valueChanged)
+    }
+    
+    // 강조 언더라인 생성 함수
+    private func makeUnderLine() -> UIView {
+        let underLine = UIView()
+        underLine.backgroundColor = .subYellow1
+        underLine.translatesAutoresizingMaskIntoConstraints = false
+        return underLine
     }
     
     @objc func pageControlTapped(sender: UIPageControl) {

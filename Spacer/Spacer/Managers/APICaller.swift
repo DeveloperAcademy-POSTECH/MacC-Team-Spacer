@@ -38,8 +38,9 @@ class APICaller {
                 print("Error: JSON Data Parsing failed")
                 return
             }
-            
-            completionHandler(true, output)
+            DispatchQueue.main.async {
+                completionHandler(true, output)
+            }
         }.resume()
     }
     

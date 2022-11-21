@@ -9,8 +9,11 @@ import UIKit
 
 class CafeDetailViewController: UIViewController {
     
-    // 받아오는 카페 인포
+    // TODO: 이미지 받아오는 데 성공하면 해당 변수 삭제 필요
     var tempCafeInfo: CafeInfo?
+    
+    // 서버에서 받아온 카페 기본 정보
+    var cafeData: Cafeinfo?
     
     // MARK: - UI 요소
     
@@ -226,10 +229,10 @@ class CafeDetailViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
         
         // 카페 이름과 좋아요 수 설정
-        if let cafeName = tempCafeInfo?.name {
+        if let cafeName = cafeData?.cafeName {
             cafeTitleLabel.text = cafeName
         }
-        numberOfFavorties.text = "\(tempCafeInfo?.numberOfFavorites ?? 0)"
+        numberOfFavorties.text = "\(cafeData?.numberOfFavorites ?? 0)"
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -290,9 +293,17 @@ class CafeDetailViewController: UIViewController {
 
         switch sender.tag {
         case 100:
-            urlResource = "tel://\(tempCafeInfo!.phoneNumber)"
+            // url을 이용해 연결하기 위해 받아온 전화번호에서 '-' 제거
+            guard let cafePhoneNumber = cafeData?.cafePhoneNumber else { return }
+            var telURL = ""
+            for char in cafePhoneNumber {
+                if char != "-" {
+                    telURL += String(char)
+                }
+            }
+            urlResource = "tel://\(telURL)"
         case 101:
-            urlResource = tempCafeInfo?.reservationLink
+            urlResource = cafeData?.cafeOpenURL
         default:
             break
         }
@@ -346,12 +357,12 @@ class CafeDetailViewController: UIViewController {
     }
     
     private func setIfButtonDisable() {
-        if tempCafeInfo?.phoneNumber == nil || tempCafeInfo?.phoneNumber == "" {
+        if cafeData?.cafePhoneNumber == nil || cafeData?.cafePhoneNumber == "" {
             callReservationButton.backgroundColor = .grayscale5
             callReservationButton.isUserInteractionEnabled = false
         }
         
-        if tempCafeInfo?.reservationLink == nil || tempCafeInfo?.reservationLink == "" {
+        if cafeData?.cafeOpenURL == nil || cafeData?.cafeOpenURL == "" {
             reservationButton.backgroundColor = .grayscale5
             reservationButton.isUserInteractionEnabled = false
         }
@@ -499,7 +510,7 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         // 세로방향 스크롤 높이에 따라 navigationBar와 bottom 상태 업데이트
         if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 && bottomBar.isHidden {
             // 카페 이미지를 반 이상 내리면 navigationBar 스타일과 title 지정 및 bottomBar 보이도록 설정
-            title = tempCafeInfo?.name
+            title = cafeData?.cafeName
             navigationController?.navigationBar.standardAppearance.backgroundColor = .white
             navigationController?.navigationBar.alpha = 0
             bottomBar.isHidden = false

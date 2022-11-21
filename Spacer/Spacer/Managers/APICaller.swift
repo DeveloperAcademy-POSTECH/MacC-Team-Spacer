@@ -8,12 +8,11 @@
 import Foundation
 
 class APICaller {
-    
-    static let shared = APICaller()
-    private let baseURL = "http://158.247.222.189:12232"
+    // 공통 url 주소
+    private static let baseURL = "http://158.247.222.189:12232"
     
     // API로 데이터 요청
-    func requestGetData(url: String, dataType: DataType, completionHandler: @escaping (Bool, Any) -> Void) {
+    static func requestGetData<T: Codable>(url: String, dataType: T.Type, completionHandler: @escaping (Bool, Any) -> Void) {
         guard let url = URL(string: baseURL + url) else {
             print("Error: cannot create URL")
             return
@@ -35,7 +34,7 @@ class APICaller {
                 print("Error: HTTP request failed")
                 return
             }
-            guard let output = try? JSONDecoder().decode(Cafeinfo.self, from: data) else {
+            guard let output = try? JSONDecoder().decode(dataType, from: data) else {
                 print("Error: JSON Data Parsing failed")
                 return
             }

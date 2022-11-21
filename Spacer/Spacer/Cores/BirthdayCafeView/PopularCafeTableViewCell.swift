@@ -191,10 +191,10 @@ class PopularCafeTableViewCell: UITableViewCell {
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     
-    public func configure(with model: CafeInfo) {
-        self.cafeName.text = model.name
-        self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
-        self.cafeLocation.text = model.shortAddress
+    public func configure(with model: Cafeinfo) {
+        self.cafeName.text = model.cafeName
+        self.cafeImageView.image = UIImage(named: "라래_001")  // 차후 서버로부터 썸네일 이미지 받아오는 작업 필요
+        self.cafeLocation.text = model.cafeShortAddress
         self.numberOfTables.text = String(model.numberOfTables)
         self.numberOfFavorites.text = String(model.numberOfFavorites)
     }

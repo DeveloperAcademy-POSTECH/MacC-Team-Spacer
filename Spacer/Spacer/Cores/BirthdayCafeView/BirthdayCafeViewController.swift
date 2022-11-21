@@ -124,7 +124,7 @@ class BirthdayCafeViewController: UIViewController {
         applyConstraints()
         
         // VisualTagEventElementsView에서 완료버튼을 눌렀을 경우 SearchListView로 넘어갑니다.
-        NotificationCenter.default.addObserver(self, selector: #selector(goToSearchListView), name: NSNotification.Name("goToSearchListView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(gotoSearchListViewFromVisualTag), name: NSNotification.Name("goToSearchListView"), object: nil)
     }
     
     func applyConstraints() {
@@ -191,7 +191,18 @@ class BirthdayCafeViewController: UIViewController {
         show(FavoriteViewController(),sender: nil)
     }
     
+    // 바로 돋보기 버튼으로 SearchListView로 넘어갔을 경우
     @objc func goToSearchListView() {
+        UserDefaults.standard.removeObject(forKey: "eventElements")
+        UserDefaults.standard.removeObject(forKey: "region")
+        UserDefaults.standard.removeObject(forKey: "firstDate")
+        UserDefaults.standard.removeObject(forKey: "lastDate")
+        let searchListViewController = SearchListViewController()
+        self.navigationController!.pushViewController(searchListViewController, animated: true)
+    }
+    
+    // VisualTagView에서 SearchListView로 넘어갔을 경우
+    @objc func gotoSearchListViewFromVisualTag() {
         let searchListViewController = SearchListViewController()
         self.navigationController!.pushViewController(searchListViewController, animated: true)
     }

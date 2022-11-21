@@ -75,6 +75,9 @@ class BirthdayCafeViewController: UIViewController {
     
     var tempCafeArray: [CafeInfo] = [CafeInfo]()
     
+    // 카페 데이터를 받아올 새 프로퍼티
+    private var cafeDataArray: [Cafeinfo] = [Cafeinfo]()
+    
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -189,6 +192,13 @@ class BirthdayCafeViewController: UIViewController {
         super.viewWillAppear(animated)
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
+        
+        // API로 데이터 호출
+        APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
+            self.cafeDataArray = datas as! [Cafeinfo]
+            // 데이터를 받아온 후 tableView 업데이트
+            self.birthdayCafeTableView.reloadData()
+        }
     }
     
     @objc func goToFavorites() {
@@ -256,7 +266,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Sections.recentCafeReview.rawValue: return 1
-        case Sections.popularCafe.rawValue: return tempCafeArray.count
+        case Sections.popularCafe.rawValue: return cafeDataArray.count
         default:
             return 1
         }
@@ -286,9 +296,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.backgroundColor = .systemBackground
             
-            // MARK: - 1. 셀에 cafeInfo를 넘겨줌
+            // MARK: - 1. 셀에 cafeinfo를 넘겨줌
             
-            cell.configure(with: self.tempCafeArray[indexPath.row])
+            cell.configure(with: self.cafeDataArray[indexPath.row])
             cell.selectionStyle = .none
             
             // cell에 쉐도우 넣기

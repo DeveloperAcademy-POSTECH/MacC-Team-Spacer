@@ -76,7 +76,7 @@ class CustomCalenderCell: FSCalendarCell {
         case .mid:
             self.selectionLayer?.isHidden = false
             self.roundedLayer?.isHidden = true
-            let selectionRect = selectionLayerBounds.insetBy(dx: -1, dy: 4)
+            let selectionRect = selectionLayerBounds.insetBy(dx: -1, dy: contentHeight * 0.1)
                 .offsetBy(dx: 0, dy: -4)
             self.selectionLayer?.path = UIBezierPath(rect: selectionRect).cgPath
             
@@ -89,7 +89,7 @@ class CustomCalenderCell: FSCalendarCell {
             self.roundedLayer?.isHidden = false
             
             let selectionRect = selectionLayerBounds
-                .insetBy(dx: selectionLayerWidth / 4, dy: 4)
+                .insetBy(dx: selectionLayerWidth / 4, dy: contentHeight * 0.1)
                 .offsetBy(dx: selectionLayerWidth / 4, dy: -4)
             self.selectionLayer?.path = UIBezierPath(rect: selectionRect).cgPath
             
@@ -106,7 +106,7 @@ class CustomCalenderCell: FSCalendarCell {
             self.roundedLayer?.isHidden = false
             
             let selectionRect = selectionLayerBounds
-                .insetBy(dx: selectionLayerWidth / 4, dy: 4)
+                .insetBy(dx: selectionLayerWidth / 4, dy: contentHeight * 0.1)
                 .offsetBy(dx: -selectionLayerWidth / 4, dy: -4)
             self.selectionLayer?.path = UIBezierPath(rect: selectionRect).cgPath
             

@@ -12,7 +12,7 @@ class CustomButtonView: UIButton {
         super.init(frame: frame)
         var config = UIButton.Configuration.filled()
         config.image = UIImage(systemName: "arrowtriangle.down.fill")
-        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 11)
+        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 9)
         config.imagePlacement = .trailing
         config.imagePadding = 3
         

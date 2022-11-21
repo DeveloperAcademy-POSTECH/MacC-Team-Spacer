@@ -186,7 +186,6 @@ extension VisualTagEventElementsViewController: UICollectionViewDataSource, UICo
     
     //cell selection handling delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //상관없음 버튼을 눌렀을 때
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         eventElementsItemArray[indexPath.item] = true
     }

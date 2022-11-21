@@ -336,7 +336,8 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         tableView.deselectRow(at: indexPath, animated: false)
         if indexPath.section == 1 {
             let cafeDetailViewController = CafeDetailViewController()
-            cafeDetailViewController.tempCafeInfo = tempCafeArray[indexPath.row]
+            cafeDetailViewController.tempCafeInfo = tempCafeArray[0]
+            cafeDetailViewController.cafeData = cafeDataArray[indexPath.row]
             self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
         }
        

@@ -26,5 +26,11 @@ struct Cafeinfo: Codable {
 struct CafeSNSInfo: Codable {
     let twitter: String?
     let instagram: String?
-    let scafeID: String
+}
+
+// 카페 영업시간
+struct CafeOpenings: Codable {
+    let cafeWeekdayTime: String
+    let cafeWeekendTime: String
+    let cafeDayOff: String
 }

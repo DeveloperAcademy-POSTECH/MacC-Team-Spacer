@@ -34,3 +34,19 @@ struct CafeOpenings: Codable {
     let cafeWeekendTime: String
     let cafeDayOff: String
 }
+
+// 카페 이벤트 요소 목록 1: 가능, 0: 불가능
+struct CafeEventElement: Codable {
+    let cupHolder: Int
+    let standBanner: Int
+    let photoFrame: Int
+    let banner: Int
+    let displaySpace: Int
+    let bottleDrink: Int
+    let customDesert: Int
+    let customReceipt: Int
+    let cutOut: Int
+    let displayVideo: Int
+    let photoCard: Int
+    let photoZone: Int
+}

@@ -16,7 +16,9 @@ extension UIFont {
         case .header1:
             customFont = UIFont(name: CustomFont.esamanruBold.name, size: 24)!
         case .header1_2:
-            customFont = UIFont(name: CustomFont.esamanruBold.name, size: 20)!
+            customFont = UIFont(name: CustomFont.esamanruMedium.name, size: 20)!
+        case .header1_3:
+            customFont = UIFont(name: CustomFont.esamanruMedium.name, size: 16)!
         case .header2:
             customFont = UIFont(name: CustomFont.pretendardSemiBold.name, size: 24)!
         case .header3:
@@ -43,6 +45,7 @@ extension UIFont {
 
 enum CustomFont {
     case esamanruBold
+    case esamanruMedium
     case pretendardSemiBold
     case pretendardBold
     case pretendardMedium
@@ -52,6 +55,8 @@ enum CustomFont {
         switch self {
         case .esamanruBold:
             return "esamanru OTF Bold"
+        case .esamanruMedium:
+            return "esamanru OTF Medium"
         case .pretendardSemiBold:
             return "Pretendard-SemiBold"
         case .pretendardBold:
@@ -67,6 +72,7 @@ enum CustomFont {
 enum CustomTextStyle {
     case header1
     case header1_2
+    case header1_3
     case header2
     case header3
     case header4

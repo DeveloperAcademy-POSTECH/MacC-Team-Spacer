@@ -7,6 +7,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>esamanru OTF Bold.otf</string>
+		<string>esamanru OTF Medium.otf</string>
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Bold.otf</string>
 		<string>Pretendard-Medium.otf</string>

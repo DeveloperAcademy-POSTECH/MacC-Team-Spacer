@@ -210,7 +210,7 @@ class DetailInfomationViewController: UIViewController {
     private func makeDivider() -> UIView {
         let divider = UIView()
         // TODO: Color extentsion 추가 후 수정 필요
-        divider.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        divider.backgroundColor = .grayscale6
         divider.translatesAutoresizingMaskIntoConstraints = false
         return divider
     }

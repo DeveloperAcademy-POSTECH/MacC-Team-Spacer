@@ -205,6 +205,7 @@ class CafeDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         detailInfoView.cafeInfoData = tempCafeInfo
+        detailInfoView.cafeBasicInfo = cafeData
         
         // scrollView의 topAnchor가 안전영역 끝쪽에 붙도록
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -357,7 +358,7 @@ class CafeDetailViewController: UIViewController {
     }
     
     private func setIfButtonDisable() {
-        if cafeData?.cafePhoneNumber == nil || cafeData?.cafePhoneNumber == "" {
+        if cafeData?.cafePhoneNumber == nil || cafeData?.cafePhoneNumber == "" || cafeData?.cafePhoneNumber == " " {
             callReservationButton.backgroundColor = .grayscale5
             callReservationButton.isUserInteractionEnabled = false
         }

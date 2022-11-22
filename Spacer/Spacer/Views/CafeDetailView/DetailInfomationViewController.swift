@@ -60,7 +60,7 @@ class DetailInfomationViewController: UIViewController {
         setCafeDetailInfoContainer()
         
         // 카페 조건 내부 컴포넌트 설정
-        setEventElementView(elements: cafeInfoData!.eventElement)
+        setEventElementView()
         setCostView(costs: cafeInfoData!.cost)
         setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
         
@@ -272,32 +272,56 @@ class DetailInfomationViewController: UIViewController {
         return eventElementsLineView
     }
     
-    private func setEventElementView(elements: [Bool]) {
+    private func setEventElementView() {
+        // eventElementStackView의 타이틀 추가
         lazy var conditionTitle = makeConditionTitle(title: "데코레이션 요소")
         eventElementStackView.addArrangedSubview(conditionTitle)
         
-        let totalLineCount = Int(ceil(Double(elements.count) / 4.0))
-        
-        for i in 0..<totalLineCount {
-            let starIndex: Int = i * 4
-            let endIndex: Int
-
-            if i == totalLineCount - 1 {
-                endIndex = elements.count - 1
-            } else {
-                endIndex = starIndex + 3
+        // 가능한 이벤트 요소 서버로부터 불러오기
+        APICaller.requestGetData(url: "/cafeFeature/\(cafeBasicInfo!.cafeID)", dataType: CafeEventElement.self) { success, data in
+            let elementData: CafeEventElement
+            elementData = data as! CafeEventElement
+            
+            // 받아온 데이터를 Bool Array 형태로 저장
+            var elementsInfo: [Bool] = [Bool]()
+            elementsInfo.append((elementData.cupHolder != 0))
+            elementsInfo.append(elementData.standBanner != 0)
+            elementsInfo.append(elementData.photoFrame != 0)
+            elementsInfo.append(elementData.banner != 0)
+            elementsInfo.append(elementData.displaySpace != 0)
+            elementsInfo.append(elementData.bottleDrink != 0)
+            elementsInfo.append(elementData.customDesert != 0)
+            elementsInfo.append(elementData.customReceipt != 0)
+            elementsInfo.append(elementData.cutOut != 0)
+            elementsInfo.append(elementData.displayVideo != 0)
+            elementsInfo.append(elementData.photoCard != 0)
+            elementsInfo.append(elementData.photoZone != 0)
+            
+            // 이벤트 요소가 추가되는 상황을 가정하여 총 이벤트 개수에 따라 전체 줄 수 계산
+            let totalLineCount = Int(ceil(Double(elementsInfo.count) / 4.0))
+            
+            for i in 0..<totalLineCount {
+                let starIndex: Int = i * 4
+                let endIndex: Int
+                
+                if i == totalLineCount - 1 {
+                    endIndex = elementsInfo.count - 1
+                } else {
+                    endIndex = starIndex + 3
+                }
+                
+                let eventElementLine = self.makeEventElements(elements: Array(elementsInfo[starIndex...endIndex]), lineNumber: i)
+                self.eventElementStackView.addArrangedSubview(eventElementLine)
+                
+                let eventElementLineConstraints = [
+                    eventElementLine.leadingAnchor.constraint(equalTo: self.eventElementStackView.leadingAnchor),
+                    eventElementLine.trailingAnchor.constraint(equalTo: self.eventElementStackView.trailingAnchor),
+                    eventElementLine.heightAnchor.constraint(equalToConstant: 80)
+                ]
+                
+                NSLayoutConstraint.activate(eventElementLineConstraints)
             }
             
-            let eventElementLineOne = makeEventElements(elements: Array(elements[starIndex...endIndex]), lineNumber: i)
-            eventElementStackView.addArrangedSubview(eventElementLineOne)
-            
-            let eventElementLineOneConstraints = [
-                eventElementLineOne.leadingAnchor.constraint(equalTo: eventElementStackView.leadingAnchor),
-                eventElementLineOne.trailingAnchor.constraint(equalTo: eventElementStackView.trailingAnchor),
-                eventElementLineOne.heightAnchor.constraint(equalToConstant: 80)
-            ]
-            
-            NSLayoutConstraint.activate(eventElementLineOneConstraints)
         }
     }
     

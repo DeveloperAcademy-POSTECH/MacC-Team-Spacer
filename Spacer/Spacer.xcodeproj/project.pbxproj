@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */; };
 		BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */; };
 		BF5F8AB028FE73AE00CF9E3A /* CafeInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */; };
 		BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB128FE74A400CF9E3A /* MockParser.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnBoardViewController.swift; sourceTree = "<group>"; };
 		BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInfo.swift; sourceTree = "<group>"; };
 		BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CafeInfoData.json; sourceTree = "<group>"; };
 		BF5F8AB128FE74A400CF9E3A /* MockParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParser.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */,
 				BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */,
+				BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */,
 			);
 			path = OnBoardingView;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
 				D4A372AF29063C8A007A5297 /* CategoryInfomationLineView.swift in Sources */,
+				BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
 				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,

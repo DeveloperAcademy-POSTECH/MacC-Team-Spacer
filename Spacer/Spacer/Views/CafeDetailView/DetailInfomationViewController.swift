@@ -150,8 +150,8 @@ class DetailInfomationViewController: UIViewController {
         cafeDetailInfoContainer.addArrangedSubview(locationCategory)
         locationCategory.heightAnchor.constraint(equalToConstant: locationCategory.selfHeight).isActive = true
         
+        // 전화번호 정보 카테고리에 추가
         if let phoneNumber = cafeBasicInfo?.cafePhoneNumber {
-            // 전화번호 정보 카테고리에 추가
             lazy var phoneNumberCategory = CategoryInfomationLineView(type: .phoneNumber, description: phoneNumber)
             phoneNumberCategory.translatesAutoresizingMaskIntoConstraints = false
             cafeDetailInfoContainer.addArrangedSubview(phoneNumberCategory)
@@ -166,11 +166,12 @@ class DetailInfomationViewController: UIViewController {
             tableCategory.heightAnchor.constraint(equalToConstant: tableCategory.selfHeight).isActive = true
         }
         
-        // SNS 카테고리 추가
+        
         APICaller.requestGetData(url: "/cafeSNS/\(cafeBasicInfo!.cafeID)", dataType: CafeSNSInfo.self) { success, data in
             let snsData: CafeSNSInfo
             snsData = data as! CafeSNSInfo
             
+            // SNS 카테고리 추가
             lazy var SNSCategory = CategoryInfomationLineView(type: .SNSList, description: snsData)
             SNSCategory.translatesAutoresizingMaskIntoConstraints = false
             self.cafeDetailInfoContainer.addArrangedSubview(SNSCategory)

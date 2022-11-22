@@ -10,7 +10,7 @@ import UIKit
 class CafeDetailViewController: UIViewController {
     
     // TODO: 이미지 받아오는 데 성공하면 해당 변수 삭제 필요
-    var tempCafeInfo: CafeInfo?
+    var tempCafeInfo: CafeInfo? = MockManager.shared.getMockData()[0]
     
     // 서버에서 받아온 카페 기본 정보
     var cafeData: Cafeinfo?

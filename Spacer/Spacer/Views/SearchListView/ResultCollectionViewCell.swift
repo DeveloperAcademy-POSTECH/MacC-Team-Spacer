@@ -180,10 +180,10 @@ class ResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with model: CafeInfo) {
-        self.cafeName.text = model.name
-        self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
-        self.cafeLocation.text = model.shortAddress
+    public func configure(with model: Cafeinfo) {
+        self.cafeName.text = model.cafeName
+        self.cafeImageView.image = UIImage(named: "라래_001")//UIImage(named: model.imageInfos[0].images[0])
+        self.cafeLocation.text = model.cafeShortAddress
         self.numberOfTable.text = String(model.numberOfTables)
         self.numberOfFavorites.text = String(model.numberOfFavorites)
     }

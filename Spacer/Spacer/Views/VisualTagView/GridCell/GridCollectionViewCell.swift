@@ -44,7 +44,7 @@ class GridCollectionViewCell: UICollectionViewCell {
     //isSelected 변수 override
     override var isSelected: Bool {
         didSet {
-            if isSelected{
+            if isSelected {
                 self.backgroundColor = UIColor.mainPurple5
                 self.layer.borderColor = UIColor.mainPurple2.cgColor
                 self.layer.borderWidth = 3

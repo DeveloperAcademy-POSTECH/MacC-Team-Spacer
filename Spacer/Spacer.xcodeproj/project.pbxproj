@@ -22,6 +22,8 @@
 		BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */; };
 		BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */; };
 		BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */; };
+		BF899DD22925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */; };
+		BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */; };
 		BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11828FFDA460056626C /* GradientExtension.swift */; };
 		BFB9B11F29003F110056626C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11E29003F110056626C /* FontExtension.swift */; };
 		BFB9B1222900415E0056626C /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */; };
@@ -31,6 +33,7 @@
 		BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B129290041A30056626C /* esamanru OTF Bold.otf */; };
 		BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B12B290046BB0056626C /* PaddingExtension.swift */; };
 		BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */; };
+		BFF518E6290FBF6F0050FE06 /* SimpleTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF518E5290FBF6F0050FE06 /* SimpleTagViewController.swift */; };
 		D40DAB702925337D0042127A /* esamanru OTF Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D40DAB6F2925337D0042127A /* esamanru OTF Medium.otf */; };
 		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
 		D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */; };
@@ -72,6 +75,8 @@
 		BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCategoryViewController.swift; sourceTree = "<group>"; };
 		BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageViewController.swift; sourceTree = "<group>"; };
+		BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUnderConstructionTableViewCell.swift; sourceTree = "<group>"; };
+		BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFB9B11828FFDA460056626C /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
 		BFB9B11E29003F110056626C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		BFB9B1212900415E0056626C /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -81,6 +86,7 @@
 		BFB9B129290041A30056626C /* esamanru OTF Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Bold.otf"; sourceTree = "<group>"; };
 		BFB9B12B290046BB0056626C /* PaddingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtension.swift; sourceTree = "<group>"; };
 		BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeTableViewSectionHeader.swift; sourceTree = "<group>"; };
+		BFF518E5290FBF6F0050FE06 /* SimpleTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagViewController.swift; sourceTree = "<group>"; };
 		D40DAB6F2925337D0042127A /* esamanru OTF Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Medium.otf"; sourceTree = "<group>"; };
 		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
 		D454704728FDA72B00CFDB25 /* DetailInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfomationViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +199,7 @@
 				BF5F8AB828FE878F00CF9E3A /* RecentCafeTableViewCell.swift */,
 				BF5F8ABA28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift */,
 				BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */,
+				BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */,
 			);
 			path = BirthdayCafeView;
 			sourceTree = "<group>";
@@ -220,6 +227,7 @@
 				BFD1381629014E0A004E6726 /* CafeDetailView */,
 				BFD1381529014DCF004E6726 /* SearchListView */,
 				D4A3729029011A79007A5297 /* VisualTagView */,
+				BFF518E4290FBECF0050FE06 /* SimpleTagView */,
 				BFD1381729014EAA004E6726 /* FavoriteView */,
 			);
 			path = Views;
@@ -263,6 +271,15 @@
 				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
 			);
 			path = FavoriteView;
+			sourceTree = "<group>";
+		};
+		BFF518E4290FBECF0050FE06 /* SimpleTagView */ = {
+			isa = PBXGroup;
+			children = (
+				BFF518E5290FBF6F0050FE06 /* SimpleTagViewController.swift */,
+				BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */,
+			);
+			path = SimpleTagView;
 			sourceTree = "<group>";
 		};
 		D486C4912905A89F00D6B0A0 /* GridCell */ = {
@@ -432,8 +449,10 @@
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
 				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
 				BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */,
+				BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */,
 				D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */,
 				BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */,
+				BFF518E6290FBF6F0050FE06 /* SimpleTagViewController.swift in Sources */,
 				BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */,
 				D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */,
 				D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */,
@@ -461,6 +480,7 @@
 				BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */,
 				D4C95C5128F528CB00992600 /* MyPageViewController.swift in Sources */,
 				D4C95C5728F5437200992600 /* CafeDetailViewController.swift in Sources */,
+				BF899DD22925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

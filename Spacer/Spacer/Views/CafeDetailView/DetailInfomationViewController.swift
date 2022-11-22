@@ -62,7 +62,7 @@ class DetailInfomationViewController: UIViewController {
         // 카페 조건 내부 컴포넌트 설정
         setEventElementView()
         setCostView(cost: cafeBasicInfo?.cafeCost)
-        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
+        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeBasicInfo?.cafeAdditionalDescription)
         
         view.addSubview(cafeDetailInfoContainer)
         view.addSubview(dividerUnderDetailInfomation)

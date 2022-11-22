@@ -61,7 +61,7 @@ class DetailInfomationViewController: UIViewController {
         
         // 카페 조건 내부 컴포넌트 설정
         setEventElementView()
-        setCostView(costs: cafeInfoData!.cost)
+        setCostView(cost: cafeBasicInfo?.cafeCost)
         setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
         
         view.addSubview(cafeDetailInfoContainer)
@@ -325,7 +325,7 @@ class DetailInfomationViewController: UIViewController {
         }
     }
     
-    private func makeCostTitleAndCost(costName: String, cost: Int) -> UIStackView {
+    private func makeCostTitleAndCost(costName: String, cost: String) -> UIStackView {
         let costInfoStackView = UIStackView()
         costInfoStackView.axis = .vertical
         costInfoStackView.alignment = .center
@@ -339,8 +339,15 @@ class DetailInfomationViewController: UIViewController {
         
         let costLabel = UILabel()
         costLabel.font = .systemFont(for: .body3)
-        costLabel.text = "\(cost)원"
-        costLabel.textColor = .grayscale1
+        
+        if cost == "" || cost == " " {
+            costLabel.text = "정보가 없습니다"
+            costLabel.textColor = .grayscale4
+        } else {
+            costLabel.text = cost + "원"
+            costLabel.textColor = .grayscale1
+        }
+        
         costLabel.translatesAutoresizingMaskIntoConstraints = false
         
         costInfoStackView.addArrangedSubview(costTitle)
@@ -349,8 +356,15 @@ class DetailInfomationViewController: UIViewController {
         return costInfoStackView
     }
     
-    private func setCostView(costs: Int) {
+    private func setCostView(cost: String?) {
         let costName = "보증금"
+        let depositCost: String
+        
+        if let cost = cost {
+            depositCost = cost
+        } else {
+            depositCost = ""
+        }
         
         lazy var conditionTitle = makeConditionTitle(title: "비용")
         lazy var containerView = UIView()
@@ -366,7 +380,7 @@ class DetailInfomationViewController: UIViewController {
         costHorizontalStackView.alignment = .center
         costHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        lazy var depositStackView = makeCostTitleAndCost(costName: costName, cost: costs)
+        lazy var depositStackView = makeCostTitleAndCost(costName: costName, cost: depositCost)
         
         costHorizontalStackView.addArrangedSubview(depositStackView)
         eventCostStackView.addArrangedSubview(conditionTitle)

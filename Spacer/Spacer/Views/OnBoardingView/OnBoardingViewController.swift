@@ -9,8 +9,15 @@ import UIKit
 
 class OnBoardingViewController: UIViewController {
     
+    lazy var backgroundView: UIView = {
+        let UIView = UIView()
+        UIView.translatesAutoresizingMaskIntoConstraints = false
+        return UIView
+    }()
+    
     lazy var mainImage: UIImageView = {
         let imageView = UIImageView(frame: .zero)
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -26,20 +33,26 @@ class OnBoardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        
         setup()
     }
     
     func setup() {
+        view.addSubview(backgroundView)
         view.addSubview(mainImage)
         view.addSubview(mainLabel)
         NSLayoutConstraint.activate([
-            mainImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: mainLabel.topAnchor , constant: -32),
+            
+            mainImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 46),
+            mainImage.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
             mainImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mainImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainImage.heightAnchor.constraint(equalToConstant: view.bounds.width * 1.4),
             
-            mainLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 32),
+            mainLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -160),
             mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainLabel.heightAnchor.constraint(equalToConstant: 72)
         ])

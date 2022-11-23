@@ -109,6 +109,7 @@ class BirthdayCafeViewController: UIViewController {
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
         birthdayCafeTableView.tableHeaderView = headerView
+        
         headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
         
         scrollView.delegate = self
@@ -329,7 +330,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             cafeDetailViewController.tempCafeInfo = tempCafeArray[indexPath.row]
             self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
         }
-       
     }
 }
 
@@ -343,7 +343,6 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
         //            self.navBar.layer.cornerRadius = 0
         //        }
     }
-    
 }
 
 //MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능

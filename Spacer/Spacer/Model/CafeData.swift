@@ -50,3 +50,7 @@ struct CafeEventElement: Codable {
     let photoCard: Int
     let photoZone: Int
 }
+
+struct CafeThumbnailImage: Codable {
+    let cafeImageUrl: String
+}

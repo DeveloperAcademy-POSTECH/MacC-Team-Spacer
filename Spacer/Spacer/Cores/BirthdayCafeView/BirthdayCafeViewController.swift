@@ -297,7 +297,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             cell.contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
             cell.contentView.layer.shadowColor = UIColor.black.cgColor
             cell.contentView.layer.shadowRadius = 3
-            cell.contentView.layer.shadowOpacity = 0.25
+            cell.contentView.layer.shadowOpacity = 0.15
             cell.contentView.layer.masksToBounds = false
             
             return cell

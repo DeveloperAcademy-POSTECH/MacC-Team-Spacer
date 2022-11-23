@@ -53,4 +53,6 @@ struct CafeEventElement: Codable {
 
 struct CafeThumbnailImage: Codable {
     let cafeImageUrl: String
+    let imageCategory: String
+    let imageProductSize: String
 }

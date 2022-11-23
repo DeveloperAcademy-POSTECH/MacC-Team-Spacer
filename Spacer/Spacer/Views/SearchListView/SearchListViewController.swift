@@ -290,101 +290,111 @@ class SearchListViewController: UIViewController {
     
     func setCafeData() {
         if let selectedRegion = selectedRegion, let selectedEventElement = selectedEventElement {
+            // 필터 중 지역과 이벤트 요소 가능 여부 두 가지가 선택되었을 경우
+            
             isTagged = true
             isFirstFiltering = true
             
-            APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
-                let cafeAllDatas: [Cafeinfo]
-                cafeAllDatas = datas as! [Cafeinfo]
+            Task {
+                let allCafeData = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]   // 모든 카페 정보 불러와 저장
+                var eventElementGroups = [[Bool]]() // 모든 카페의 이벤트 요소 가능 여부를 저장할 배열
                 
-                self.filteredArray = cafeAllDatas.filter({ cafeData in
+                // 각 카페의 이벤트 요소 가능 여부를 불러와 eventElementGroups에 추가
+                for cafeData in allCafeData {
+                    let elementData = try await APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) as! CafeEventElement
+                    var elementsInfo: [Bool] = [Bool]()
+                    
+                    // 각 이벤트 요소의 가능 여부를 배열로 저장
+                    elementsInfo.append(elementData.cupHolder != 0)
+                    elementsInfo.append(elementData.standBanner != 0)
+                    elementsInfo.append(elementData.photoFrame != 0)
+                    elementsInfo.append(elementData.banner != 0)
+                    elementsInfo.append(elementData.displaySpace != 0)
+                    elementsInfo.append(elementData.bottleDrink != 0)
+                    elementsInfo.append(elementData.customDesert != 0)
+                    elementsInfo.append(elementData.customReceipt != 0)
+                    elementsInfo.append(elementData.cutOut != 0)
+                    elementsInfo.append(elementData.displayVideo != 0)
+                    elementsInfo.append(elementData.photoCard != 0)
+                    elementsInfo.append(elementData.photoZone != 0)
+                    
+                    eventElementGroups.append(elementsInfo)
+                }
+                
+                // 필터링 된 카페 목록을 filteredArray에 저장
+                self.filteredArray = allCafeData.enumerated().filter ({ (index, cafeData) -> Bool in
                     var isEventElementEnough: Bool = true
                     
-                    // TODO: 현재 아래 API 호출이 비동기적으로 일어나 return이 먼저되어 필터가 제대로 작동하지 않음. 해결 필요.
-                    APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) { success, data in
-                        let elementData: CafeEventElement
-                        elementData = data as! CafeEventElement
-                        var elementsInfo: [Bool] = [Bool]()
-                        
-                        // 받아온 데이터를 Bool Array 형태로 저장
-                        elementsInfo.append(elementData.cupHolder != 0)
-                        elementsInfo.append(elementData.standBanner != 0)
-                        elementsInfo.append(elementData.photoFrame != 0)
-                        elementsInfo.append(elementData.banner != 0)
-                        elementsInfo.append(elementData.displaySpace != 0)
-                        elementsInfo.append(elementData.bottleDrink != 0)
-                        elementsInfo.append(elementData.customDesert != 0)
-                        elementsInfo.append(elementData.customReceipt != 0)
-                        elementsInfo.append(elementData.cutOut != 0)
-                        elementsInfo.append(elementData.displayVideo != 0)
-                        elementsInfo.append(elementData.photoCard != 0)
-                        elementsInfo.append(elementData.photoZone != 0)
-                        
-                        for i in elementsInfo.indices {
-                            // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                            if selectedEventElement[i] && !elementsInfo[i] {
-                                isEventElementEnough = false
-                                break
-                            }
+                    // 각 카페 데이터 중 가능한 이벤트요소가 불일치할 경우 isEventElementEnough에 false 저장 후 for문 나감
+                    for i in eventElementGroups[0].indices {
+                        if selectedEventElement[i] && !eventElementGroups[index][i] {
+                            isEventElementEnough = false
+                            break
                         }
                     }
                     
                     return cafeData.cafeLocation == Int(selectedRegion)! && isEventElementEnough
-                })
+                }).map { (index, cafeData) -> Cafeinfo in
+                    // index를 추가해 변환한 배열을 다시 index없이 cafeData만 저장
+                    cafeData
+                }
                 
                 self.resultCollectionView.reloadData()
             }
             
         } else if let selectedEventElement = selectedEventElement {
+            // 필터 중 이벤트 요소 가능 여부만 선택되었을 경우
+            
             isTagged = true
             isFirstFiltering = true
             
-            APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
-                self.filteredArray = datas as! [Cafeinfo]
+            Task {
+                let allCafeData = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
+                var eventElementGroups = [[Bool]]()
                 
-                self.filteredArray = self.filteredArray.filter({ cafeData in
+                for cafeData in allCafeData {
+                    let elementData = try await APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) as! CafeEventElement
+                    var elementsInfo: [Bool] = [Bool]()
+                    
+                    elementsInfo.append(elementData.cupHolder != 0)
+                    elementsInfo.append(elementData.standBanner != 0)
+                    elementsInfo.append(elementData.photoFrame != 0)
+                    elementsInfo.append(elementData.banner != 0)
+                    elementsInfo.append(elementData.displaySpace != 0)
+                    elementsInfo.append(elementData.bottleDrink != 0)
+                    elementsInfo.append(elementData.customDesert != 0)
+                    elementsInfo.append(elementData.customReceipt != 0)
+                    elementsInfo.append(elementData.cutOut != 0)
+                    elementsInfo.append(elementData.displayVideo != 0)
+                    elementsInfo.append(elementData.photoCard != 0)
+                    elementsInfo.append(elementData.photoZone != 0)
+                    
+                    eventElementGroups.append(elementsInfo)
+                }
+                
+                self.filteredArray = allCafeData.enumerated().filter ({ (index, cafeData) -> Bool in
                     var isEventElementEnough: Bool = true
                     
-                    // TODO: 현재 아래 API 호출이 비동기적으로 일어나 return이 먼저되어 필터가 제대로 작동하지 않음. 해결 필요.
-                    APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) { success, data in
-                        let elementData: CafeEventElement
-                        elementData = data as! CafeEventElement
-                        var elementsInfo: [Bool] = [Bool]()
-                        
-                        // 받아온 데이터를 Bool Array 형태로 저장
-                        elementsInfo.append((elementData.cupHolder != 0))
-                        elementsInfo.append(elementData.standBanner != 0)
-                        elementsInfo.append(elementData.photoFrame != 0)
-                        elementsInfo.append(elementData.banner != 0)
-                        elementsInfo.append(elementData.displaySpace != 0)
-                        elementsInfo.append(elementData.bottleDrink != 0)
-                        elementsInfo.append(elementData.customDesert != 0)
-                        elementsInfo.append(elementData.customReceipt != 0)
-                        elementsInfo.append(elementData.cutOut != 0)
-                        elementsInfo.append(elementData.displayVideo != 0)
-                        elementsInfo.append(elementData.photoCard != 0)
-                        elementsInfo.append(elementData.photoZone != 0)
-                        
-                        for i in elementsInfo.indices {
-                            // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                            if selectedEventElement[i] && !elementsInfo[i] {
-                                isEventElementEnough = false
-                                break
-                            }
+                    for i in eventElementGroups[0].indices {
+                        if selectedEventElement[i] && !eventElementGroups[index][i] {
+                            isEventElementEnough = false
+                            break
                         }
                     }
                     return isEventElementEnough
-                })
+                }).map { (index, cafeData) -> Cafeinfo in
+                    cafeData
+                }
+                
+                self.resultCollectionView.reloadData()
             }
             
         } else {
             // BirthdayCafeView에서 검색 버튼을 눌렀을 때 카페 전체 목록 불러옴
-            APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
-                self.cafeDatas = datas as! [Cafeinfo]
+            Task {
+                cafeDatas = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
             }
-            //tempCafeArray = MockManager.shared.getMockData()
         }
-        resultCollectionView.reloadData()
     }
     
     // 화면 터치하여 키보드 내리기

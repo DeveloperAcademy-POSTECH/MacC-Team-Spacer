@@ -29,7 +29,7 @@ class BirthdayCafeViewController: UIViewController {
     // 커스텀 네비게이션 바
     let navBar: UIView = {
         let navBar = UIView()
-        navBar.backgroundColor = .mainPurple4
+        navBar.backgroundColor = .grayscale7
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         navBar.clipsToBounds = true
@@ -49,7 +49,7 @@ class BirthdayCafeViewController: UIViewController {
     let magnifyButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
-        button.tintColor = .mainPurple6
+        button.tintColor = .mainPurple1
         button.translatesAutoresizingMaskIntoConstraints = false
         // MARK: - TODO: 버튼에 액션 추가
         return button
@@ -59,7 +59,7 @@ class BirthdayCafeViewController: UIViewController {
     let heartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
-        button.tintColor = .mainPurple6
+        button.tintColor = .mainPurple1
         button.translatesAutoresizingMaskIntoConstraints = false
         // MARK: - TODO: 버튼에 액션 추가
         return button

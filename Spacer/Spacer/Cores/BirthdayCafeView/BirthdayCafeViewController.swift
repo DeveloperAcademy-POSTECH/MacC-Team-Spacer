@@ -78,6 +78,9 @@ class BirthdayCafeViewController: UIViewController {
     // 카페 데이터를 받아올 새 프로퍼티
     private var cafeDataArray: [Cafeinfo] = [Cafeinfo]()
     
+    // 썸네일에 사용될 이미지 url 주소
+    private lazy var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
+    
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -196,7 +199,20 @@ class BirthdayCafeViewController: UIViewController {
         // API로 데이터 호출
         Task {
             cafeDataArray = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
-            self.birthdayCafeTableView.reloadData()
+            
+            for data in cafeDataArray {
+                var thumbnailImageInfo: CafeThumbnailImage
+                
+                // 각 카페 별 썸네일 이미지 url 요청하고 데이터가 없을 경우 기본 이미지로 썸네일 이미지 대체
+                do {
+                    thumbnailImageInfo = try await APICaller.requestGetData(url: "/static/getfirstimage/\(data.cafeID)", dataType: CafeThumbnailImage.self) as! CafeThumbnailImage
+                    thumbnailImageInfos.append(thumbnailImageInfo)
+                } catch {
+                    thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg"))
+                }
+            }
+            
+            birthdayCafeTableView.reloadData()
         }
     }
     
@@ -303,7 +319,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             // MARK: - 1. 셀에 cafeinfo를 넘겨줌
             
-            cell.configure(with: self.cafeDataArray[indexPath.row])
+            cell.configure(with: self.cafeDataArray[indexPath.row], imageURL: thumbnailImageInfos[indexPath.row].cafeImageUrl)
             cell.selectionStyle = .none
             
             // cell에 쉐도우 넣기

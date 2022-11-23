@@ -194,9 +194,8 @@ class BirthdayCafeViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         
         // API로 데이터 호출
-        APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
-            self.cafeDataArray = datas as! [Cafeinfo]
-            // 데이터를 받아온 후 tableView 업데이트
+        Task {
+            cafeDataArray = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
             self.birthdayCafeTableView.reloadData()
         }
     }

@@ -137,8 +137,6 @@ class OnBoardingPageViewController: UIPageViewController {
             pageController.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -116),
             pageController.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
-        pageController.addTarget(self, action: #selector(pageControlTapped), for: .valueChanged)
     }
     
     func setXButton() {
@@ -169,10 +167,6 @@ class OnBoardingPageViewController: UIPageViewController {
         paragraphStyle.alignment = .center
         attrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
         label.attributedText = attrString
-    }
-    
-    @objc func pageControlTapped(sender: UIPageControl) {
-        self.setViewControllers([onBoardPages[sender.currentPage]], direction: .forward, animated: true, completion: nil)
     }
     
     @objc func buttonTapped(){

@@ -185,8 +185,8 @@ class BirthdayCafeViewController: UIViewController {
         birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
     }
@@ -343,7 +343,6 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
         //            self.navBar.layer.cornerRadius = 0
         //        }
     }
-    
 }
 
 //MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능

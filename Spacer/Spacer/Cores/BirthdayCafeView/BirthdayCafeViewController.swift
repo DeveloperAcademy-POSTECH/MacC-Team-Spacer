@@ -168,6 +168,13 @@ class BirthdayCafeViewController: UIViewController {
         super.viewWillAppear(animated)
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
+        
+        // 처음 실행되었다면 UserDefaults에 oldUser라는 값이 False
+        if !UserDefaults.standard.bool(forKey: "oldUser") {
+            let pageVC = OnBoardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            pageVC.modalPresentationStyle = .fullScreen
+            present(pageVC, animated: true)
+        }
     }
     
     @objc func goToFavorites() {

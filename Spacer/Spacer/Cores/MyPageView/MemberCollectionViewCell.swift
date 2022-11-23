@@ -41,7 +41,7 @@ class MemberCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var myStack: UIStackView = {
+    lazy var memberContactStack: UIStackView = {
         let stackView = UIStackView()
         stackView.alignment = .leading
         stackView.axis = .vertical
@@ -58,7 +58,7 @@ class MemberCollectionViewCell: UICollectionViewCell {
         
         colorBackground.addSubview(memberName)
         colorBackground.addSubview(memberPosition)
-        colorBackground.addSubview(myStack)
+        colorBackground.addSubview(memberContactStack)
         
         NSLayoutConstraint.activate([
             colorBackground.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -77,8 +77,8 @@ class MemberCollectionViewCell: UICollectionViewCell {
             memberPosition.topAnchor.constraint(equalTo: memberName.bottomAnchor ,constant: 6),
             memberPosition.leadingAnchor.constraint(equalTo: colorBackground.leadingAnchor, constant: 79),
             
-            myStack.topAnchor.constraint(equalTo: memberPosition.bottomAnchor, constant: 12),
-            myStack.leadingAnchor.constraint(equalTo: colorBackground.leadingAnchor, constant: 79),
+            memberContactStack.topAnchor.constraint(equalTo: memberPosition.bottomAnchor, constant: 12),
+            memberContactStack.leadingAnchor.constraint(equalTo: colorBackground.leadingAnchor, constant: 79),
         ])
     }
     
@@ -88,8 +88,8 @@ class MemberCollectionViewCell: UICollectionViewCell {
         self.memberImage.image = UIImage(named: memberImage)
         self.memberName.text = memberName
         self.memberPosition.text = memberPosition
-        self.myStack.addArrangedSubview(IconLabelView(icon: "emailIcon", label: firstLabel))
-        self.myStack.addArrangedSubview(IconLabelView(icon: secondIcon, label: secondLabel))
+        self.memberContactStack.addArrangedSubview(IconLabelView(icon: "emailIcon", label: firstLabel))
+        self.memberContactStack.addArrangedSubview(IconLabelView(icon: secondIcon, label: secondLabel))
         
     }
     

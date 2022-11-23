@@ -200,6 +200,12 @@ class BirthdayCafeViewController: UIViewController {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     @objc func goToFavorites() {
         show(FavoriteViewController(),sender: nil)
     }

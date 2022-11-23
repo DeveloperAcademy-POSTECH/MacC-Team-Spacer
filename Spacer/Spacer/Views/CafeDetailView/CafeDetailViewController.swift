@@ -197,6 +197,17 @@ class CafeDetailViewController: UIViewController {
     private var isFavoriteButtonOn = false
     private let navigationAppearance = UINavigationBarAppearance()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // navigationBar & tabBar 설정
+        navigationAppearance.configureWithTransparentBackground()
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.standardAppearance = navigationAppearance
+        navigationController?.navigationBar.tintColor = .mainPurple1
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     // MARK: - ViewDidLoad
     
     override func viewDidLoad() {
@@ -221,13 +232,6 @@ class CafeDetailViewController: UIViewController {
         
         // callReservationButton과 reservationButton 세팅
         setIfButtonDisable()
-        
-        // navigationBar & tabBar 설정
-        navigationAppearance.configureWithTransparentBackground()
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.standardAppearance = navigationAppearance
-        navigationController?.navigationBar.tintColor = .mainPurple1
-        tabBarController?.tabBar.isHidden = true
         
         // 카페 이름과 좋아요 수 설정
         if let cafeName = cafeData?.cafeName {
@@ -275,13 +279,7 @@ class CafeDetailViewController: UIViewController {
             reservationButton.addGradient(with: gradientLayer, colorSet: UIColor.gradient1, locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
     // MARK: - functions
     
     // segmentControl을 터치하면 아래 PageViewController의 view가 바뀜

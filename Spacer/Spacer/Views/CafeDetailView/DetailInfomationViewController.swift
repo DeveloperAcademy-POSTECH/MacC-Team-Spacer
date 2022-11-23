@@ -166,24 +166,20 @@ class DetailInfomationViewController: UIViewController {
             tableCategory.heightAnchor.constraint(equalToConstant: tableCategory.selfHeight).isActive = true
         }
         
-        
-        APICaller.requestGetData(url: "/cafeSNS/\(cafeBasicInfo!.cafeID)", dataType: CafeSNSInfo.self) { success, data in
-            let snsData: CafeSNSInfo
-            snsData = data as! CafeSNSInfo
+        Task {
+            // 카페의 sns 정보를 불러오기
+            let snsData = try await APICaller.requestGetData(url: "/cafeSNS/\(self.cafeBasicInfo!.cafeID)", dataType: CafeSNSInfo.self) as! CafeSNSInfo
             
-            // SNS 카테고리 추가
+            // 카페 sns 정보를 보여줄 view 추가
             lazy var SNSCategory = CategoryInfomationLineView(type: .SNSList, description: snsData)
             SNSCategory.translatesAutoresizingMaskIntoConstraints = false
             self.cafeDetailInfoContainer.addArrangedSubview(SNSCategory)
             SNSCategory.heightAnchor.constraint(equalToConstant: SNSCategory.selfHeight).isActive = true
-            self.view.setNeedsDisplay()
-        }
-        
-        APICaller.requestGetData(url: "/cafeOpenings/\(cafeBasicInfo!.cafeID)", dataType: CafeOpenings.self) { success, data in
-            let hoursOfOperate: CafeOpenings
-            hoursOfOperate = data as! CafeOpenings
             
-            // 운영 시간 카테고리 추가
+            // 카페의 운영시간 정보 불러오기
+            let hoursOfOperate = try await APICaller.requestGetData(url: "/cafeOpenings/\(self.cafeBasicInfo!.cafeID)", dataType: CafeOpenings.self) as! CafeOpenings
+            
+            // 카페 운영시간 정보를 보여줄 view 추가
             lazy var cafeHoursCategory = CategoryInfomationLineView(type: .operationTime, weekdayTime: hoursOfOperate.cafeWeekdayTime, weekendTime: hoursOfOperate.cafeWeekendTime, dayOff: hoursOfOperate.cafeDayOff)
             cafeHoursCategory.translatesAutoresizingMaskIntoConstraints = false
             self.cafeDetailInfoContainer.addArrangedSubview(cafeHoursCategory)
@@ -277,10 +273,9 @@ class DetailInfomationViewController: UIViewController {
         lazy var conditionTitle = makeConditionTitle(title: "데코레이션 요소")
         eventElementStackView.addArrangedSubview(conditionTitle)
         
-        // 가능한 이벤트 요소 서버로부터 불러오기
-        APICaller.requestGetData(url: "/cafeFeature/\(cafeBasicInfo!.cafeID)", dataType: CafeEventElement.self) { success, data in
-            let elementData: CafeEventElement
-            elementData = data as! CafeEventElement
+        Task {
+            // 가능한 이벤트 요소 서버로부터 불러오기
+            let elementData = try await APICaller.requestGetData(url: "/cafeFeature/\(self.cafeBasicInfo!.cafeID)", dataType: CafeEventElement.self) as! CafeEventElement
             
             // 받아온 데이터를 Bool Array 형태로 저장
             var elementsInfo: [Bool] = [Bool]()
@@ -321,7 +316,6 @@ class DetailInfomationViewController: UIViewController {
                 
                 NSLayoutConstraint.activate(eventElementLineConstraints)
             }
-            
         }
     }
     

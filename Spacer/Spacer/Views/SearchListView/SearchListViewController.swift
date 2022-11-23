@@ -8,7 +8,6 @@
 import UIKit
 
 class SearchListViewController: UIViewController {
-    
     // 첫번째 검색인지 확인
     var isFirstFiltering = false
     // 태그로 들어온지 확인
@@ -105,7 +104,6 @@ class SearchListViewController: UIViewController {
         setButton()
         setCollectionView()
         setSearchBar()
-        setCafeData()
         
         // 모든 경우에서 키보드를 내리기 위해서 터치인식 적용
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
@@ -168,10 +166,16 @@ class SearchListViewController: UIViewController {
         NSLayoutConstraint.activate(regionButtonConstraints)
         NSLayoutConstraint.activate(eventElementButtonConstraints)
         
-        dateButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        regionButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        eventElementButton.addTarget(self, action: #selector(moveTo), for: .touchUpInside)
-        
+        dateButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
+        regionButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
+        eventElementButton.addTarget(self, action: #selector(goToSimpleTagView), for: .touchUpInside)
+    }
+    
+    func buttonTitleUpdate() {
+        startDate = UserDefaults.standard.string(forKey: "firstDate")
+        endDate = UserDefaults.standard.string(forKey: "lastDate")
+        selectedRegion = UserDefaults.standard.string(forKey: "region")
+        selectedEventElement = UserDefaults.standard.array(forKey: "eventElements") as? [Bool]
         // 받아온 값을 버튼에 적용하기
         var dateTitle: AttributedString
         var regionTitle: AttributedString
@@ -179,8 +183,12 @@ class SearchListViewController: UIViewController {
         
         // 날짜
         if let startDate = startDate, let endDate = endDate {
-            dateTitle = AttributedString.init("\(startDate) - \(endDate)")
-            dateTitle.foregroundColor = .grayscale7
+            let startDateSlice = startDate.components(separatedBy: ". ")
+            let shortStartDate = "\(startDateSlice[1])/\(startDateSlice[2])"
+            let endDateSlice = endDate.components(separatedBy: ". ")
+            let shortEndDate = "\(endDateSlice[1])/\(endDateSlice[2])"
+            dateTitle = AttributedString.init("\(shortStartDate) - \(shortEndDate)")
+            dateTitle.foregroundColor = .grayscale6
             dateButton.configuration?.baseBackgroundColor = .mainPurple3
             dateButton.configuration?.baseForegroundColor = .grayscale5
         } else {
@@ -222,7 +230,7 @@ class SearchListViewController: UIViewController {
                 eventElementTitle.foregroundColor = .grayscale7
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
                 eventElementButton.configuration?.baseForegroundColor = .grayscale5
-            } else if countTrue == 1{
+            } else if countTrue == 1 {
                 eventElementTitle = AttributedString.init("\(firsteventElement)")
                 eventElementTitle.foregroundColor = .grayscale7
                 eventElementButton.configuration?.baseBackgroundColor = .mainPurple3
@@ -230,6 +238,8 @@ class SearchListViewController: UIViewController {
             } else {
                 eventElementTitle = AttributedString.init("카테고리")
                 eventElementTitle.foregroundColor = .mainPurple2
+                eventElementButton.configuration?.baseBackgroundColor = .mainPurple6
+                eventElementButton.configuration?.baseForegroundColor = .mainPurple2
             }
         } else {
             // 맞춤형 추천이 아닌 기본 상태
@@ -295,14 +305,30 @@ class SearchListViewController: UIViewController {
                 }
                 return CafeInfo.locationID == Int(selectedRegion)! && isEventElementEnough
             })
+        } else if let selectedEventElement = selectedEventElement {
+            isTagged = true
+            isFirstFiltering = true
+            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
+                var isEventElementEnough: Bool = true
+                for i in eventElements.indices {
+                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
+                    if selectedEventElement[i] {
+                        if !CafeInfo.eventElement[i] {
+                            isEventElementEnough = false
+                        }
+                    }
+                }
+                return isEventElementEnough
+            })
         } else {
             // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
             tempCafeArray = MockManager.shared.getMockData()
         }
+        resultCollectionView.reloadData()
     }
     
     // 화면 터치하여 키보드 내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchBar.endEditing(true)
         bottomLine.backgroundColor = .grayscale4
         self.resultCollectionView.reloadData()
@@ -315,18 +341,11 @@ class SearchListViewController: UIViewController {
         self.resultCollectionView.reloadData()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UserDefaults.standard.removeObject(forKey: "eventElements")
-        UserDefaults.standard.removeObject(forKey: "region")
-        UserDefaults.standard.removeObject(forKey: "firstDate")
-        UserDefaults.standard.removeObject(forKey: "lastDate")
-        isFirstFiltering = false
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = false
+        buttonTitleUpdate()
+        setCafeData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -334,7 +353,7 @@ class SearchListViewController: UIViewController {
         bottomLine.backgroundColor = .grayscale4
         
         self.scrollView.contentSize = CGSize(
-            width: eventElementButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width,
+            width: eventElementButton.bounds.width+dateButton.bounds.width+regionButton.bounds.width + 48,
             height: .zero
         )
     }
@@ -348,12 +367,18 @@ class SearchListViewController: UIViewController {
     // 뒤로 가기 함수
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+        UserDefaults.standard.removeObject(forKey: "eventElements")
+        UserDefaults.standard.removeObject(forKey: "region")
+        UserDefaults.standard.removeObject(forKey: "firstDate")
+        UserDefaults.standard.removeObject(forKey: "lastDate")
+        isFirstFiltering = false
     }
     
     // 다음뷰로 이동하는 함수
-    @objc func moveTo() {
-        let birthdayCafeViewController = BirthdayCafeViewController()
-        show(birthdayCafeViewController, sender: nil)
+    @objc func goToSimpleTagView() {
+        let simpleTagViewController = SimpleTagViewController()
+        simpleTagViewController.modalPresentationStyle = .fullScreen
+        self.present(simpleTagViewController, animated: true, completion: nil)
     }
 }
 
@@ -361,10 +386,12 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isFirstFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
             view.addSubview(emptyLabel)
-            emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-            emptyLabel.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
-            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            NSLayoutConstraint.activate([
+                emptyLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                emptyLabel.widthAnchor.constraint(equalToConstant: view.bounds.width),
+                emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                emptyLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
         } else {
             self.emptyLabel.removeFromSuperview()
         }
@@ -372,7 +399,8 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell()
+        }
         usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
         return cell
     }
@@ -443,6 +471,3 @@ extension SearchListViewController: UISearchBarDelegate {
         self.resultCollectionView.reloadData()
     }
 }
-
-
-

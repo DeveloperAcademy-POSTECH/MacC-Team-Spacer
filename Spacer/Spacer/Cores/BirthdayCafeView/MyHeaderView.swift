@@ -13,11 +13,10 @@ class MyHeaderView: UIView {
     
     let headerButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "TagBanner"), for: .normal)
-        // TODO: - 우선순위 낮춤(직각으로)
-//        button.layer.cornerRadius = 24
-        button.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        button.setImage(UIImage(named: "TagBanner")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.layer.cornerRadius = 12
         button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -25,12 +24,11 @@ class MyHeaderView: UIView {
         super.init(frame: frame)
         
         addSubview(headerButton)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        headerButton.frame = bounds
+        NSLayoutConstraint.activate([
+            headerButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: .padding.margin),
+            headerButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -.padding.margin),
+            headerButton.heightAnchor.constraint(equalToConstant: 150)
+        ])
     }
     
     required init?(coder: NSCoder) {

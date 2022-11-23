@@ -349,15 +349,15 @@ class CafeDetailViewController: UIViewController {
                 sizeDescriptions.append(info.imageProductSize)
             }
             totalImageCount = imageIndex
-            setImageDescriptionView(categoryName: categoryNames[0], tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[0])
+            setImageDescriptionView(categoryName: categoryNames[0], tempImageNumber: 1, sizeDescription: sizeDescriptions[0])
             
             // 전체 이미지 수에 따라 imageScrollView의 width 설정
             imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
         }
     }
     
-    private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, numberOfImages: Int, sizeDescription: String) {
-        categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(numberOfImages)"
+    private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, sizeDescription: String) {
+        categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(totalImageCount)"
         sizeLabel.text = sizeDescription
     }
     
@@ -507,7 +507,7 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         // 이미지를 스크롤해서 넘기면 해당 이미지의 카테고리와 세부 사이즈 정보, 현재 이미지 번호로 업데이트
         let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[currentImageNumber])
+            setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, sizeDescription: sizeDescriptions[currentImageNumber])
         }
     }
     

@@ -104,6 +104,25 @@ class BirthdayCafeViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
         
+        // API로 데이터 호출
+        Task {
+            cafeDataArray = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
+            
+            for data in cafeDataArray {
+                var thumbnailImageInfo: CafeThumbnailImage
+                
+                // 각 카페 별 썸네일 이미지 url 요청하고 데이터가 없을 경우 기본 이미지로 썸네일 이미지 대체
+                do {
+                    thumbnailImageInfo = try await APICaller.requestGetData(url: "/static/getfirstimage/\(data.cafeID)", dataType: CafeThumbnailImage.self) as! CafeThumbnailImage
+                    thumbnailImageInfos.append(thumbnailImageInfo)
+                } catch {
+                    thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg"))
+                }
+            }
+            
+            birthdayCafeTableView.reloadData()
+        }
+        
         view.addSubview(scrollView)
         view.addSubview(navBar)
         
@@ -193,27 +212,9 @@ class BirthdayCafeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
-        
-        // API로 데이터 호출
-        Task {
-            cafeDataArray = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
-            
-            for data in cafeDataArray {
-                var thumbnailImageInfo: CafeThumbnailImage
-                
-                // 각 카페 별 썸네일 이미지 url 요청하고 데이터가 없을 경우 기본 이미지로 썸네일 이미지 대체
-                do {
-                    thumbnailImageInfo = try await APICaller.requestGetData(url: "/static/getfirstimage/\(data.cafeID)", dataType: CafeThumbnailImage.self) as! CafeThumbnailImage
-                    thumbnailImageInfos.append(thumbnailImageInfo)
-                } catch {
-                    thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg"))
-                }
-            }
-            
-            birthdayCafeTableView.reloadData()
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

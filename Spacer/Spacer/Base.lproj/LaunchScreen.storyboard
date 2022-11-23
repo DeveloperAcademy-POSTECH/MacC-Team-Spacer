@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -13,34 +13,33 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="LaunchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="JUW-13-Idv">
-                                <rect key="frame" x="-19.666666666666657" y="-35.666666666666686" width="429.33333333333326" height="928.33333333333348"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchParticle" translatesAutoresizingMaskIntoConstraints="NO" id="EmH-MR-hQh">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchTeamLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yxM-qB-SH3">
-                                <rect key="frame" x="133" y="766" width="124" height="78"/>
+                                <rect key="frame" x="134" y="774" width="125" height="78"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LauchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="vv7-DA-oi9">
-                                <rect key="frame" x="126" y="218.66666666666663" width="138" height="420"/>
+                                <rect key="frame" x="127" y="228.66666666666663" width="139" height="420"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.46666666666666667" green="0.34901960784313724" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="JUW-13-Idv" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="1.1" id="20v-eE-zAZ"/>
-                            <constraint firstItem="JUW-13-Idv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="2iQ-N4-gC1"/>
+                            <constraint firstItem="JUW-13-Idv" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="20v-eE-zAZ"/>
+                            <constraint firstItem="JUW-13-Idv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="2iQ-N4-gC1"/>
                             <constraint firstItem="vv7-DA-oi9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="623-dF-haU"/>
                             <constraint firstItem="yxM-qB-SH3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7UL-96-xiI"/>
                             <constraint firstItem="EmH-MR-hQh" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="Ayp-EX-4Ji"/>
                             <constraint firstItem="EmH-MR-hQh" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="DU6-Y0-q3d"/>
-                            <constraint firstItem="EmH-MR-hQh" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="KFG-S3-a9h"/>
-                            <constraint firstItem="JUW-13-Idv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="M5a-wW-khZ"/>
-                            <constraint firstItem="JUW-13-Idv" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="1.1" id="NTt-4L-0Zj"/>
+                            <constraint firstItem="JUW-13-Idv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="M5a-wW-khZ"/>
+                            <constraint firstItem="JUW-13-Idv" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="NTt-4L-0Zj"/>
                             <constraint firstItem="yxM-qB-SH3" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="31:211" id="ORP-oV-4ue"/>
                             <constraint firstItem="EmH-MR-hQh" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="SSz-fI-s9D"/>
                             <constraint firstItem="EmH-MR-hQh" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="kPd-lO-pvh"/>

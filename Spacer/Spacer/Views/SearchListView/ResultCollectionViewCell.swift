@@ -104,7 +104,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         self.shadowView.layer.shadowColor = UIColor.black.cgColor
         self.shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.shadowView.layer.shadowRadius = 2
-        self.shadowView.layer.shadowOpacity = 0.25
+        self.shadowView.layer.shadowOpacity = 0.15
         self.shadowView.layer.masksToBounds = false
         
         shadowView.addSubview(cafeImageView)

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */; };
+		BF3558052927CE2C003B3735 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BF3558042927CE2C003B3735 /* Realm */; };
+		BF3558072927CE2C003B3735 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BF3558062927CE2C003B3735 /* RealmSwift */; };
+		BF495501292BE9AE00C7461B /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF495500292BE9AE00C7461B /* MembersViewController.swift */; };
+		BF495503292BEBE000C7461B /* MemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF495502292BEBE000C7461B /* MemberCollectionViewCell.swift */; };
+		BF4E7308292B65860076EB24 /* MyPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4E7307292B65860076EB24 /* MyPageTableViewCell.swift */; };
 		BF5F8AAE28FE736D00CF9E3A /* CafeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */; };
 		BF5F8AB028FE73AE00CF9E3A /* CafeInfoData.json in Resources */ = {isa = PBXBuildFile; fileRef = BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */; };
 		BF5F8AB228FE74A400CF9E3A /* MockParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AB128FE74A400CF9E3A /* MockParser.swift */; };
@@ -20,7 +26,11 @@
 		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */; };
 		BF6F700B292E304700699902 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F700A292E304700699902 /* UINavigationControllerExtension.swift */; };
+		BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */; };
+		BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */; };
+		BF6BD9CF2927E53F009935A4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6BD9CE2927E53F009935A4 /* RealmManager.swift */; };
 		BF899DD22925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */; };
+		BF91812B292C9D5400EF20F6 /* IconLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91812A292C9D5400EF20F6 /* IconLabelView.swift */; };
 		BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */; };
 		BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11828FFDA460056626C /* GradientExtension.swift */; };
 		BFB9B11F29003F110056626C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B11E29003F110056626C /* FontExtension.swift */; };
@@ -31,6 +41,7 @@
 		BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFB9B129290041A30056626C /* esamanru OTF Bold.otf */; };
 		BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB9B12B290046BB0056626C /* PaddingExtension.swift */; };
 		BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */; };
+		BFEBB012292CEC4700F793BE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BFEBB011292CEC4700F793BE /* Settings.bundle */; };
 		BFF518E6290FBF6F0050FE06 /* SimpleTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF518E5290FBF6F0050FE06 /* SimpleTagViewController.swift */; };
 		D40DAB702925337D0042127A /* esamanru OTF Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D40DAB6F2925337D0042127A /* esamanru OTF Medium.otf */; };
 		D454704428FD1A9F00CFDB25 /* CustomSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */; };
@@ -58,6 +69,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnBoardViewController.swift; sourceTree = "<group>"; };
+		BF495500292BE9AE00C7461B /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
+		BF495502292BEBE000C7461B /* MemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCollectionViewCell.swift; sourceTree = "<group>"; };
+		BF4E7307292B65860076EB24 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeInfo.swift; sourceTree = "<group>"; };
 		BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CafeInfoData.json; sourceTree = "<group>"; };
 		BF5F8AB128FE74A400CF9E3A /* MockParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParser.swift; sourceTree = "<group>"; };
@@ -71,7 +86,11 @@
 		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCategoryViewController.swift; sourceTree = "<group>"; };
 		BF6F700A292E304700699902 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
+		BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageViewController.swift; sourceTree = "<group>"; };
+		BF6BD9CE2927E53F009935A4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUnderConstructionTableViewCell.swift; sourceTree = "<group>"; };
+		BF91812A292C9D5400EF20F6 /* IconLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelView.swift; sourceTree = "<group>"; };
 		BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFB9B11828FFDA460056626C /* GradientExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientExtension.swift; sourceTree = "<group>"; };
 		BFB9B11E29003F110056626C /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
@@ -82,6 +101,7 @@
 		BFB9B129290041A30056626C /* esamanru OTF Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Bold.otf"; sourceTree = "<group>"; };
 		BFB9B12B290046BB0056626C /* PaddingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtension.swift; sourceTree = "<group>"; };
 		BFD1381A290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCafeTableViewSectionHeader.swift; sourceTree = "<group>"; };
+		BFEBB011292CEC4700F793BE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		BFF518E5290FBF6F0050FE06 /* SimpleTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagViewController.swift; sourceTree = "<group>"; };
 		D40DAB6F2925337D0042127A /* esamanru OTF Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "esamanru OTF Medium.otf"; sourceTree = "<group>"; };
 		D454704328FD1A9F00CFDB25 /* CustomSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentControl.swift; sourceTree = "<group>"; };
@@ -114,6 +134,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF3558072927CE2C003B3735 /* RealmSwift in Frameworks */,
+				BF3558052927CE2C003B3735 /* Realm in Frameworks */,
 				D4A372A229011AB8007A5297 /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +149,7 @@
 				BF5F8AAD28FE736D00CF9E3A /* CafeInfo.swift */,
 				BF5F8AAF28FE73AE00CF9E3A /* CafeInfoData.json */,
 				BF5F8AB128FE74A400CF9E3A /* MockParser.swift */,
+				BF6BD9CE2927E53F009935A4 /* RealmManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +160,16 @@
 				BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */,
 			);
 			path = EventElements;
+			sourceTree = "<group>";
+		};
+		BF81BDB3292A814800C57870 /* OnBoardingView */ = {
+			isa = PBXGroup;
+			children = (
+				BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */,
+				BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */,
+				BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */,
+			);
+			path = OnBoardingView;
 			sourceTree = "<group>";
 		};
 		BFB9B120290040F50056626C /* Fonts */ = {
@@ -203,6 +236,10 @@
 			isa = PBXGroup;
 			children = (
 				D4C95C5028F528CB00992600 /* MyPageViewController.swift */,
+				BF4E7307292B65860076EB24 /* MyPageTableViewCell.swift */,
+				BF495500292BE9AE00C7461B /* MembersViewController.swift */,
+				BF495502292BEBE000C7461B /* MemberCollectionViewCell.swift */,
+				BF91812A292C9D5400EF20F6 /* IconLabelView.swift */,
 			);
 			path = MyPageView;
 			sourceTree = "<group>";
@@ -210,6 +247,7 @@
 		BFD1381329014D7E004E6726 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BF81BDB3292A814800C57870 /* OnBoardingView */,
 				BFD1381629014E0A004E6726 /* CafeDetailView */,
 				BFD1381529014DCF004E6726 /* SearchListView */,
 				D4A3729029011A79007A5297 /* VisualTagView */,
@@ -340,6 +378,7 @@
 				D4E950C428EF48CB0066B711 /* Assets.xcassets */,
 				D4E950C628EF48CB0066B711 /* LaunchScreen.storyboard */,
 				D4E950C928EF48CB0066B711 /* Info.plist */,
+				BFEBB011292CEC4700F793BE /* Settings.bundle */,
 			);
 			path = Spacer;
 			sourceTree = "<group>";
@@ -362,6 +401,8 @@
 			name = Spacer;
 			packageProductDependencies = (
 				D4A372A129011AB8007A5297 /* FSCalendar */,
+				BF3558042927CE2C003B3735 /* Realm */,
+				BF3558062927CE2C003B3735 /* RealmSwift */,
 			);
 			productName = Spacer;
 			productReference = D4E950B828EF48CA0066B711 /* Spacer.app */;
@@ -393,6 +434,7 @@
 			mainGroup = D4E950AF28EF48CA0066B711;
 			packageReferences = (
 				D4A372A029011AB8007A5297 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				BF3558032927CE2C003B3735 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = D4E950B928EF48CA0066B711 /* Products */;
 			projectDirPath = "";
@@ -410,6 +452,7 @@
 			files = (
 				D40DAB702925337D0042127A /* esamanru OTF Medium.otf in Resources */,
 				BF5F8AB028FE73AE00CF9E3A /* CafeInfoData.json in Resources */,
+				BFEBB012292CEC4700F793BE /* Settings.bundle in Resources */,
 				BFB9B1242900416A0056626C /* Pretendard-Bold.otf in Resources */,
 				BFB9B12A290041A30056626C /* esamanru OTF Bold.otf in Resources */,
 				D4E950C828EF48CB0066B711 /* LaunchScreen.storyboard in Resources */,
@@ -435,12 +478,16 @@
 				D4E950C028EF48CA0066B711 /* MainTabBarViewController.swift in Sources */,
 				BF5F8AB728FE877200CF9E3A /* PopularCafeTableViewCell.swift in Sources */,
 				BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */,
+				BF4E7308292B65860076EB24 /* MyPageTableViewCell.swift in Sources */,
 				BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */,
 				D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */,
+				BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */,
 				BFF518E6290FBF6F0050FE06 /* SimpleTagViewController.swift in Sources */,
 				BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */,
 				D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */,
+				BF91812B292C9D5400EF20F6 /* IconLabelView.swift in Sources */,
 				D4A3729B29011A79007A5297 /* CustomCalenderCell.swift in Sources */,
+				BF6BD9CF2927E53F009935A4 /* RealmManager.swift in Sources */,
 				BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */,
 				BF5F8ABF28FEC8E700CF9E3A /* CustomButtonView.swift in Sources */,
 				D486C48B290280C200D6B0A0 /* GridCollectionViewCell.swift in Sources */,
@@ -450,13 +497,17 @@
 				BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */,
 				D454704828FDA72B00CFDB25 /* DetailInfomationViewController.swift in Sources */,
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
+				BF495503292BEBE000C7461B /* MemberCollectionViewCell.swift in Sources */,
 				D4A372AF29063C8A007A5297 /* CategoryInfomationLineView.swift in Sources */,
+				BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
 				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
 				D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */,
+				BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */,
 				BF5F8AB528FE868E00CF9E3A /* MyHeaderView.swift in Sources */,
+				BF495501292BE9AE00C7461B /* MembersViewController.swift in Sources */,
 				BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */,
 				BF5F8ABB28FE881400CF9E3A /* RecentCafeCollectionViewCell.swift in Sources */,
 				D4E950BE28EF48CA0066B711 /* SceneDelegate.swift in Sources */,
@@ -682,6 +733,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BF3558032927CE2C003B3735 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D4A372A029011AB8007A5297 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
@@ -693,6 +752,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BF3558042927CE2C003B3735 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF3558032927CE2C003B3735 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		BF3558062927CE2C003B3735 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF3558032927CE2C003B3735 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		D4A372A129011AB8007A5297 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D4A372A029011AB8007A5297 /* XCRemoteSwiftPackageReference "FSCalendar" */;

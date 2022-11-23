@@ -75,7 +75,7 @@ class SearchListViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: .padding.margin, bottom: .padding.betweenContentsPadding, right: .padding.margin)
+        collectionView.contentInset = UIEdgeInsets(top: 4, left: .padding.margin, bottom: .padding.betweenContentsPadding-4, right: .padding.margin)
         collectionView.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifier)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -256,7 +256,7 @@ class SearchListViewController: UIViewController {
             resultCollectionView.widthAnchor.constraint(equalToConstant: view.bounds.width),
             resultCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             resultCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resultCollectionView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: .padding.startHierarchyPadding)
+            resultCollectionView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: .padding.startHierarchyPadding-4)
         ]
         
         NSLayoutConstraint.activate(resultCollectionViewConstraints)
@@ -273,7 +273,7 @@ class SearchListViewController: UIViewController {
             }
         }))
         
-        let backIcon = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(backButtonTapped))
+        let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(backButtonTapped))
         if let textfield = self.searchBar.value(forKey: "searchField") as? UITextField {
             textfield.backgroundColor = .clear
             // 플레이스홀더 색

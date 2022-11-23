@@ -56,7 +56,7 @@ class BirthdayCafeViewController: UIViewController {
     }()
     // MARK: - 0. section정보
     
-    let sectionTitles: [String] = ["최근 카페 후기", "가장 인기 있는 카페"]
+    let sectionTitles: [String] = ["최근 카페 후기", "지금 인기 있는 카페"]
     let sectionImages: [String] = ["RecentReviewCafeIcon", "PopularCafeIcon"]
     
     private var headerView: MyHeaderView?

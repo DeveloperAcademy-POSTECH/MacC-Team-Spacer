@@ -222,10 +222,7 @@ class CafeDetailViewController: UIViewController {
         scrollView.contentInsetAdjustmentBehavior = .never
         
         // 카페 이미지 보여주기
-        setCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos)
-        
-        // 이미지별 카테고리와 사이즈 라벨 초기화
-        setImageDescriptionView(categoryName: tempCafeInfo?.imageInfos[0].category ?? "", tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: tempCafeInfo?.imageInfos[0].productSize ?? "")
+        setCafeImages(width: view.bounds.width)
         
         // callReservationButton과 reservationButton 세팅
         setIfButtonDisable()
@@ -322,13 +319,14 @@ class CafeDetailViewController: UIViewController {
         // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
     }
     
-    func setCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo]) {
+    func setCafeImages(width: CGFloat) {
         Task {
+            var imageIndex = 0
             // TODO: url이 임의가 아닌 현재 카페의 cafeID로 변경되어야 함
             let imageInfos = try await APICaller.requestGetData(url: "/static/getImages/f7c51eda64af11ed94ba0242ac110003", dataType: [CafeThumbnailImage].self) as! [CafeThumbnailImage]
             
             for info in imageInfos {
-                totalImageCount += 1
+                imageIndex += 1
                 
                 // 불러온 이미지 주소를 데이터로 저장
                 guard let url = URL(string: info.cafeImageUrl) else {
@@ -350,7 +348,7 @@ class CafeDetailViewController: UIViewController {
                 categoryNames.append(info.imageCategory)
                 sizeDescriptions.append(info.imageProductSize)
             }
-            
+            totalImageCount = imageIndex
             setImageDescriptionView(categoryName: categoryNames[0], tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[0])
             
             // 전체 이미지 수에 따라 imageScrollView의 width 설정

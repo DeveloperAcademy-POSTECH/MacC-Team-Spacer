@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */; };
 		BF3558052927CE2C003B3735 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = BF3558042927CE2C003B3735 /* Realm */; };
 		BF3558072927CE2C003B3735 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BF3558062927CE2C003B3735 /* RealmSwift */; };
 		BF495501292BE9AE00C7461B /* MembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF495500292BE9AE00C7461B /* MembersViewController.swift */; };
@@ -24,6 +25,8 @@
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
 		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */; };
+		BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */; };
+		BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */; };
 		BF6BD9CF2927E53F009935A4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6BD9CE2927E53F009935A4 /* RealmManager.swift */; };
 		BF899DD22925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */; };
 		BF91812B292C9D5400EF20F6 /* IconLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91812A292C9D5400EF20F6 /* IconLabelView.swift */; };
@@ -65,6 +68,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnBoardViewController.swift; sourceTree = "<group>"; };
 		BF495500292BE9AE00C7461B /* MembersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersViewController.swift; sourceTree = "<group>"; };
 		BF495502292BEBE000C7461B /* MemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF4E7307292B65860076EB24 /* MyPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTableViewCell.swift; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCategoryViewController.swift; sourceTree = "<group>"; };
+		BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageViewController.swift; sourceTree = "<group>"; };
 		BF6BD9CE2927E53F009935A4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUnderConstructionTableViewCell.swift; sourceTree = "<group>"; };
 		BF91812A292C9D5400EF20F6 /* IconLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelView.swift; sourceTree = "<group>"; };
@@ -152,6 +158,16 @@
 				BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */,
 			);
 			path = EventElements;
+			sourceTree = "<group>";
+		};
+		BF81BDB3292A814800C57870 /* OnBoardingView */ = {
+			isa = PBXGroup;
+			children = (
+				BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */,
+				BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */,
+				BF02AE00292D06D4000264A9 /* FirstOnBoardViewController.swift */,
+			);
+			path = OnBoardingView;
 			sourceTree = "<group>";
 		};
 		BFB9B120290040F50056626C /* Fonts */ = {
@@ -228,6 +244,7 @@
 		BFD1381329014D7E004E6726 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BF81BDB3292A814800C57870 /* OnBoardingView */,
 				BFD1381629014E0A004E6726 /* CafeDetailView */,
 				BFD1381529014DCF004E6726 /* SearchListView */,
 				D4A3729029011A79007A5297 /* VisualTagView */,
@@ -461,6 +478,7 @@
 				BF4E7308292B65860076EB24 /* MyPageTableViewCell.swift in Sources */,
 				BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */,
 				D486C47929013DBB00D6B0A0 /* NextButton.swift in Sources */,
+				BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */,
 				BFF518E6290FBF6F0050FE06 /* SimpleTagViewController.swift in Sources */,
 				BFD1381B290274BD004E6726 /* BirthdayCafeTableViewSectionHeader.swift in Sources */,
 				D486C47529012EB400D6B0A0 /* CancelButton.swift in Sources */,
@@ -478,11 +496,13 @@
 				D454704A28FDA79200CFDB25 /* CafeReviewViewController.swift in Sources */,
 				BF495503292BEBE000C7461B /* MemberCollectionViewCell.swift in Sources */,
 				D4A372AF29063C8A007A5297 /* CategoryInfomationLineView.swift in Sources */,
+				BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
 				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
 				D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */,
+				BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */,
 				BF5F8AB528FE868E00CF9E3A /* MyHeaderView.swift in Sources */,
 				BF495501292BE9AE00C7461B /* MembersViewController.swift in Sources */,
 				BFB9B11928FFDA460056626C /* GradientExtension.swift in Sources */,

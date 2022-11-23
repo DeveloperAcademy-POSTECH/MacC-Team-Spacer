@@ -15,10 +15,9 @@ class SearchListViewController: UIViewController {
     // 태그로 들어와서 서치바를 사용한지 확인
     var usingTagText = false
     
-    public var tempCafeArray: [CafeInfo] = [CafeInfo]()
-    public var filteredArr: [CafeInfo] = [CafeInfo]()
-    // 태그 검색중에서 텍스트로 또 검색하였을 경우 filteredArr를 수정하지 않고 다른 배열로 받아서 보여줌
-    public var filteredTagTextArr: [CafeInfo] = [CafeInfo]()
+    private var cafeDatas: [Cafeinfo] = [Cafeinfo]()
+    private var filteredArray: [Cafeinfo] = [Cafeinfo]()
+    private var filteredTagTextArray: [Cafeinfo] = [Cafeinfo]()
     
     let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     let regions = ["서울","부산"]
@@ -293,36 +292,97 @@ class SearchListViewController: UIViewController {
         if let selectedRegion = selectedRegion, let selectedEventElement = selectedEventElement {
             isTagged = true
             isFirstFiltering = true
-            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-                var isEventElementEnough: Bool = true
-                for i in eventElements.indices {
-                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                    if selectedEventElement[i] {
-                        if !CafeInfo.eventElement[i] {
-                            isEventElementEnough = false
+            
+            APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
+                let cafeAllDatas: [Cafeinfo]
+                cafeAllDatas = datas as! [Cafeinfo]
+                
+                self.filteredArray = cafeAllDatas.filter({ cafeData in
+                    var isEventElementEnough: Bool = true
+                    
+                    // TODO: 현재 아래 API 호출이 비동기적으로 일어나 return이 먼저되어 필터가 제대로 작동하지 않음. 해결 필요.
+                    APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) { success, data in
+                        let elementData: CafeEventElement
+                        elementData = data as! CafeEventElement
+                        var elementsInfo: [Bool] = [Bool]()
+                        
+                        // 받아온 데이터를 Bool Array 형태로 저장
+                        elementsInfo.append(elementData.cupHolder != 0)
+                        elementsInfo.append(elementData.standBanner != 0)
+                        elementsInfo.append(elementData.photoFrame != 0)
+                        elementsInfo.append(elementData.banner != 0)
+                        elementsInfo.append(elementData.displaySpace != 0)
+                        elementsInfo.append(elementData.bottleDrink != 0)
+                        elementsInfo.append(elementData.customDesert != 0)
+                        elementsInfo.append(elementData.customReceipt != 0)
+                        elementsInfo.append(elementData.cutOut != 0)
+                        elementsInfo.append(elementData.displayVideo != 0)
+                        elementsInfo.append(elementData.photoCard != 0)
+                        elementsInfo.append(elementData.photoZone != 0)
+                        
+                        for i in elementsInfo.indices {
+                            // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
+                            if selectedEventElement[i] && !elementsInfo[i] {
+                                isEventElementEnough = false
+                                break
+                            }
                         }
                     }
-                }
-                return CafeInfo.locationID == Int(selectedRegion)! && isEventElementEnough
-            })
+                    
+                    return cafeData.cafeLocation == Int(selectedRegion)! && isEventElementEnough
+                })
+                
+                self.resultCollectionView.reloadData()
+            }
+            
         } else if let selectedEventElement = selectedEventElement {
             isTagged = true
             isFirstFiltering = true
-            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-                var isEventElementEnough: Bool = true
-                for i in eventElements.indices {
-                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                    if selectedEventElement[i] {
-                        if !CafeInfo.eventElement[i] {
-                            isEventElementEnough = false
+            
+            APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
+                self.filteredArray = datas as! [Cafeinfo]
+                
+                self.filteredArray = self.filteredArray.filter({ cafeData in
+                    var isEventElementEnough: Bool = true
+                    
+                    // TODO: 현재 아래 API 호출이 비동기적으로 일어나 return이 먼저되어 필터가 제대로 작동하지 않음. 해결 필요.
+                    APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) { success, data in
+                        let elementData: CafeEventElement
+                        elementData = data as! CafeEventElement
+                        var elementsInfo: [Bool] = [Bool]()
+                        
+                        // 받아온 데이터를 Bool Array 형태로 저장
+                        elementsInfo.append((elementData.cupHolder != 0))
+                        elementsInfo.append(elementData.standBanner != 0)
+                        elementsInfo.append(elementData.photoFrame != 0)
+                        elementsInfo.append(elementData.banner != 0)
+                        elementsInfo.append(elementData.displaySpace != 0)
+                        elementsInfo.append(elementData.bottleDrink != 0)
+                        elementsInfo.append(elementData.customDesert != 0)
+                        elementsInfo.append(elementData.customReceipt != 0)
+                        elementsInfo.append(elementData.cutOut != 0)
+                        elementsInfo.append(elementData.displayVideo != 0)
+                        elementsInfo.append(elementData.photoCard != 0)
+                        elementsInfo.append(elementData.photoZone != 0)
+                        
+                        for i in elementsInfo.indices {
+                            // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
+                            if selectedEventElement[i] && !elementsInfo[i] {
+                                isEventElementEnough = false
+                                break
+                            }
                         }
                     }
-                }
-                return isEventElementEnough
-            })
+                    return isEventElementEnough
+                })
+            }
+            
         } else {
-            // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
-            tempCafeArray = MockManager.shared.getMockData()
+            // BirthdayCafeView에서 검색 버튼을 눌렀을 때 카페 전체 목록 불러옴
+            APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) { success, datas in
+                self.cafeDatas = datas as! [Cafeinfo]
+            }
+            //tempCafeArray = MockManager.shared.getMockData()
         }
         resultCollectionView.reloadData()
     }
@@ -384,7 +444,7 @@ class SearchListViewController: UIViewController {
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFirstFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
+        if isFirstFiltering && filteredArray.count == 0 || usingTagText && filteredTagTextArray.count == 0 {
             view.addSubview(emptyLabel)
             NSLayoutConstraint.activate([
                 emptyLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -395,20 +455,20 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             self.emptyLabel.removeFromSuperview()
         }
-        return usingTagText ? filteredTagTextArr.count : filteredArr.count
+        return usingTagText ? filteredTagTextArray.count : filteredArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell()
         }
-        usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
+        usingTagText ? cell.configure(with: filteredTagTextArray[indexPath.row]) : cell.configure(with: filteredArray[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let cafeDetailViewController = CafeDetailViewController()
-        cafeDetailViewController.tempCafeInfo = usingTagText ? filteredTagTextArr[indexPath.row]: filteredArr[indexPath.row]
+        cafeDetailViewController.cafeData = usingTagText ? filteredTagTextArray[indexPath.row]: filteredArray[indexPath.row]
         self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }
@@ -432,14 +492,15 @@ extension SearchListViewController: UISearchBarDelegate {
         
         if isTagged {
             usingTagText = true
-            self.filteredTagTextArr = self.filteredArr.filter({ CafeInfo in
-                return CafeInfo.name.localizedCaseInsensitiveContains(text)
+            self.filteredTagTextArray = self.filteredArray.filter({ cafeData in
+                return cafeData.cafeName.localizedCaseInsensitiveContains(text)
             })
         } else {
-            self.filteredArr = self.tempCafeArray.filter({ CafeInfo in
-                return CafeInfo.name.localizedCaseInsensitiveContains(text)
+            self.filteredArray = self.cafeDatas.filter({ cafeData in
+                return cafeData.cafeName.localizedCaseInsensitiveContains(text)
             })
         }
+        self.resultCollectionView.reloadData()
         // 바로바로 업데이트 되게 만들기
         // self.resultCollectionView.reloadData()
         // bottomLine.backgroundColor = UIColor.red.cgColor

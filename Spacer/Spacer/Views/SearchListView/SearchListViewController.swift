@@ -75,7 +75,7 @@ class SearchListViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 2, left: .padding.margin, bottom: .padding.betweenContentsPadding-2, right: .padding.margin)
+        collectionView.contentInset = UIEdgeInsets(top: 4, left: .padding.margin, bottom: .padding.betweenContentsPadding-4, right: .padding.margin)
         collectionView.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifier)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -256,7 +256,7 @@ class SearchListViewController: UIViewController {
             resultCollectionView.widthAnchor.constraint(equalToConstant: view.bounds.width),
             resultCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             resultCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resultCollectionView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: .padding.startHierarchyPadding-2)
+            resultCollectionView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: .padding.startHierarchyPadding-4)
         ]
         
         NSLayoutConstraint.activate(resultCollectionViewConstraints)

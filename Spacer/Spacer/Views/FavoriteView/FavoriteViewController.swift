@@ -21,7 +21,7 @@ class FavoriteViewController: UIViewController {
         layout.itemSize = CGSize(width: 173, height: 193)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 2, left: .padding.margin, bottom: .padding.betweenContentsPadding-2, right: .padding.margin)
+        collectionView.contentInset = UIEdgeInsets(top: 4, left: .padding.margin, bottom: .padding.betweenContentsPadding-4, right: .padding.margin)
         collectionView.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
@@ -62,7 +62,7 @@ class FavoriteViewController: UIViewController {
     func setCollectionView() {
         view.addSubview(favoriteCollectionView)
         NSLayoutConstraint.activate([
-            favoriteCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .padding.startHierarchyPadding-2),
+            favoriteCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .padding.startHierarchyPadding-4),
             favoriteCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favoriteCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             favoriteCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)

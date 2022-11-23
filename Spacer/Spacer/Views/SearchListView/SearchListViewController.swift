@@ -198,7 +198,7 @@ class SearchListViewController: UIViewController {
         
         // 지역
         if let selectedRegion = selectedRegion {
-            regionTitle = AttributedString.init(regions[Int(selectedRegion)!])
+            regionTitle = AttributedString.init(regions[Int(selectedRegion)! - 1])
             regionTitle.foregroundColor = .grayscale7
             regionButton.configuration?.baseBackgroundColor = .mainPurple3
             regionButton.configuration?.baseForegroundColor = .grayscale5

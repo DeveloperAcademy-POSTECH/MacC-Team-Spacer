@@ -429,14 +429,12 @@ class SearchListViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchBar.endEditing(true)
         bottomLine.backgroundColor = .grayscale4
-        self.resultCollectionView.reloadData()
     }
     
     // 화면 스크롤할 경우도 키보드 내리기
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchBar.endEditing(true)
         bottomLine.backgroundColor = .grayscale4
-        self.resultCollectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -560,10 +558,6 @@ extension SearchListViewController: UISearchBarDelegate {
             filteredArray = tempfilteredCafeDatas
             filteredThumbnailImages = tempfilteredImages
         }
-        self.resultCollectionView.reloadData()
-        // 바로바로 업데이트 되게 만들기
-        // self.resultCollectionView.reloadData()
-        // bottomLine.backgroundColor = UIColor.red.cgColor
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -577,7 +571,6 @@ extension SearchListViewController: UISearchBarDelegate {
                 }
             }
         }
-        self.resultCollectionView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -586,9 +579,4 @@ extension SearchListViewController: UISearchBarDelegate {
         bottomLine.backgroundColor = .mainPurple3
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.text = ""
-        self.searchBar.resignFirstResponder()
-        self.resultCollectionView.reloadData()
-    }
 }

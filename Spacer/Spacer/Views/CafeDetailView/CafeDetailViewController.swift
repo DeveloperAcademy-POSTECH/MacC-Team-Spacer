@@ -325,11 +325,11 @@ class CafeDetailViewController: UIViewController {
                 imageIndex += 1
                 
                 // 불러온 이미지 주소를 데이터로 저장
-                guard let url = URL(string: info.cafeImageUrl) else {
-                    print("Can't create image url")
-                    return
-                }
-                let data = try! Data(contentsOf: url)
+                let url = URL(string: info.cafeImageUrl)
+                var request = URLRequest(url: url!)
+                request.httpMethod = "GET"
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
                 
                 // 각 이미지를 imageScrollView에 추가
                 let cafeImage = UIImageView()

@@ -275,14 +275,6 @@
 			path = FavoriteView;
 			sourceTree = "<group>";
 		};
-		D41F69D2292A9176006B35EC /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				D41F69D3292A9195006B35EC /* APICaller.swift */,
-			);
-			path = Managers;
-            sourceTree = "<group>";
-        };
 		BFF518E4290FBECF0050FE06 /* SimpleTagView */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +282,14 @@
 				BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */,
 			);
 			path = SimpleTagView;
+			sourceTree = "<group>";
+		};
+		D41F69D2292A9176006B35EC /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				D41F69D3292A9195006B35EC /* APICaller.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		D486C4912905A89F00D6B0A0 /* GridCell */ = {

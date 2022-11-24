@@ -18,6 +18,7 @@ class SearchListViewController: UIViewController {
     private var cafeDatas: [Cafeinfo] = [Cafeinfo]()
     private var filteredArray: [Cafeinfo] = [Cafeinfo]()
     private var filteredTagTextArray: [Cafeinfo] = [Cafeinfo]()
+    private var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
     
     let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     let regions = ["서울","부산"]
@@ -128,6 +129,24 @@ class SearchListViewController: UIViewController {
             bottomLine.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: -55),
             bottomLine.heightAnchor.constraint(equalToConstant: 3),
         ])
+    }
+    
+    private func loadThumbnailImages(cafeDats: [Cafeinfo]) {
+        Task {
+            for data in cafeDats {
+                var thumbnailImageInfo: CafeThumbnailImage
+                
+                // 각 카페 별 썸네일 이미지 url 요청하고 데이터가 없을 경우 기본 이미지로 썸네일 이미지 대체
+                do {
+                    thumbnailImageInfo = try await APICaller.requestGetData(url: "/static/getfirstimage/\(data.cafeID)", dataType: CafeThumbnailImage.self) as! CafeThumbnailImage
+                    thumbnailImageInfos.append(thumbnailImageInfo)
+                } catch {
+                    thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg", imageCategory: "", imageProductSize: ""))
+                }
+            }
+            
+            resultCollectionView.reloadData()
+        }
     }
     
     func setButton() {
@@ -340,7 +359,8 @@ class SearchListViewController: UIViewController {
                     cafeData
                 }
                 
-                self.resultCollectionView.reloadData()
+                loadThumbnailImages(cafeDats: filteredArray)
+                
             }
             
         } else if let selectedEventElement = selectedEventElement {
@@ -387,15 +407,17 @@ class SearchListViewController: UIViewController {
                     cafeData
                 }
                 
-                self.resultCollectionView.reloadData()
+                loadThumbnailImages(cafeDats: filteredArray)
             }
             
         } else {
             // BirthdayCafeView에서 검색 버튼을 눌렀을 때 카페 전체 목록 불러옴
             Task {
                 cafeDatas = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
+                loadThumbnailImages(cafeDats: cafeDatas)
             }
         }
+        resultCollectionView.reloadData()
     }
     
     // 화면 터치하여 키보드 내리기
@@ -472,7 +494,7 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell()
         }
-        usingTagText ? cell.configure(with: filteredTagTextArray[indexPath.row]) : cell.configure(with: filteredArray[indexPath.row])
+        usingTagText ? cell.configure(with: filteredTagTextArray[indexPath.row], imageURL: thumbnailImageInfos[indexPath.row].cafeImageUrl) : cell.configure(with: filteredArray[indexPath.row], imageURL: thumbnailImageInfos[indexPath.row].cafeImageUrl)
         return cell
     }
     

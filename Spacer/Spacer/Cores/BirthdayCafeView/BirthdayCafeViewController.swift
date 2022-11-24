@@ -16,20 +16,10 @@ enum Sections: Int {
 
 class BirthdayCafeViewController: UIViewController {
     
-    // 전체를 감싸는 스크롤뷰 - delegate를 활용하여 navBar 변화를 주기 위해 사용
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.alwaysBounceVertical = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
-    
-    // TODO: - 테두리가 깎이는 상황에서 백그라운드가 clear로 .mainPurple4가 나와야함
-    
     // 커스텀 네비게이션 바
     let navBar: UIView = {
         let navBar = UIView()
-        navBar.backgroundColor = .mainPurple4
+        navBar.backgroundColor = .grayscale7
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         navBar.clipsToBounds = true
@@ -49,7 +39,7 @@ class BirthdayCafeViewController: UIViewController {
     let magnifyButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
-        button.tintColor = .mainPurple6
+        button.tintColor = .mainPurple1
         button.translatesAutoresizingMaskIntoConstraints = false
         // MARK: - TODO: 버튼에 액션 추가
         return button
@@ -59,14 +49,14 @@ class BirthdayCafeViewController: UIViewController {
     let heartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
-        button.tintColor = .mainPurple6
+        button.tintColor = .mainPurple1
         button.translatesAutoresizingMaskIntoConstraints = false
         // MARK: - TODO: 버튼에 액션 추가
         return button
     }()
     // MARK: - 0. section정보
     
-    let sectionTitles: [String] = ["최근 카페 후기", "가장 인기 있는 카페"]
+    let sectionTitles: [String] = ["최근 카페 후기", "지금 인기 있는 카페"]
     let sectionImages: [String] = ["RecentReviewCafeIcon", "PopularCafeIcon"]
     
     private var headerView: MyHeaderView?
@@ -123,10 +113,8 @@ class BirthdayCafeViewController: UIViewController {
             birthdayCafeTableView.reloadData()
         }
         
-        view.addSubview(scrollView)
         view.addSubview(navBar)
-        
-        scrollView.addSubview(birthdayCafeTableView)
+        view.addSubview(birthdayCafeTableView)
         
         navBar.addSubview(logoButton)
         navBar.addSubview(magnifyButton)
@@ -134,9 +122,8 @@ class BirthdayCafeViewController: UIViewController {
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
         birthdayCafeTableView.tableHeaderView = headerView
-        headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
         
-        scrollView.delegate = self
+        headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
         
         birthdayCafeTableView.delegate = self
         birthdayCafeTableView.dataSource = self
@@ -157,13 +144,6 @@ class BirthdayCafeViewController: UIViewController {
     }
     
     func applyConstraints() {
-        
-        let scrollViewConstraints = [
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ]
         
         let navBarConstraints = [
             navBar.topAnchor.constraint(equalTo: view.topAnchor),
@@ -197,7 +177,6 @@ class BirthdayCafeViewController: UIViewController {
             birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
-        NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(navBarConstraints)
         NSLayoutConstraint.activate(logoButtonConstraints)
         NSLayoutConstraint.activate(heartButtonConstraints)
@@ -215,6 +194,13 @@ class BirthdayCafeViewController: UIViewController {
         
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
+        
+        // 처음 실행되었다면 UserDefaults에 oldUser라는 값이 False
+        if !UserDefaults.standard.bool(forKey: "oldUser") {
+            let pageVC = OnBoardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+            pageVC.modalPresentationStyle = .fullScreen
+            present(pageVC, animated: true)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -269,8 +255,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         
         return sectionHeader
     }
-    
-    // TODO: - 사샤에게 패딩 컨펌받기
     
     // 섹션헤더의 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -329,7 +313,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             cell.contentView.layer.shadowOffset = CGSize(width: 0, height: 0)
             cell.contentView.layer.shadowColor = UIColor.black.cgColor
             cell.contentView.layer.shadowRadius = 3
-            cell.contentView.layer.shadowOpacity = 0.25
+            cell.contentView.layer.shadowOpacity = 0.15
             cell.contentView.layer.masksToBounds = false
             
             return cell
@@ -361,21 +345,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             cafeDetailViewController.cafeData = cafeDataArray[indexPath.row]
             self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
         }
-       
     }
-}
-
-// TODO: - 헤더뷰의 높이만큼 스크롤 되었을 경우 navBar의 cornerRadius 수정 -> 우선순위 낮춤(직각으로)
-extension BirthdayCafeViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        //        if scrollView.contentOffset.y >= headerView!.bounds.height - 8 {
-        //            self.navBar.layer.cornerRadius = 24
-        //        } else {
-        //            self.navBar.layer.cornerRadius = 0
-        //        }
-    }
-    
 }
 
 //MARK: - 3. 프로토콜을 채택 -> 함수 지정: 다른 뷰로 넘어가는 기능

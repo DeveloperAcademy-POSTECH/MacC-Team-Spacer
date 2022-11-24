@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CafeDetailViewController: UIViewController {
     
     // 서버에서 받아온 카페 기본 정보
     var cafeData: Cafeinfo?
+    let realm = try! Realm()
     
     // MARK: - UI 요소
     
@@ -148,9 +150,9 @@ class CafeDetailViewController: UIViewController {
         return bottomBar
     }()
     
-    let favoriteOnOffButton: UIButton = {
+    lazy var favoriteOnOffButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+        button.setImage(UIImage(named: "heartIcon")?.withTintColor(isFavoriteButtonOn ? .systemRed : .grayscale4), for: .normal)
         button.backgroundColor = .mainPurple6
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.mainPurple5.cgColor
@@ -213,6 +215,15 @@ class CafeDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         detailInfoView.cafeBasicInfo = cafeData
+        
+        // realm에서 카페 정보를 받아온 후 name이 일치하는 것이 있으면 isFavoriteButtonOn을 true로 변경
+        let cafes = realm.objects(FavoriteCafe.self)
+        let filteredCafe = cafes.where {
+            $0.cafeName == cafeData!.cafeName
+        }
+        if let _ = filteredCafe.first {
+            isFavoriteButtonOn = true
+        }
         
         // scrollView의 topAnchor가 안전영역 끝쪽에 붙도록
         scrollView.contentInsetAdjustmentBehavior = .never
@@ -309,8 +320,21 @@ class CafeDetailViewController: UIViewController {
         isFavoriteButtonOn.toggle()
         if isFavoriteButtonOn {
             sender.setImage(UIImage(named: "heartIcon"), for: .normal)
+            // realm에 favorite 버튼을 선택한 카페 이름을 저장
+            let favoriteCafe = FavoriteCafe(cafeName: cafeData!.cafeName)
+            try! realm.write {
+                realm.add(favoriteCafe)
+            }
         } else {
             sender.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+            // realm에 favorite 버튼을 선택을 해제한 카페 이름을 삭제
+            let favoriteCafes = realm.objects(FavoriteCafe.self)
+            let favoriteOnCafe = favoriteCafes.where {
+                $0.cafeName == cafeData!.cafeName
+            }
+            try! realm.write {
+                realm.delete(favoriteOnCafe)
+            }
         }
         // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
     }

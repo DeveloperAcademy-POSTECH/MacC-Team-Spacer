@@ -27,6 +27,7 @@ class MembersViewController: UIViewController {
     lazy var memberCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
+        layout.sectionInset = .init(top: 12, left: 16, bottom: 0, right: 16)
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.bounces = false
@@ -36,12 +37,16 @@ class MembersViewController: UIViewController {
         return collectionView
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         title = "이런 사람들입니다"
         self.navigationController?.navigationBar.tintColor = .mainPurple1
         tabBarController?.tabBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         appearanceSetup()
         setup()
@@ -61,10 +66,10 @@ class MembersViewController: UIViewController {
     func setup() {
         view.addSubview(memberCollectionView)
         NSLayoutConstraint.activate([
-            memberCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
-            memberCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
-            memberCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            memberCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            memberCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            memberCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            memberCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            memberCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }

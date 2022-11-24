@@ -49,8 +49,8 @@ class MyPageViewController: UIViewController {
         return label
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
         self.navigationController?.isNavigationBarHidden = true
     }
@@ -72,7 +72,7 @@ class MyPageViewController: UIViewController {
         view.addSubview(memberButton)
         view.addSubview(whoWeAreLabel)
         NSLayoutConstraint.activate([
-            preparingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            preparingView.topAnchor.constraint(equalTo: view.topAnchor, constant: 79),
             preparingView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             preparingView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
             
@@ -83,7 +83,7 @@ class MyPageViewController: UIViewController {
             
             memberButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
             memberButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
-            memberButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+            memberButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -115),
             memberButton.heightAnchor.constraint(equalToConstant: 69),
             
             whoWeAreLabel.bottomAnchor.constraint(equalTo: memberButton.topAnchor, constant: -13),

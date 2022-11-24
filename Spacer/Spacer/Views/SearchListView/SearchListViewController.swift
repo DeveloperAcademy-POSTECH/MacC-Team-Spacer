@@ -538,7 +538,7 @@ extension SearchListViewController: UISearchBarDelegate {
             for (index, cafeData) in filteredArray.enumerated() {
                 // 서치바로 입력한 텍스트와 일치하는 이름의 카페
                 if cafeData.cafeName.localizedCaseInsensitiveContains(text) {
-                    tempfilteredCafeDatas.append(filteredArray[index])      // 해당 카페 인덱스의 카페 정보 배열에 추가
+                    tempfilteredCafeDatas.append(cafeData)      // 해당 카페 인덱스의 카페 정보 배열에 추가
                     tempfilteredImages.append(thumbnailImageInfos[index])   // 해당 카페 인덱스의 썸네일 이름 배열에 추가
                 }
             }
@@ -552,7 +552,7 @@ extension SearchListViewController: UISearchBarDelegate {
             
             for (index, cafeData) in cafeDatas.enumerated() {
                 if cafeData.cafeName.localizedCaseInsensitiveContains(text) {
-                    tempfilteredCafeDatas.append(filteredArray[index])
+                    tempfilteredCafeDatas.append(cafeData)
                     tempfilteredImages.append(thumbnailImageInfos[index])
                 }
             }

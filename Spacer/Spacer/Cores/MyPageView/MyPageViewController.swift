@@ -10,7 +10,7 @@ import UIKit
 class MyPageViewController: UIViewController {
     
     let mainLabelArr = ["카페 등록하기", "앱 피드백하기"]
-    let subLabelArr = ["셀레버에 카페를 등록하고 싶다면?", "셀러버 앱을 피드백하고 싶다면"]
+    let subLabelArr = ["셀레버에 카페를 등록하고 싶다면?", "셀러버 앱을 피드백하고 싶다면?"]
     let mainImageArr = ["registerCafe","feedBack"]
     let backgroundArr: [UIColor] = [.mainPurple3, .systemBlue]
     

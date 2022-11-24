@@ -358,7 +358,6 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         tableView.deselectRow(at: indexPath, animated: false)
         if indexPath.section == 1 {
             let cafeDetailViewController = CafeDetailViewController()
-            cafeDetailViewController.tempCafeInfo = tempCafeArray[0]
             cafeDetailViewController.cafeData = cafeDataArray[indexPath.row]
             self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
         }
@@ -383,7 +382,7 @@ extension BirthdayCafeViewController: UIScrollViewDelegate {
 extension BirthdayCafeViewController: CellSelectedDelegate {
     func selectionAction(data: CafeInfo?, indexPath: IndexPath) {
         let cafeDetailViewController = CafeDetailViewController()
-        cafeDetailViewController.tempCafeInfo = data
+        cafeDetailViewController.cafeData = cafeDataArray[indexPath.row]
         navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }

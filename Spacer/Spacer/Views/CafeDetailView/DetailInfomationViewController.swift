@@ -10,8 +10,6 @@ import UIKit
 class DetailInfomationViewController: UIViewController {
     // 상세정보 및 카페 조건 등을 보여주는 ViewController
     
-    var cafeInfoData: CafeInfo?
-    
     // API를 사용해 불러온 카페 기본 정보
     var cafeBasicInfo: Cafeinfo?
     

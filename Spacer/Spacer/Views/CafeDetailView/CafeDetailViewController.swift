@@ -319,7 +319,7 @@ class CafeDetailViewController: UIViewController {
         Task {
             var imageIndex = 0
             // TODO: url이 임의가 아닌 현재 카페의 cafeID로 변경되어야 함
-            let imageInfos = try await APICaller.requestGetData(url: "/static/getImages/f7c51eda64af11ed94ba0242ac110003", dataType: [CafeThumbnailImage].self) as! [CafeThumbnailImage]
+            let imageInfos = try await APICaller.requestGetData(url: "/static/getImages/\(cafeData!.cafeID)", dataType: [CafeThumbnailImage].self) as! [CafeThumbnailImage]
             
             for info in imageInfos {
                 imageIndex += 1

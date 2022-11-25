@@ -15,7 +15,7 @@ CELEBER는 생일카페 문화를 즐기고 주최하고 싶은 팬들에게 더
 - **생일카페 진행 리뷰** : 이벤트 주최측의 입장에서 작성된 진행에 있었던 리뷰를 작성하고 공유할 수 있어요.
 
 ## 🫂 Authors
-|||<h4>**Team Spacer()**</h4>|||
+|<h4>**Team Spacer()**</h4>|
 |:---:|:---:|:---:|:---:|:---:|
 |<a href="https://www.linkedin.com/in/보승-김-a999b1242/"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/103025676/203736064-8ea34d51-f7f0-4e7d-887b-1d9b2abcc19e.png"/></a>|<a href="https://github.com/greathoaxer"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/103025676/203738112-6f68d902-b706-4402-9c64-36155898c3a4.png"/></a>|<a href="https://github.com/bee712"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/103025676/203740383-5a451e59-9dd7-43bc-93fa-6ee6e3d2445d.png"/></a>|<a href="https://github.com/hurdasol98"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/103025676/203741262-dcbbc387-8c74-49f2-b626-cd0e0b66d194.png"/></a>|<a href="https://github.com/erabhre"><img height="100px" width="100px" src="https://user-images.githubusercontent.com/103025676/203743795-4f1ef34f-b317-4de7-861c-e987ba5d118f.png"/></a>|
 |<a href="https://www.linkedin.com/in/보승-김-a999b1242/">김보승(Anders)</a>|<a href="https://github.com/greathoaxer">한형서(Hoaxer)</a>|<a href="https://github.com/bee712">한은비(Rang)</a>|<a href="https://github.com/hurdasol98">허다솔(Ocean)</a>|<a href="https://github.com/erabhre">최세영(Sasha)</a>|

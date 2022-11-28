@@ -18,6 +18,7 @@ class CafeDetailViewController: UIViewController {
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.tag = 1
         scrollView.bounces = false
         scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +37,7 @@ class CafeDetailViewController: UIViewController {
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 3 * 4))
+        scrollView.tag = 2
         
         // 스크롤 인디케이터 삭제
         scrollView.showsHorizontalScrollIndicator = false

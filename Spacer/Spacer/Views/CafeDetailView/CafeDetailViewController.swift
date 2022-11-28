@@ -527,8 +527,9 @@ extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // 이미지를 스크롤해서 넘기면 해당 이미지의 카테고리와 세부 사이즈 정보, 현재 이미지 번호로 업데이트
-        let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
-        if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
+        if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 && scrollView.tag == 2 {
+            let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
+            
             setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, sizeDescription: sizeDescriptions[currentImageNumber])
         }
     }

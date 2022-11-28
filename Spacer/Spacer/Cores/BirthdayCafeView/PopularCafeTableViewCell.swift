@@ -191,12 +191,22 @@ class PopularCafeTableViewCell: UITableViewCell {
     
     // MARK: - 1. cafeInfo를 받아와서 셀에 값을 넣어줌
     
-    public func configure(with model: CafeInfo) {
-        self.cafeName.text = model.name
-        self.cafeImageView.image = UIImage(named: model.imageInfos[0].images[0])
-        self.cafeLocation.text = model.shortAddress
-        self.numberOfTables.text = String(model.numberOfTables)
-        self.numberOfFavorites.text = String(model.numberOfFavorites)
+    public func configure(with model: Cafeinfo, imageURL: String) {
+        Task {
+            // url로부터 이미지를 불러오기 위한 data 생성
+            let url = URL(string: imageURL)
+            var request = URLRequest(url: url!)
+            request.httpMethod = "GET"
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            self.cafeName.text = model.cafeName
+            self.cafeImageView.image = UIImage(data: data)
+            self.cafeLocation.text = model.cafeShortAddress
+            self.numberOfTables.text = String(model.numberOfTables)
+            self.numberOfFavorites.text = String(model.numberOfFavorites)
+        }
+        
     }
     
     // MARK: - layer에다 그라디언트 추가하기

@@ -52,7 +52,7 @@ class CategoryInfomationLineView: UIView {
         setIconImageAndCategoryText(type: type)
         selfHeight = 20
         
-        if let description = description {
+        if let description = description, description != "", description != " " {
             descriptionLabel.text = description
         } else {
             descriptionLabel.text = "정보가 없습니다"
@@ -68,16 +68,16 @@ class CategoryInfomationLineView: UIView {
         applyDescriptionConstraints(isCategoryText: true)
     }
     
-    init(type: CategoryType, description: SNSList) {
+    init(type: CategoryType, description: CafeSNSInfo) {
         super.init(frame: .zero)
         
         setIconImageAndCategoryText(type: type)
         
-        if let twitterID = description.twitter {
+        if let twitterID = description.twitter, twitterID != "" {
             setSubTitleAndDescription(subTitle: "twitter", description: twitterID)
             selfHeight += 18
         }
-        if let instagramID = description.insta {
+        if let instagramID = description.instagram, instagramID != "" {
             setSubTitleAndDescription(subTitle: "instagram", description: instagramID)
             selfHeight += 18
         }
@@ -112,7 +112,7 @@ class CategoryInfomationLineView: UIView {
             selfHeight += 18
             setSubTitleAndDescription(subTitle: "주말", description: weekendTime)
         }
-        if let dayOffText = dayOff {
+        if let dayOffText = dayOff, dayOff != "" {
             selfHeight += 18
             let offLabel = UILabel()
             offLabel.text = dayOffText
@@ -127,7 +127,7 @@ class CategoryInfomationLineView: UIView {
         
         if selfHeight == 0 {
             selfHeight = 20
-            self.descriptionLabel.text = "격주로 수요일 휴무"
+            self.descriptionLabel.text = "정보가 없습니다"
             applyDescriptionConstraints(isCategoryText: true)
         } else {
             applyVerticalStackViewConstraints()

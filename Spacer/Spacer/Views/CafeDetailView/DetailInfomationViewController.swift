@@ -10,7 +10,8 @@ import UIKit
 class DetailInfomationViewController: UIViewController {
     // 상세정보 및 카페 조건 등을 보여주는 ViewController
     
-    var cafeInfoData: CafeInfo?
+    // API를 사용해 불러온 카페 기본 정보
+    var cafeBasicInfo: Cafeinfo?
     
     // 현재 View의 높이
     var selfHeight: CGFloat = 0
@@ -57,9 +58,9 @@ class DetailInfomationViewController: UIViewController {
         setCafeDetailInfoContainer()
         
         // 카페 조건 내부 컴포넌트 설정
-        setEventElementView(elements: cafeInfoData!.eventElement)
-        setCostView(costs: cafeInfoData!.cost)
-        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeInfoData?.additionalInfo)
+        setEventElementView()
+        setCostView(cost: cafeBasicInfo?.cafeCost)
+        setCafeAdditionalInfoView(cafeAdditionalInfo: cafeBasicInfo?.cafeAdditionalDescription)
         
         view.addSubview(cafeDetailInfoContainer)
         view.addSubview(dividerUnderDetailInfomation)
@@ -142,57 +143,46 @@ class DetailInfomationViewController: UIViewController {
     
     // cafeDetailInfoContainer 내부에 들어갈 카테고리별 정보를 세팅
     private func setCafeDetailInfoContainer() {
-        lazy var locationCategory = CategoryInfomationLineView(type: CategoryType.location, description: cafeInfoData?.address)
+        lazy var locationCategory = CategoryInfomationLineView(type: .location, description: cafeBasicInfo?.cafeAddress)
         locationCategory.translatesAutoresizingMaskIntoConstraints = false
         cafeDetailInfoContainer.addArrangedSubview(locationCategory)
         locationCategory.heightAnchor.constraint(equalToConstant: locationCategory.selfHeight).isActive = true
         
-        if let phoneNumber = cafeInfoData?.phoneNumber, phoneNumber != "" {
-            // 전화번호 형식에 맞게 수정
-            var formatedPhoneNumber = phoneNumber
-            formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 3))
-            formatedPhoneNumber.insert("-", at: formatedPhoneNumber.index(formatedPhoneNumber.startIndex, offsetBy: 8))
-            
-            // 전화번호 정보 카테고리에 추가
-            lazy var phoneNumberCategory = CategoryInfomationLineView(type: CategoryType.phoneNumber, description: formatedPhoneNumber)
+        // 전화번호 정보 카테고리에 추가
+        if let phoneNumber = cafeBasicInfo?.cafePhoneNumber {
+            lazy var phoneNumberCategory = CategoryInfomationLineView(type: .phoneNumber, description: phoneNumber)
             phoneNumberCategory.translatesAutoresizingMaskIntoConstraints = false
             cafeDetailInfoContainer.addArrangedSubview(phoneNumberCategory)
             phoneNumberCategory.heightAnchor.constraint(equalToConstant: phoneNumberCategory.selfHeight).isActive = true
         }
         
         // 테이블 수 카테고리 추가
-        if let numberOfTables = cafeInfoData?.numberOfTables {
-            lazy var tableCategory = CategoryInfomationLineView(type: CategoryType.tables, description: String(numberOfTables))
+        if let numberOfTables = cafeBasicInfo?.numberOfTables {
+            lazy var tableCategory = CategoryInfomationLineView(type: .tables, description: String(numberOfTables))
             tableCategory.translatesAutoresizingMaskIntoConstraints = false
             cafeDetailInfoContainer.addArrangedSubview(tableCategory)
             tableCategory.heightAnchor.constraint(equalToConstant: tableCategory.selfHeight).isActive = true
         }
         
-        // SNS 카테고리 추가
-        lazy var SNSCategory = CategoryInfomationLineView(type: CategoryType.SNSList, description: cafeInfoData!.SNS)
-        SNSCategory.translatesAutoresizingMaskIntoConstraints = false
-        cafeDetailInfoContainer.addArrangedSubview(SNSCategory)
-        SNSCategory.heightAnchor.constraint(equalToConstant: SNSCategory.selfHeight).isActive = true
-        
-        // weekdayTime, weekendTime 형식에 맞게 수정
-        var formatedWeekdayTime: String = ""
-        var formatedWeekendTime: String = ""
-        if let weekdayTime = cafeInfoData?.weekdayTime, weekdayTime != "" {
-            formatedWeekdayTime = weekdayTime
-            formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 2))
-            formatedWeekdayTime.insert(":", at: formatedWeekdayTime.index(formatedWeekdayTime.startIndex, offsetBy: 8))
+        Task {
+            // 카페의 sns 정보를 불러오기
+            let snsData = try await APICaller.requestGetData(url: "/cafeSNS/\(self.cafeBasicInfo!.cafeID)", dataType: CafeSNSInfo.self) as! CafeSNSInfo
+            
+            // 카페 sns 정보를 보여줄 view 추가
+            lazy var SNSCategory = CategoryInfomationLineView(type: .SNSList, description: snsData)
+            SNSCategory.translatesAutoresizingMaskIntoConstraints = false
+            self.cafeDetailInfoContainer.addArrangedSubview(SNSCategory)
+            SNSCategory.heightAnchor.constraint(equalToConstant: SNSCategory.selfHeight).isActive = true
+            
+            // 카페의 운영시간 정보 불러오기
+            let hoursOfOperate = try await APICaller.requestGetData(url: "/cafeOpenings/\(self.cafeBasicInfo!.cafeID)", dataType: CafeOpenings.self) as! CafeOpenings
+            
+            // 카페 운영시간 정보를 보여줄 view 추가
+            lazy var cafeHoursCategory = CategoryInfomationLineView(type: .operationTime, weekdayTime: hoursOfOperate.cafeWeekdayTime, weekendTime: hoursOfOperate.cafeWeekendTime, dayOff: hoursOfOperate.cafeDayOff)
+            cafeHoursCategory.translatesAutoresizingMaskIntoConstraints = false
+            self.cafeDetailInfoContainer.addArrangedSubview(cafeHoursCategory)
+            cafeHoursCategory.heightAnchor.constraint(equalToConstant: cafeHoursCategory.selfHeight).isActive = true
         }
-        if let weekendTime = cafeInfoData?.weekendTime, weekendTime != "" {
-            formatedWeekendTime = weekendTime
-            formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 2))
-            formatedWeekendTime.insert(":", at: formatedWeekendTime.index(formatedWeekendTime.startIndex, offsetBy: 8))
-        }
-        
-        // 운영 시간 카테고리 추가
-        lazy var cafeHoursCategory = CategoryInfomationLineView(type: CategoryType.operationTime, weekdayTime: formatedWeekdayTime, weekendTime: formatedWeekendTime, dayOff: cafeInfoData?.dayOff)
-        cafeHoursCategory.translatesAutoresizingMaskIntoConstraints = false
-        cafeDetailInfoContainer.addArrangedSubview(cafeHoursCategory)
-        cafeHoursCategory.heightAnchor.constraint(equalToConstant: cafeHoursCategory.selfHeight).isActive = true
     }
     
     // 카페 정보를 담을 스택뷰 초기화
@@ -276,36 +266,58 @@ class DetailInfomationViewController: UIViewController {
         return eventElementsLineView
     }
     
-    private func setEventElementView(elements: [Bool]) {
+    private func setEventElementView() {
+        // eventElementStackView의 타이틀 추가
         lazy var conditionTitle = makeConditionTitle(title: "데코레이션 요소")
         eventElementStackView.addArrangedSubview(conditionTitle)
         
-        let totalLineCount = Int(ceil(Double(elements.count) / 4.0))
-        
-        for i in 0..<totalLineCount {
-            let starIndex: Int = i * 4
-            let endIndex: Int
-
-            if i == totalLineCount - 1 {
-                endIndex = elements.count - 1
-            } else {
-                endIndex = starIndex + 3
+        Task {
+            // 가능한 이벤트 요소 서버로부터 불러오기
+            let elementData = try await APICaller.requestGetData(url: "/cafeFeature/\(self.cafeBasicInfo!.cafeID)", dataType: CafeEventElement.self) as! CafeEventElement
+            
+            // 받아온 데이터를 Bool Array 형태로 저장
+            var elementsInfo: [Bool] = [Bool]()
+            elementsInfo.append((elementData.cupHolder != 0))
+            elementsInfo.append(elementData.standBanner != 0)
+            elementsInfo.append(elementData.photoFrame != 0)
+            elementsInfo.append(elementData.banner != 0)
+            elementsInfo.append(elementData.displaySpace != 0)
+            elementsInfo.append(elementData.bottleDrink != 0)
+            elementsInfo.append(elementData.customDesert != 0)
+            elementsInfo.append(elementData.customReceipt != 0)
+            elementsInfo.append(elementData.cutOut != 0)
+            elementsInfo.append(elementData.displayVideo != 0)
+            elementsInfo.append(elementData.photoCard != 0)
+            elementsInfo.append(elementData.photoZone != 0)
+            
+            // 이벤트 요소가 추가되는 상황을 가정하여 총 이벤트 개수에 따라 전체 줄 수 계산
+            let totalLineCount = Int(ceil(Double(elementsInfo.count) / 4.0))
+            
+            for i in 0..<totalLineCount {
+                let starIndex: Int = i * 4
+                let endIndex: Int
+                
+                if i == totalLineCount - 1 {
+                    endIndex = elementsInfo.count - 1
+                } else {
+                    endIndex = starIndex + 3
+                }
+                
+                let eventElementLine = self.makeEventElements(elements: Array(elementsInfo[starIndex...endIndex]), lineNumber: i)
+                self.eventElementStackView.addArrangedSubview(eventElementLine)
+                
+                let eventElementLineConstraints = [
+                    eventElementLine.leadingAnchor.constraint(equalTo: self.eventElementStackView.leadingAnchor),
+                    eventElementLine.trailingAnchor.constraint(equalTo: self.eventElementStackView.trailingAnchor),
+                    eventElementLine.heightAnchor.constraint(equalToConstant: 80)
+                ]
+                
+                NSLayoutConstraint.activate(eventElementLineConstraints)
             }
-            
-            let eventElementLineOne = makeEventElements(elements: Array(elements[starIndex...endIndex]), lineNumber: i)
-            eventElementStackView.addArrangedSubview(eventElementLineOne)
-            
-            let eventElementLineOneConstraints = [
-                eventElementLineOne.leadingAnchor.constraint(equalTo: eventElementStackView.leadingAnchor),
-                eventElementLineOne.trailingAnchor.constraint(equalTo: eventElementStackView.trailingAnchor),
-                eventElementLineOne.heightAnchor.constraint(equalToConstant: 80)
-            ]
-            
-            NSLayoutConstraint.activate(eventElementLineOneConstraints)
         }
     }
     
-    private func makeCostTitleAndCost(costName: String, cost: Int) -> UIStackView {
+    private func makeCostTitleAndCost(costName: String, cost: String) -> UIStackView {
         let costInfoStackView = UIStackView()
         costInfoStackView.axis = .vertical
         costInfoStackView.alignment = .center
@@ -319,8 +331,15 @@ class DetailInfomationViewController: UIViewController {
         
         let costLabel = UILabel()
         costLabel.font = .systemFont(for: .body3)
-        costLabel.text = "\(cost)원"
-        costLabel.textColor = .grayscale1
+        
+        if cost == "" || cost == " " {
+            costLabel.text = "정보가 없습니다"
+            costLabel.textColor = .grayscale4
+        } else {
+            costLabel.text = cost + "원"
+            costLabel.textColor = .grayscale1
+        }
+        
         costLabel.translatesAutoresizingMaskIntoConstraints = false
         
         costInfoStackView.addArrangedSubview(costTitle)
@@ -329,8 +348,15 @@ class DetailInfomationViewController: UIViewController {
         return costInfoStackView
     }
     
-    private func setCostView(costs: Int) {
+    private func setCostView(cost: String?) {
         let costName = "보증금"
+        let depositCost: String
+        
+        if let cost = cost {
+            depositCost = cost
+        } else {
+            depositCost = ""
+        }
         
         lazy var conditionTitle = makeConditionTitle(title: "비용")
         lazy var containerView = UIView()
@@ -346,7 +372,7 @@ class DetailInfomationViewController: UIViewController {
         costHorizontalStackView.alignment = .center
         costHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        lazy var depositStackView = makeCostTitleAndCost(costName: costName, cost: costs)
+        lazy var depositStackView = makeCostTitleAndCost(costName: costName, cost: depositCost)
         
         costHorizontalStackView.addArrangedSubview(depositStackView)
         eventCostStackView.addArrangedSubview(conditionTitle)

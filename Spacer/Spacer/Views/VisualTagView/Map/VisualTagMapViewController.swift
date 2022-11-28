@@ -265,9 +265,9 @@ class VisualTagMapViewController: UIViewController {
             case 1:
                 self.navigationController?.pushViewController(VisualTagEventElementsViewController(), animated: true)
                 if isSeoulOn {
-                    UserDefaults.standard.set(0, forKey: "region")
-                } else {
                     UserDefaults.standard.set(1, forKey: "region")
+                } else {
+                    UserDefaults.standard.set(2, forKey: "region")
                 }
             case 2:
                 UserDefaults.standard.removeObject(forKey: "region")

@@ -65,6 +65,12 @@ class BirthdayCafeViewController: UIViewController {
     
     var tempCafeArray: [CafeInfo] = [CafeInfo]()
     
+    // 카페 데이터를 받아올 새 프로퍼티
+    private var cafeDataArray: [Cafeinfo] = [Cafeinfo]()
+    
+    // 썸네일에 사용될 이미지 url 주소
+    private lazy var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
+    
     // 생일 카페 메인 테이블 뷰
     private let birthdayCafeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -87,6 +93,25 @@ class BirthdayCafeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.topItem?.title = ""
+        
+        // API로 데이터 호출
+        Task {
+            cafeDataArray = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
+            
+            for data in cafeDataArray {
+                var thumbnailImageInfo: CafeThumbnailImage
+                
+                // 각 카페 별 썸네일 이미지 url 요청하고 데이터가 없을 경우 기본 이미지로 썸네일 이미지 대체
+                do {
+                    thumbnailImageInfo = try await APICaller.requestGetData(url: "/static/getfirstimage/\(data.cafeID)", dataType: CafeThumbnailImage.self) as! CafeThumbnailImage
+                    thumbnailImageInfos.append(thumbnailImageInfo)
+                } catch {
+                    thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg", imageCategory: "", imageProductSize: ""))
+                }
+            }
+            
+            birthdayCafeTableView.reloadData()
+        }
         
         view.addSubview(navBar)
         view.addSubview(birthdayCafeTableView)
@@ -164,8 +189,9 @@ class BirthdayCafeViewController: UIViewController {
         birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
         navigationController?.isNavigationBarHidden = true
         
@@ -175,6 +201,12 @@ class BirthdayCafeViewController: UIViewController {
             pageVC.modalPresentationStyle = .fullScreen
             present(pageVC, animated: true)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     @objc func goToFavorites() {
@@ -240,7 +272,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case Sections.recentCafeReview.rawValue: return 1
-        case Sections.popularCafe.rawValue: return tempCafeArray.count
+        case Sections.popularCafe.rawValue: return cafeDataArray.count
         default:
             return 1
         }
@@ -270,9 +302,9 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.backgroundColor = .systemBackground
             
-            // MARK: - 1. 셀에 cafeInfo를 넘겨줌
+            // MARK: - 1. 셀에 cafeinfo를 넘겨줌
             
-            cell.configure(with: self.tempCafeArray[indexPath.row])
+            cell.configure(with: self.cafeDataArray[indexPath.row], imageURL: thumbnailImageInfos[indexPath.row].cafeImageUrl)
             cell.selectionStyle = .none
             
             // cell에 쉐도우 넣기
@@ -310,7 +342,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
         tableView.deselectRow(at: indexPath, animated: false)
         if indexPath.section == 1 {
             let cafeDetailViewController = CafeDetailViewController()
-            cafeDetailViewController.tempCafeInfo = tempCafeArray[indexPath.row]
+            cafeDetailViewController.cafeData = cafeDataArray[indexPath.row]
             self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
         }
     }
@@ -320,7 +352,7 @@ extension BirthdayCafeViewController: UITableViewDelegate, UITableViewDataSource
 extension BirthdayCafeViewController: CellSelectedDelegate {
     func selectionAction(data: CafeInfo?, indexPath: IndexPath) {
         let cafeDetailViewController = CafeDetailViewController()
-        cafeDetailViewController.tempCafeInfo = data
+        cafeDetailViewController.cafeData = cafeDataArray[indexPath.row]
         navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }

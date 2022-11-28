@@ -10,8 +10,8 @@ import RealmSwift
 
 class CafeDetailViewController: UIViewController {
     
-    // 받아오는 카페 인포
-    var tempCafeInfo: CafeInfo?
+    // 서버에서 받아온 카페 기본 정보
+    var cafeData: Cafeinfo?
     let realm = try! Realm()
     
     // MARK: - UI 요소
@@ -196,38 +196,8 @@ class CafeDetailViewController: UIViewController {
     private var isFavoriteButtonOn = false
     private let navigationAppearance = UINavigationBarAppearance()
     
-    // MARK: - ViewDidLoad
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .white
-        
-        // realm에서 카페 정보를 받아온 후 name이 일치하는 것이 있으면 isFavoriteButtonOn을 true로 변경
-        let cafes = realm.objects(FavoriteCafe.self)
-        let filteredCafe = cafes.where {
-            $0.cafeName == tempCafeInfo!.name
-        }
-        if let _ = filteredCafe.first {
-            isFavoriteButtonOn = true
-        }
-        
-        detailInfoView.cafeInfoData = tempCafeInfo
-        
-        // scrollView의 topAnchor가 안전영역 끝쪽에 붙도록
-        scrollView.contentInsetAdjustmentBehavior = .never
-        
-        // 카페 이미지 보여주기
-        setCafeImages(width: view.bounds.width, cafeImageInfos: tempCafeInfo!.imageInfos)
-        
-        // 전체 이미지 수에 따라 imageScrollView의 width 설정
-        imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
-        
-        // 이미지별 카테고리와 사이즈 라벨 초기화
-        setImageDescriptionView(categoryName: tempCafeInfo?.imageInfos[0].category ?? "", tempImageNumber: 1, numberOfImages: totalImageCount, sizeDescription: tempCafeInfo?.imageInfos[0].productSize ?? "")
-        
-        // callReservationButton과 reservationButton 세팅
-        setIfButtonDisable()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // navigationBar & tabBar 설정
         navigationAppearance.configureWithTransparentBackground()
@@ -235,12 +205,40 @@ class CafeDetailViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = navigationAppearance
         navigationController?.navigationBar.tintColor = .mainPurple1
         tabBarController?.tabBar.isHidden = true
+    }
+    
+    // MARK: - ViewDidLoad
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        
+        detailInfoView.cafeBasicInfo = cafeData
+        
+        // realm에서 카페 정보를 받아온 후 name이 일치하는 것이 있으면 isFavoriteButtonOn을 true로 변경
+        let cafes = realm.objects(FavoriteCafe.self)
+        let filteredCafe = cafes.where {
+            $0.cafeName == cafeData!.cafeName
+        }
+        if let _ = filteredCafe.first {
+            isFavoriteButtonOn = true
+        }
+        
+        // scrollView의 topAnchor가 안전영역 끝쪽에 붙도록
+        scrollView.contentInsetAdjustmentBehavior = .never
+        
+        // 카페 이미지 보여주기
+        setCafeImages(width: view.bounds.width)
+        
+        // callReservationButton과 reservationButton 세팅
+        setIfButtonDisable()
         
         // 카페 이름과 좋아요 수 설정
-        if let cafeName = tempCafeInfo?.name {
+        if let cafeName = cafeData?.cafeName {
             cafeTitleLabel.text = cafeName
         }
-        numberOfFavorties.text = "\(tempCafeInfo?.numberOfFavorites ?? 0)"
+        numberOfFavorties.text = "\(cafeData?.numberOfFavorites ?? 0)"
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -282,13 +280,7 @@ class CafeDetailViewController: UIViewController {
             reservationButton.addGradient(with: gradientLayer, colorSet: UIColor.gradient1, locations: [0.0, 1.0], startEndPoints: (CGPoint(x: 0.0, y: 0.5), CGPoint(x: 1.0, y: 0.5)), layerAt: 0)
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
     // MARK: - functions
     
     // segmentControl을 터치하면 아래 PageViewController의 view가 바뀜
@@ -301,9 +293,17 @@ class CafeDetailViewController: UIViewController {
 
         switch sender.tag {
         case 100:
-            urlResource = "tel://\(tempCafeInfo!.phoneNumber)"
+            // url을 이용해 연결하기 위해 받아온 전화번호에서 '-' 제거
+            guard let cafePhoneNumber = cafeData?.cafePhoneNumber else { return }
+            var telURL = ""
+            for char in cafePhoneNumber {
+                if char != "-" {
+                    telURL += String(char)
+                }
+            }
+            urlResource = "tel://\(telURL)"
         case 101:
-            urlResource = tempCafeInfo?.reservationLink
+            urlResource = cafeData?.cafeOpenURL
         default:
             break
         }
@@ -321,7 +321,7 @@ class CafeDetailViewController: UIViewController {
         if isFavoriteButtonOn {
             sender.setImage(UIImage(named: "heartIcon"), for: .normal)
             // realm에 favorite 버튼을 선택한 카페 이름을 저장
-            let favoriteCafe = FavoriteCafe(cafeName: tempCafeInfo!.name)
+            let favoriteCafe = FavoriteCafe(cafeName: cafeData!.cafeName)
             try! realm.write {
                 realm.add(favoriteCafe)
             }
@@ -330,7 +330,7 @@ class CafeDetailViewController: UIViewController {
             // realm에 favorite 버튼을 선택을 해제한 카페 이름을 삭제
             let favoriteCafes = realm.objects(FavoriteCafe.self)
             let favoriteOnCafe = favoriteCafes.where {
-                $0.cafeName == tempCafeInfo!.name
+                $0.cafeName == cafeData!.cafeName
             }
             try! realm.write {
                 realm.delete(favoriteOnCafe)
@@ -339,43 +339,55 @@ class CafeDetailViewController: UIViewController {
         // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
     }
     
-    func setCafeImages(width: CGFloat, cafeImageInfos: [ImageInfo]) {
-        var imageIndex = 0
-        
-        for cafeImageInfo in cafeImageInfos {
-            let images = cafeImageInfo.images
-            let imageCategory = cafeImageInfo.category
-            let productSize = cafeImageInfo.productSize
+    func setCafeImages(width: CGFloat) {
+        Task {
+            var imageIndex = 0
+            // TODO: url이 임의가 아닌 현재 카페의 cafeID로 변경되어야 함
+            let imageInfos = try await APICaller.requestGetData(url: "/static/getImages/\(cafeData!.cafeID)", dataType: [CafeThumbnailImage].self) as! [CafeThumbnailImage]
             
-            for image in images {
-                let cafeImage = UIImageView()
-                cafeImage.image = UIImage(named: image)
+            for info in imageInfos {
                 imageIndex += 1
+                
+                // 불러온 이미지 주소를 데이터로 저장
+                let url = URL(string: info.cafeImageUrl)
+                var request = URLRequest(url: url!)
+                request.httpMethod = "GET"
+                
+                let (data, _) = try await URLSession.shared.data(for: request)
+                
+                // 각 이미지를 imageScrollView에 추가
+                let cafeImage = UIImageView()
+                cafeImage.image = UIImage(data: data)
                 cafeImage.contentMode = .scaleAspectFill
                 cafeImage.clipsToBounds = true
                 cafeImage.frame = CGRect(x: CGFloat(imageIndex - 1) * width, y: 0, width: width, height: width / 3 * 4)
                 
                 imageScrollView.addSubview(cafeImage)
-                categoryNames.append(imageCategory)
-                sizeDescriptions.append(productSize)
+                
+                // imageScrollView에서 이미지가 넘어갈 때마다 카테고리, 사이즈 정보를 활용할 수 있도록 배열에 추가
+                categoryNames.append(info.imageCategory)
+                sizeDescriptions.append(info.imageProductSize)
             }
+            totalImageCount = imageIndex
+            setImageDescriptionView(categoryName: categoryNames[0], tempImageNumber: 1, sizeDescription: sizeDescriptions[0])
+            
+            // 전체 이미지 수에 따라 imageScrollView의 width 설정
+            imageScrollView.contentSize = CGSize(width: CGFloat(totalImageCount) * view.bounds.width, height: 0)
         }
-        
-        totalImageCount = imageIndex
     }
     
-    private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, numberOfImages: Int, sizeDescription: String) {
-        categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(numberOfImages)"
+    private func setImageDescriptionView(categoryName: String, tempImageNumber: Int, sizeDescription: String) {
+        categoryLabel.text = "\(categoryName) | \(tempImageNumber)/\(totalImageCount)"
         sizeLabel.text = sizeDescription
     }
     
     private func setIfButtonDisable() {
-        if tempCafeInfo?.phoneNumber == nil || tempCafeInfo?.phoneNumber == "" {
+        if cafeData?.cafePhoneNumber == nil || cafeData?.cafePhoneNumber == "" || cafeData?.cafePhoneNumber == " " {
             callReservationButton.backgroundColor = .grayscale5
             callReservationButton.isUserInteractionEnabled = false
         }
         
-        if tempCafeInfo?.reservationLink == nil || tempCafeInfo?.reservationLink == "" {
+        if cafeData?.cafeOpenURL == nil || cafeData?.cafeOpenURL == "" {
             reservationButton.backgroundColor = .grayscale5
             reservationButton.isUserInteractionEnabled = false
         }
@@ -515,7 +527,7 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         // 이미지를 스크롤해서 넘기면 해당 이미지의 카테고리와 세부 사이즈 정보, 현재 이미지 번호로 업데이트
         let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
         if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
-            setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, numberOfImages: totalImageCount, sizeDescription: sizeDescriptions[currentImageNumber])
+            setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, sizeDescription: sizeDescriptions[currentImageNumber])
         }
     }
     
@@ -523,7 +535,7 @@ extension CafeDetailViewController: UIScrollViewDelegate {
         // 세로방향 스크롤 높이에 따라 navigationBar와 bottom 상태 업데이트
         if scrollView.contentOffset.y >= view.bounds.width / 3 * 2 && bottomBar.isHidden {
             // 카페 이미지를 반 이상 내리면 navigationBar 스타일과 title 지정 및 bottomBar 보이도록 설정
-            title = tempCafeInfo?.name
+            title = cafeData?.cafeName
             navigationController?.navigationBar.standardAppearance.backgroundColor = .white
             navigationController?.navigationBar.alpha = 0
             bottomBar.isHidden = false

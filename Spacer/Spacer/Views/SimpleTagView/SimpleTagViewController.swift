@@ -375,7 +375,7 @@ class SimpleTagViewController: UIViewController {
         }
         
         if let locationFirst = locationCollectionView.indexPathsForSelectedItems?.first {
-            UserDefaults.standard.set(locationFirst.item, forKey: "region")
+            UserDefaults.standard.set(locationFirst.item + 1, forKey: "region")
         }
         
         UserDefaults.standard.set(eventElementsItemArray, forKey: "eventElements")
@@ -659,7 +659,7 @@ extension SimpleTagViewController: UICollectionViewDelegate, UICollectionViewDat
         // SearchListView에서 선택되었던 지역을 선택함
         if collectionView == locationCollectionView {
             if let selectedRegion = selectedRegion {
-                locationCollectionView.selectItem(at: [0,Int(selectedRegion)!], animated: true, scrollPosition: [])
+                locationCollectionView.selectItem(at: [0, Int(selectedRegion)! - 1], animated: true, scrollPosition: [])
             }
         }
         

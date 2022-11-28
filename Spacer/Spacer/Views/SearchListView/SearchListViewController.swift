@@ -15,10 +15,14 @@ class SearchListViewController: UIViewController {
     // 태그로 들어와서 서치바를 사용한지 확인
     var usingTagText = false
     
-    public var tempCafeArray: [CafeInfo] = [CafeInfo]()
-    public var filteredArr: [CafeInfo] = [CafeInfo]()
-    // 태그 검색중에서 텍스트로 또 검색하였을 경우 filteredArr를 수정하지 않고 다른 배열로 받아서 보여줌
-    public var filteredTagTextArr: [CafeInfo] = [CafeInfo]()
+    // 카페 데이터 및 필터링된 데이터를 저장
+    private var cafeDatas: [Cafeinfo] = [Cafeinfo]()
+    private var filteredArray: [Cafeinfo] = [Cafeinfo]()
+    private var filteredTagTextArray: [Cafeinfo] = [Cafeinfo]()
+    
+    // 카페 썸네일과 필터링된 카페의 썸네일 이미지 url 저장
+    private var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
+    private var filteredThumbnailImages: [CafeThumbnailImage] = [CafeThumbnailImage]()
     
     let eventElements = ["컵홀더", "현수막", "액자", "배너", "전시공간", "보틀음료", "맞춤 디저트", "맞춤 영수증", "등신대", "포토 카드", "포토존", "영상 상영"]
     let regions = ["서울","부산"]
@@ -97,6 +101,7 @@ class SearchListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = ""
         view.backgroundColor = .white
         
         self.navigationItem.titleView = searchBar
@@ -128,6 +133,25 @@ class SearchListViewController: UIViewController {
             bottomLine.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: -55),
             bottomLine.heightAnchor.constraint(equalToConstant: 3),
         ])
+    }
+    
+    private func loadThumbnailImages(cafeDats: [Cafeinfo]) {
+        Task {
+            for data in cafeDats {
+                var thumbnailImageInfo: CafeThumbnailImage
+                
+                // 각 카페 별 썸네일 이미지 url 요청하고 데이터가 없을 경우 기본 이미지로 썸네일 이미지 대체
+                do {
+                    thumbnailImageInfo = try await APICaller.requestGetData(url: "/static/getfirstimage/\(data.cafeID)", dataType: CafeThumbnailImage.self) as! CafeThumbnailImage
+                    thumbnailImageInfos.append(thumbnailImageInfo)
+                } catch {
+                    thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg", imageCategory: "", imageProductSize: ""))
+                }
+            }
+            
+            filteredThumbnailImages = thumbnailImageInfos
+            resultCollectionView.reloadData()
+        }
     }
     
     func setButton() {
@@ -199,7 +223,7 @@ class SearchListViewController: UIViewController {
         
         // 지역
         if let selectedRegion = selectedRegion {
-            regionTitle = AttributedString.init(regions[Int(selectedRegion)!])
+            regionTitle = AttributedString.init(regions[Int(selectedRegion)! - 1])
             regionTitle.foregroundColor = .grayscale7
             regionButton.configuration?.baseBackgroundColor = .mainPurple3
             regionButton.configuration?.baseForegroundColor = .grayscale5
@@ -291,38 +315,112 @@ class SearchListViewController: UIViewController {
     
     func setCafeData() {
         if let selectedRegion = selectedRegion, let selectedEventElement = selectedEventElement {
+            // 필터 중 지역과 이벤트 요소 가능 여부 두 가지가 선택되었을 경우
+            
             isTagged = true
             isFirstFiltering = true
-            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-                var isEventElementEnough: Bool = true
-                for i in eventElements.indices {
-                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                    if selectedEventElement[i] {
-                        if !CafeInfo.eventElement[i] {
+            
+            Task {
+                let allCafeData = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]   // 모든 카페 정보 불러와 저장
+                var eventElementGroups = [[Bool]]() // 모든 카페의 이벤트 요소 가능 여부를 저장할 배열
+                
+                // 각 카페의 이벤트 요소 가능 여부를 불러와 eventElementGroups에 추가
+                for cafeData in allCafeData {
+                    let elementData = try await APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) as! CafeEventElement
+                    var elementsInfo: [Bool] = [Bool]()
+                    
+                    // 각 이벤트 요소의 가능 여부를 배열로 저장
+                    elementsInfo.append(elementData.cupHolder != 0)
+                    elementsInfo.append(elementData.standBanner != 0)
+                    elementsInfo.append(elementData.photoFrame != 0)
+                    elementsInfo.append(elementData.banner != 0)
+                    elementsInfo.append(elementData.displaySpace != 0)
+                    elementsInfo.append(elementData.bottleDrink != 0)
+                    elementsInfo.append(elementData.customDesert != 0)
+                    elementsInfo.append(elementData.customReceipt != 0)
+                    elementsInfo.append(elementData.cutOut != 0)
+                    elementsInfo.append(elementData.displayVideo != 0)
+                    elementsInfo.append(elementData.photoCard != 0)
+                    elementsInfo.append(elementData.photoZone != 0)
+                    
+                    eventElementGroups.append(elementsInfo)
+                }
+                
+                // 필터링 된 카페 목록을 filteredArray에 저장
+                self.filteredArray = allCafeData.enumerated().filter ({ (index, cafeData) -> Bool in
+                    var isEventElementEnough: Bool = true
+                    
+                    // 각 카페 데이터 중 가능한 이벤트요소가 불일치할 경우 isEventElementEnough에 false 저장 후 for문 나감
+                    for i in eventElementGroups[0].indices {
+                        if selectedEventElement[i] && !eventElementGroups[index][i] {
                             isEventElementEnough = false
+                            break
                         }
                     }
+                    
+                    return cafeData.cafeLocation == Int(selectedRegion)! && isEventElementEnough
+                }).map { (index, cafeData) -> Cafeinfo in
+                    // index를 추가해 변환한 배열을 다시 index없이 cafeData만 저장
+                    cafeData
                 }
-                return CafeInfo.locationID == Int(selectedRegion)! && isEventElementEnough
-            })
+                
+                loadThumbnailImages(cafeDats: filteredArray)
+                
+            }
+            
         } else if let selectedEventElement = selectedEventElement {
+            // 필터 중 이벤트 요소 가능 여부만 선택되었을 경우
+            
             isTagged = true
             isFirstFiltering = true
-            self.filteredArr = MockManager.shared.getMockData().filter({ CafeInfo in
-                var isEventElementEnough: Bool = true
-                for i in eventElements.indices {
-                    // VisualTagView에서 선택한 카테고리 중 카페의 eventElement가 false일 경우 false반환
-                    if selectedEventElement[i] {
-                        if !CafeInfo.eventElement[i] {
+            
+            Task {
+                let allCafeData = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
+                var eventElementGroups = [[Bool]]()
+                
+                for cafeData in allCafeData {
+                    let elementData = try await APICaller.requestGetData(url: "/cafeFeature/\(cafeData.cafeID)", dataType: CafeEventElement.self) as! CafeEventElement
+                    var elementsInfo: [Bool] = [Bool]()
+                    
+                    elementsInfo.append(elementData.cupHolder != 0)
+                    elementsInfo.append(elementData.standBanner != 0)
+                    elementsInfo.append(elementData.photoFrame != 0)
+                    elementsInfo.append(elementData.banner != 0)
+                    elementsInfo.append(elementData.displaySpace != 0)
+                    elementsInfo.append(elementData.bottleDrink != 0)
+                    elementsInfo.append(elementData.customDesert != 0)
+                    elementsInfo.append(elementData.customReceipt != 0)
+                    elementsInfo.append(elementData.cutOut != 0)
+                    elementsInfo.append(elementData.displayVideo != 0)
+                    elementsInfo.append(elementData.photoCard != 0)
+                    elementsInfo.append(elementData.photoZone != 0)
+                    
+                    eventElementGroups.append(elementsInfo)
+                }
+                
+                self.filteredArray = allCafeData.enumerated().filter ({ (index, cafeData) -> Bool in
+                    var isEventElementEnough: Bool = true
+                    
+                    for i in eventElementGroups[0].indices {
+                        if selectedEventElement[i] && !eventElementGroups[index][i] {
                             isEventElementEnough = false
+                            break
                         }
                     }
+                    return isEventElementEnough
+                }).map { (index, cafeData) -> Cafeinfo in
+                    cafeData
                 }
-                return isEventElementEnough
-            })
+                
+                loadThumbnailImages(cafeDats: filteredArray)
+            }
+            
         } else {
-            // 태그로 받아온것이 아니면 tempCafeArray에서 모든 카페 정보를 받아둠
-            tempCafeArray = MockManager.shared.getMockData()
+            // BirthdayCafeView에서 검색 버튼을 눌렀을 때 카페 전체 목록 불러옴
+            Task {
+                cafeDatas = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
+                loadThumbnailImages(cafeDats: cafeDatas)
+            }
         }
         resultCollectionView.reloadData()
     }
@@ -331,14 +429,12 @@ class SearchListViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchBar.endEditing(true)
         bottomLine.backgroundColor = .grayscale4
-        self.resultCollectionView.reloadData()
     }
     
     // 화면 스크롤할 경우도 키보드 내리기
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.searchBar.endEditing(true)
         bottomLine.backgroundColor = .grayscale4
-        self.resultCollectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -384,7 +480,7 @@ class SearchListViewController: UIViewController {
 
 extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isFirstFiltering && filteredArr.count == 0 || usingTagText && filteredTagTextArr.count == 0{
+        if isFirstFiltering && filteredArray.count == 0 || usingTagText && filteredTagTextArray.count == 0 {
             view.addSubview(emptyLabel)
             NSLayoutConstraint.activate([
                 emptyLabel.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -395,20 +491,20 @@ extension SearchListViewController: UICollectionViewDelegate, UICollectionViewDa
         } else {
             self.emptyLabel.removeFromSuperview()
         }
-        return usingTagText ? filteredTagTextArr.count : filteredArr.count
+        return usingTagText ? filteredTagTextArray.count : filteredArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = resultCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell()
         }
-        usingTagText ? cell.configure(with: filteredTagTextArr[indexPath.row]) : cell.configure(with: filteredArr[indexPath.row])
+        usingTagText ? cell.configure(with: filteredTagTextArray[indexPath.row], imageURL: filteredThumbnailImages[indexPath.row].cafeImageUrl) : cell.configure(with: filteredArray[indexPath.row], imageURL: filteredThumbnailImages[indexPath.row].cafeImageUrl)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         let cafeDetailViewController = CafeDetailViewController()
-        cafeDetailViewController.tempCafeInfo = usingTagText ? filteredTagTextArr[indexPath.row]: filteredArr[indexPath.row]
+        cafeDetailViewController.cafeData = usingTagText ? filteredTagTextArray[indexPath.row]: filteredArray[indexPath.row]
         self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
     }
 }
@@ -432,17 +528,36 @@ extension SearchListViewController: UISearchBarDelegate {
         
         if isTagged {
             usingTagText = true
-            self.filteredTagTextArr = self.filteredArr.filter({ CafeInfo in
-                return CafeInfo.name.localizedCaseInsensitiveContains(text)
-            })
+            
+            // filteredArray와 thumbnailImageInfos를 필터링하기 위한 인덱스 및 임시 배열
+            var tempfilteredCafeDatas: [Cafeinfo] = [Cafeinfo]()
+            var tempfilteredImages: [CafeThumbnailImage] = [CafeThumbnailImage]()
+            
+            for (index, cafeData) in filteredArray.enumerated() {
+                // 서치바로 입력한 텍스트와 일치하는 이름의 카페
+                if cafeData.cafeName.localizedCaseInsensitiveContains(text) {
+                    tempfilteredCafeDatas.append(cafeData)      // 해당 카페 인덱스의 카페 정보 배열에 추가
+                    tempfilteredImages.append(thumbnailImageInfos[index])   // 해당 카페 인덱스의 썸네일 이름 배열에 추가
+                }
+            }
+            
+            // 서치바로 필터링된 카페 정보와 썸네일 배열에 저장
+            filteredTagTextArray = tempfilteredCafeDatas
+            filteredThumbnailImages = tempfilteredImages
         } else {
-            self.filteredArr = self.tempCafeArray.filter({ CafeInfo in
-                return CafeInfo.name.localizedCaseInsensitiveContains(text)
-            })
+            var tempfilteredCafeDatas: [Cafeinfo] = [Cafeinfo]()
+            var tempfilteredImages: [CafeThumbnailImage] = [CafeThumbnailImage]()
+            
+            for (index, cafeData) in cafeDatas.enumerated() {
+                if cafeData.cafeName.localizedCaseInsensitiveContains(text) {
+                    tempfilteredCafeDatas.append(cafeData)
+                    tempfilteredImages.append(thumbnailImageInfos[index])
+                }
+            }
+            
+            filteredArray = tempfilteredCafeDatas
+            filteredThumbnailImages = tempfilteredImages
         }
-        // 바로바로 업데이트 되게 만들기
-        // self.resultCollectionView.reloadData()
-        // bottomLine.backgroundColor = UIColor.red.cgColor
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -456,7 +571,6 @@ extension SearchListViewController: UISearchBarDelegate {
                 }
             }
         }
-        self.resultCollectionView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -465,9 +579,4 @@ extension SearchListViewController: UISearchBarDelegate {
         bottomLine.backgroundColor = .mainPurple3
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.text = ""
-        self.searchBar.resignFirstResponder()
-        self.resultCollectionView.reloadData()
-    }
 }

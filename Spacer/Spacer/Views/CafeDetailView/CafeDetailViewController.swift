@@ -18,6 +18,7 @@ class CafeDetailViewController: UIViewController {
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.tag = 1
         scrollView.bounces = false
         scrollView.delegate = self
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +37,7 @@ class CafeDetailViewController: UIViewController {
     lazy var imageScrollView: UIScrollView = {
         // ScrollView와 내부 Content Size 정의
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width / 3 * 4))
+        scrollView.tag = 2
         
         // 스크롤 인디케이터 삭제
         scrollView.showsHorizontalScrollIndicator = false
@@ -525,8 +527,9 @@ extension CafeDetailViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         // 이미지를 스크롤해서 넘기면 해당 이미지의 카테고리와 세부 사이즈 정보, 현재 이미지 번호로 업데이트
-        let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
-        if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 {
+        if fmod(scrollView.contentOffset.x, scrollView.frame.maxX) == 0 && scrollView.tag == 2 {
+            let currentImageNumber = Int(scrollView.contentOffset.x / scrollView.frame.maxX)
+            
             setImageDescriptionView(categoryName: categoryNames[currentImageNumber], tempImageNumber: currentImageNumber + 1, sizeDescription: sizeDescriptions[currentImageNumber])
         }
     }

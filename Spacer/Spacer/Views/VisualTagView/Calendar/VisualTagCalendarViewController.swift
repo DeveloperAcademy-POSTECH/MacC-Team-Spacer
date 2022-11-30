@@ -208,7 +208,7 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
 }
 
 //button method compilation
-extension VisualTagCalendarViewController{
+extension VisualTagCalendarViewController {
     //handling action for next, cancel button
     @objc func buttonAction(_ sender: Any) {
         if let button = sender as? UIButton {
@@ -256,7 +256,7 @@ extension VisualTagCalendarViewController{
     
     //set calendar label function using NSMutableAttributedString
     //For inserting text with Image
-    private func setCalendarLabel() -> NSMutableAttributedString{
+    private func setCalendarLabel() -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: " ")
         let calendarImage = NSTextAttachment()
         calendarImage.image = UIImage(systemName: "calendar")?.withTintColor(.mainPurple2, renderingMode: .alwaysOriginal)
@@ -266,10 +266,10 @@ extension VisualTagCalendarViewController{
         if firstDate != nil {
             if lastDate != nil {
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - \(dateFormatConverter(lastDate!))"))
-            }else{
+            } else {
                 attributedString.append(NSAttributedString(string: " \(dateFormatConverter(firstDate!)) - 선택 안함"))
             }
-        }else{
+        } else {
             attributedString.append(NSAttributedString(string: " 선택 안함 - 선택 안함"))
         }
         return attributedString
@@ -278,7 +278,7 @@ extension VisualTagCalendarViewController{
 
 //FSCalendar Delegate
 extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSource {
-    func dateFormatConverter(_ date: Date) -> String{
+    func dateFormatConverter(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd"
         dateFormatter.locale = Locale(identifier: "ko_KR")
@@ -305,14 +305,14 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         }
     }
     
-    func datesRange(from: Date, to: Date) -> [Date]{
-        if from > to{
+    func datesRange(from: Date, to: Date) -> [Date] {
+        if from > to {
             return [Date]()
         }
         var tempDate = from
         var array = [tempDate]
         
-        while tempDate < to{
+        while tempDate < to {
             tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
             array.append(tempDate)
         }
@@ -324,6 +324,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         let cell = calendar.dequeueReusableCell(withIdentifier: CustomCalenderCell.identifier, for: date, at: position)
         return cell
     }
+    
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
         self.configure(cell: cell, for: date, at: monthPosition)
     }
@@ -336,29 +337,29 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         return monthPosition == .current
     }
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         //return 되기전에 무조건적으로 실행해야하는 코드 viewWillAppear -> AppearanceTransition
-        defer{
+        defer {
             configureVisibleCells()
             beginAppearanceTransition(true, animated: true)
             endAppearanceTransition()
         }
         
         // 오늘 이전의 날짜를 선택했을 경우 초기화
-        if date < Date(){
+        if date < Date() {
             calendar.deselect(date)
-            if firstDate != nil{
+            if firstDate != nil {
                 calendar.deselect(firstDate!)
             }
-            if lastDate != nil{
+            if lastDate != nil {
                 calendar.deselect(lastDate!)
             }
-            
-            if datesRange != nil{
+            if datesRange != nil {
                 for d in self.datesRange!{
                     calendar.deselect(d)
                 }
             }
+            
             firstDate = nil
             lastDate = nil
             datesRange = []
@@ -375,10 +376,11 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
             datesRange = [firstDate!]
             return
         }
+        
         // 처음 선택한 값은 있고 2번째를 선택했을 경우
         if firstDate != nil && lastDate == nil {
             // 만일 2번째 선택한 값이 첫번째 값보다 적다면... 2번째 선택한 값을 firstDate로 바꿔버림
-            if date <= firstDate!{
+            if date <= firstDate! {
                 calendar.deselect(firstDate!)
                 firstDate = date
                 datesRange = [firstDate!]
@@ -401,7 +403,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         
         // 둘 다 값이 있을 경우에 선택했을 경우 다시 초기화
         if firstDate != nil && lastDate != nil {
-            for d in calendar.selectedDates{
+            for d in calendar.selectedDates {
                 calendar.deselect(d)
             }
             lastDate = nil
@@ -443,8 +445,8 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     private func configureVisibleCells() {
         var count = 0
         //지금 보는 페이지의 cell 정리
-        calendar.visibleCells().forEach{ (cell) in
             count += 1
+        calendar.visibleCells().forEach { (cell) in
             let date = calendar.date(for: cell)
             let position = calendar.monthPosition(for: cell)
             self.configure(cell: cell, for: date!, at: position)
@@ -455,7 +457,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
         let customCell = (cell as! CustomCalenderCell)
         var selectionType = SelectionType.none
         if position == .current {
-            if calendar.selectedDates.contains(date){
+            if calendar.selectedDates.contains(date) {
                 let previousDate = self.calendar.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.calendar.gregorian.date(byAdding: .day, value: 1, to: date)!
                 

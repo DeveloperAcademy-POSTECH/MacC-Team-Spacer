@@ -175,7 +175,7 @@ class BirthdayCafeViewController: UIViewController {
             birthdayCafeTableView.topAnchor.constraint(equalTo:navBar.bottomAnchor),
             birthdayCafeTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             birthdayCafeTableView.widthAnchor.constraint(equalToConstant: view.bounds.width),
-            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(navBarConstraints)

@@ -112,6 +112,8 @@ class VisualTagCalendarViewController: UIViewController, FSCalendarDelegateAppea
         view.backgroundColor = .systemBackground
         
         setup()
+        // 하루 뒤의 날짜가 캘린더의 기준으로 보이도록 설정
+        myCalendar.setCurrentPage(Date().addingTimeInterval(TimeInterval(86400)), animated: true)
     }
     
     override func didReceiveMemoryWarning() {

@@ -443,9 +443,7 @@ extension VisualTagCalendarViewController: FSCalendarDelegate, FSCalendarDataSou
     }
     
     private func configureVisibleCells() {
-        var count = 0
         //지금 보는 페이지의 cell 정리
-            count += 1
         calendar.visibleCells().forEach { (cell) in
             let date = calendar.date(for: cell)
             let position = calendar.monthPosition(for: cell)

@@ -605,10 +605,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     private func configureVisibleCells() {
-        var count = 0
         //지금 보는 페이지의 cell 정리
         myCalendar.visibleCells().forEach{ (cell) in
-            count += 1
             let date = myCalendar.date(for: cell)
             let position = myCalendar.monthPosition(for: cell)
             self.configure(cell: cell, for: date!, at: position)

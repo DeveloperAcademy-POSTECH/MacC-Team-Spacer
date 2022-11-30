@@ -209,7 +209,6 @@ class SimpleTagViewController: UIViewController {
     lazy var applyFilterButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("필터 적용하기", for: .normal)
-        button.titleLabel?.font = .systemFont(for: .header6)
         button.setTitleColor(.grayscale7, for: .normal)
         button.backgroundColor = .mainPurple3
         button.layer.cornerRadius = 12

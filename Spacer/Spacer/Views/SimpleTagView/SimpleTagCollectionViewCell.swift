@@ -12,7 +12,7 @@ class SimpleTagCollectionViewCell: UICollectionViewCell {
     
     var buttonTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(for: .header6)
+        label.font = UIFont.systemFont(for: .body1)
         label.textColor = .mainPurple3
         label.numberOfLines = 2
         label.textAlignment = .center

@@ -226,6 +226,9 @@ class SimpleTagViewController: UIViewController {
         setup()
         setAction()
         
+        // 하루 뒤의 날짜가 캘린더의 기준으로 보이도록 설정
+        myCalendar.setCurrentPage(Date().addingTimeInterval(TimeInterval(86400)), animated: true)
+        
         // SearchListView에서 선택되었던 날짜를 보임
         if let storedFirstDate = storedFirstDate, let storedLastDate = storedLastDate {
             firstDate = dateFormatConverter(storedFirstDate)
@@ -603,10 +606,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     private func configureVisibleCells() {
-        var count = 0
         //지금 보는 페이지의 cell 정리
         myCalendar.visibleCells().forEach{ (cell) in
-            count += 1
             let date = myCalendar.date(for: cell)
             let position = myCalendar.monthPosition(for: cell)
             self.configure(cell: cell, for: date!, at: position)

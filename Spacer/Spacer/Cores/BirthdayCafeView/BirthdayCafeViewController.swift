@@ -121,6 +121,7 @@ class BirthdayCafeViewController: UIViewController {
         navBar.addSubview(heartButton)
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
+        birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         birthdayCafeTableView.tableHeaderView = headerView
         
         headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
@@ -174,7 +175,7 @@ class BirthdayCafeViewController: UIViewController {
             birthdayCafeTableView.topAnchor.constraint(equalTo:navBar.bottomAnchor),
             birthdayCafeTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             birthdayCafeTableView.widthAnchor.constraint(equalToConstant: view.bounds.width),
-            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(navBarConstraints)

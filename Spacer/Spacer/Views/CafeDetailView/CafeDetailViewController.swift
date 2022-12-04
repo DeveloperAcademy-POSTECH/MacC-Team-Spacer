@@ -131,8 +131,6 @@ class CafeDetailViewController: UIViewController {
     lazy var pageController: UIPageViewController = {
         let pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         pageController.setViewControllers([dataViewControllers[0]], direction: .forward, animated: true)
-        pageController.dataSource = self
-        pageController.delegate = self
         pageController.view.translatesAutoresizingMaskIntoConstraints = false
         return pageController
     }()
@@ -564,30 +562,3 @@ extension CafeDetailViewController: UIScrollViewDelegate {
     }
 }
 
-extension CafeDetailViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
-    
-    // pageViewController를 오른쪽에서 왼쪽으로 스크롤 할 때 ViewController 변경
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = dataViewControllers.firstIndex(of: viewController), index - 1 >= 0 else {
-            return nil
-        }
-        return dataViewControllers[index - 1]
-    }
-    
-    // pageViewController를 왼쪽에서 오른쪽으로 스크롤 할 때 ViewController 변경
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = dataViewControllers.firstIndex(of: viewController), index + 1 < dataViewControllers.count else {
-            return nil
-        }
-        return dataViewControllers[index + 1]
-    }
-    
-    // pageViewController 애니메이션이 끝났을 때 segmentdControl의 selectedIndex 변경
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        guard let viewController = pageViewController.viewControllers?[0], let index = dataViewControllers.firstIndex(of: viewController) else {
-            return
-        }
-        segmentedControl.selectedSegmentIndex = index
-    }
-    
-}

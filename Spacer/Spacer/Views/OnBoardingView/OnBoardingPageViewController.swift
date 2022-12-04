@@ -18,6 +18,7 @@ class OnBoardingPageViewController: UIPageViewController {
         pageController.currentPageIndicatorTintColor = .mainPurple3
         pageController.pageIndicatorTintColor = .grayscale5
         pageController.translatesAutoresizingMaskIntoConstraints = false
+        pageController.isUserInteractionEnabled = false
         return pageController
     }()
     

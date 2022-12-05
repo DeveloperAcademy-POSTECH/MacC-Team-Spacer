@@ -15,6 +15,7 @@ class MainTabBarViewController: UITabBarController {
         view.backgroundColor = .systemBackground
         
         let birthdayCafeViewController = UINavigationController(rootViewController: BirthdayCafeViewController())
+        let FavoriteViewController = UINavigationController(rootViewController: FavoriteViewController())
         let MyPageViewController = UINavigationController(rootViewController: MyPageViewController())
         
         // 선택되었을 경우 색상
@@ -36,10 +37,13 @@ class MainTabBarViewController: UITabBarController {
         let birthdayCafeViewControllerTabBarItem = UITabBarItem(title: "생일카페", image:  UIImage(named: "BirthdayCafe_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "BirthdayCafe_Fill")?.withRenderingMode(.alwaysOriginal))
         birthdayCafeViewController.tabBarItem = birthdayCafeViewControllerTabBarItem
         
+        let FavoriteViewControllerTabBarItem = UITabBarItem(title: "내 보관함", image: UIImage(named: "Heart_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "Heart_Fill")?.withRenderingMode(.alwaysOriginal))
+        FavoriteViewController.tabBarItem = FavoriteViewControllerTabBarItem
+        
         let MyPageViewControllerTabBarItem = UITabBarItem(title: "내 정보", image: UIImage(named: "MyPage_Outline")?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage(named: "MyPage_Fill")?.withRenderingMode(.alwaysOriginal))
         MyPageViewController.tabBarItem = MyPageViewControllerTabBarItem
         
-        setViewControllers([birthdayCafeViewController, MyPageViewController], animated: true)
+        setViewControllers([birthdayCafeViewController, FavoriteViewController, MyPageViewController], animated: true)
     }
     
 }

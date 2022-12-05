@@ -121,6 +121,7 @@ class BirthdayCafeViewController: UIViewController {
         navBar.addSubview(heartButton)
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
+        birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         birthdayCafeTableView.tableHeaderView = headerView
         
         headerView?.headerButton.addTarget(self, action: #selector(goToVisualTagView), for: .touchUpInside)
@@ -174,7 +175,7 @@ class BirthdayCafeViewController: UIViewController {
             birthdayCafeTableView.topAnchor.constraint(equalTo:navBar.bottomAnchor),
             birthdayCafeTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             birthdayCafeTableView.widthAnchor.constraint(equalToConstant: view.bounds.width),
-            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            birthdayCafeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(navBarConstraints)
@@ -192,9 +193,6 @@ class BirthdayCafeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
-        navigationController?.isNavigationBarHidden = true
-        
         // 처음 실행되었다면 UserDefaults에 oldUser라는 값이 False
         if !UserDefaults.standard.bool(forKey: "oldUser") {
             let pageVC = OnBoardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
@@ -206,6 +204,8 @@ class BirthdayCafeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        // 기존의 네비게이션을 hidden하고 새롭게 navBar로 대체
+        navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = false
     }
     

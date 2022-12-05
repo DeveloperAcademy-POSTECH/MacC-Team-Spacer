@@ -209,6 +209,7 @@ class SimpleTagViewController: UIViewController {
     lazy var applyFilterButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("필터 적용하기", for: .normal)
+        button.titleLabel?.font = .systemFont(for: .header6)
         button.setTitleColor(.grayscale7, for: .normal)
         button.backgroundColor = .mainPurple3
         button.layer.cornerRadius = 12
@@ -224,6 +225,9 @@ class SimpleTagViewController: UIViewController {
         
         setup()
         setAction()
+        
+        // 하루 뒤의 날짜가 캘린더의 기준으로 보이도록 설정
+        myCalendar.setCurrentPage(Date().addingTimeInterval(TimeInterval(86400)), animated: true)
         
         // SearchListView에서 선택되었던 날짜를 보임
         if let storedFirstDate = storedFirstDate, let storedLastDate = storedLastDate {
@@ -602,10 +606,8 @@ extension SimpleTagViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     }
     
     private func configureVisibleCells() {
-        var count = 0
         //지금 보는 페이지의 cell 정리
         myCalendar.visibleCells().forEach{ (cell) in
-            count += 1
             let date = myCalendar.date(for: cell)
             let position = myCalendar.monthPosition(for: cell)
             self.configure(cell: cell, for: date!, at: position)

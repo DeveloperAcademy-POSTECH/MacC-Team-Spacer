@@ -16,6 +16,22 @@ class FavoriteViewController: UIViewController {
     var favoriteCafes: [Cafeinfo] = []
     private var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
     
+    lazy var countLabel : UILabel = {
+        let label = UILabel()
+        label.text = "찜한 카페 3개"
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale3
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var linkButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "LinkURL")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     lazy var favoriteCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -35,7 +51,7 @@ class FavoriteViewController: UIViewController {
         
         view.backgroundColor = .white
         setNavBar()
-
+        setup()
         Task {
             // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함
             let storedCafes = realm.objects(FavoriteCafe.self)
@@ -63,13 +79,11 @@ class FavoriteViewController: UIViewController {
             
             setCollectionView()
             favoriteCollectionView.reloadData()
+            //TODO: - countLabel의 text에 개수를 업데이트 해야함
         }
-        
     }
     
     func setNavBar() {
-        self.navigationController?.isNavigationBarHidden = false
-        self.title = "내 보관함"
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = UIColor.systemBackground
@@ -78,15 +92,33 @@ class FavoriteViewController: UIViewController {
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-        let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backIcon
+        let myFavorite = UIBarButtonItem(image: UIImage(named: "MyFavorite")?.withRenderingMode(.alwaysOriginal), style: .done, target: self, action: nil)
+        myFavorite.isEnabled = false
+        self.navigationItem.leftBarButtonItem = myFavorite
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
+    }
+    
+    func setup() {
+        view.addSubview(countLabel)
+        view.addSubview(linkButton)
+        NSLayoutConstraint.activate([
+            countLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            countLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
+            countLabel.widthAnchor.constraint(equalToConstant: 80),
+            countLabel.heightAnchor.constraint(equalToConstant: 17),
+            
+            linkButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            linkButton.centerYAnchor.constraint(equalTo: countLabel.centerYAnchor),
+            linkButton.widthAnchor.constraint(equalToConstant: 40),
+            linkButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        linkButton.addTarget(self, action: #selector(linkButtonTapped), for: .touchUpInside)
     }
     
     func setCollectionView() {
         view.addSubview(favoriteCollectionView)
         NSLayoutConstraint.activate([
-            favoriteCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: .padding.startHierarchyPadding-4),
+            favoriteCollectionView.topAnchor.constraint(equalTo: countLabel.bottomAnchor, constant: .padding.startHierarchyPadding-4),
             favoriteCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favoriteCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             favoriteCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -95,9 +127,8 @@ class FavoriteViewController: UIViewController {
         favoriteCollectionView.dataSource = self
     }
     
-    // 뒤로 가기 함수
-    @objc func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+    @objc func linkButtonTapped() {
+       //TODO: - url링크를 받는 모달창을 띄우기
     }
     
 }

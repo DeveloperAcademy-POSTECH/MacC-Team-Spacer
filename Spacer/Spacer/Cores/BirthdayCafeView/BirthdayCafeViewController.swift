@@ -38,17 +38,8 @@ class BirthdayCafeViewController: UIViewController {
     // 네비게이션 아이템 - 돋보기
     let magnifyButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
-        button.tintColor = .mainPurple1
-        button.translatesAutoresizingMaskIntoConstraints = false
-        // MARK: - TODO: 버튼에 액션 추가
-        return button
-    }()
-    
-    // 네비게이션 아이템 - 하트
-    let heartButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "heart", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
+        button.setImage(UIImage(named: "MagnifyingGlass"), for: .normal)
+//        button.setImage(UIImage(named: "MagnifyingGlass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)), for: .normal)
         button.tintColor = .mainPurple1
         button.translatesAutoresizingMaskIntoConstraints = false
         // MARK: - TODO: 버튼에 액션 추가
@@ -118,7 +109,6 @@ class BirthdayCafeViewController: UIViewController {
         
         navBar.addSubview(logoButton)
         navBar.addSubview(magnifyButton)
-        navBar.addSubview(heartButton)
         
         headerView = MyHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.width * 150 / 390))
         birthdayCafeTableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
@@ -136,7 +126,6 @@ class BirthdayCafeViewController: UIViewController {
         self.tempCafeArray =  MockManager.shared.getMockData()
         
         magnifyButton.addTarget(self, action: #selector(goToSearchListView), for: .touchUpInside)
-        heartButton.addTarget(self, action: #selector(goToFavorites), for: .touchUpInside)
         
         applyConstraints()
         
@@ -159,16 +148,10 @@ class BirthdayCafeViewController: UIViewController {
             logoButton.heightAnchor.constraint(equalToConstant: 24)
         ]
         
-        let heartButtonConstraints = [
-            heartButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
-            heartButton.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -.padding.homeMargin),
-            heartButton.heightAnchor.constraint(equalToConstant: 28)
-        ]
-        
         let magnifyButtonConstraints = [
-            magnifyButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -.padding.underTitlePadding),
-            magnifyButton.trailingAnchor.constraint(equalTo: heartButton.leadingAnchor, constant: -.padding.homeMargin),
-            magnifyButton.heightAnchor.constraint(equalToConstant: 28)
+            magnifyButton.centerYAnchor.constraint(equalTo: logoButton.centerYAnchor),
+            magnifyButton.trailingAnchor.constraint(equalTo: navBar.trailingAnchor, constant: -.padding.homeMargin),
+            magnifyButton.heightAnchor.constraint(equalToConstant: 40)
         ]
         
         let birthdayCafeTableViewConstraints = [
@@ -180,7 +163,6 @@ class BirthdayCafeViewController: UIViewController {
         
         NSLayoutConstraint.activate(navBarConstraints)
         NSLayoutConstraint.activate(logoButtonConstraints)
-        NSLayoutConstraint.activate(heartButtonConstraints)
         NSLayoutConstraint.activate(magnifyButtonConstraints)
         NSLayoutConstraint.activate(birthdayCafeTableViewConstraints)
     }

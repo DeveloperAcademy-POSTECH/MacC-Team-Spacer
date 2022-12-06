@@ -238,7 +238,7 @@ class CafeDetailViewController: UIViewController {
         if let cafeName = cafeData?.cafeName {
             cafeTitleLabel.text = cafeName
         }
-        numberOfFavorties.text = "\(cafeData?.numberOfFavorites ?? 0)"
+        numberOfFavorties.text = "\(cafeData!.numberOfFavorites)"
         
         // view.addSubview
         view.addSubview(scrollView)
@@ -319,24 +319,31 @@ class CafeDetailViewController: UIViewController {
     @objc private func touchedFavoriteOnOffButton(_ sender: UIButton) {
         isFavoriteButtonOn.toggle()
         if isFavoriteButtonOn {
-            sender.setImage(UIImage(named: "heartIcon"), for: .normal)
-            // realm에 favorite 버튼을 선택한 카페 이름을 저장
-            let favoriteCafe = FavoriteCafe(cafeName: cafeData!.cafeName)
-            try! realm.write {
-                realm.add(favoriteCafe)
+            Task {
+                sender.setImage(UIImage(named: "heartIcon"), for: .normal)
+                // realm에 favorite 버튼을 선택한 카페 이름을 저장
+                let favoriteCafe = FavoriteCafe(cafeName: cafeData!.cafeName)
+                try! realm.write {
+                    realm.add(favoriteCafe)
+                }
+                let newCafeNumberOfFavorites = try await APICaller.requestPutData(url: "/cafeinfo/updatecafe/addfav/\(cafeData!.cafeID)", dataType: Int.self)
+                numberOfFavorties.text = String(newCafeNumberOfFavorites)
             }
         } else {
-            sender.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
-            // realm에 favorite 버튼을 선택을 해제한 카페 이름을 삭제
-            let favoriteCafes = realm.objects(FavoriteCafe.self)
-            let favoriteOnCafe = favoriteCafes.where {
-                $0.cafeName == cafeData!.cafeName
-            }
-            try! realm.write {
-                realm.delete(favoriteOnCafe)
+            Task {
+                sender.setImage(UIImage(named: "heartIcon")?.withTintColor(.grayscale4), for: .normal)
+                // realm에 favorite 버튼을 선택을 해제한 카페 이름을 삭제
+                let favoriteCafes = realm.objects(FavoriteCafe.self)
+                let favoriteOnCafe = favoriteCafes.where {
+                    $0.cafeName == cafeData!.cafeName
+                }
+                try! realm.write {
+                    realm.delete(favoriteOnCafe)
+                }
+                let newCafeNumberOfFavorites = try await APICaller.requestPutData(url: "/cafeinfo/updatecafe/deletefav/\(cafeData!.cafeID)", dataType: Int.self)
+                numberOfFavorties.text = String(newCafeNumberOfFavorites)
             }
         }
-        // TODO: 서버 연결 후 버튼 터치 시 numberOfFavorites에 업데이트 필요
     }
     
     func setCafeImages(width: CGFloat) {

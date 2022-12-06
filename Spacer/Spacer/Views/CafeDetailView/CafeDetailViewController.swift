@@ -194,16 +194,12 @@ class CafeDetailViewController: UIViewController {
     private var categoryNames = [String]()
     private var sizeDescriptions = [String]()
     private var isFavoriteButtonOn = false
-    private let navigationAppearance = UINavigationBarAppearance()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // navigationBar & tabBar 설정
-        navigationAppearance.configureWithTransparentBackground()
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.standardAppearance = navigationAppearance
-        navigationController?.navigationBar.tintColor = .mainPurple1
+        setNavigationBar()
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -344,6 +340,22 @@ class CafeDetailViewController: UIViewController {
                 numberOfFavorties.text = String(newCafeNumberOfFavorites)
             }
         }
+    }
+    
+    @objc private func touchedNavigationBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func setNavigationBar() {
+        let navigationAppearance = UINavigationBarAppearance()
+        navigationAppearance.configureWithTransparentBackground()
+        navigationController?.isNavigationBarHidden = false
+        navigationController?.navigationBar.standardAppearance = navigationAppearance
+        navigationController?.navigationBar.tintColor = .mainPurple1
+
+        let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(touchedNavigationBackButton))
+        navigationItem.leftBarButtonItem = backIcon
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
     }
     
     func setCafeImages(width: CGFloat) {

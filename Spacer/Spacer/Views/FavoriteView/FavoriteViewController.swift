@@ -52,6 +52,7 @@ class FavoriteViewController: UIViewController {
         view.backgroundColor = .white
         setNavBar()
         setup()
+        setCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,8 +92,6 @@ class FavoriteViewController: UIViewController {
                     thumbnailImageInfos.append(CafeThumbnailImage(cafeImageUrl: "http://158.247.222.189:12232/static/images/6693852c64b011ed94ba0242ac110003/cafeId3_img_001.jpg", imageCategory: "", imageProductSize: ""))
                 }
             }
-            
-            setCollectionView()
             favoriteCollectionView.reloadData()
             //TODO: - countLabel의 text에 개수를 업데이트 해야함
         }

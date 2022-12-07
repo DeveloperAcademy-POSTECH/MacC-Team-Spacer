@@ -86,6 +86,7 @@ class FavoriteViewController: UIViewController {
             favoriteCollectionView.reloadData()
             //TODO: - countLabel의 text에 개수를 업데이트 해야함
         }
+        tabBarController?.tabBar.isHidden = false
     }
     
     func setNavBar() {

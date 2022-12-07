@@ -54,6 +54,9 @@ class FavoriteViewController: UIViewController {
         view.backgroundColor = .white
         setNavBar()
         setup()
+        // 한 번 배열에 값을 append한 후 초기화해주는 코드가 없어서 발생한 잘못된 카페 정보를 받아오는 문제 해결
+        favoriteCafes = []
+        thumbnailImageInfos = []
         Task {
             // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함
             let storedCafes = realm.objects(FavoriteCafe.self)

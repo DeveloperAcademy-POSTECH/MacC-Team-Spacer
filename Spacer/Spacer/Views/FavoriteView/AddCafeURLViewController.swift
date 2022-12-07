@@ -103,6 +103,7 @@ class AddCafeURLViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
         setup()
         URLTextField.becomeFirstResponder()
@@ -110,12 +111,11 @@ class AddCafeURLViewController: UIViewController {
         memoTextView.delegate = self
         pasteURLButton.addTarget(self, action: #selector(pasteURLButtonTapped), for: .touchUpInside)
         addURLCafeButton.addTarget(self, action: #selector(addURLCafeButtonTapped), for: .touchUpInside)
-        
-        
-       
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -169,7 +169,6 @@ class AddCafeURLViewController: UIViewController {
     }
     
     //MARK: - 네이버에서 검색시 버튼의 백그라운드로 이미지가 설정되어 있을 경우
-    //TODO: - THROWS함수로 변경 error처리 하기(우선순위 내림)
     func myCrawl(givenURL: String) throws {
         guard let url = URL(string: givenURL) else {
             print("URL is nil")
@@ -194,7 +193,7 @@ class AddCafeURLViewController: UIViewController {
                 // 카페 주소
                 let cafeAddress: Elements = try doc.select(".x8JmK").select(".pAe5G").select(".IH7VW")
                 let cafeAddressText = try cafeAddress.first()!.text()
-
+                
                 // 이미지 처리
                 let imagesrc: Elements = try doc.select(".CEX4u").select("div.fNygA").select("div#ibu_1")
                 print(imagesrc.count)
@@ -212,9 +211,7 @@ class AddCafeURLViewController: UIViewController {
                 self.getDataFromModalDelegate?.getData(data: imgData)
                 print("sucess")
                 DispatchQueue.main.async {
-                    //TODO: - 업데이트 할 것
-//                    self.myImageView.image = UIImage(data: imgData)
-                    // realm에 저장
+                    // url을 포함하여 카페명, 주소, 메모, url을 realm에 저장
                     let favoriteURLCafe = FavoriteURLCafe(cafeName: cafeNameText, cafeAddress: cafeAddressText, memo: self.memoTextView.text, cafeURL: givenURL)
                     try! self.realm.write {
                         self.realm.add(favoriteURLCafe)

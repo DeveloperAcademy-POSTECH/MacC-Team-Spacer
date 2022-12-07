@@ -216,6 +216,7 @@ class AddCafeURLViewController: UIViewController {
                     try! self.realm.write {
                         self.realm.add(favoriteURLCafe)
                     }
+                    self.dismiss(animated: true)
                 }
             } catch Exception.Error(_, let message) {
                 print("Message: \(message)")
@@ -244,7 +245,6 @@ class AddCafeURLViewController: UIViewController {
         //TODO: - 모달이 사라지면서 url에서 크롤링하고 값들을 realm에 저장하기
         
         try? myCrawl(givenURL: self.URLTextField.text ?? "")
-        self.dismiss(animated: true)
     }
 }
 

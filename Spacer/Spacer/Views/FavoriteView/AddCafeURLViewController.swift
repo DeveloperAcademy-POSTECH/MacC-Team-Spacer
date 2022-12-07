@@ -172,6 +172,7 @@ class AddCafeURLViewController: UIViewController {
     func myCrawl(givenURL: String) throws {
         guard let url = URL(string: givenURL) else {
             print("URL is nil")
+            URLAlert()
             throw crawlingError.URLError
         }
         // Request
@@ -188,10 +189,12 @@ class AddCafeURLViewController: UIViewController {
                 
                 // 카페 이름
                 let cafeName: Elements = try doc.select(".YouOG").select(".Fc1rA")
+                if cafeName.isEmpty() { throw crawlingError.URLError }
                 let cafeNameText = try cafeName.first()!.text()
                 
                 // 카페 주소
                 let cafeAddress: Elements = try doc.select(".x8JmK").select(".pAe5G").select(".IH7VW")
+                if cafeAddress.isEmpty() { throw crawlingError.URLError }
                 let cafeAddressText = try cafeAddress.first()!.text()
                 
                 // 이미지 처리
@@ -218,15 +221,30 @@ class AddCafeURLViewController: UIViewController {
                     }
                     self.dismiss(animated: true)
                 }
+
             } catch Exception.Error(_, let message) {
                 print("Message: \(message)")
             } catch {
                 print("error")
+                self.URLAlert()
             }
         }
         task.resume()
     }
     
+    func URLAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "정상적인 URL인지 확인해주세요", message: nil, preferredStyle: .alert)
+            let no = UIAlertAction(title: "취소", style: .default, handler: {_ in
+                self.dismiss(animated: true)})
+            let yes = UIAlertAction(title: "확인", style: .default, handler: nil)
+            no.setValue(UIColor.grayscale3, forKey: "titleTextColor")
+            yes.setValue(UIColor.init(red: 0, green: 122/255, blue: 1, alpha: 1), forKey: "titleTextColor")
+            alert.addAction(no)
+            alert.addAction(yes)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue

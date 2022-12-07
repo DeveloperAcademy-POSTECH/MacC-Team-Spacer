@@ -48,7 +48,9 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // realm에서 저장된 값 확인
+        let URLCafes = realm.objects(FavoriteURLCafe.self)
+        dump(URLCafes)
         view.backgroundColor = .white
         setNavBar()
         setup()
@@ -129,8 +131,10 @@ class FavoriteViewController: UIViewController {
     
     @objc func linkButtonTapped() {
        //TODO: - url링크를 받는 모달창을 띄우기
+        let vc = AddCafeURLViewController()
+        vc.getDataFromModalDelegate = self
+        self.present(vc, animated: true)
     }
-    
 }
 
 extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -151,5 +155,12 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
         let cafeDetailViewController = CafeDetailViewController()
         cafeDetailViewController.cafeData = favoriteCafes[indexPath.row]
         self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
+    }
+}
+
+// AddCafeURLView에서 값을 불러오는 방법 1. local에 저장(realm) 2.해당 프로토콜 사용
+extension FavoriteViewController: GetDataFromModalDelegate {
+    func getData(data: Data) {
+        print(data)
     }
 }

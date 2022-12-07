@@ -48,15 +48,25 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // realm에서 저장된 값 확인
-        let URLCafes = realm.objects(FavoriteURLCafe.self)
-        dump(URLCafes)
+        
         view.backgroundColor = .white
         setNavBar()
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         // 한 번 배열에 값을 append한 후 초기화해주는 코드가 없어서 발생한 잘못된 카페 정보를 받아오는 문제 해결
         favoriteCafes = []
         thumbnailImageInfos = []
+        
+        // realm에서 저장된 값 확인가능한 test
+        //        let cafes = realm.objects(FavoriteCafe.self)
+        //        dump(cafes)
+        //        let URLCafes = realm.objects(FavoriteURLCafe.self)
+        //        dump(URLCafes)
+        
         Task {
             // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함
             let storedCafes = realm.objects(FavoriteCafe.self)
@@ -134,7 +144,6 @@ class FavoriteViewController: UIViewController {
     }
     
     @objc func linkButtonTapped() {
-       //TODO: - url링크를 받는 모달창을 띄우기
         let vc = AddCafeURLViewController()
         vc.getDataFromModalDelegate = self
         self.present(vc, animated: true)

@@ -171,6 +171,7 @@ class AddCafeURLViewController: UIViewController {
     //MARK: - 네이버에서 검색시 버튼의 백그라운드로 이미지가 설정되어 있을 경우
     func myCrawl(givenURL: String) throws {
         guard let url = URL(string: givenURL) else {
+            URLAlert()
             throw crawlingError.URLError
         }
         // Request
@@ -181,9 +182,6 @@ class AddCafeURLViewController: UIViewController {
                 let html = String(data: data, encoding: .utf8)
                 guard let html = html else { throw crawlingError.stringError }
                 let doc = try SwiftSoup.parse(html)
-                // 제대로 가져왔는지 보려고 설정한 testcode, title확인
-                let headerTitle = try doc.title()
-                print(headerTitle)
                 
                 // 카페 이름
                 let cafeName: Elements = try doc.select(".YouOG").select(".Fc1rA")

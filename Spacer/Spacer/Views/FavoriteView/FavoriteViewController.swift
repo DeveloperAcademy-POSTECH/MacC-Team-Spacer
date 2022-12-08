@@ -143,9 +143,9 @@ class FavoriteViewController: UIViewController {
     }
     
     @objc func linkButtonTapped() {
-        let vc = AddCafeURLViewController()
-        vc.getDataFromModalDelegate = self
-        self.present(vc, animated: true)
+        let addCafeURLViewController = AddCafeURLViewController()
+        addCafeURLViewController.getDataFromModalDelegate = self
+        self.present(addCafeURLViewController, animated: true)
     }
 }
 

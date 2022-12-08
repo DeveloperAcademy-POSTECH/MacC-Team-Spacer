@@ -25,10 +25,12 @@
 		BF5F8AC128FEC91300CF9E3A /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */; };
 		BF5F8AC728FECF5800CF9E3A /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */; };
 		BF682FC2291814FF00706D1D /* VisualTagCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */; };
+		BF6BD9CF2927E53F009935A4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6BD9CE2927E53F009935A4 /* RealmManager.swift */; };
 		BF6F700B292E304700699902 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F700A292E304700699902 /* UINavigationControllerExtension.swift */; };
+		BF7024AF293E21DE00C6B697 /* AddCafeURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7024AE293E21DE00C6B697 /* AddCafeURLViewController.swift */; };
+		BF7024B2293E955800C6B697 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = BF7024B1293E955800C6B697 /* SwiftSoup */; };
 		BF81BDB2292A814000C57870 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */; };
 		BF81BDB5292A817100C57870 /* OnBoardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */; };
-		BF6BD9CF2927E53F009935A4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6BD9CE2927E53F009935A4 /* RealmManager.swift */; };
 		BF899DD22925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */; };
 		BF91812B292C9D5400EF20F6 /* IconLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF91812A292C9D5400EF20F6 /* IconLabelView.swift */; };
 		BF997646292336A400C93AF4 /* SimpleTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */; };
@@ -87,10 +89,11 @@
 		BF5F8AC028FEC91300CF9E3A /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF5F8AC628FECF5800CF9E3A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		BF682FC1291814FF00706D1D /* VisualTagCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualTagCategoryViewController.swift; sourceTree = "<group>"; };
+		BF6BD9CE2927E53F009935A4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		BF6F700A292E304700699902 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
+		BF7024AE293E21DE00C6B697 /* AddCafeURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCafeURLViewController.swift; sourceTree = "<group>"; };
 		BF81BDB1292A814000C57870 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		BF81BDB4292A817100C57870 /* OnBoardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageViewController.swift; sourceTree = "<group>"; };
-		BF6BD9CE2927E53F009935A4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		BF899DD12925CCA600579199 /* ReviewUnderConstructionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewUnderConstructionTableViewCell.swift; sourceTree = "<group>"; };
 		BF91812A292C9D5400EF20F6 /* IconLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelView.swift; sourceTree = "<group>"; };
 		BF997645292336A400C93AF4 /* SimpleTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -139,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF3558072927CE2C003B3735 /* RealmSwift in Frameworks */,
+				BF7024B2293E955800C6B697 /* SwiftSoup in Frameworks */,
 				BF3558052927CE2C003B3735 /* Realm in Frameworks */,
 				D4A372A229011AB8007A5297 /* FSCalendar in Frameworks */,
 			);
@@ -298,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				D4C95C5228F5294900992600 /* FavoriteViewController.swift */,
+				BF7024AE293E21DE00C6B697 /* AddCafeURLViewController.swift */,
 			);
 			path = FavoriteView;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 				D4A372A129011AB8007A5297 /* FSCalendar */,
 				BF3558042927CE2C003B3735 /* Realm */,
 				BF3558062927CE2C003B3735 /* RealmSwift */,
+				BF7024B1293E955800C6B697 /* SwiftSoup */,
 			);
 			productName = Spacer;
 			productReference = D4E950B828EF48CA0066B711 /* Spacer.app */;
@@ -449,6 +455,7 @@
 			packageReferences = (
 				D4A372A029011AB8007A5297 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				BF3558032927CE2C003B3735 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				BF7024B0293E955800C6B697 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 			);
 			productRefGroup = D4E950B928EF48CA0066B711 /* Products */;
 			projectDirPath = "";
@@ -517,6 +524,7 @@
 				BF02AE01292D06D4000264A9 /* FirstOnBoardViewController.swift in Sources */,
 				BF5F8AB928FE878F00CF9E3A /* RecentCafeTableViewCell.swift in Sources */,
 				BFB9B12C290046BB0056626C /* PaddingExtension.swift in Sources */,
+				BF7024AF293E21DE00C6B697 /* AddCafeURLViewController.swift in Sources */,
 				BFB9B11F29003F110056626C /* FontExtension.swift in Sources */,
 				BF5F8ABD28FEC88700CF9E3A /* SearchListViewController.swift in Sources */,
 				D4A3729C29011A79007A5297 /* VisualTagCalendarViewController.swift in Sources */,
@@ -757,6 +765,14 @@
 				kind = branch;
 			};
 		};
+		BF7024B0293E955800C6B697 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		D4A372A029011AB8007A5297 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
@@ -777,6 +793,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BF3558032927CE2C003B3735 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		BF7024B1293E955800C6B697 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF7024B0293E955800C6B697 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
 		};
 		D4A372A129011AB8007A5297 /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;

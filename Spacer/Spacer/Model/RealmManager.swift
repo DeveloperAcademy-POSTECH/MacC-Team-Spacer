@@ -16,3 +16,20 @@ class FavoriteCafe: Object {
         self.cafeName = cafeName
     }
 }
+
+class FavoriteURLCafe: Object {
+    @Persisted var cafeName: String = ""
+    @Persisted var cafeAddress: String = ""
+    @Persisted var cafeImageURL: String = ""
+    @Persisted var memo: String = ""
+    @Persisted var cafeURL: String = ""
+    
+    convenience init(cafeName: String, cafeAddress: String, cafeImageURL: String, memo: String, cafeURL: String) {
+        self.init()
+        self.cafeName = cafeName
+        self.cafeAddress = cafeAddress
+        self.cafeImageURL = cafeImageURL
+        self.memo = memo
+        self.cafeURL = cafeURL
+    }
+}

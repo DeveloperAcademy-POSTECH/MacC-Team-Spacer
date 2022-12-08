@@ -211,13 +211,12 @@ class AddCafeURLViewController: UIViewController {
                 print("sucess")
                 DispatchQueue.main.async {
                     // url을 포함하여 카페명, 주소, 메모, url을 realm에 저장
-                    let favoriteURLCafe = FavoriteURLCafe(cafeName: cafeNameText, cafeAddress: cafeAddressText, memo: self.memoTextView.text, cafeURL: givenURL)
+                    let favoriteURLCafe = FavoriteURLCafe(cafeName: cafeNameText, cafeAddress: cafeAddressText, cafeImageURL: String(getImageURL) ,memo: self.memoTextView.text, cafeURL: givenURL)
                     try! self.realm.write {
                         self.realm.add(favoriteURLCafe)
                     }
                     self.dismiss(animated: true)
                 }
-
             } catch {
                 self.URLAlert()
             }

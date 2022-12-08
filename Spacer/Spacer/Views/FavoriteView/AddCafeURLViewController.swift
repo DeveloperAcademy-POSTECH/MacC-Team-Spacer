@@ -171,8 +171,6 @@ class AddCafeURLViewController: UIViewController {
     //MARK: - 네이버에서 검색시 버튼의 백그라운드로 이미지가 설정되어 있을 경우
     func myCrawl(givenURL: String) throws {
         guard let url = URL(string: givenURL) else {
-            print("URL is nil")
-            URLAlert()
             throw crawlingError.URLError
         }
         // Request
@@ -222,10 +220,7 @@ class AddCafeURLViewController: UIViewController {
                     self.dismiss(animated: true)
                 }
 
-            } catch Exception.Error(_, let message) {
-                print("Message: \(message)")
             } catch {
-                print("error")
                 self.URLAlert()
             }
         }

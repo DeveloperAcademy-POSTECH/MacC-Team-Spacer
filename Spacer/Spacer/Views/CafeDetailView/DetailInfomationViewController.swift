@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class DetailInfomationViewController: UIViewController {
     // 상세정보 및 카페 조건 등을 보여주는 ViewController
@@ -39,6 +40,9 @@ class DetailInfomationViewController: UIViewController {
 
     private lazy var dividerUnderCost: UIView = makeDivider()
     
+    //MARK: - divider for mapView
+    private lazy var dividerUnderAdditionalInfo: UIView = makeDivider()
+    
     // 카페에서 진행 가능한 이벤트 요소
     private lazy var eventElementStackView: UIStackView = makeStackView()
     
@@ -48,6 +52,14 @@ class DetailInfomationViewController: UIViewController {
     // 사장님이 직접 남기는 기타 사항
     private lazy var cafeAdditionalInfoStackView: UIStackView = makeStackView()
     
+    private lazy var cafeMapStackView: UIStackView = makeStackView()
+
+    private let mapView: MKMapView = {
+        let map = MKMapView()
+        map.translatesAutoresizingMaskIntoConstraints = false
+        map.delegate = self
+        return map
+    }()
     
     // MARK: - viewDidLoad
     
@@ -61,6 +73,7 @@ class DetailInfomationViewController: UIViewController {
         setEventElementView()
         setCostView(cost: cafeBasicInfo?.cafeCost)
         setCafeAdditionalInfoView(cafeAdditionalInfo: cafeBasicInfo?.cafeAdditionalDescription)
+        setCafeLocationView()
         
         view.addSubview(cafeDetailInfoContainer)
         view.addSubview(dividerUnderDetailInfomation)
@@ -69,6 +82,8 @@ class DetailInfomationViewController: UIViewController {
         view.addSubview(eventCostStackView)
         view.addSubview(dividerUnderCost)
         view.addSubview(cafeAdditionalInfoStackView)
+        view.addSubview(dividerUnderAdditionalInfo)
+        view.addSubview(cafeMapStackView)
         
         applyConstraints()
     }
@@ -132,6 +147,19 @@ class DetailInfomationViewController: UIViewController {
             cafeAdditionalInfoStackView.topAnchor.constraint(equalTo: dividerUnderCost.bottomAnchor)
         ]
         
+        let dividerUnderAdditionalInfoConstraints = [
+            dividerUnderAdditionalInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dividerUnderAdditionalInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dividerUnderAdditionalInfo.topAnchor.constraint(equalTo: cafeAdditionalInfoStackView.bottomAnchor, constant: .padding.differentHierarchyPadding),
+            dividerUnderAdditionalInfo.heightAnchor.constraint(equalToConstant: 2)
+        ]
+        
+        let cafeMapStackViewConstraints = [
+            cafeMapStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding.margin),
+            cafeMapStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding.margin),
+            cafeMapStackView.topAnchor.constraint(equalTo: dividerUnderAdditionalInfo.bottomAnchor)
+        ]
+        
         NSLayoutConstraint.activate(cafeDetailInfoContainerConstraints)
         NSLayoutConstraint.activate(dividerUnderDetailInfomationConstraints)
         NSLayoutConstraint.activate(eventElementStackViewConstraints)
@@ -139,6 +167,8 @@ class DetailInfomationViewController: UIViewController {
         NSLayoutConstraint.activate(eventCostStackViewConstraints)
         NSLayoutConstraint.activate(dividerUnderCostConstraints)
         NSLayoutConstraint.activate(cafeAdditionalInfoStackViewConstraints)
+        NSLayoutConstraint.activate(dividerUnderAdditionalInfoConstraints)
+        NSLayoutConstraint.activate(cafeMapStackViewConstraints)
     }
     
     // cafeDetailInfoContainer 내부에 들어갈 카테고리별 정보를 세팅
@@ -410,4 +440,24 @@ class DetailInfomationViewController: UIViewController {
             cafeAdditionalInfoStackView.addArrangedSubview(additionalInfoLabel)
         }
     }
+    
+    private func setCafeLocationView(){
+        let conditionTitle = makeConditionTitle(title: "지도")
+
+        cafeMapStackView.addArrangedSubview(conditionTitle)
+        cafeMapStackView.addArrangedSubview(mapView)
+        
+        let mapViewConstraints = [
+            mapView.widthAnchor.constraint(equalToConstant: 356),
+            mapView.heightAnchor.constraint(equalToConstant: 300)
+        ]
+        
+        NSLayoutConstraint.activate(mapViewConstraints)
+
+    }
+}
+
+
+extension DetailInfomationViewController: MKMapViewDelegate{
+    
 }

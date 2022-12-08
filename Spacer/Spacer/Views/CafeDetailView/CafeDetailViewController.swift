@@ -185,6 +185,7 @@ class CafeDetailViewController: UIViewController {
         let viewController = CafeReviewViewController()
         return viewController
     }()
+
     
     var dataViewControllers: [UIViewController] {
         [detailInfoView, reviewView]
@@ -517,7 +518,7 @@ class CafeDetailViewController: UIViewController {
             pageController.view.leadingAnchor.constraint(equalTo: dynamicStackView.leadingAnchor),
             pageController.view.trailingAnchor.constraint(equalTo: dynamicStackView.trailingAnchor),
             pageController.view.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor),
-            pageController.view.heightAnchor.constraint(equalToConstant: 1100)
+            pageController.view.heightAnchor.constraint(equalToConstant: 1500)
         ]
         
         NSLayoutConstraint.activate(scrollViewConstraints)

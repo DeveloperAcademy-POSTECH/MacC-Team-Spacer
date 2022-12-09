@@ -83,7 +83,7 @@ extension RecentCafeTableViewCell: UICollectionViewDelegate, UICollectionViewDat
     
 }
 
-//MARK: 3. 프로토콜 선언 - 델리게이트
+//MARK: - 3. 프로토콜 선언 - 델리게이트
 protocol CellSelectedDelegate: AnyObject {
     func selectionAction(data: CafeInfo?, indexPath: IndexPath)
 }

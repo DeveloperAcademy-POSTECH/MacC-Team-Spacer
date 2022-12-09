@@ -29,4 +29,15 @@ class APICaller {
         return output
     }
     
+    static func requestPutData<T: Codable>(url: String, dataType: T.Type) async throws -> T  {
+        let url = URL(string: baseURL + url)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "PUT"
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw APIError.HTTPError }
+        guard let output = try? JSONDecoder().decode(dataType, from: data) else { throw APIError.DataParsingError }
+        
+        return output
+    }
 }

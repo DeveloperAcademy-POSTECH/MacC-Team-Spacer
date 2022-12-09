@@ -122,9 +122,9 @@ class URLCafeDetailView: UIViewController {
         view.backgroundColor = .systemBackground
         
         setNavigationBar()
+        setBottomBar()
         setScrollView()
         setScrollViewContent()
-        setBottomBar()
     }
     
     override func viewDidLayoutSubviews() {

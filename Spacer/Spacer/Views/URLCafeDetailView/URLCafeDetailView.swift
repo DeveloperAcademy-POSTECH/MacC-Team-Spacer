@@ -24,13 +24,6 @@ class URLCafeDetailView: UIViewController {
         return scrollView
     }()
     
-    private lazy var contentStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var cafeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .mainPurple5

@@ -140,6 +140,8 @@ class URLCafeDetailView: UIViewController {
         let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(touchedNavigationBarBackButton))
         navigationItem.leftBarButtonItem = backIcon
         navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
+        
+        navigationController?.isInteractivePopEnable(true)
     }
     
     private func setScrollView() {

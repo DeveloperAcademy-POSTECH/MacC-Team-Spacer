@@ -8,17 +8,26 @@
 import UIKit
 import RealmSwift
 
+struct FavoriteURLCafeInfo {
+    let cafeName: String
+    let cafeAddress: String
+    let cafeImageURL: String
+    let memo: String
+    let cafeURL: String
+}
+
 class FavoriteViewController: UIViewController {
     
     let realm = try! Realm()
     // favorite된 카페 수
     var NumberOfFavoriteCafe = 0
     var favoriteCafes: [Cafeinfo] = []
+    private var favoriteURLCafeInfos: [FavoriteURLCafeInfo] = []
     private var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
     
     lazy var countLabel : UILabel = {
         let label = UILabel()
-        label.text = "찜한 카페 3개"
+        label.text = "찜한 카페 0개"
         label.font = .systemFont(for: .body2)
         label.textColor = .grayscale3
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,20 +67,28 @@ class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print(#function)
+        
         // 한 번 배열에 값을 append한 후 초기화해주는 코드가 없어서 발생한 잘못된 카페 정보를 받아오는 문제 해결
+        NumberOfFavoriteCafe = 0
         favoriteCafes = []
+        favoriteURLCafeInfos = []
         thumbnailImageInfos = []
         
-        // realm에서 저장된 값 확인가능한 test
-        //        let cafes = realm.objects(FavoriteCafe.self)
-        //        dump(cafes)
-        //        let URLCafes = realm.objects(FavoriteURLCafe.self)
-        //        dump(URLCafes)
-        
         Task {
+            // realm에 url을 이용해 저장된 카페 정보 favoriteURLCafeInfos에 추가
+            let stroedURLCafe = realm.objects(FavoriteURLCafe.self)
+            for urlCafe in stroedURLCafe {
+                let urlCafeInfo = FavoriteURLCafeInfo(cafeName: urlCafe.cafeName, cafeAddress: urlCafe.cafeAddress, cafeImageURL: urlCafe.cafeImageURL, memo: urlCafe.memo, cafeURL: urlCafe.cafeURL)
+                favoriteURLCafeInfos.append(urlCafeInfo)
+            }
+            NumberOfFavoriteCafe += favoriteURLCafeInfos.count
+            
             // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함
             let storedCafes = realm.objects(FavoriteCafe.self)
-            NumberOfFavoriteCafe = storedCafes.count
+            NumberOfFavoriteCafe += storedCafes.count
+            
+            countLabel.text = "찜한 카페 \(NumberOfFavoriteCafe)개"
 
             let allCafeData = try await APICaller.requestGetData(url: "/cafeinfo/", dataType: [Cafeinfo].self) as! [Cafeinfo]
 
@@ -156,17 +173,28 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
-        //TODO: - 이곳에다가 CafeInfo를 넘겨줌, 코어데이터 혹은 realm으로 저장된 값으로 배열을 불러옴
         
-        cell.configure(with: favoriteCafes[indexPath.row], imageURL: thumbnailImageInfos[indexPath.row].cafeImageUrl)
+        if indexPath.row < favoriteURLCafeInfos.count {
+            cell.configure(with: favoriteURLCafeInfos[indexPath.row])
+        } else {
+            // TODO: 빠르게 탭 왔다갔다하면 index error 생김
+            print(indexPath.row, favoriteURLCafeInfos.count, indexPath.row - favoriteURLCafeInfos.count, favoriteCafes.count)
+            cell.configure(with: favoriteCafes[indexPath.row - favoriteURLCafeInfos.count], imageURL: thumbnailImageInfos[indexPath.row - favoriteURLCafeInfos.count].cafeImageUrl)
+        }
+
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-        let cafeDetailViewController = CafeDetailViewController()
-        cafeDetailViewController.cafeData = favoriteCafes[indexPath.row]
-        self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
+        if indexPath.row < favoriteURLCafeInfos.count {
+            let urlCafeDetailViewController = URLCafeDetailView()
+            self.navigationController?.pushViewController(urlCafeDetailViewController, animated: true)
+        } else {
+            let cafeDetailViewController = CafeDetailViewController()
+            cafeDetailViewController.cafeData = favoriteCafes[indexPath.row - favoriteURLCafeInfos.count]
+            self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
+        }
     }
 }
 

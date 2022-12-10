@@ -88,11 +88,20 @@ class ResultCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var URLImage: UIImageView = {
+    private lazy var cellURLImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "LinkURL")
+        imageView.image = UIImage(named: "CellLinkURLIcon")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private lazy var cafeMemoLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale4
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -190,6 +199,8 @@ class ResultCollectionViewCell: UICollectionViewCell {
     public func configure(with model: Cafeinfo, imageURL: String) {
         setVisiblilityOfCellComponent()
         setCellThumbnailImage(imageURL: imageURL)
+        cellURLImage.removeFromSuperview()
+        cafeMemoLabel.removeFromSuperview()
         
         self.cafeName.text = model.cafeName
         self.cafeLocation.text = model.cafeShortAddress
@@ -201,6 +212,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         // url로 저장한 카페일 경우에 보여주는 셀 세팅
         setVisiblilityOfCellComponent(isURLCafe: true)
         setCellThumbnailImage(imageURL: model.cafeImageURL)
+        setURLFavoriteCafeCell(memo: model.memo)
         
         self.cafeName.text = model.cafeName
     }
@@ -226,6 +238,30 @@ class ResultCollectionViewCell: UICollectionViewCell {
         numberOfTable.isHidden = isURLCafe
         cafeFavoriteImage.isHidden = isURLCafe
         numberOfFavorites.isHidden = isURLCafe
+    }
+    
+    private func setURLFavoriteCafeCell(memo: String) {
+        // url로 저장한 카페의 셀에 링크 이미지와 카페 메모 추가
+        cafeMemoLabel.text = memo
+        
+        shadowView.addSubview(cellURLImage)
+        shadowView.addSubview(cafeMemoLabel)
+        
+        let cellURLImageConstraints = [
+            cellURLImage.widthAnchor.constraint(equalToConstant: 28),
+            cellURLImage.heightAnchor.constraint(equalToConstant: 28),
+            cellURLImage.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            cellURLImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+        ]
+        
+        let cafeMemoLabelConstraints = [
+            cafeMemoLabel.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: 6),
+            cafeMemoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            cafeMemoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+        ]
+        
+        NSLayoutConstraint.activate(cellURLImageConstraints)
+        NSLayoutConstraint.activate(cafeMemoLabelConstraints)
     }
 }
 

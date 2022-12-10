@@ -226,14 +226,14 @@ class URLCafeDetailView: UIViewController {
             userMemoContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
             userMemoContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: .padding.margin),
             userMemoContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -.padding.margin),
-            userMemoContainer.heightAnchor.constraint(equalToConstant: userMemo.intrinsicContentSize.height + 40)
+            userMemoContainer.heightAnchor.constraint(equalTo: userMemo.heightAnchor, constant: 40)
         ]
         
         let userMemoConstraints = [
             userMemo.topAnchor.constraint(equalTo: userMemoContainer.topAnchor, constant: 20),
             userMemo.bottomAnchor.constraint(equalTo: userMemoContainer.bottomAnchor, constant: -20),
             userMemo.leadingAnchor.constraint(equalTo: userMemoContainer.leadingAnchor, constant: 20),
-            userMemo.trailingAnchor.constraint(equalTo: userMemoContainer.trailingAnchor, constant: 20)
+            userMemo.trailingAnchor.constraint(equalTo: userMemoContainer.trailingAnchor, constant: -20)
         ]
         
         NSLayoutConstraint.activate(cafeImageConstraints)

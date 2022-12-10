@@ -110,12 +110,17 @@ class URLCafeDetailView: UIViewController {
     
     // MARK: -- View Life Sycle Methods
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         view.backgroundColor = .systemBackground
         
         setNavigationBar()
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         setBottomBar()
         setScrollView()
         setScrollViewContent()

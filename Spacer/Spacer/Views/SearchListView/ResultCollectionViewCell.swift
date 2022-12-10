@@ -187,7 +187,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(isURLCafe: Bool = false, with model: Cafeinfo, imageURL: String) {
+    public func configure(with model: Cafeinfo, imageURL: String) {
         Task {
             let url = URL(string: imageURL)
             var request = URLRequest(url: url!)
@@ -197,21 +197,30 @@ class ResultCollectionViewCell: UICollectionViewCell {
             
             self.cafeName.text = model.cafeName
             self.cafeImageView.image = UIImage(data: data)
-            
-            if isURLCafe {
-                cafeLocationImage.isHidden = true
-                cafeLocation.isHidden = true
-                cafeTableImage.isHidden = true
-                numberOfTable.isHidden = true
-                cafeFavoriteImage.isHidden = true
-                numberOfFavorites.isHidden = true
-            } else {
-                self.cafeLocation.text = model.cafeShortAddress
-                self.numberOfTable.text = String(model.numberOfTables)
-                self.numberOfFavorites.text = String(model.numberOfFavorites)
-            }
+            self.cafeLocation.text = model.cafeShortAddress
+            self.numberOfTable.text = String(model.numberOfTables)
+            self.numberOfFavorites.text = String(model.numberOfFavorites)
         }
-        
+    }
+    
+    public func configure(with model: FavoriteURLCafeInfo) {
+        Task {
+            let url = URL(string: model.cafeImageURL)
+            var request = URLRequest(url: url!)
+            request.httpMethod = "GET"
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            self.cafeName.text = model.cafeName
+            self.cafeImageView.image = UIImage(data: data)
+            
+            cafeLocationImage.isHidden = true
+            cafeLocation.isHidden = true
+            cafeTableImage.isHidden = true
+            numberOfTable.isHidden = true
+            cafeFavoriteImage.isHidden = true
+            numberOfFavorites.isHidden = true
+        }
     }
 }
 

@@ -8,12 +8,8 @@
 import UIKit
 
 class URLCafeDetailView: UIViewController {
-    // 임시 정보
-    let tempImage: String = ""
-    let tempTilte: String = "카페 로제"
-    let tempLoca: String = "서울 마포구 와우산로 90"
-    let tempText: String = "메모 사항이 있다면 이렇게 여기에 뜨게 됩니다\nBody2 텍스트인데 행간이 들어가면 좋을 것 같아용\n메모가 늘어나면 박스도 늘어납니당\n메모 사항이 있다면 이렇게 여기에 뜨게 됩니다\nBody2 텍스트인데 행간이 들어가면 좋을 것 같아용\n메모가 늘어나면 박스도 늘어납니당\n메모 사항이 있다면 이렇게 여기에 뜨게 됩니다\nBody2 텍스트인데 행간이 들어가면 좋을 것 같아용\n메모가 늘어나면 박스도 늘어납니당\n메모 사항이 있다면 이렇게 여기에 뜨게 됩니다\nBody2 텍스트인데 행간이 들어가면 좋을 것 같아용\n메모가 늘어나면 박스도 늘어납니당\n메모 사항이 있다면 이렇게 여기에 뜨게 됩니다\nBody2 텍스트인데 행간이 들어가면 좋을 것 같아용\n메모가 늘어나면 박스도 늘어납니당"
-    let tempCafeLink: String = "https://www.naver.com"
+    // FavoriteView로부터 전달받은 카페 데이터
+    var urlCafeData: FavoriteURLCafeInfo?
    
     // MARK: -- UI Components
     
@@ -110,10 +106,16 @@ class URLCafeDetailView: UIViewController {
     
     // MARK: -- View Life Sycle Methods
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         view.backgroundColor = .systemBackground
+        
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         setNavigationBar()
         setBottomBar()
@@ -138,6 +140,8 @@ class URLCafeDetailView: UIViewController {
         let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(touchedNavigationBarBackButton))
         navigationItem.leftBarButtonItem = backIcon
         navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
+        
+        navigationController?.isInteractivePopEnable(true)
     }
     
     private func setScrollView() {
@@ -165,11 +169,18 @@ class URLCafeDetailView: UIViewController {
     
     private func setScrollViewContent() {
         // containerView에 scrollView에 담을 뷰 그리기
-        
-        // TODO: 셀로부터 받아온 뷰 업데이트
-        cafeNameLabel.text = tempTilte
-        locationLabel.text = tempLoca
-        userMemo.text = tempText
+        Task {
+            let url = URL(string: urlCafeData!.cafeImageURL)
+            var request = URLRequest(url: url!)
+            request.httpMethod = "GET"
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            cafeImage.image = UIImage(data: data)
+        }
+        cafeNameLabel.text = urlCafeData?.cafeName
+        locationLabel.text = urlCafeData?.cafeAddress
+        userMemo.text = urlCafeData?.memo
         
         containerView.addSubview(cafeImage)
         containerView.addSubview(cafeNameUnberLine)
@@ -218,14 +229,14 @@ class URLCafeDetailView: UIViewController {
             userMemoContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
             userMemoContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: .padding.margin),
             userMemoContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -.padding.margin),
-            userMemoContainer.heightAnchor.constraint(equalToConstant: userMemo.intrinsicContentSize.height + 40)
+            userMemoContainer.heightAnchor.constraint(equalTo: userMemo.heightAnchor, constant: 40)
         ]
         
         let userMemoConstraints = [
             userMemo.topAnchor.constraint(equalTo: userMemoContainer.topAnchor, constant: 20),
             userMemo.bottomAnchor.constraint(equalTo: userMemoContainer.bottomAnchor, constant: -20),
             userMemo.leadingAnchor.constraint(equalTo: userMemoContainer.leadingAnchor, constant: 20),
-            userMemo.trailingAnchor.constraint(equalTo: userMemoContainer.trailingAnchor, constant: 20)
+            userMemo.trailingAnchor.constraint(equalTo: userMemoContainer.trailingAnchor, constant: -20)
         ]
         
         NSLayoutConstraint.activate(cafeImageConstraints)
@@ -264,7 +275,7 @@ class URLCafeDetailView: UIViewController {
     }
     
     @objc private func touchedReservationButton(_ sender: UIButton) {
-        let urlResource: String = tempCafeLink
+        guard let urlResource: String = urlCafeData?.cafeURL else { return }
         
         if let url = URL(string: urlResource), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

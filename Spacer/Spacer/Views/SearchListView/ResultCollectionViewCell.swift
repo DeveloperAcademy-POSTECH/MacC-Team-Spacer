@@ -188,6 +188,25 @@ class ResultCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with model: Cafeinfo, imageURL: String) {
+        setVisiblilityOfCellComponent()
+        setCellThumbnailImage(imageURL: imageURL)
+        
+        self.cafeName.text = model.cafeName
+        self.cafeLocation.text = model.cafeShortAddress
+        self.numberOfTable.text = String(model.numberOfTables)
+        self.numberOfFavorites.text = String(model.numberOfFavorites)
+    }
+    
+    public func configure(with model: FavoriteURLCafeInfo) {
+        // url로 저장한 카페일 경우에 보여주는 셀 세팅
+        setVisiblilityOfCellComponent(isURLCafe: true)
+        setCellThumbnailImage(imageURL: model.cafeImageURL)
+        
+        self.cafeName.text = model.cafeName
+    }
+    
+    private func setCellThumbnailImage(imageURL: String) {
+        // url 주소에서 이미지 불러와 cafeImageView에 적용
         Task {
             let url = URL(string: imageURL)
             var request = URLRequest(url: url!)
@@ -195,32 +214,18 @@ class ResultCollectionViewCell: UICollectionViewCell {
             
             let (data, _) = try await URLSession.shared.data(for: request)
             
-            self.cafeName.text = model.cafeName
             self.cafeImageView.image = UIImage(data: data)
-            self.cafeLocation.text = model.cafeShortAddress
-            self.numberOfTable.text = String(model.numberOfTables)
-            self.numberOfFavorites.text = String(model.numberOfFavorites)
         }
     }
     
-    public func configure(with model: FavoriteURLCafeInfo) {
-        Task {
-            let url = URL(string: model.cafeImageURL)
-            var request = URLRequest(url: url!)
-            request.httpMethod = "GET"
-            
-            let (data, _) = try await URLSession.shared.data(for: request)
-            
-            self.cafeName.text = model.cafeName
-            self.cafeImageView.image = UIImage(data: data)
-            
-            cafeLocationImage.isHidden = true
-            cafeLocation.isHidden = true
-            cafeTableImage.isHidden = true
-            numberOfTable.isHidden = true
-            cafeFavoriteImage.isHidden = true
-            numberOfFavorites.isHidden = true
-        }
+    private func setVisiblilityOfCellComponent(isURLCafe: Bool = false) {
+        // 저장된 카페 종류에 따라 보이는 UI 다르게 설정
+        cafeLocationImage.isHidden = isURLCafe
+        cafeLocation.isHidden = isURLCafe
+        cafeTableImage.isHidden = isURLCafe
+        numberOfTable.isHidden = isURLCafe
+        cafeFavoriteImage.isHidden = isURLCafe
+        numberOfFavorites.isHidden = isURLCafe
     }
 }
 

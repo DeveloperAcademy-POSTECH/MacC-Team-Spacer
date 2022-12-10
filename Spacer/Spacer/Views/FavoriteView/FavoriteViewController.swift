@@ -66,9 +66,7 @@ class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        print(#function)
-        
+
         // 한 번 배열에 값을 append한 후 초기화해주는 코드가 없어서 발생한 잘못된 카페 정보를 받아오는 문제 해결
         NumberOfFavoriteCafe = 0
         favoriteCafes = []
@@ -110,7 +108,6 @@ class FavoriteViewController: UIViewController {
                 }
             }
             favoriteCollectionView.reloadData()
-            //TODO: - countLabel의 text에 개수를 업데이트 해야함
         }
         tabBarController?.tabBar.isHidden = false
     }
@@ -178,7 +175,6 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
             cell.configure(with: favoriteURLCafeInfos[indexPath.row])
         } else {
             // TODO: 빠르게 탭 왔다갔다하면 index error 생김
-            print(indexPath.row, favoriteURLCafeInfos.count, indexPath.row - favoriteURLCafeInfos.count, favoriteCafes.count)
             cell.configure(with: favoriteCafes[indexPath.row - favoriteURLCafeInfos.count], imageURL: thumbnailImageInfos[indexPath.row - favoriteURLCafeInfos.count].cafeImageUrl)
         }
 

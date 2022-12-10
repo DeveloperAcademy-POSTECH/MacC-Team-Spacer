@@ -197,7 +197,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with model: Cafeinfo, imageURL: String) {
-        setVisiblilityOfCellComponent()
+        setVisibilityOfCellComponent()
         setCellThumbnailImage(imageURL: imageURL)
         cellURLImage.removeFromSuperview()
         cafeMemoLabel.removeFromSuperview()
@@ -210,7 +210,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
     
     public func configure(with model: FavoriteURLCafeInfo) {
         // url로 저장한 카페일 경우에 보여주는 셀 세팅
-        setVisiblilityOfCellComponent(isURLCafe: true)
+        setVisibilityOfCellComponent(isURLCafe: true)
         setCellThumbnailImage(imageURL: model.cafeImageURL)
         setURLFavoriteCafeCell(memo: model.memo)
         
@@ -230,7 +230,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func setVisiblilityOfCellComponent(isURLCafe: Bool = false) {
+    private func setVisibilityOfCellComponent(isURLCafe: Bool = false) {
         // 저장된 카페 종류에 따라 보이는 UI 다르게 설정
         cafeLocationImage.isHidden = isURLCafe
         cafeLocation.isHidden = isURLCafe

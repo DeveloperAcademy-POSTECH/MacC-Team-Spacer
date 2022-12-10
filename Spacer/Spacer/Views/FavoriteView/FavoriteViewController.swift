@@ -75,8 +75,8 @@ class FavoriteViewController: UIViewController {
         
         Task {
             // realm에 url을 이용해 저장된 카페 정보 favoriteURLCafeInfos에 추가
-            let stroedURLCafe = realm.objects(FavoriteURLCafe.self)
-            for urlCafe in stroedURLCafe {
+            let stroedURLCafes = realm.objects(FavoriteURLCafe.self)
+            for urlCafe in stroedURLCafes {
                 let urlCafeInfo = FavoriteURLCafeInfo(cafeName: urlCafe.cafeName, cafeAddress: urlCafe.cafeAddress, cafeImageURL: urlCafe.cafeImageURL, memo: urlCafe.memo, cafeURL: urlCafe.cafeURL)
                 favoriteURLCafeInfos.append(urlCafeInfo)
             }

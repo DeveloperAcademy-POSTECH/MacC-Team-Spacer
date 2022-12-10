@@ -189,6 +189,7 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
         collectionView.deselectItem(at: indexPath, animated: false)
         if indexPath.row < favoriteURLCafeInfos.count {
             let urlCafeDetailViewController = URLCafeDetailView()
+            urlCafeDetailViewController.urlCafeData = favoriteURLCafeInfos[indexPath.row]
             self.navigationController?.pushViewController(urlCafeDetailViewController, animated: true)
         } else {
             let cafeDetailViewController = CafeDetailViewController()

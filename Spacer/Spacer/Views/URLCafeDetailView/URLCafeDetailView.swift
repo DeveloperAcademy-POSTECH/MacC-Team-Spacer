@@ -111,13 +111,13 @@ class URLCafeDetailView: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        setNavigationBar()
         tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setNavigationBar()
         setBottomBar()
         setScrollView()
         setScrollViewContent()

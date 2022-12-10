@@ -88,6 +88,13 @@ class ResultCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var URLImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "LinkURL")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -180,7 +187,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with model: Cafeinfo, imageURL: String) {
+    public func configure(isURLCafe: Bool = false, with model: Cafeinfo, imageURL: String) {
         Task {
             let url = URL(string: imageURL)
             var request = URLRequest(url: url!)
@@ -190,9 +197,19 @@ class ResultCollectionViewCell: UICollectionViewCell {
             
             self.cafeName.text = model.cafeName
             self.cafeImageView.image = UIImage(data: data)
-            self.cafeLocation.text = model.cafeShortAddress
-            self.numberOfTable.text = String(model.numberOfTables)
-            self.numberOfFavorites.text = String(model.numberOfFavorites)
+            
+            if isURLCafe {
+                cafeLocationImage.isHidden = true
+                cafeLocation.isHidden = true
+                cafeTableImage.isHidden = true
+                numberOfTable.isHidden = true
+                cafeFavoriteImage.isHidden = true
+                numberOfFavorites.isHidden = true
+            } else {
+                self.cafeLocation.text = model.cafeShortAddress
+                self.numberOfTable.text = String(model.numberOfTables)
+                self.numberOfFavorites.text = String(model.numberOfFavorites)
+            }
         }
         
     }

@@ -189,10 +189,10 @@ class URLCafeDetailView: UIViewController {
             
             self.navigationController?.popViewController(animated: true)
         }
-        //deleteAction.setValue(UIColor.systemBlue, forKey: "titleTextColor")
         
-        alert.addAction(deleteAction)
         alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        alert.preferredAction = deleteAction
         
         self.present(alert, animated: true)
     }

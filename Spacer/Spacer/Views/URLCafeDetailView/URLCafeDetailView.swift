@@ -143,18 +143,18 @@ class URLCafeDetailView: UIViewController {
         // setting naviagtionBar item
         let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(touchedNavigationBarBackButton))
         navigationItem.leftBarButtonItem = backIcon
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
+        navigationItem.leftBarButtonItem?.tintColor = .mainPurple1
         
         let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .done, target: self, action: nil)
         navigationItem.rightBarButtonItem = moreButton
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.rightBarButtonItem?.tintColor = .mainPurple1
         
         // actions
-        let editCafeMenu: UIAction = UIAction(title: "편집하기", image: UIImage(systemName: "viewfinder")) { action in
+        let editCafeMenu: UIAction = UIAction(title: "편집하기", image: UIImage(named: "editActionIcon")) { action in
             self.showUpdateCafeInfoModal()
         }
         
-        let deleteCafeMenu: UIAction = UIAction(title: "삭제하기", image: UIImage(systemName: "pencil"), attributes: [.destructive]) { action in
+        let deleteCafeMenu: UIAction = UIAction(title: "삭제하기", image: UIImage(named: "deleteActionIcon"), attributes: [.destructive]) { action in
             self.showDeleteCafeAlert()
         }
         

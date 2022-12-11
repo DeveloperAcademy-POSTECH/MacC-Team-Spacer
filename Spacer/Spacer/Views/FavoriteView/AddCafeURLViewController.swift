@@ -74,7 +74,6 @@ class AddCafeURLViewController: UIViewController {
         textView.clipsToBounds = true
         textView.font = .systemFont(for: .body2)
         textView.text = "카페와 관련된 메모를 해주세요."
-        textView.textColor = .grayscale4
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -105,6 +104,8 @@ class AddCafeURLViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        memoTextView.textColor = memoTextView.text == "카페와 관련된 메모를 해주세요." ? .grayscale4 : .black
+        
         setup()
         URLTextField.becomeFirstResponder()
         URLTextField.delegate = self
@@ -253,8 +254,13 @@ class AddCafeURLViewController: UIViewController {
     
     @objc func addURLCafeButtonTapped() {
         //TODO: - 모달이 사라지면서 url에서 크롤링하고 값들을 realm에 저장하기
+        if addURLCafeButton.titleLabel?.text == "추가하기" {
+            try? myCrawl(givenURL: self.URLTextField.text ?? "")
+        } else if addURLCafeButton.titleLabel?.text == "수정하기" {
+            //getDataFromModalDelegate?.updateCafeData(url: URLTextField.text, memo: memoTextView.text)
+            dismiss(animated: true)
+        }
         
-        try? myCrawl(givenURL: self.URLTextField.text ?? "")
     }
 }
 
@@ -302,4 +308,10 @@ extension AddCafeURLViewController: UITextViewDelegate {
 //MARK: - 3. 프로토콜 선언 - 델리게이트
 protocol GetDataFromModalDelegate: AnyObject {
     func getData(data: Data)
+    func updateCafeData(url: String?, memo: String)
+}
+
+extension GetDataFromModalDelegate {
+    func getData(data: Data) {}
+    func updateCafeData(url: String?, memo: String) {}
 }

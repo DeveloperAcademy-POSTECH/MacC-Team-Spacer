@@ -214,11 +214,8 @@ class AddCafeURLViewController: UIViewController {
                 var getImageURL = imageStyle[firstIndex!..<lastIndex!]
                 getImageURL.removeFirst()
                 
-                let URLImage = URL(string: String(getImageURL))
-                let imgData = try Data(contentsOf: URLImage!)
-                
                 //MARK: - 3. 델리게이트의 값을 넘김
-                self.getDataFromModalDelegate?.getData(data: imgData)
+                self.getDataFromModalDelegate?.updateCafeData()
 
                 DispatchQueue.main.async {
                     // url을 포함하여 카페명, 주소, 메모, url을 realm에 저장
@@ -329,11 +326,11 @@ extension AddCafeURLViewController: UITextViewDelegate {
 
 //MARK: - 3. 프로토콜 선언 - 델리게이트
 protocol GetDataFromModalDelegate: AnyObject {
-    func getData(data: Data)
+    func updateCafeData()
     func updateCafeData(data: FavoriteURLCafe)
 }
 
 extension GetDataFromModalDelegate {
-    func getData(data: Data) {}
+    func updateCafeData() {}
     func updateCafeData(data: FavoriteURLCafe) {}
 }

@@ -282,12 +282,7 @@ class AddCafeURLViewController: UIViewController {
     }
     
     @objc func addURLCafeButtonTapped() {
-        //TODO: - 모달이 사라지면서 url에서 크롤링하고 값들을 realm에 저장하기
-        if addURLCafeButton.titleLabel?.text == "추가하기" {
-            try? myCrawl(givenURL: self.URLTextField.text ?? "")
-        } else if addURLCafeButton.titleLabel?.text == "수정하기" {
-            try? myCrawl(givenURL: self.URLTextField.text ?? "")
-        }
+        try? myCrawl(givenURL: self.URLTextField.text ?? "")
     }
 }
 

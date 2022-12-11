@@ -216,6 +216,7 @@ class URLCafeDetailView: UIViewController {
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(contentContainerViewConstraints)
     }
+    
     private func setCafeInfoToUIComponents(cafeData: FavoriteURLCafe?) {
         Task {
             let url = URL(string: cafeData!.cafeImageURL)

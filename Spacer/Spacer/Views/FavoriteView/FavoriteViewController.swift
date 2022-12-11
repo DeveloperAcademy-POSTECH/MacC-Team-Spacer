@@ -22,8 +22,8 @@ class FavoriteViewController: UIViewController {
     // favorite된 카페 수
     var NumberOfFavoriteCafe = 0
     var favoriteCafes: [Cafeinfo] = []
-    private var favoriteURLCafeInfos: [FavoriteURLCafeInfo] = []
     private var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
+    private var storedFavoriteURLCafeDatas: [FavoriteURLCafe] = []
     
     lazy var countLabel : UILabel = {
         let label = UILabel()
@@ -70,17 +70,15 @@ class FavoriteViewController: UIViewController {
         // 한 번 배열에 값을 append한 후 초기화해주는 코드가 없어서 발생한 잘못된 카페 정보를 받아오는 문제 해결
         NumberOfFavoriteCafe = 0
         favoriteCafes = []
-        favoriteURLCafeInfos = []
         thumbnailImageInfos = []
+        storedFavoriteURLCafeDatas = []
         
         Task {
-            // realm에 url을 이용해 저장된 카페 정보 favoriteURLCafeInfos에 추가
-            let stroedURLCafes = realm.objects(FavoriteURLCafe.self)
-            for urlCafe in stroedURLCafes {
-                let urlCafeInfo = FavoriteURLCafeInfo(cafeName: urlCafe.cafeName, cafeAddress: urlCafe.cafeAddress, cafeImageURL: urlCafe.cafeImageURL, memo: urlCafe.memo, cafeURL: urlCafe.cafeURL)
-                favoriteURLCafeInfos.append(urlCafeInfo)
-            }
-            NumberOfFavoriteCafe += favoriteURLCafeInfos.count
+            // realm에 url을 이용해 저장된 카페 정보를 storedFavoriteURLCafeDatas에 추가
+            let storedURLCafes = realm.objects(FavoriteURLCafe.self)
+            storedFavoriteURLCafeDatas = Array(storedURLCafes)
+
+            NumberOfFavoriteCafe += storedFavoriteURLCafeDatas.count
             
             // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함
             let storedCafes = realm.objects(FavoriteCafe.self)
@@ -171,11 +169,11 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = favoriteCollectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifier, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
         
-        if indexPath.row < favoriteURLCafeInfos.count {
-            cell.configure(with: favoriteURLCafeInfos[indexPath.row])
+        if indexPath.row < storedFavoriteURLCafeDatas.count {
+            cell.configure(with: storedFavoriteURLCafeDatas[indexPath.row])
         } else {
             // TODO: 빠르게 탭 왔다갔다하면 index error 생김
-            cell.configure(with: favoriteCafes[indexPath.row - favoriteURLCafeInfos.count], imageURL: thumbnailImageInfos[indexPath.row - favoriteURLCafeInfos.count].cafeImageUrl)
+            cell.configure(with: favoriteCafes[indexPath.row - storedFavoriteURLCafeDatas.count], imageURL: thumbnailImageInfos[indexPath.row - storedFavoriteURLCafeDatas.count].cafeImageUrl)
         }
 
         return cell
@@ -183,13 +181,13 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-        if indexPath.row < favoriteURLCafeInfos.count {
+        if indexPath.row < storedFavoriteURLCafeDatas.count {
             let urlCafeDetailViewController = URLCafeDetailView()
-            urlCafeDetailViewController.urlCafeData = favoriteURLCafeInfos[indexPath.row]
+            urlCafeDetailViewController.urlCafeData = storedFavoriteURLCafeDatas[indexPath.row]
             self.navigationController?.pushViewController(urlCafeDetailViewController, animated: true)
         } else {
             let cafeDetailViewController = CafeDetailViewController()
-            cafeDetailViewController.cafeData = favoriteCafes[indexPath.row - favoriteURLCafeInfos.count]
+            cafeDetailViewController.cafeData = favoriteCafes[indexPath.row - storedFavoriteURLCafeDatas.count]
             self.navigationController?.pushViewController(cafeDetailViewController, animated: true)
         }
     }
@@ -197,7 +195,10 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
 
 // AddCafeURLView에서 값을 불러오는 방법 1. local에 저장(realm) 2.해당 프로토콜 사용
 extension FavoriteViewController: GetDataFromModalDelegate {
-    func getData(data: Data) {
-        print(data)
+    func updateCafeData() {
+        DispatchQueue.main.async {
+            self.beginAppearanceTransition(true, animated: true)
+            self.endAppearanceTransition()
+        }
     }
 }

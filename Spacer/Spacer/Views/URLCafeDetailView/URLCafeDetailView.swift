@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class URLCafeDetailView: UIViewController {
     // FavoriteView로부터 전달받은 카페 데이터
-    var urlCafeData: FavoriteURLCafeInfo?
+    var urlCafeData: FavoriteURLCafe?
+    
+    let realm = try! Realm()
    
     // MARK: -- UI Components
     
@@ -137,11 +140,58 @@ class URLCafeDetailView: UIViewController {
         navigationBarAppearance.configureWithTransparentBackground()
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         
+        // setting naviagtionBar item
         let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(touchedNavigationBarBackButton))
         navigationItem.leftBarButtonItem = backIcon
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
+        navigationItem.leftBarButtonItem?.tintColor = .mainPurple1
         
+        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = moreButton
+        navigationItem.rightBarButtonItem?.tintColor = .mainPurple1
+        
+        // actions
+        let editCafeMenu: UIAction = UIAction(title: "편집하기", image: UIImage(named: "editActionIcon")) { action in
+            self.showUpdateCafeInfoModal()
+        }
+        
+        let deleteCafeMenu: UIAction = UIAction(title: "삭제하기", image: UIImage(named: "deleteActionIcon"), attributes: [.destructive]) { action in
+            self.showDeleteCafeAlert()
+        }
+        
+        navigationItem.rightBarButtonItem?.menu = UIMenu(children: [editCafeMenu, deleteCafeMenu])
+
         navigationController?.isInteractivePopEnable(true)
+    }
+    
+    private func showUpdateCafeInfoModal() {
+        let addCafeURLViewController = AddCafeURLViewController()
+        addCafeURLViewController.urlCafeData = urlCafeData
+        addCafeURLViewController.getDataFromModalDelegate = self
+        present(addCafeURLViewController, animated: true)
+    }
+    
+    private func showDeleteCafeAlert() {
+        let alert = UIAlertController(title: "등록한 카페를 삭제하시겠습니까?", message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .default)
+        cancelAction.setValue(UIColor.grayscale3, forKey: "titleTextColor")
+        
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            // 해당 카페 realm에서 카페 삭제
+            if let urlCafeData = self.urlCafeData {
+                try! self.realm.write {
+                    self.realm.delete(urlCafeData)
+                }
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        alert.preferredAction = deleteAction
+        
+        self.present(alert, animated: true)
     }
     
     private func setScrollView() {
@@ -167,10 +217,9 @@ class URLCafeDetailView: UIViewController {
         NSLayoutConstraint.activate(contentContainerViewConstraints)
     }
     
-    private func setScrollViewContent() {
-        // containerView에 scrollView에 담을 뷰 그리기
+    private func setCafeInfoToUIComponents(cafeData: FavoriteURLCafe?) {
         Task {
-            let url = URL(string: urlCafeData!.cafeImageURL)
+            let url = URL(string: cafeData!.cafeImageURL)
             var request = URLRequest(url: url!)
             request.httpMethod = "GET"
             
@@ -178,9 +227,14 @@ class URLCafeDetailView: UIViewController {
             
             cafeImage.image = UIImage(data: data)
         }
-        cafeNameLabel.text = urlCafeData?.cafeName
-        locationLabel.text = urlCafeData?.cafeAddress
-        userMemo.text = urlCafeData?.memo
+        cafeNameLabel.text = cafeData?.cafeName
+        locationLabel.text = cafeData?.cafeAddress
+        userMemo.text = cafeData?.memo
+    }
+    
+    private func setScrollViewContent() {
+        // containerView에 scrollView에 담을 뷰 그리기
+        setCafeInfoToUIComponents(cafeData: urlCafeData)
         
         containerView.addSubview(cafeImage)
         containerView.addSubview(cafeNameUnberLine)
@@ -280,5 +334,12 @@ class URLCafeDetailView: UIViewController {
         if let url = URL(string: urlResource), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+}
+
+extension URLCafeDetailView: GetDataFromModalDelegate {
+    func updateCafeData(data: FavoriteURLCafe) {
+        setCafeInfoToUIComponents(cafeData: data)
+        urlCafeData = data
     }
 }

@@ -22,6 +22,8 @@ class AddCafeURLViewController: UIViewController {
     let session = URLSession.shared
     weak var getDataFromModalDelegate: GetDataFromModalDelegate?
     
+    var urlCafeData: FavoriteURLCafe?
+    
     lazy var getURLLabel: UILabel = {
         let label = UILabel()
         label.text = "추가할 카페의 URL을 복사하고 붙여넣기 해주세요."
@@ -74,7 +76,6 @@ class AddCafeURLViewController: UIViewController {
         textView.clipsToBounds = true
         textView.font = .systemFont(for: .body2)
         textView.text = "카페와 관련된 메모를 해주세요."
-        textView.textColor = .grayscale4
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -105,6 +106,7 @@ class AddCafeURLViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
         setup()
         URLTextField.becomeFirstResponder()
         URLTextField.delegate = self
@@ -125,6 +127,14 @@ class AddCafeURLViewController: UIViewController {
     }
     
     func setup() {
+        if let data = urlCafeData {
+            URLTextField.text = data.cafeURL
+            memoTextView.text = data.memo
+            addURLCafeButton.setTitle("수정하기", for: .normal)
+        }
+        
+        memoTextView.textColor = memoTextView.text == "카페와 관련된 메모를 해주세요." ? .grayscale4 : .black
+        
         view.addSubview(getURLLabel)
         view.addSubview(URLTextField)
         view.addSubview(pasteURLButton)
@@ -195,7 +205,7 @@ class AddCafeURLViewController: UIViewController {
                 
                 // 이미지 처리
                 let imagesrc: Elements = try doc.select(".CEX4u").select("div.fNygA").select("div#ibu_1")
-                print(imagesrc.count)
+
                 if imagesrc.isEmpty() { throw crawlingError.imageError }
                 let imageStyle = try imagesrc.first()!.attr("style")
                 // style에서 url에 해당하는 부분을 자름
@@ -204,16 +214,16 @@ class AddCafeURLViewController: UIViewController {
                 var getImageURL = imageStyle[firstIndex!..<lastIndex!]
                 getImageURL.removeFirst()
                 
-                let URLImage = URL(string: String(getImageURL))
-                let imgData = try Data(contentsOf: URLImage!)
                 //MARK: - 3. 델리게이트의 값을 넘김
-                self.getDataFromModalDelegate?.getData(data: imgData)
-                print("sucess")
+                self.getDataFromModalDelegate?.updateCafeData()
+
                 DispatchQueue.main.async {
                     // url을 포함하여 카페명, 주소, 메모, url을 realm에 저장
                     let favoriteURLCafe = FavoriteURLCafe(cafeName: cafeNameText, cafeAddress: cafeAddressText, cafeImageURL: String(getImageURL) ,memo: self.memoTextView.text, cafeURL: givenURL)
-                    try! self.realm.write {
-                        self.realm.add(favoriteURLCafe)
+                    if self.addURLCafeButton.titleLabel?.text == "추가하기" {
+                        self.addFavoriteURLCafeToRealm(urlCafeInfo: favoriteURLCafe)
+                    } else {
+                        self.updateFavoriteURLCafeToRealm(urlCafeInfo: favoriteURLCafe)
                     }
                     self.dismiss(animated: true)
                 }
@@ -222,6 +232,23 @@ class AddCafeURLViewController: UIViewController {
             }
         }
         task.resume()
+    }
+    
+    private func addFavoriteURLCafeToRealm(urlCafeInfo: FavoriteURLCafe) {
+        try! self.realm.write {
+            self.realm.add(urlCafeInfo)
+        }
+    }
+    
+    private func updateFavoriteURLCafeToRealm(urlCafeInfo: FavoriteURLCafe) {
+        try! self.realm.write {
+            self.urlCafeData?.cafeName = urlCafeInfo.cafeName
+            self.urlCafeData?.cafeURL = urlCafeInfo.cafeURL
+            self.urlCafeData?.cafeAddress = urlCafeInfo.cafeAddress
+            self.urlCafeData?.cafeImageURL = urlCafeInfo.cafeImageURL
+            self.urlCafeData?.memo = urlCafeInfo.memo
+        }
+        self.getDataFromModalDelegate?.updateCafeData(data: urlCafeInfo)
     }
     
     func URLAlert() {
@@ -252,8 +279,6 @@ class AddCafeURLViewController: UIViewController {
     }
     
     @objc func addURLCafeButtonTapped() {
-        //TODO: - 모달이 사라지면서 url에서 크롤링하고 값들을 realm에 저장하기
-        
         try? myCrawl(givenURL: self.URLTextField.text ?? "")
     }
 }
@@ -301,5 +326,11 @@ extension AddCafeURLViewController: UITextViewDelegate {
 
 //MARK: - 3. 프로토콜 선언 - 델리게이트
 protocol GetDataFromModalDelegate: AnyObject {
-    func getData(data: Data)
+    func updateCafeData()
+    func updateCafeData(data: FavoriteURLCafe)
+}
+
+extension GetDataFromModalDelegate {
+    func updateCafeData() {}
+    func updateCafeData(data: FavoriteURLCafe) {}
 }

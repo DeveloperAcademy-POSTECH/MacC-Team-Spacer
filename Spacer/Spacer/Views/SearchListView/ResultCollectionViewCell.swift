@@ -88,6 +88,22 @@ class ResultCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private lazy var cellURLImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "CellLinkURLIcon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private lazy var cafeMemoLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(for: .body2)
+        label.textColor = .grayscale4
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -181,6 +197,28 @@ class ResultCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with model: Cafeinfo, imageURL: String) {
+        setVisibilityOfCellComponent()
+        setCellThumbnailImage(imageURL: imageURL)
+        cellURLImage.removeFromSuperview()
+        cafeMemoLabel.removeFromSuperview()
+        
+        self.cafeName.text = model.cafeName
+        self.cafeLocation.text = model.cafeShortAddress
+        self.numberOfTable.text = String(model.numberOfTables)
+        self.numberOfFavorites.text = String(model.numberOfFavorites)
+    }
+    
+    public func configure(with model: FavoriteURLCafe) {
+        // url로 저장한 카페일 경우에 보여주는 셀 세팅
+        setVisibilityOfCellComponent(isURLCafe: true)
+        setCellThumbnailImage(imageURL: model.cafeImageURL)
+        setURLFavoriteCafeCell(memo: model.memo)
+        
+        self.cafeName.text = model.cafeName
+    }
+    
+    private func setCellThumbnailImage(imageURL: String) {
+        // url 주소에서 이미지 불러와 cafeImageView에 적용
         Task {
             let url = URL(string: imageURL)
             var request = URLRequest(url: url!)
@@ -188,13 +226,42 @@ class ResultCollectionViewCell: UICollectionViewCell {
             
             let (data, _) = try await URLSession.shared.data(for: request)
             
-            self.cafeName.text = model.cafeName
             self.cafeImageView.image = UIImage(data: data)
-            self.cafeLocation.text = model.cafeShortAddress
-            self.numberOfTable.text = String(model.numberOfTables)
-            self.numberOfFavorites.text = String(model.numberOfFavorites)
         }
+    }
+    
+    private func setVisibilityOfCellComponent(isURLCafe: Bool = false) {
+        // 저장된 카페 종류에 따라 보이는 UI 다르게 설정
+        cafeLocationImage.isHidden = isURLCafe
+        cafeLocation.isHidden = isURLCafe
+        cafeTableImage.isHidden = isURLCafe
+        numberOfTable.isHidden = isURLCafe
+        cafeFavoriteImage.isHidden = isURLCafe
+        numberOfFavorites.isHidden = isURLCafe
+    }
+    
+    private func setURLFavoriteCafeCell(memo: String) {
+        // url로 저장한 카페의 셀에 링크 이미지와 카페 메모 추가
+        cafeMemoLabel.text = memo
         
+        shadowView.addSubview(cellURLImage)
+        shadowView.addSubview(cafeMemoLabel)
+        
+        let cellURLImageConstraints = [
+            cellURLImage.widthAnchor.constraint(equalToConstant: 28),
+            cellURLImage.heightAnchor.constraint(equalToConstant: 28),
+            cellURLImage.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            cellURLImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+        ]
+        
+        let cafeMemoLabelConstraints = [
+            cafeMemoLabel.topAnchor.constraint(equalTo: cafeName.bottomAnchor, constant: 6),
+            cafeMemoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+            cafeMemoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+        ]
+        
+        NSLayoutConstraint.activate(cellURLImageConstraints)
+        NSLayoutConstraint.activate(cafeMemoLabelConstraints)
     }
 }
 

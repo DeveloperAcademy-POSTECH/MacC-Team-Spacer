@@ -177,13 +177,11 @@ class URLCafeDetailView: UIViewController {
         cancelAction.setValue(UIColor.grayscale3, forKey: "titleTextColor")
         
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            // 해당 카페와 일치하는 카페를 찾아 첫번째 결과 삭제
-            let storedURLCafes = self.realm.objects(FavoriteURLCafe.self)
-            let filteredURLCafes = storedURLCafes.where {
-                $0.cafeURL == self.urlCafeData!.cafeURL
-            }
-            try! self.realm.write {
-                self.realm.delete(filteredURLCafes[0])
+            // 해당 카페 realm에서 카페 삭제
+            if let urlCafeData = self.urlCafeData {
+                try! self.realm.write {
+                    self.realm.delete(urlCafeData)
+                }
             }
             
             self.navigationController?.popViewController(animated: true)
@@ -341,5 +339,6 @@ class URLCafeDetailView: UIViewController {
 extension URLCafeDetailView: GetDataFromModalDelegate {
     func updateCafeData(data: FavoriteURLCafe) {
         setCafeInfoToUIComponents(cafeData: data)
+        urlCafeData = data
     }
 }

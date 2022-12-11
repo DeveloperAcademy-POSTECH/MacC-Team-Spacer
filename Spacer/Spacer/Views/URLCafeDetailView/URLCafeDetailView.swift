@@ -137,10 +137,26 @@ class URLCafeDetailView: UIViewController {
         navigationBarAppearance.configureWithTransparentBackground()
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         
+        // setting naviagtionBar item
         let backIcon = UIBarButtonItem(image: UIImage(named: "BackButton"), style: .done, target: self, action: #selector(touchedNavigationBarBackButton))
         navigationItem.leftBarButtonItem = backIcon
         navigationItem.leftBarButtonItem?.tintColor = UIColor.mainPurple1
         
+        let moreButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = moreButton
+        navigationItem.rightBarButtonItem?.tintColor = .black
+        
+        // actions
+        let editCafeMenu: UIAction = UIAction(title: "편집하기", image: UIImage(systemName: "viewfinder")) { action in
+            print(action.title)
+        }
+        
+        let deleteCafeMenu: UIAction = UIAction(title: NSLocalizedString("삭제하기", comment: ""), image: UIImage(systemName: "trash.fill"), attributes: [.destructive]) { action in
+            print(action.title)
+        }
+
+        navigationItem.rightBarButtonItem?.menu = UIMenu(children: [editCafeMenu, deleteCafeMenu])
+
         navigationController?.isInteractivePopEnable(true)
     }
     

@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class URLCafeDetailView: UIViewController {
     // FavoriteView로부터 전달받은 카페 데이터
     var urlCafeData: FavoriteURLCafeInfo?
+    
+    let realm = try! Realm()
    
     // MARK: -- UI Components
     
@@ -152,12 +155,38 @@ class URLCafeDetailView: UIViewController {
         }
         
         let deleteCafeMenu: UIAction = UIAction(title: NSLocalizedString("삭제하기", comment: ""), image: UIImage(systemName: "trash.fill"), attributes: [.destructive]) { action in
-            print(action.title)
+            self.showDeleteCafeAlert()
         }
-
+        
         navigationItem.rightBarButtonItem?.menu = UIMenu(children: [editCafeMenu, deleteCafeMenu])
 
         navigationController?.isInteractivePopEnable(true)
+    }
+    
+    private func showDeleteCafeAlert() {
+        let alert = UIAlertController(title: "등록한 카페를 삭제하시겠습니까?", message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        cancelAction.setValue(UIColor.grayscale3, forKey: "titleTextColor")
+        
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+            // 해당 카페와 일치하는 카페를 찾아 첫번째 결과 삭제
+            let storedURLCafes = self.realm.objects(FavoriteURLCafe.self)
+            let filteredURLCafes = storedURLCafes.where {
+                $0.cafeURL == self.urlCafeData!.cafeURL
+            }
+            try! self.realm.write {
+                self.realm.delete(filteredURLCafes[0])
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        //deleteAction.setValue(UIColor.systemBlue, forKey: "titleTextColor")
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true)
     }
     
     private func setScrollView() {

@@ -22,7 +22,6 @@ class FavoriteViewController: UIViewController {
     // favorite된 카페 수
     var NumberOfFavoriteCafe = 0
     var favoriteCafes: [Cafeinfo] = []
-    private var favoriteURLCafeInfos: [FavoriteURLCafeInfo] = []
     private var thumbnailImageInfos: [CafeThumbnailImage] = [CafeThumbnailImage]()
     private var storedFavoriteURLCafeDatas: [FavoriteURLCafe] = []
     
@@ -75,14 +74,10 @@ class FavoriteViewController: UIViewController {
         storedFavoriteURLCafeDatas = []
         
         Task {
-            // realm에 url을 이용해 저장된 카페 정보 favoriteURLCafeInfos에 추가
+            // realm에 url을 이용해 저장된 카페 정보를 storedFavoriteURLCafeDatas에 추가
             let storedURLCafes = realm.objects(FavoriteURLCafe.self)
             storedFavoriteURLCafeDatas = Array(storedURLCafes)
 
-            for urlCafe in storedURLCafes {
-                let urlCafeInfo = FavoriteURLCafeInfo(cafeName: urlCafe.cafeName, cafeAddress: urlCafe.cafeAddress, cafeImageURL: urlCafe.cafeImageURL, memo: urlCafe.memo, cafeURL: urlCafe.cafeURL)
-                favoriteURLCafeInfos.append(urlCafeInfo)
-            }
             NumberOfFavoriteCafe += storedFavoriteURLCafeDatas.count
             
             // realm에 저장된 카페이름을 가진 데이터만을 가지고 와서 favoriteCafes에 추가함

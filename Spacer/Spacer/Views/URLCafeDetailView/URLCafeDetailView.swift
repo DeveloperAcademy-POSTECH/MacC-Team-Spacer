@@ -165,10 +165,7 @@ class URLCafeDetailView: UIViewController {
     
     private func showUpdateCafeInfoModal() {
         let addCafeURLViewController = AddCafeURLViewController()
-        addCafeURLViewController.URLTextField.text = urlCafeData?.cafeURL
-        addCafeURLViewController.memoTextView.text = urlCafeData?.memo
-        //addCafeURLViewController.urlCafeData = urlCafeData
-        addCafeURLViewController.addURLCafeButton.setTitle("수정하기", for: .normal)
+        addCafeURLViewController.urlCafeData = urlCafeData
         present(addCafeURLViewController, animated: true)
     }
     

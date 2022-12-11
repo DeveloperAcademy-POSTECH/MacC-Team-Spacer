@@ -166,6 +166,7 @@ class URLCafeDetailView: UIViewController {
     private func showUpdateCafeInfoModal() {
         let addCafeURLViewController = AddCafeURLViewController()
         addCafeURLViewController.urlCafeData = urlCafeData
+        addCafeURLViewController.getDataFromModalDelegate = self
         present(addCafeURLViewController, animated: true)
     }
     
@@ -217,11 +218,9 @@ class URLCafeDetailView: UIViewController {
         NSLayoutConstraint.activate(scrollViewConstraints)
         NSLayoutConstraint.activate(contentContainerViewConstraints)
     }
-    
-    private func setScrollViewContent() {
-        // containerView에 scrollView에 담을 뷰 그리기
+    private func setCafeInfoToUIComponents(cafeData: FavoriteURLCafe?) {
         Task {
-            let url = URL(string: urlCafeData!.cafeImageURL)
+            let url = URL(string: cafeData!.cafeImageURL)
             var request = URLRequest(url: url!)
             request.httpMethod = "GET"
             
@@ -229,9 +228,14 @@ class URLCafeDetailView: UIViewController {
             
             cafeImage.image = UIImage(data: data)
         }
-        cafeNameLabel.text = urlCafeData?.cafeName
-        locationLabel.text = urlCafeData?.cafeAddress
-        userMemo.text = urlCafeData?.memo
+        cafeNameLabel.text = cafeData?.cafeName
+        locationLabel.text = cafeData?.cafeAddress
+        userMemo.text = cafeData?.memo
+    }
+    
+    private func setScrollViewContent() {
+        // containerView에 scrollView에 담을 뷰 그리기
+        setCafeInfoToUIComponents(cafeData: urlCafeData)
         
         containerView.addSubview(cafeImage)
         containerView.addSubview(cafeNameUnberLine)
@@ -336,7 +340,6 @@ class URLCafeDetailView: UIViewController {
 
 extension URLCafeDetailView: GetDataFromModalDelegate {
     func updateCafeData(data: FavoriteURLCafe) {
-        print("gotta")
-        print(data)
+        setCafeInfoToUIComponents(cafeData: data)
     }
 }

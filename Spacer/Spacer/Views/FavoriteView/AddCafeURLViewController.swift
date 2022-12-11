@@ -226,7 +226,6 @@ class AddCafeURLViewController: UIViewController {
                     if self.addURLCafeButton.titleLabel?.text == "추가하기" {
                         self.addFavoriteURLCafeToRealm(urlCafeInfo: favoriteURLCafe)
                     } else {
-                        print("here")
                         self.updateFavoriteURLCafeToRealm(urlCafeInfo: favoriteURLCafe)
                     }
                     self.dismiss(animated: true)

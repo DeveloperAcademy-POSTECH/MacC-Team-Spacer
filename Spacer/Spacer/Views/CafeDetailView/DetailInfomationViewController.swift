@@ -54,11 +54,16 @@ class DetailInfomationViewController: UIViewController {
     
     private lazy var cafeMapStackView: UIStackView = makeStackView()
 
-    private let mapView: MKMapView = {
+    private let cafeMapView: MKMapView = {
         let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
-        map.delegate = self
         return map
+    }()
+    
+    private let cafeAnnotation: MKPointAnnotation = {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.500000, longitude: 52.000000)
+        return annotation
     }()
     
     // MARK: - viewDidLoad
@@ -442,22 +447,49 @@ class DetailInfomationViewController: UIViewController {
     }
     
     private func setCafeLocationView(){
+        
         let conditionTitle = makeConditionTitle(title: "지도")
 
+        //cafeMap Stack 부분에 타이틀과 MKMapview 추가
         cafeMapStackView.addArrangedSubview(conditionTitle)
-        cafeMapStackView.addArrangedSubview(mapView)
+        cafeMapStackView.addArrangedSubview(cafeMapView)
         
+        //MKMapview의 사이즈 조정
         let mapViewConstraints = [
-            mapView.widthAnchor.constraint(equalToConstant: 356),
-            mapView.heightAnchor.constraint(equalToConstant: 300)
+            cafeMapView.widthAnchor.constraint(equalToConstant: 356),
+            cafeMapView.heightAnchor.constraint(equalToConstant: 300)
         ]
-        
+        //Constraints 적용
         NSLayoutConstraint.activate(mapViewConstraints)
-
+        
+        //MKMapview의 delegate 지정
+        cafeMapView.delegate = self
+        //MKMapview가 처음에 렌더링 될 때의 좌표 지정
+        cafeMapView.centerCoordinate = cafeAnnotation.coordinate
+        //MKMapview가 처음에 렌더링 될 때의 확대정도 지정
+        cafeMapView.setRegion(MKCoordinateRegion(center: cafeAnnotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: false)
+        //Annotaion pin의 타이틀을 카페 이름으로 지정
+        cafeAnnotation.title = cafeBasicInfo?.cafeName
+        //MKMapview에 카페의 위치핀 추가
+        cafeMapView.addAnnotation(cafeAnnotation)
     }
 }
 
 
 extension DetailInfomationViewController: MKMapViewDelegate{
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else {return nil}
+        
+        let identifier = "Annotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil{
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        }else{
+            annotationView!.annotation = annotation
+        }
+        
+        return annotationView
+    }
 }

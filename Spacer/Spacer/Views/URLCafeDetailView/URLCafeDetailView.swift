@@ -151,10 +151,10 @@ class URLCafeDetailView: UIViewController {
         
         // actions
         let editCafeMenu: UIAction = UIAction(title: "편집하기", image: UIImage(systemName: "viewfinder")) { action in
-            print(action.title)
+            self.showUpdateCafeInfoModal()
         }
         
-        let deleteCafeMenu: UIAction = UIAction(title: NSLocalizedString("삭제하기", comment: ""), image: UIImage(systemName: "trash.fill"), attributes: [.destructive]) { action in
+        let deleteCafeMenu: UIAction = UIAction(title: "삭제하기", image: UIImage(systemName: "pencil"), attributes: [.destructive]) { action in
             self.showDeleteCafeAlert()
         }
         
@@ -163,10 +163,18 @@ class URLCafeDetailView: UIViewController {
         navigationController?.isInteractivePopEnable(true)
     }
     
+    private func showUpdateCafeInfoModal() {
+        let addCafeURLViewController = AddCafeURLViewController()
+        addCafeURLViewController.URLTextField.text = urlCafeData?.cafeURL
+        addCafeURLViewController.memoTextView.text = urlCafeData?.memo
+        addCafeURLViewController.addURLCafeButton.setTitle("수정하기", for: .normal)
+        present(addCafeURLViewController, animated: true)
+    }
+    
     private func showDeleteCafeAlert() {
         let alert = UIAlertController(title: "등록한 카페를 삭제하시겠습니까?", message: nil, preferredStyle: .alert)
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let cancelAction = UIAlertAction(title: "취소", style: .default)
         cancelAction.setValue(UIColor.grayscale3, forKey: "titleTextColor")
         
         let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in

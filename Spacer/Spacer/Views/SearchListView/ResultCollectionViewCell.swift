@@ -208,7 +208,7 @@ class ResultCollectionViewCell: UICollectionViewCell {
         self.numberOfFavorites.text = String(model.numberOfFavorites)
     }
     
-    public func configure(with model: FavoriteURLCafeInfo) {
+    public func configure(with model: FavoriteURLCafe) {
         // url로 저장한 카페일 경우에 보여주는 셀 세팅
         setVisibilityOfCellComponent(isURLCafe: true)
         setCellThumbnailImage(imageURL: model.cafeImageURL)

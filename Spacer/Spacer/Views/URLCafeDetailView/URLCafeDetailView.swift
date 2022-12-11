@@ -10,7 +10,7 @@ import RealmSwift
 
 class URLCafeDetailView: UIViewController {
     // FavoriteView로부터 전달받은 카페 데이터
-    var urlCafeData: FavoriteURLCafeInfo?
+    var urlCafeData: FavoriteURLCafe?
     
     let realm = try! Realm()
    
@@ -167,6 +167,7 @@ class URLCafeDetailView: UIViewController {
         let addCafeURLViewController = AddCafeURLViewController()
         addCafeURLViewController.URLTextField.text = urlCafeData?.cafeURL
         addCafeURLViewController.memoTextView.text = urlCafeData?.memo
+        //addCafeURLViewController.urlCafeData = urlCafeData
         addCafeURLViewController.addURLCafeButton.setTitle("수정하기", for: .normal)
         present(addCafeURLViewController, animated: true)
     }
@@ -333,5 +334,12 @@ class URLCafeDetailView: UIViewController {
         if let url = URL(string: urlResource), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+}
+
+extension URLCafeDetailView: GetDataFromModalDelegate {
+    func updateCafeData(data: FavoriteURLCafe) {
+        print("gotta")
+        print(data)
     }
 }

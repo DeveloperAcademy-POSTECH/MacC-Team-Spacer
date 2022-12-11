@@ -196,6 +196,9 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
 // AddCafeURLView에서 값을 불러오는 방법 1. local에 저장(realm) 2.해당 프로토콜 사용
 extension FavoriteViewController: GetDataFromModalDelegate {
     func getData(data: Data) {
-        print(data)
+        DispatchQueue.main.async {
+            self.beginAppearanceTransition(true, animated: true)
+            self.endAppearanceTransition()
+        }
     }
 }

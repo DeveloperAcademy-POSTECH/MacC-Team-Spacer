@@ -288,7 +288,6 @@ class AddCafeURLViewController: UIViewController {
         } else if addURLCafeButton.titleLabel?.text == "수정하기" {
             try? myCrawl(givenURL: self.URLTextField.text ?? "")
         }
-        
     }
 }
 
